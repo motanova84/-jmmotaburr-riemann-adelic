@@ -29,4 +29,4 @@ jobs:
       - name: Save output (optional)
         run: |
           mkdir -p data/
-          cp resultados.csv data/validation_output.csv || echo "No CSV output found"
+          cp data/validation_results.csv data/validation_output.csv || echo "No CSV output found"

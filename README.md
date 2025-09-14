@@ -6,7 +6,7 @@ This repository contains numerical validation code for the paper:
 Author: José Manuel Mota Burruezo  
 Date: September 13, 2025  
 DOI: [[coming soon]  ](https://zenodo.org/uploads/17114751)
-Notebook Validation Commit: `abc123`
+Notebook Validation Commit: `b0415ac` (✅ Fixed and Working)
 
 ## 🧪 Objective
 
@@ -43,6 +43,37 @@ Please suggest workflows for:
 - Ensuring results are reproducible under `δ = 0.01`, `P = 1000`, `K = 50`, `N_Ξ = 2000`, `σ₀ = 2`, `T = 50`.
 
 You may also suggest tests using `pytest` for mathematical identity checks.
+
+## 🚀 Quick Start
+
+The repository is now fully functional. To run the validation:
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run Main Validation
+```bash
+python validate_explicit_formula.py --delta 0.01 --max_primes 1000 --max_zeros 2000 --test_functions f1 f2 f3
+```
+
+### 3. Run Jupyter Notebook
+```bash
+jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html
+```
+
+### 4. Run Tests
+```bash
+pytest tests/test_validation.py -v
+```
+
+### 5. Height-Specific Validation
+```bash
+python validate_by_height.py 100  # Test at height t=100
+```
+
+All outputs are saved to `data/` directory as CSV files. The notebook generates HTML output in `docs/`.
 
 ## 🤖 Quick Copilot Integration
 
