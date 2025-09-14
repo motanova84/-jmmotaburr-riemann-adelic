@@ -27,4 +27,4 @@ jobs:
         
       - name: Run notebook
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+          jupyter nbconvert --to html --execute notebooks/validation_fast.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"

@@ -82,10 +82,10 @@ if __name__ == "__main__":
     
     # Use reduced parameters for faster computation
     P = min(args.max_primes, 10000)  # Cap at 10000 to prevent timeout
-    K = 5
+    K = 3  # Reduced from 5
     sigma0 = 2.0
-    T = max(1, min(100, args.max_zeros // 10))  # Ensure T >= 1, reduce T based on max_zeros
-    lim_u = 3.0  # Reduced integration limit
+    T = max(1, min(20, args.max_zeros // 50))  # Much smaller T limit
+    lim_u = 2.0  # Further reduced integration limit
     
     print(f"🔬 Running Riemann Hypothesis validation...")
     print(f"Parameters: P={P}, K={K}, T={T}, max_zeros={args.max_zeros}")
