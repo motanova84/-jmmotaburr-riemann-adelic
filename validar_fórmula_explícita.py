@@ -12,6 +12,7 @@ It uses:
 Add helper utilities if missing.
 
 NOTA: Script optimizado para performance con parámetros reducidos.
+Script en español como solicitado - validar_fórmula_explícita.py
 """
 
 import mpmath as mp
