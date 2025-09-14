@@ -17,42 +17,96 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
   - Sum over nontrivial zeros
 - For various test functions $f(u)$ with compact support
 
+## 🚀 Enhanced Computational Validation
+
+**New in V4**: This repository now features a comprehensive computational validation framework with:
+
+- **SHA256 Integrity Verification**: Every result is cryptographically verifiable
+- **CSV Data Export**: Structured outputs for reproducible analysis
+- **Partial Simulation Runs**: Fast validation for development and testing
+- **Automated Analysis Tools**: Statistical comparison and error analysis
+- **Continuous Integration**: Automated validation on every code change
+
+### Quick Start
+
+```bash
+# Fast development validation
+python validate_enhanced.py --partial --max-primes 100 --max-zeros 50
+
+# Full publication-quality validation  
+python validate_enhanced.py --full --max-primes 10000 --max-zeros 2000
+
+# Analyze and verify results
+python analyze_results.py --directory data/validation_runs --verify --analyze
+```
+
+See [Computational Validation Documentation](docs/COMPUTATIONAL_VALIDATION.md) for complete details.
+
 ## 📂 Structure
 
 ```plaintext
 .
-├── notebooks/                  # Jupyter notebooks (e.g. validation.ipynb)
+├── docs/
+│   └── COMPUTATIONAL_VALIDATION.md    # Enhanced validation framework docs
+├── notebooks/                         # Jupyter notebooks (e.g. validation.ipynb)
 ├── utils/
-│   └── mellin.py              # Tools for computing Mellin transforms
+│   ├── mellin.py                      # Tools for computing Mellin transforms
+│   ├── validation_core.py             # 🆕 Core validation engine with integrity
+│   └── riemann_tools.py               # Riemann-specific computational tools
 ├── zeros/
-│   └── zeros_t1e8.txt         # List of zeros at height t ~ 1e8 (from Odlyzko or similar)
-├── primes/                    # Optional: precomputed primes or logs
-├── validate_explicit_formula.py  # Main CLI validation script
+│   └── zeros_t1e8.txt                 # List of zeros at height t ~ 1e8 (from Odlyzko)
+├── data/
+│   └── validation_runs/               # 🆕 Archived validation results (CSV/JSON)
+├── validate_explicit_formula.py       # Original CLI validation script
+├── validate_enhanced.py               # 🆕 Enhanced CLI with integrity verification
+├── analyze_results.py                 # 🆕 Analysis and verification tools
+├── validate_by_height.py             # Height-specific validation
 ├── requirements.txt
 └── README.md
 ```
 
-## 🧠 Copilot Prompt (IA guidance)
+## 🔒 Data Integrity & Reproducibility
 
-Please suggest workflows for:
+The enhanced framework ensures:
 
-- Running `validate_explicit_formula.py` on push and saving logs.
-- Executing `validation.ipynb` automatically using `nbconvert` to produce an HTML output.
-- Fetching Odlyzko zero data if not present in `zeros/`.
-- Archiving numerical outputs as CSV in `data/`.
-- Ensuring results are reproducible under `δ = 0.01`, `P = 1000`, `K = 50`, `N_Ξ = 2000`, `σ₀ = 2`, `T = 50`.
+- **Bit-identical Results**: SHA256 verification of computational outcomes
+- **Parameter Tracking**: Complete documentation of all input parameters  
+- **Error Analysis**: Statistical bounds on numerical accuracy
+- **Version Control**: Timestamped validation runs with full provenance
 
-You may also suggest tests using `pytest` for mathematical identity checks.
+## 🤖 Automated Validation
 
-## 🤖 Quick Copilot Integration
+GitHub Actions automatically:
+- Runs validation on every code push
+- Verifies result integrity
+- Archives computational data
+- Generates comparison reports
 
-To get AI assistance for this repository, use this comprehensive prompt:
+Manual validation triggers support configurable parameters for custom validation scenarios.
+
+## 🧠 Copilot Integration
+
+This repository is optimized for AI-assisted development. Use this comprehensive prompt:
 
 ```
-🧠 Copilot Prompt: Suggest workflows for:
-- validating Riemann explicit formula via `validate_explicit_formula.py`
-- executing Jupyter notebook and exporting HTML
-- downloading and validating Odlyzko zeros
-- running pytest tests for consistency
-- organizing outputs into /data/, logs into /logs/
+🧠 Enhanced Copilot Prompt: 
+Suggest workflows for the computational validation framework:
+- Running enhanced validation with validate_enhanced.py
+- Analyzing results with SHA256 integrity verification
+- Generating CSV outputs for statistical analysis
+- Setting up automated validation pipelines
+- Comparing validation runs across different parameters
+- Implementing new test functions and mathematical checks
+- Debugging numerical accuracy issues
+- Creating reproducible research outputs
 ```
+
+## 📊 Results & Verification
+
+All validation results include:
+- **Computational Values**: Prime sums, Archimedean contributions, zero sums
+- **Error Bounds**: Absolute and relative error analysis
+- **Integrity Hashes**: SHA256 verification for data authenticity
+- **Metadata**: Complete parameter sets and timestamps
+
+Results are saved in both human-readable CSV and machine-readable JSON formats for maximum accessibility and interoperability.

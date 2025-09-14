@@ -1,0 +1,21 @@
+# Riemann Hypothesis Validation Results
+# Run ID:,partial_20250914_163329
+# Timestamp:,2025-09-14T16:33:29.543323
+# SHA256:,44c205f206c73b3ac881bf87828ad8e2a2fd30c70ef4ccbf8234e5af87fc00fc
+
+# Parameters
+test_functions,['truncated_gaussian']
+max_primes,20
+max_zeros,10
+sigma0,2.0
+T,20.0
+precision,20
+
+# Results
+key,value,error_bound,metadata
+prime_sum,2.6751459270296657923,,"{""computation"": ""prime_contribution""}"
+archimedean_sum,0.0,,"{""computation"": ""archimedean_contribution""}"
+arithmetic_side,2.6751459270296657923,,"{""type"": ""sum_of_contributions""}"
+zero_sum,2.8915116539656212355e-7,,"{""computation"": ""spectral_side"", ""zeros_used"": 10}"
+absolute_error,2.6751456378785003958,,"{""type"": ""difference""}"
+relative_error,0.99999989191200282759,,"{""type"": ""normalized_difference""}"

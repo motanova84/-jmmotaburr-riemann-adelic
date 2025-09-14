@@ -1,0 +1,55 @@
+{
+  "run_id": "partial_20250914_162626",
+  "timestamp": "2025-09-14T16:26:26.372660",
+  "params": {
+    "test_functions": [
+      "truncated_gaussian"
+    ],
+    "max_primes": 10,
+    "max_zeros": 5,
+    "sigma0": 2.0,
+    "T": 10.0,
+    "precision": 15
+  },
+  "results": {
+    "prime_sum": {
+      "value": "2.35445447706104",
+      "metadata": {
+        "computation": "prime_contribution"
+      }
+    },
+    "archimedean_sum": {
+      "value": "0.0",
+      "metadata": {
+        "computation": "archimedean_contribution"
+      }
+    },
+    "arithmetic_side": {
+      "value": "2.35445447706104",
+      "metadata": {
+        "type": "sum_of_contributions"
+      }
+    },
+    "zero_sum": {
+      "value": "3.61558752262497e-7",
+      "metadata": {
+        "computation": "spectral_side",
+        "zeros_used": 5
+      }
+    },
+    "absolute_error": {
+      "value": "2.35445411550229",
+      "metadata": {
+        "type": "difference"
+      }
+    },
+    "relative_error": {
+      "value": "0.999999846436295",
+      "metadata": {
+        "type": "normalized_difference"
+      }
+    }
+  },
+  "metadata": {},
+  "computed_hash": "f29637627393b8c5ec56b0ed16fe825499f2041cda7b271b717418c0805d5748"
+}

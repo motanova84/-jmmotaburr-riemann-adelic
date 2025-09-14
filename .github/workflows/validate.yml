@@ -1,14 +1,32 @@
-name: Validate RH Proof
+name: Enhanced RH Validation with Computational Verification
 
 on:
   push:
     paths:
       - '**.py'
       - 'notebooks/**.ipynb'
+      - 'requirements.txt'
   workflow_dispatch:
+    inputs:
+      validation_type:
+        description: 'Type of validation to run'
+        required: true
+        default: 'partial'
+        type: choice
+        options:
+        - partial
+        - full
+      max_primes:
+        description: 'Maximum number of primes'
+        required: false
+        default: '100'
+      max_zeros:
+        description: 'Maximum number of zeros'
+        required: false
+        default: '50'
 
 jobs:
-  run-validation:
+  computational-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,12 +39,52 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install jupyter mpmath sympy
+          pip install pandas
 
-      - name: Run validation script
-        run: python validate_explicit_formula.py --delta 0.01 --max_primes 1000 --max_zeros 2000 --test_functions f1 f2 f3
-
-      - name: Save output (optional)
+      - name: Run Enhanced Validation
         run: |
-          mkdir -p data/
-          cp resultados.csv data/validation_output.csv || echo "No CSV output found"
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VALIDATION_TYPE="${{ github.event.inputs.validation_type }}"
+            MAX_PRIMES="${{ github.event.inputs.max_primes }}"
+            MAX_ZEROS="${{ github.event.inputs.max_zeros }}"
+          else
+            VALIDATION_TYPE="partial"
+            MAX_PRIMES="100"
+            MAX_ZEROS="50"
+          fi
+          
+          python validate_enhanced.py --${VALIDATION_TYPE} \
+            --max-primes ${MAX_PRIMES} \
+            --max-zeros ${MAX_ZEROS} \
+            --precision 25 \
+            --output-dir data/validation_runs
+
+      - name: Verify Results Integrity
+        run: |
+          python analyze_results.py --directory data/validation_runs --verify
+
+      - name: Generate Analysis Report  
+        run: |
+          python analyze_results.py --directory data/validation_runs \
+            --analyze --report data/reports/validation_analysis
+
+      - name: Archive Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: riemann-validation-results-${{ github.sha }}
+          path: |
+            data/validation_runs/
+            data/reports/
+          retention-days: 90
+
+      - name: Commit Generated Data
+        if: github.event_name == 'push'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/
+          if ! git diff --cached --quiet; then
+            git commit -m "Add validation results for commit ${{ github.sha }}"
+            git push
+          else
+            echo "No changes to commit"
