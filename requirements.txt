@@ -1,0 +1,23 @@
+# Riemann-Adelic: Dependencias para validación simbiótica ∞³
+
+# Matemáticas de alta precisión
+mpmath>=1.3.0
+sympy>=1.12
+
+# Computación científica
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Notebooks y visualización
+jupyter>=1.1.0
+notebook>=7.0.0
+nbconvert>=7.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Descarga de datos
+requests>=2.31.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0

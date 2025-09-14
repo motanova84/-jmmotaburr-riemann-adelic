@@ -1,0 +1,104 @@
+name: 📓 Notebook Execution
+
+on:
+  push:
+    branches: [ main, simbiosis-infinita ]
+    paths: 
+      - 'notebooks/*.ipynb'
+      - 'utils/*.py'
+      - 'validate_*.py'
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'notebooks/*.ipynb'
+  workflow_dispatch:  # Permitir ejecución manual
+
+jobs:
+  execute-notebook:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Configurar Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: 📦 Cache dependencias
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-notebook-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-notebook-
+    
+    - name: 🔧 Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install nbconvert nbformat jupyter
+    
+    - name: 📊 Preparar datos de test
+      run: |
+        mkdir -p zeros
+        # Crear archivo de test con ceros conocidos para notebook
+        cat > zeros/zeros_t1e8.txt << 'EOF'
+        14.134725141734693
+        21.022039638771554
+        25.010857580145688
+        30.424876125859513
+        32.935061587739191
+        37.586178158825671
+        40.918719012147495
+        43.327073280914999
+        48.005150881167159
+        49.773832477672302
+        EOF
+    
+    - name: 🏃 Ejecutar notebook de validación
+      run: |
+        jupyter nbconvert --to notebook --execute notebooks/validation.ipynb --output validation_executed.ipynb
+        echo "✅ Notebook ejecutado exitosamente"
+    
+    - name: 📊 Generar notebook HTML
+      run: |
+        jupyter nbconvert --to html notebooks/validation_executed.ipynb --output ../docs/validation.html
+        echo "✅ HTML generado en docs/validation.html"
+    
+    - name: 🔍 Verificar resultados
+      run: |
+        # Verificar que el notebook se ejecutó sin errores
+        python -c "
+        import json
+        with open('notebooks/validation_executed.ipynb') as f:
+            nb = json.load(f)
+        
+        # Verificar que hay outputs
+        has_outputs = any(
+            cell.get('outputs', []) 
+            for cell in nb['cells'] 
+            if cell['cell_type'] == 'code'
+        )
+        
+        if has_outputs:
+            print('✅ Notebook contiene resultados')
+        else:
+            print('⚠️ Notebook sin resultados')
+            exit(1)
+        "
+    
+    - name: 💾 Guardar notebook ejecutado
+      uses: actions/upload-artifact@v3
+      with:
+        name: executed-notebook
+        path: |
+          notebooks/validation_executed.ipynb
+          docs/validation.html
+        retention-days: 30
+    
+    - name: 📊 Generar badge de estado
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "✅ Notebook execution: passing" > notebook_status.txt

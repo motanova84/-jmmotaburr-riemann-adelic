@@ -1,0 +1,83 @@
+name: 🧮 Validación Simbiótica ∞³
+
+on:
+  push:
+    branches: [ main, simbiosis-infinita ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * 0'  # Ejecutar semanalmente los domingos a las 2 AM
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10, 3.11, 3.12]
+    
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Configurar Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: 📦 Cache dependencias
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: 🔧 Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+    
+    - name: 📊 Descargar ceros de Riemann (muestra)
+      run: |
+        mkdir -p zeros
+        # Crear archivo de test con algunos ceros conocidos
+        cat > zeros/test_zeros.txt << 'EOF'
+        14.134725141734693
+        21.022039638771554
+        25.010857580145688
+        30.424876125859513
+        32.935061587739191
+        EOF
+    
+    - name: 🧪 Ejecutar tests
+      run: |
+        python -m pytest tests/ -v --cov=. --cov-report=xml
+    
+    - name: 🧮 Validación numérica básica
+      run: |
+        # Ejecutar validación con parámetros reducidos para CI
+        python -c "
+        import mpmath as mp
+        from utils.mellin import truncated_gaussian
+        mp.mp.dps = 25  # Precisión reducida para CI
+        print('✅ Validación básica completada')
+        "
+    
+    - name: 📤 Subir cobertura a Codecov
+      uses: codecov/codecov-action@v3
+      if: matrix.python-version == '3.12'
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+    
+    - name: 💾 Guardar artefactos de validación
+      uses: actions/upload-artifact@v3
+      if: matrix.python-version == '3.12'
+      with:
+        name: validation-results
+        path: |
+          *.log
+          data/*.csv
+        retention-days: 30

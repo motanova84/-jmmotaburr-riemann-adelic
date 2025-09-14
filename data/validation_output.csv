@@ -1,0 +1,6 @@
+# Resultados de Validación - CSV Placeholder
+timestamp,test_function,arithmetic_side,zero_side,absolute_error,relative_error,precision_digits,max_prime,max_power,execution_time_seconds
+# Este archivo será generado automáticamente por el script de validación
+# Formato: ISO timestamp, función test, lado aritmético, lado ceros, error absoluto, error relativo, precisión, P máximo, K máximo, tiempo
+# Ejemplo:
+# 2024-01-15T10:30:00Z,truncated_gaussian,1.23456789e-5,1.23456788e-5,1e-13,8.1e-9,50,10000,5,45.67

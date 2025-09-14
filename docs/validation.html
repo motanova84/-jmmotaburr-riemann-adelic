@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación Riemann-Adelic - Resultados</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px;
+            background-color: #fafafa;
+        }
+        .header { 
+            text-align: center; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        .metric {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8em;
+        }
+        .status-pass { background-color: #d4edda; color: #155724; }
+        .status-fail { background-color: #f8d7da; color: #721c24; }
+        pre { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto;
+            border-left: 3px solid #007bff;
+        }
+        .math { font-family: 'Times New Roman', serif; font-style: italic; }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>🧮 Validación Simbiótica ∞³</h1>
+        <h2>Hipótesis de Riemann via Sistemas Adélicos S-Finitos</h2>
+        <div class="status-badge status-pass">PLACEHOLDER - Pendiente de Generación</div>
+    </div>
+
+    <div class="results-grid">
+        <div class="card">
+            <h3>📊 Estado General</h3>
+            <div class="metric" style="color: #f39c12;">PENDIENTE</div>
+            <p>Este archivo será generado automáticamente por el workflow de GitHub Actions o por la ejecución del notebook de validación.</p>
+        </div>
+
+        <div class="card">
+            <h3>⚖️ Balance de la Fórmula Explícita</h3>
+            <div class="metric">-</div>
+            <p><strong>Lado Aritmético:</strong> $\sum_p \sum_{k=1}^K \log p \cdot f(k \log p) + A_\infty(f)$</p>
+            <p><strong>Lado de Ceros:</strong> $\sum_\gamma \hat{f}(\gamma)$</p>
+            <p><strong>Error:</strong> <span class="metric">-</span></p>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Parámetros de Validación</h3>
+            <ul>
+                <li><strong>Precisión:</strong> 50 dígitos decimales</li>
+                <li><strong>Primos máximo:</strong> P = 10,000</li>
+                <li><strong>Potencias:</strong> K = 5</li>
+                <li><strong>Altura máxima ceros:</strong> T = 100</li>
+                <li><strong>Función test:</strong> Gaussiana truncada</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>📈 Métricas de Convergencia</h3>
+            <pre>
+Error Absoluto: [Pendiente]
+Error Relativo: [Pendiente]
+Tiempo Ejecución: [Pendiente]
+Memoria Utilizada: [Pendiente]
+            </pre>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 30px;">
+        <h3>🔄 Cómo Generar Resultados Reales</h3>
+        <p>Para generar los resultados de validación reales, ejecute:</p>
+        <pre><code>make validate          # Validación completa
+make notebook-run      # Ejecutar notebook
+make docs             # Generar documentación</code></pre>
+        
+        <p>O utilice Docker para un entorno completamente reproducible:</p>
+        <pre><code>make docker-build
+make docker-run</code></pre>
+    </div>
+
+    <footer style="text-align: center; margin-top: 50px; color: #666;">
+        <p>Generado por Riemann-Adelic Validation Suite</p>
+        <p>Repositorio: <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic">motanova84/-jmmotaburr-riemann-adelic</a></p>
+    </footer>
+</body>
+</html>
