@@ -8,5 +8,5 @@ def truncated_gaussian(u, a=5.0, sigma=1.0):
 
 def mellin_transform(f, s, lim=5.0):
     """Numerical Mellin transform: ∫ f(u) e^{su} du."""
-    return mp.quad(lambda u: f(u) * mp.exp(s * u), [-lim, lim], maxdegree=20)
+    return mp.quad(lambda u: f(u) * mp.exp(s * u), [-lim, lim], maxdegree=10)  # Reduced from 20
 
