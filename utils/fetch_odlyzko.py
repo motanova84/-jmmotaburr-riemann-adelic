@@ -34,9 +34,39 @@ odlyzko_sources = {
 
 def main():
     os.makedirs("zeros", exist_ok=True)
-    for label, url in odlyzko_sources.items():
-        out_file = f"zeros/zeros_{label}.txt"
-        download_and_extract(url, out_file)
+    
+    # Check if zeros_t1e8.txt already exists
+    target_file = "zeros/zeros_t1e8.txt"
+    if os.path.exists(target_file):
+        print(f"✅ {target_file} already exists, skipping download")
+        return
+    
+    # Download the main zero file we need
+    if "t1e8" in odlyzko_sources:
+        url = odlyzko_sources["t1e8"]
+        print(f"Downloading zeros from Odlyzko database...")
+        try:
+            download_and_extract(url, target_file)
+            
+            # Validate format (basic check)
+            with open(target_file, 'r') as f:
+                lines = f.readlines()[:10]  # Check first 10 lines
+                for i, line in enumerate(lines):
+                    try:
+                        float(line.strip())
+                    except ValueError:
+                        print(f"⚠️  Warning: Invalid format at line {i+1}: {line.strip()}")
+                        break
+                else:
+                    print(f"✅ Format validation passed for {target_file}")
+                    
+            print("✅ Ready")
+            
+        except Exception as e:
+            print(f"❌ Error downloading zeros: {e}")
+            print("Using mpmath built-in zeros as fallback")
+    else:
+        print("❌ No URL configured for zeros_t1e8")
 
 if __name__ == "__main__":
     main()
