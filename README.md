@@ -30,4 +30,29 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ├── validate_explicit_formula.py  # Main CLI validation script
 ├── requirements.txt
 └── README.md
-# Riemann-Adelic
+```
+
+## 🧠 Copilot Prompt (IA guidance)
+
+Please suggest workflows for:
+
+- Running `validate_explicit_formula.py` on push and saving logs.
+- Executing `validation.ipynb` automatically using `nbconvert` to produce an HTML output.
+- Fetching Odlyzko zero data if not present in `zeros/`.
+- Archiving numerical outputs as CSV in `data/`.
+- Ensuring results are reproducible under `δ = 0.01`, `P = 1000`, `K = 50`, `N_Ξ = 2000`, `σ₀ = 2`, `T = 50`.
+
+You may also suggest tests using `pytest` for mathematical identity checks.
+
+## 🤖 Quick Copilot Integration
+
+To get AI assistance for this repository, use this comprehensive prompt:
+
+```
+🧠 Copilot Prompt: Suggest workflows for:
+- validating Riemann explicit formula via `validate_explicit_formula.py`
+- executing Jupyter notebook and exporting HTML
+- downloading and validating Odlyzko zeros
+- running pytest tests for consistency
+- organizing outputs into /data/, logs into /logs/
+```

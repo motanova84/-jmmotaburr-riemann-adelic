@@ -1,0 +1,32 @@
+name: Validate RH Proof
+
+on:
+  push:
+    paths:
+      - '**.py'
+      - 'notebooks/**.ipynb'
+  workflow_dispatch:
+
+jobs:
+  run-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install jupyter mpmath sympy
+
+      - name: Run validation script
+        run: python validate_explicit_formula.py --delta 0.01 --max_primes 1000 --max_zeros 2000 --test_functions f1 f2 f3
+
+      - name: Save output (optional)
+        run: |
+          mkdir -p data/
+          cp resultados.csv data/validation_output.csv || echo "No CSV output found"

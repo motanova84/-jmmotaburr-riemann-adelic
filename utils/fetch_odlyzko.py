@@ -1,3 +1,14 @@
+"""
+🧠 Copilot Prompt:
+Enhance this script to:
+- Check if zeros_t1e8.txt already exists.
+- If not, download from Odlyzko and decompress.
+- Validate format (float per line).
+- Move the cleaned file to zeros/ and print "✅ Ready".
+
+Also suggest adding this step to a GitHub Action on first run.
+"""
+
 import requests, gzip, os
 
 def download_and_extract(url, out_txt):
