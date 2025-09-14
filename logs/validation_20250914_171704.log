@@ -1,0 +1,25 @@
+2025-09-14 17:17:04,101 - INFO - 🔬 Starting Enhanced Riemann Hypothesis Validation
+2025-09-14 17:17:04,101 - INFO - Parameters: P=50, K=5, T=100, max_zeros=20
+2025-09-14 17:17:04,101 - INFO - Test functions: ['f1', 'f2']
+2025-09-14 17:17:04,101 - WARNING - T adjusted to 2 based on max_zeros
+2025-09-14 17:17:04,101 - INFO - ✅ Valid zeros file with 20 entries checked
+2025-09-14 17:17:04,101 - INFO - 🧮 Processing test function: f1
+2025-09-14 17:17:04,101 - INFO - Computing arithmetic side...
+2025-09-14 17:17:05,206 - INFO - Computing zero side...
+2025-09-14 17:17:05,879 - INFO - Used 20 zeros for computation
+2025-09-14 17:17:05,879 - INFO - ✅ f1 completed!
+2025-09-14 17:17:05,879 - INFO - Arithmetic side: 2.65846663444069
+2025-09-14 17:17:05,879 - INFO - Zero side: -0.00265336477396407
+2025-09-14 17:17:05,879 - INFO - Absolute error: 2.66111999921465
+2025-09-14 17:17:05,880 - INFO - Relative error: 1.00099808090107
+2025-09-14 17:17:05,880 - INFO - 🧮 Processing test function: f2
+2025-09-14 17:17:05,880 - INFO - Computing arithmetic side...
+2025-09-14 17:17:28,087 - INFO - Computing zero side...
+2025-09-14 17:17:30,513 - INFO - Used 20 zeros for computation
+2025-09-14 17:17:30,513 - INFO - ✅ f2 completed!
+2025-09-14 17:17:30,513 - INFO - Arithmetic side: 1.02357947212668
+2025-09-14 17:17:30,513 - INFO - Zero side: -0.00373721472010594
+2025-09-14 17:17:30,513 - INFO - Absolute error: 1.02731668684679
+2025-09-14 17:17:30,513 - INFO - Relative error: 1.00365112316325
+2025-09-14 17:17:30,514 - INFO - 📊 Results saved to data/test_results.csv
+2025-09-14 17:17:30,514 - INFO - 🎯 Validation completed successfully!

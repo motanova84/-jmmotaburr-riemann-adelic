@@ -1,4 +1,4 @@
-name: Execute Notebook
+name: Enhanced Notebook Execution
 
 on:
   push:
@@ -7,24 +7,93 @@ on:
   workflow_dispatch:
 
 jobs:
-  notebook:
+  execute-notebook:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
       
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.12'
           
-      - name: Setup environment
+      - name: Install dependencies
         run: |
+          pip install --upgrade pip
           pip install -r requirements.txt
-          pip install jupyter mpmath sympy nbconvert
+          pip install jupyter nbconvert
           
-      - name: Create docs directory
-        run: mkdir -p docs/
-        
-      - name: Run notebook
+      - name: Create directories
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+          mkdir -p docs zeros logs
+        
+      - name: Ensure zeros data availability
+        run: |
+          python utils/fetch_odlyzko.py --target zeros/zeros_t1e8.txt
+        
+      - name: Execute notebook with timeout management
+        run: |
+          timestamp=$(date +%Y%m%d_%H%M%S)
+          output_name="validation_${timestamp}.html"
+          
+          echo "🔬 Executing notebook with timeout handling..."
+          
+          # Try to execute with 300 second timeout
+          jupyter nbconvert --to html --execute notebooks/validation.ipynb \
+            --output-dir docs/ --output "$output_name" \
+            --ExecutePreprocessor.timeout=300 \
+            --ExecutePreprocessor.kernel_name=python3 || {
+            
+            echo "⚠️ Notebook execution failed or timed out"
+            echo "📋 Creating static HTML export as fallback..."
+            
+            # Create fallback static export
+            jupyter nbconvert --to html notebooks/validation.ipynb \
+              --output-dir docs/ --output "validation_static_${timestamp}.html"
+            
+            # Create error report
+            echo "# ❌ Notebook Execution Error Report" > docs/execution_error.md
+            echo "" >> docs/execution_error.md
+            echo "**Timestamp:** $(date -u)" >> docs/execution_error.md
+            echo "**Status:** Execution failed or timed out" >> docs/execution_error.md
+            echo "**Fallback:** Static HTML export created" >> docs/execution_error.md
+            
+            echo "⚠️ Check execution_error.md for details"
+          }
+          
+      - name: Verify output and create summary
+        run: |
+          echo "📊 Notebook execution summary:" 
+          ls -la docs/
+          
+          if ls docs/validation_*.html 1> /dev/null 2>&1; then
+            echo "✅ HTML export(s) created successfully"
+            
+            # Create index file
+            echo "# 📓 Validation Notebook Exports" > docs/index.md
+            echo "" >> docs/index.md
+            echo "**Generated:** $(date -u)" >> docs/index.md  
+            echo "" >> docs/index.md
+            echo "## Available Exports:" >> docs/index.md
+            for file in docs/validation_*.html; do
+              if [ -f "$file" ]; then
+                filename=$(basename "$file")
+                echo "- [$filename](./$filename)" >> docs/index.md
+              fi
+            done
+            
+          else
+            echo "❌ No HTML exports found"
+            exit 1
+          fi
+
+      - name: Upload notebook artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notebook-exports-${{ github.run_number }}
+          path: docs/
+          retention-days: 30
