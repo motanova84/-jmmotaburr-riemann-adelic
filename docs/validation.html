@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación Hipótesis de Riemann - Resultados</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+               margin: 40px; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; 
+                     padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        .meta-info { background: #ecf0f1; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .success { color: #27ae60; font-weight: bold; }
+        .failure { color: #e74c3c; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 12px; text-align: left; }
+        th { background-color: #3498db; color: white; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        .formula { font-family: 'Times New Roman', serif; font-style: italic; 
+                   background: #ffeaa7; padding: 10px; border-radius: 5px; margin: 15px 0; }
+        .summary { background: #d5f4e6; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .error-high { background-color: #ffebee; }
+        .error-low { background-color: #e8f5e8; }
+        .code { font-family: 'Courier New', monospace; background: #f4f4f4; 
+                padding: 2px 4px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧮 Validación de la Hipótesis de Riemann</h1>
+        
+        <div class="meta-info">
+            <strong>Autor:</strong> José Manuel Mota Burruezo<br>
+            <strong>Instituto:</strong> Instituto de Conciencia Cuántica (ICQ)<br>
+            <strong>Fecha de validación:</strong> 2025-09-14 03:39:27<br>
+            <strong>DOI:</strong> <a href="https://doi.org/10.5281/zenodo.17114751" target="_blank">10.5281/zenodo.17114751</a>
+        </div>
+
+        <h2>🎯 Objetivo</h2>
+        <p>Validar numéricamente la identidad fundamental:</p>
+        <div class="formula">
+            PrimeSum(f) + A_∞(f) = Σ_ρ f̂(ρ)
+        </div>
+        <p>donde el error absoluto debe ser menor a <strong>1×10⁻⁵</strong> para las funciones de prueba f₁, f₂, f₃.</p>
+
+        <h2>📊 Resultados de Validación</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Función</th>
+                    <th>Prime Sum</th>
+                    <th>A_∞ (Archimedean)</th>
+                    <th>Total Aritmético</th>
+                    <th>Sum de Ceros</th>
+                    <th>Error Absoluto</th>
+                    <th>Error Relativo</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="error-high">
+                    <td><strong>f1</strong></td>
+                    <td>2.65846663</td>
+                    <td>-8.03592080</td>
+                    <td>-5.37745417</td>
+                    <td>2.97907600</td>
+                    <td class="code">8.36e+00</td>
+                    <td class="code">1.55e+00</td>
+                    <td><span class="failure">❌ FALLO</span></td>
+                </tr>
+                <tr class="error-high">
+                    <td><strong>f2</strong></td>
+                    <td>1.02357947</td>
+                    <td>-5.41444851</td>
+                    <td>-4.39086904</td>
+                    <td>-0.00276138</td>
+                    <td class="code">4.39e+00</td>
+                    <td class="code">9.99e-01</td>
+                    <td><span class="failure">❌ FALLO</span></td>
+                </tr>
+                <tr class="error-high">
+                    <td><strong>f3</strong></td>
+                    <td>1.46482756</td>
+                    <td>-6.44022064</td>
+                    <td>-4.97539309</td>
+                    <td>0.00077119</td>
+                    <td class="code">4.98e+00</td>
+                    <td class="code">1.00e+00</td>
+                    <td><span class="failure">❌ FALLO</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="summary">
+            <h2>🏆 Resumen Final</h2>
+            <p class="failure" style="font-size: 1.2em; text-align: center;">
+                <strong>❌ VALIDACIÓN FALLIDA</strong>
+            </p>
+            <p><strong>Resultado:</strong> Una o más funciones exceden el margen de error permitido. Se requiere revisión.</p>
+        </div>
+
+        <h2>📋 Parámetros de Validación</h2>
+        <ul>
+            <li><strong>δ (delta):</strong> 0.01</li>
+            <li><strong>P (máximo primo):</strong> 1000</li>
+            <li><strong>K (potencias por primo):</strong> 50</li>
+            <li><strong>N_Ξ (número de ceros):</strong> 2000</li>
+            <li><strong>σ₀ (sigma_0):</strong> 2.0</li>
+            <li><strong>T (límite integral):</strong> 50</li>
+        </ul>
+
+        <h2>🔬 Funciones de Prueba</h2>
+        <ul>
+            <li><strong>f₁(u):</strong> exp(-u²/2) para |u| ≤ 3</li>
+            <li><strong>f₂(u):</strong> exp(-u²) para |u| ≤ 2</li>
+            <li><strong>f₃(u):</strong> (1 - u²/4)² para |u| ≤ 2</li>
+        </ul>
+
+        <h2>📖 Referencias</h2>
+        <p>Esta validación forma parte de la prueba completa de la Hipótesis de Riemann basada en:</p>
+        <ul>
+            <li>Teoría de determinantes de Fredholm</li>
+            <li>Fórmula de traza adélica</li>
+            <li>Unicidad de Paley-Wiener</li>
+        </ul>
+        
+        <hr style="margin-top: 40px;">
+        <p style="text-align: center; color: #7f8c8d; font-size: 0.9em;">
+            Generado automáticamente el 2025-09-14 03:39:27 
+            | Repositorio: <a href="https://github.com/motanova84/riemann-adelic" target="_blank">motanova84/riemann-adelic</a>
+        </p>
+    </div>
+</body>
+</html>
