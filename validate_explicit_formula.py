@@ -1,3 +1,17 @@
+"""
+🧠 Copilot Prompt:
+Create a GitHub Actions workflow to run this script on push and store the output CSV in /data/.
+
+The script validates an explicit formula related to the Riemann Hypothesis.
+
+It uses:
+- f1, f2, f3: compactly supported test functions
+- prime_sum(f), A_infty(f), zero_sum(f)
+- Comparison of arithmetic vs spectral sides.
+
+Add helper utilities if missing.
+"""
+
 import mpmath as mp
 from utils.mellin import truncated_gaussian, mellin_transform
 
