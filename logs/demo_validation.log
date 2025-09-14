@@ -1,0 +1,31 @@
+QUICK VALIDATION DEMO
+========================================
+Computing prime sum...
+Prime sum: 1.95922472968696732799578676606
+Computing simplified archimedean term...
+Residue term: 4.03858028177568116451133782689
+Computing first few zeros...
+Zero sum (first 3): -0.00182365738481644421344474639164
+
+Comparison (simplified):
+Arithmetic side: -2.07935555208871383651555106083
+Zero side:       -0.00182365738481644421344474639164
+Error:          2.08e+00
+
+Note: This is a simplified demo. Full calculation requires more terms.
+
+PERTURBATION DEMO
+========================================
+Original prime sum:  1.58672297102898080122435098592
+Perturbed prime sum: 1.52177297749672605894081500543
+Change factor:       0.959066582687628804074978792572
+
+This shows the method is sensitive to perturbations ✓
+
+============================================================
+DEMO COMPLETE
+The full validation scripts are ready:
+- validate_explicit_formula.py (with CSV output)
+- perturb_test.py (falsification testing)
+Use smaller parameters for faster execution in production.
+============================================================
