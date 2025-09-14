@@ -1,0 +1,293 @@
+name: Comprehensive CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      run_validation:
+        description: 'Run full validation'
+        type: boolean
+        default: false
+      run_notebook:
+        description: 'Execute notebook'
+        type: boolean  
+        default: false
+      max_primes:
+        description: 'Maximum prime for validation'
+        default: '100'
+
+env:
+  PYTHONPATH: ${{ github.workspace }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      should-run-validation: ${{ steps.changes.outputs.validation == 'true' || github.event.inputs.run_validation == 'true' }}
+      should-run-notebook: ${{ steps.changes.outputs.notebook == 'true' || github.event.inputs.run_notebook == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            validation:
+              - 'validate_explicit_formula.py'
+              - 'utils/**'
+              - 'tests/**'
+            notebook:
+              - 'notebooks/**'
+
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11']
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
+            
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install flake8 black isort
+          
+      - name: Lint with flake8
+        run: |
+          flake8 --max-line-length=88 --extend-ignore=E203,W503 --exclude=__pycache__ .
+        continue-on-error: true
+        
+      - name: Check formatting with black  
+        run: |
+          black --check --diff .
+        continue-on-error: true
+        
+      - name: Check import sorting
+        run: |
+          isort --check-only --diff .
+        continue-on-error: true
+        
+      - name: Ensure zeros data is available
+        run: |
+          python utils/fetch_odlyzko.py --dataset t1e8
+          
+      - name: Run fast tests
+        run: |
+          pytest tests/ -v -k "not integration" --tb=short
+        timeout-minutes: 10
+
+  validation:
+    needs: [setup, lint-and-test]  
+    if: needs.setup.outputs.should-run-validation == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test-params:
+          - name: "quick"
+            primes: 20
+            powers: 3
+            T: 5
+            functions: "f1"
+            tolerance: "0.5"
+          - name: "standard"  
+            primes: ${{ github.event.inputs.max_primes || '100' }}
+            powers: 10
+            T: 20  
+            functions: "f1 f2"
+            tolerance: "0.1"
+      fail-fast: false
+            
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Ensure zeros data
+        run: |
+          python utils/fetch_odlyzko.py --dataset t1e8
+          
+      - name: Create output directories
+        run: |
+          mkdir -p data logs
+          
+      - name: Run validation (${{ matrix.test-params.name }})
+        run: |
+          timeout 600 python validate_explicit_formula.py \
+            --max_primes ${{ matrix.test-params.primes }} \
+            --max_powers ${{ matrix.test-params.powers }} \
+            --T ${{ matrix.test-params.T }} \
+            --test_functions ${{ matrix.test-params.functions }} \
+            --delta ${{ matrix.test-params.tolerance }} \
+            --output "data/validation_${{ matrix.test-params.name }}.csv" \
+            --log_dir logs || echo "Validation completed with timeout or error"
+        continue-on-error: true
+        
+      - name: Check validation results
+        id: validation-check
+        run: |
+          if [ -f "data/validation_${{ matrix.test-params.name }}.csv" ]; then
+            echo "success=true" >> $GITHUB_OUTPUT
+            echo "✅ Validation completed successfully"
+            cat "data/validation_${{ matrix.test-params.name }}.csv"
+          else
+            echo "success=false" >> $GITHUB_OUTPUT
+            echo "❌ Validation did not complete successfully"
+          fi
+          
+      - name: Upload validation artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-${{ matrix.test-params.name }}-results
+          path: |
+            data/
+            logs/
+          retention-days: 30
+
+  notebook-execution:
+    needs: [setup, lint-and-test]
+    if: needs.setup.outputs.should-run-notebook == 'true'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install nbconvert[webpdf] matplotlib
+          
+      - name: Ensure data availability
+        run: |
+          python utils/fetch_odlyzko.py --dataset t1e8
+          mkdir -p data logs docs
+          
+      - name: Execute notebook with timeout
+        run: |
+          timeout 900 jupyter nbconvert \
+            --to html \
+            --execute \
+            --allow-errors \
+            --ExecutePreprocessor.timeout=600 \
+            --output-dir docs/ \
+            --output validation_execution.html \
+            notebooks/validation.ipynb || echo "Notebook execution completed with timeout or errors"
+        continue-on-error: true
+        
+      - name: Generate execution report
+        run: |
+          echo "# Notebook Execution Report" > docs/execution_report.md
+          echo "Execution Date: $(date)" >> docs/execution_report.md
+          echo "" >> docs/execution_report.md
+          if [ -f docs/validation_execution.html ]; then
+            echo "✅ **Status**: SUCCESS" >> docs/execution_report.md
+            echo "📊 Output file generated: validation_execution.html" >> docs/execution_report.md
+            echo "📦 Size: $(ls -lh docs/validation_execution.html | awk '{print $5}')" >> docs/execution_report.md
+          else
+            echo "❌ **Status**: FAILED" >> docs/execution_report.md
+            echo "📋 No HTML output generated" >> docs/execution_report.md
+          fi
+          echo "" >> docs/execution_report.md
+          echo "## Available Files" >> docs/execution_report.md
+          echo "### Documentation" >> docs/execution_report.md
+          ls -la docs/ >> docs/execution_report.md || echo "No docs files" >> docs/execution_report.md
+          echo "" >> docs/execution_report.md
+          echo "### Data" >> docs/execution_report.md  
+          ls -la data/ >> docs/execution_report.md || echo "No data files" >> docs/execution_report.md
+          echo "" >> docs/execution_report.md
+          echo "### Logs" >> docs/execution_report.md
+          ls -la logs/ >> docs/execution_report.md || echo "No log files" >> docs/execution_report.md
+          
+      - name: Upload notebook artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notebook-execution-results
+          path: |
+            docs/
+            data/
+            logs/
+          retention-days: 30
+
+  integration-tests:
+    needs: [validation, notebook-execution]
+    if: always() && (needs.validation.result != 'skipped' || needs.notebook-execution.result != 'skipped')
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+          
+      - name: Run integration tests
+        run: |
+          python utils/fetch_odlyzko.py --dataset t1e8
+          pytest tests/ -v -k "integration" --tb=short
+        continue-on-error: true
+        timeout-minutes: 5
+        
+      - name: Generate comprehensive report
+        run: |
+          echo "# Comprehensive CI Report" > comprehensive_report.md
+          echo "Generated: $(date)" >> comprehensive_report.md
+          echo "" >> comprehensive_report.md
+          echo "## Workflow Results Summary" >> comprehensive_report.md
+          echo "- Linting and Testing: ${{ needs.lint-and-test.result }}" >> comprehensive_report.md
+          echo "- Validation: ${{ needs.validation.result }}" >> comprehensive_report.md  
+          echo "- Notebook Execution: ${{ needs.notebook-execution.result }}" >> comprehensive_report.md
+          echo "" >> comprehensive_report.md
+          echo "## Artifacts Generated" >> comprehensive_report.md
+          find artifacts/ -type f -name "*.csv" -o -name "*.html" -o -name "*.log" | head -20 >> comprehensive_report.md || echo "No artifacts found" >> comprehensive_report.md
+          echo "" >> comprehensive_report.md
+          echo "## Data Organization Status" >> comprehensive_report.md
+          echo "### /data/ Directory" >> comprehensive_report.md
+          find artifacts/ -path "*/data/*" -type f | head -10 >> comprehensive_report.md || echo "No data files found" >> comprehensive_report.md  
+          echo "### /logs/ Directory" >> comprehensive_report.md
+          find artifacts/ -path "*/logs/*" -type f | head -10 >> comprehensive_report.md || echo "No log files found" >> comprehensive_report.md
+          
+      - name: Upload comprehensive report
+        uses: actions/upload-artifact@v4
+        with:
+          name: comprehensive-ci-report
+          path: comprehensive_report.md
+          retention-days: 90

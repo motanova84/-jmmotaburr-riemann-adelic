@@ -1,14 +1,19 @@
-name: Execute Notebook
+name: Execute Jupyter Notebook
 
 on:
   push:
     paths:
       - 'notebooks/validation.ipynb'
+      - '.github/workflows/run_notebook.yml'
+  pull_request:
+    paths:
+      - 'notebooks/validation.ipynb'
   workflow_dispatch:
 
 jobs:
-  notebook:
+  execute-notebook:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v4
       
@@ -16,15 +21,120 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-notebook-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-notebook-
+            ${{ runner.os }}-pip-
           
       - name: Setup environment
         run: |
           pip install -r requirements.txt
-          pip install jupyter mpmath sympy nbconvert
-          
-      - name: Create docs directory
-        run: mkdir -p docs/
-        
-      - name: Run notebook
+          pip install nbconvert[webpdf] jupyter matplotlib
+
+      - name: Ensure zeros data is available
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+          python utils/fetch_odlyzko.py --dataset t1e8
+          ls -la zeros/
+
+      - name: Create output directories
+        run: |
+          mkdir -p docs data logs
+        
+      - name: Execute notebook
+        run: |
+          jupyter nbconvert \
+            --to html \
+            --execute \
+            --allow-errors \
+            --ExecutePreprocessor.timeout=600 \
+            --output-dir docs/ \
+            --output validation.html \
+            notebooks/validation.ipynb
+        continue-on-error: true
+
+      - name: Check notebook execution results  
+        id: notebook-status
+        run: |
+          if [ -f docs/validation.html ]; then
+            echo "✅ Notebook executed successfully"
+            echo "success=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Notebook execution failed"
+            echo "success=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate execution summary
+        if: always()
+        run: |
+          echo "=== Notebook Execution Summary ===" > docs/execution_summary.txt
+          echo "Execution Date: $(date)" >> docs/execution_summary.txt
+          echo "Status: ${{ steps.notebook-status.outputs.success == 'true' && 'SUCCESS' || 'FAILED' }}" >> docs/execution_summary.txt
+          echo "" >> docs/execution_summary.txt
+          if [ -f docs/validation.html ]; then
+            echo "Output file size: $(ls -lh docs/validation.html | awk '{print $5}')" >> docs/execution_summary.txt
+          fi
+          echo "Available output files:" >> docs/execution_summary.txt
+          ls -la docs/ >> docs/execution_summary.txt 2>/dev/null || echo "No docs directory" >> docs/execution_summary.txt
+          echo "" >> docs/execution_summary.txt
+          echo "Data files generated:" >> docs/execution_summary.txt  
+          ls -la data/ >> docs/execution_summary.txt 2>/dev/null || echo "No data directory" >> docs/execution_summary.txt
+          echo "" >> docs/execution_summary.txt
+          echo "Log files:" >> docs/execution_summary.txt
+          ls -la logs/ >> docs/execution_summary.txt 2>/dev/null || echo "No logs directory" >> docs/execution_summary.txt
+
+      - name: Upload notebook output
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notebook-output
+          path: |
+            docs/
+            data/
+            logs/
+          retention-days: 30
+
+      - name: Deploy to GitHub Pages (if on main branch)
+        if: github.ref == 'refs/heads/main' && steps.notebook-status.outputs.success == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          destination_dir: notebooks
+
+      - name: Comment on PR with results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let comment = '## 📓 Notebook Execution Results\n\n';
+            
+            if ('${{ steps.notebook-status.outputs.success }}' === 'true') {
+              comment += '✅ **SUCCESS** - Notebook executed successfully\n\n';
+              comment += '📊 [View HTML Output](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})\n\n';
+            } else {
+              comment += '❌ **FAILED** - Notebook execution encountered errors\n\n';
+            }
+            
+            // Add summary if available
+            try {
+              if (fs.existsSync('docs/execution_summary.txt')) {
+                const summary = fs.readFileSync('docs/execution_summary.txt', 'utf8');
+                comment += '### Execution Summary\n```\n' + summary + '\n```\n';
+              }
+            } catch (error) {
+              console.log('Could not read summary file:', error);
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

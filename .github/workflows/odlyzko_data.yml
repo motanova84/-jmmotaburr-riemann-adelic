@@ -1,0 +1,138 @@
+name: Odlyzko Data Management  
+
+on:
+  workflow_dispatch:
+    inputs:
+      dataset:
+        description: 'Dataset to fetch'
+        type: choice
+        options:
+        - 't1e8'
+        - 't1e10'  
+        - 't1e12'
+        default: 't1e8'
+      force_download:
+        description: 'Force re-download even if exists'
+        type: boolean
+        default: false
+      validate_data:
+        description: 'Validate downloaded data'
+        type: boolean
+        default: true
+  schedule:
+    # Check data integrity weekly
+    - cron: '0 2 * * 0'
+
+jobs:
+  manage-zeros-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          pip install requests sympy mpmath
+          
+      - name: List available datasets
+        run: |
+          python utils/fetch_odlyzko.py --list
+          
+      - name: Check existing data
+        id: check-data
+        run: |
+          dataset="${{ github.event.inputs.dataset || 't1e8' }}"
+          filepath="zeros/zeros_${dataset}.txt"
+          if [ -f "$filepath" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "📁 Data file exists: $filepath"
+            echo "Size: $(ls -lh $filepath | awk '{print $5}')"
+            echo "Lines: $(wc -l < $filepath 2>/dev/null || echo 'unknown')"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT  
+            echo "📭 Data file does not exist: $filepath"
+          fi
+          
+      - name: Fetch/validate Odlyzko data
+        run: |
+          dataset="${{ github.event.inputs.dataset || 't1e8' }}"
+          force="${{ github.event.inputs.force_download == 'true' && '--force' || '' }}"
+          validate="${{ github.event.inputs.validate_data == 'false' && '--no-validate' || '' }}"
+          
+          echo "🔽 Fetching dataset: $dataset"
+          python utils/fetch_odlyzko.py --dataset "$dataset" $force $validate
+        timeout-minutes: 30
+        
+      - name: Validate data integrity
+        if: github.event.inputs.validate_data != 'false'
+        run: |
+          dataset="${{ github.event.inputs.dataset || 't1e8' }}"
+          filepath="zeros/zeros_${dataset}.txt"
+          
+          if [ -f "$filepath" ]; then
+            echo "🔍 Data validation results:"
+            echo "File size: $(ls -lh $filepath | awk '{print $5}')"
+            echo "Total lines: $(wc -l < $filepath)"
+            echo "First 5 zeros:"
+            head -5 "$filepath"
+            echo "Last 5 zeros:"  
+            tail -5 "$filepath"
+            
+            # Check for invalid entries
+            invalid_count=$(grep -v -E '^[0-9]+\.?[0-9]*$' "$filepath" | wc -l || echo 0)
+            echo "Invalid entries found: $invalid_count"
+            
+            if [ "$invalid_count" -gt 0 ]; then
+              echo "❌ Data validation failed - invalid entries found"
+              grep -v -E '^[0-9]+\.?[0-9]*$' "$filepath" | head -5
+              exit 1
+            else
+              echo "✅ Data validation passed"
+            fi
+          else
+            echo "❌ No data file to validate"
+            exit 1
+          fi
+          
+      - name: Generate data report  
+        run: |
+          echo "# Odlyzko Data Report" > data_report.md
+          echo "Generated: $(date)" >> data_report.md
+          echo "Dataset: ${{ github.event.inputs.dataset || 't1e8' }}" >> data_report.md
+          echo "" >> data_report.md
+          
+          for dataset in t1e8 t1e10 t1e12; do
+            filepath="zeros/zeros_${dataset}.txt"
+            echo "## Dataset: $dataset" >> data_report.md
+            if [ -f "$filepath" ]; then
+              echo "- ✅ **Status**: Available" >> data_report.md
+              echo "- 📦 **Size**: $(ls -lh $filepath | awk '{print $5}')" >> data_report.md
+              echo "- 📊 **Lines**: $(wc -l < $filepath)" >> data_report.md
+              echo "- 🕒 **Modified**: $(stat -c %y $filepath)" >> data_report.md
+            else
+              echo "- ❌ **Status**: Not available" >> data_report.md
+            fi
+            echo "" >> data_report.md
+          done
+          
+      - name: Upload data and report
+        uses: actions/upload-artifact@v4
+        with:
+          name: odlyzko-zeros-data
+          path: |
+            zeros/
+            data_report.md
+          retention-days: 90
+          
+      - name: Cache zeros data
+        uses: actions/cache@v4
+        with:
+          path: zeros/
+          key: odlyzko-zeros-${{ hashFiles('zeros/*.txt') }}
+          restore-keys: |
+            odlyzko-zeros-

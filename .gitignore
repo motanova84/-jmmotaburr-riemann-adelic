@@ -41,3 +41,27 @@ ENV/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Project specific
+# Keep only small sample data, exclude large downloads
+zeros/*.gz
+zeros/zeros_t1e10.txt
+zeros/zeros_t1e12.txt
+
+# Temporary logs (keep structure)
+logs/*.log
+
+# Generated output files
+data/validation_*.csv
+data/results/
+data/archives/
+data/summary_report_*.md
+
+# Notebook outputs (keep source, exclude executed outputs)
+docs/validation_execution.html
+docs/execution_*.html
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/

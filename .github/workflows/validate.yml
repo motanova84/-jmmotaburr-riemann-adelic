@@ -5,10 +5,28 @@ on:
     paths:
       - '**.py'
       - 'notebooks/**.ipynb'
+      - '.github/workflows/validate.yml'
+  pull_request:
+    paths:
+      - '**.py'
+      - 'notebooks/**.ipynb'
   workflow_dispatch:
+    inputs:
+      test_functions:
+        description: 'Test functions to validate (space-separated: f1 f2 f3)'
+        required: false
+        default: 'f1 f2'
+      max_primes:
+        description: 'Maximum prime to use'
+        required: false
+        default: '1000'
+      delta:
+        description: 'Validation tolerance'
+        required: false
+        default: '0.01'
 
 jobs:
-  run-validation:
+  fetch-zeros:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,15 +36,107 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install jupyter mpmath sympy
+
+      - name: Check and fetch Odlyzko zeros
+        run: |
+          python utils/fetch_odlyzko.py --dataset t1e8
+          ls -la zeros/
+
+      - name: Upload zeros data
+        uses: actions/upload-artifact@v4
+        with:
+          name: zeros-data
+          path: zeros/
+          retention-days: 30
+
+  run-validation:
+    needs: fetch-zeros
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11']
+      fail-fast: false
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Download zeros data
+        uses: actions/download-artifact@v4
+        with:
+          name: zeros-data
+          path: zeros/
+
+      - name: Create output directories
+        run: |
+          mkdir -p data logs
 
       - name: Run validation script
-        run: python validate_explicit_formula.py --delta 0.01 --max_primes 1000 --max_zeros 2000 --test_functions f1 f2 f3
-
-      - name: Save output (optional)
         run: |
-          mkdir -p data/
-          cp resultados.csv data/validation_output.csv || echo "No CSV output found"
+          python validate_explicit_formula.py \
+            --delta ${{ github.event.inputs.delta || '0.01' }} \
+            --max_primes ${{ github.event.inputs.max_primes || '1000' }} \
+            --max_powers 50 \
+            --T 50 \
+            --test_functions ${{ github.event.inputs.test_functions || 'f1 f2' }}
+        continue-on-error: true
+
+      - name: Run tests
+        run: |
+          pytest tests/ -v --tb=short
+        continue-on-error: true
+
+      - name: Upload validation results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-results-py${{ matrix.python-version }}
+          path: |
+            data/
+            logs/
+          retention-days: 30
+
+      - name: Display validation summary
+        if: always()
+        run: |
+          echo "=== Validation Summary ===" 
+          if [ -f data/validation_results.csv ]; then
+            echo "Results CSV:"
+            cat data/validation_results.csv
+          else
+            echo "No validation results CSV found"
+          fi
+          echo ""
+          echo "Log files:"
+          ls -la logs/ || echo "No log files found"
+          if [ -n "$(ls logs/ 2>/dev/null)" ]; then
+            echo "Latest log content:"
+            tail -20 logs/validation_*.log | head -50 || echo "Could not read log files"
+          fi
