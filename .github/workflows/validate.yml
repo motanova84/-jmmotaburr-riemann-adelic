@@ -24,9 +24,9 @@ jobs:
           pip install jupyter mpmath sympy
 
       - name: Run validation script
-        run: python validate_explicit_formula.py --delta 0.01 --max_primes 1000 --max_zeros 2000 --test_functions f1 f2 f3
+        run: python validate_explicit_formula.py --max_primes 1000 --max_zeros 2000 --timeout 300
 
       - name: Save output (optional)
         run: |
           mkdir -p data/
-          cp resultados.csv data/validation_output.csv || echo "No CSV output found"
+          cp data/validation_results.csv data/validation_output.csv || echo "No CSV output found"
