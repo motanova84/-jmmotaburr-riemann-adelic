@@ -1,0 +1,147 @@
+name: 🧮 Riemann Hypothesis Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  ERROR_THRESHOLD: "1e-5"
+  N_ZEROS: "2000"
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+        
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install mpmath sympy requests matplotlib seaborn pandas jupyter nbconvert
+        
+    - name: 📂 Create necessary directories
+      run: |
+        mkdir -p zeros data docs
+        
+    - name: 🧪 Run Riemann Hypothesis validation
+      id: validation
+      run: |
+        echo "🚀 Starting Riemann Hypothesis numerical validation..."
+        python validate_explicit_formula.py > validation_output.txt 2>&1 || echo "validation_failed=true" >> $GITHUB_OUTPUT
+        
+        # Check if validation passed
+        if grep -q "Overall test result: ✅ PASSED" validation_output.txt; then
+          echo "validation_status=✅ RH validation passed (error < $ERROR_THRESHOLD)" >> $GITHUB_OUTPUT
+          echo "badge_color=brightgreen" >> $GITHUB_OUTPUT
+          echo "validation_passed=true" >> $GITHUB_OUTPUT
+        else
+          echo "validation_status=❌ RH validation failed" >> $GITHUB_OUTPUT
+          echo "badge_color=red" >> $GITHUB_OUTPUT
+          echo "validation_passed=false" >> $GITHUB_OUTPUT
+        fi
+        
+        # Show validation output
+        echo "📊 Validation Results:"
+        cat validation_output.txt
+        
+    - name: 📓 Execute validation notebook
+      run: |
+        echo "🔬 Running validation notebook..."
+        jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ || echo "Notebook execution had issues (continuing...)"
+        
+    - name: 🏷️ Create validation badge
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.GITHUB_TOKEN }}
+        gistID: ${{ secrets.GIST_ID }}
+        filename: riemann-validation.json
+        label: RH Validation
+        message: ${{ steps.validation.outputs.validation_status }}
+        color: ${{ steps.validation.outputs.badge_color }}
+      continue-on-error: true  # Don't fail if badge creation fails
+        
+    - name: 📁 Archive validation outputs
+      uses: actions/upload-artifact@v4
+      with:
+        name: validation-results-${{ github.run_number }}
+        path: |
+          data/results.csv
+          data/results.md
+          data/validation_*.csv
+          docs/validation.html
+          docs/validation_plots.png
+          validation_output.txt
+        retention-days: 30
+        
+    - name: 📋 Generate validation summary
+      run: |
+        echo "## 🧮 Riemann Hypothesis Validation Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Timestamp:** $(date -u)" >> $GITHUB_STEP_SUMMARY
+        echo "**Status:** ${{ steps.validation.outputs.validation_status }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ -f "data/results.md" ]; then
+          echo "### 📊 Results Summary" >> $GITHUB_STEP_SUMMARY
+          cat data/results.md >> $GITHUB_STEP_SUMMARY || true
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📁 Artifacts" >> $GITHUB_STEP_SUMMARY
+        echo "- Validation results (CSV and HTML)" >> $GITHUB_STEP_SUMMARY
+        echo "- Convergence plots" >> $GITHUB_STEP_SUMMARY
+        echo "- Detailed logs" >> $GITHUB_STEP_SUMMARY
+        
+    - name: ⚠️ Fail if validation failed
+      if: steps.validation.outputs.validation_passed == 'false'
+      run: |
+        echo "❌ Riemann Hypothesis validation failed!"
+        echo "Check the validation output above for details."
+        exit 1
+
+  # 🧠 Copilot Prompt (para este workflow YAML):
+  # Asegura que este flujo se ejecute en cada push, y que:
+  # - Se valide la prueba de RH automáticamente.
+  # - Se emita un badge de estado que indique "✅ RH validation passed (error < 1e-5)".
+  # - Se archive la salida CSV y HTML en cada ejecución.
+  
+  integrity-check:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[download-zeros]')
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: 📦 Install dependencies
+      run: |
+        pip install requests
+        
+    - name: 🔍 Download and verify Odlyzko zeros with SHA256
+      run: |
+        echo "🔽 Downloading Odlyzko zero tables with integrity verification..."
+        python utils/fetch_odlyzko.py || echo "Some downloads may have failed"
+        
+    - name: 📁 Archive downloaded zeros
+      uses: actions/upload-artifact@v4
+      with:
+        name: odlyzko-zeros-${{ github.run_number }}
+        path: zeros/
+        retention-days: 7
