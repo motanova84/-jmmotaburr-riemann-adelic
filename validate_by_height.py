@@ -1,4 +1,5 @@
 import mpmath as mp
+import sympy as sp
 from utils.mellin import truncated_gaussian, mellin_transform
 from utils.riemann_tools import t_to_n, load_zeros_near_t
 
@@ -6,9 +7,9 @@ mp.mp.dps = 50
 
 def prime_sum(f, P, K):
     total = mp.mpf('0')
-    primes = list(mp.primepi(P))
-    for i in range(1, primes + 1):
-        p = mp.prime(i)
+    # Generate all primes up to P
+    primes = list(sp.primerange(2, P + 1))
+    for p in primes:
         lp = mp.log(p)
         for k in range(1, K + 1):
             total += lp * f(k * lp)
