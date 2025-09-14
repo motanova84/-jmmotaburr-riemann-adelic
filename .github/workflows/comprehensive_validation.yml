@@ -1,0 +1,200 @@
+name: Comprehensive RH Validation Pipeline
+
+on:
+  push:
+    paths:
+      - '**.py'
+      - 'notebooks/**.ipynb'
+      - '.github/workflows/comprehensive_validation.yml'
+  schedule:
+    # Daily validation at 2 AM UTC for continuous monitoring
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      max_primes:
+        description: 'Maximum number of primes (P)'
+        required: false
+        default: '1000'
+        type: string
+      max_zeros:
+        description: 'Maximum number of zeros'
+        required: false
+        default: '2000' 
+        type: string
+      test_functions:
+        description: 'Test functions (space-separated: f1 f2 f3 truncated_gaussian)'
+        required: false
+        default: 'f1 f2 f3'
+        type: string
+      timeout:
+        description: 'Timeout in seconds'
+        required: false
+        default: '600'
+        type: string
+
+jobs:
+  comprehensive-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
+      - name: Cache Python dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install jupyter nbconvert
+
+      - name: Create output directories
+        run: |
+          mkdir -p data logs docs zeros
+          
+      - name: Download and validate zeros data
+        run: |
+          python utils/fetch_odlyzko.py --target zeros/zeros_t1e8.txt
+          echo "✅ Zeros data ready"
+
+      - name: Run pytest validation tests
+        run: |
+          python -m pytest tests/ -v --tb=short
+          echo "✅ All tests passed"
+
+      - name: Run comprehensive validation
+        run: |
+          # Parse inputs with defaults
+          MAX_PRIMES="${{ github.event.inputs.max_primes || '1000' }}"
+          MAX_ZEROS="${{ github.event.inputs.max_zeros || '2000' }}"
+          TEST_FUNCTIONS="${{ github.event.inputs.test_functions || 'f1 f2 f3' }}"
+          TIMEOUT="${{ github.event.inputs.timeout || '600' }}"
+          
+          echo "🔬 Running validation with parameters:"
+          echo "  Max primes: $MAX_PRIMES"
+          echo "  Max zeros: $MAX_ZEROS"  
+          echo "  Test functions: $TEST_FUNCTIONS"
+          echo "  Timeout: $TIMEOUT seconds"
+          
+          # Run the enhanced validation script
+          python validate_explicit_formula.py \
+            --P $MAX_PRIMES \
+            --max_zeros $MAX_ZEROS \
+            --test_functions $TEST_FUNCTIONS \
+            --timeout $TIMEOUT \
+            --output_csv data/comprehensive_results.csv \
+            --log_dir logs
+
+      - name: Execute and export notebook
+        run: |
+          # Run notebook with error handling
+          jupyter nbconvert --to html --execute notebooks/validation.ipynb \
+            --output-dir docs/ --output validation_$(date +%Y%m%d_%H%M%S).html \
+            --ExecutePreprocessor.timeout=300 || {
+            echo "⚠️ Notebook execution failed, creating static export..."
+            jupyter nbconvert --to html notebooks/validation.ipynb \
+              --output-dir docs/ --output validation_static.html
+          }
+
+      - name: Generate results summary
+        run: |
+          echo "# 🎯 Comprehensive Validation Results" > docs/results_summary.md
+          echo "" >> docs/results_summary.md
+          echo "**Generated:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> docs/results_summary.md
+          echo "" >> docs/results_summary.md
+          
+          if [ -f data/comprehensive_results.csv ]; then
+            echo "## Validation Results" >> docs/results_summary.md
+            echo "\`\`\`" >> docs/results_summary.md
+            cat data/comprehensive_results.csv >> docs/results_summary.md
+            echo "\`\`\`" >> docs/results_summary.md
+          fi
+          
+          if [ -d logs ]; then
+            echo "" >> docs/results_summary.md
+            echo "## Latest Log Summary" >> docs/results_summary.md
+            echo "\`\`\`" >> docs/results_summary.md
+            find logs -name "*.log" -exec tail -20 {} \; | head -50 >> docs/results_summary.md
+            echo "\`\`\`" >> docs/results_summary.md
+          fi
+          
+          echo "📋 Results summary generated"
+
+      - name: Health check and validation status
+        run: |
+          echo "🏥 Performing health checks..."
+          
+          # Check if results were generated
+          if [ -f data/comprehensive_results.csv ]; then
+            echo "✅ CSV results file created"
+            wc -l data/comprehensive_results.csv
+          else
+            echo "❌ No CSV results found"
+            exit 1
+          fi
+          
+          # Check logs
+          if [ -d logs ] && [ "$(ls -A logs)" ]; then
+            echo "✅ Log files created"
+            ls -la logs/
+          else
+            echo "⚠️  No log files found"
+          fi
+          
+          # Check HTML exports
+          if [ -f docs/validation_*.html ]; then
+            echo "✅ Notebook HTML export created"
+            ls -la docs/validation_*.html
+          else
+            echo "⚠️  No HTML export found"
+          fi
+          
+          echo "🎉 Comprehensive validation pipeline completed!"
+
+      - name: Upload comprehensive artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: comprehensive-validation-results-${{ github.run_number }}
+          path: |
+            data/
+            logs/
+            docs/
+          retention-days: 90
+
+      - name: Comment on PR (if applicable)
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let comment = '## 🔬 Comprehensive Validation Results\n\n';
+            
+            try {
+              const summary = fs.readFileSync('docs/results_summary.md', 'utf8');
+              comment += summary;
+            } catch (error) {
+              comment += '⚠️ Could not read results summary\n';
+            }
+            
+            comment += `\n\n**Workflow run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
