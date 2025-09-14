@@ -41,3 +41,14 @@ ENV/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Temporary files and demo outputs (but keep structure)
+demo_pipeline.py
+/tmp/
+*.tmp
+*.temp
+
+# Keep important directories but ignore some temporary content
+# Keep all CSV results and logs for validation tracking
+# Keep zeros data
+# Keep docs outputs

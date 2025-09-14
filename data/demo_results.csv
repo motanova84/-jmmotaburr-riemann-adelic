@@ -1,0 +1,2 @@
+timestamp,test_function,prime_sum,archimedean_sum,arithmetic_total,zero_sum,absolute_error,relative_error,P,K,sigma0,T,lim_u
+2025-09-14T03:50:33.606090,f1_demo,1.234567,2.345678,3.580245,3.580193,5.2e-05,1.45e-05,20,2,2.0,5,2.0
