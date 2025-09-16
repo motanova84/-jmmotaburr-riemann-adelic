@@ -1,9 +1,9 @@
 parameter,value
 arithmetic_side,2.73958035893656
-zero_side,-0.0026740068349822
-absolute_error,2.74225436577155
-relative_error,1.00097606439112
+zero_side,-0.00252668382794599
+absolute_error,2.74210704276451
+relative_error,1.00092228863435
 P,100
 K,5
-T,10
-max_zeros,100
+T,1
+max_zeros,5
