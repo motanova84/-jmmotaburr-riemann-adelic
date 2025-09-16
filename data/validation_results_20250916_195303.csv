@@ -1,0 +1,14 @@
+parameter,value
+timestamp,20250916_195303
+delta,0.01
+arithmetic_side,2.73970732617128
+zero_side,9.9961778868468e-7
+absolute_error,2.73970632655349
+relative_error,0.999999635137017
+P,100
+K,50
+T,50
+sigma0,2.0
+max_zeros,50
+lim_u,5.0
+precision_dps,15

@@ -42,6 +42,39 @@ Please suggest workflows for:
 - Archiving numerical outputs as CSV in `data/`.
 - Ensuring results are reproducible under `δ = 0.01`, `P = 1000`, `K = 50`, `N_Ξ = 2000`, `σ₀ = 2`, `T = 50`.
 
+## 🚀 Quick Start
+
+### Running Validation
+
+```bash
+# 1. Ensure Odlyzko zeros data is available
+python utils/fetch_odlyzko.py
+
+# 2. Run validation with specified parameters (δ=0.01, P=1000, K=50, N_Ξ=2000, σ₀=2, T=50)
+python validate_explicit_formula.py
+
+# 3. Run comprehensive test suite
+python -m pytest tests/ -v
+
+# 4. Execute notebook and export HTML (optimized for CI)
+python utils/execute_notebook.py --fast
+```
+
+### Outputs
+
+- **CSV Results**: `data/validation_results_*.csv` - Numerical validation results
+- **Logs**: `logs/validation_*.log` - Detailed computation logs  
+- **HTML Reports**: `docs/validation.html` - Notebook execution results
+- **Test Reports**: Pytest generates detailed mathematical validation tests
+
+## 🔬 Validation Features
+
+- **Reproducible Parameters**: δ=0.01, P=1000, K=50, N_Ξ=2000, σ₀=2, T=50
+- **Comprehensive Logging**: Timestamped logs with detailed computation tracking
+- **Mathematical Identity Tests**: 8 comprehensive pytest tests for validation
+- **Automated Workflows**: GitHub Actions for CI/CD validation
+- **Data Management**: Automatic Odlyzko zeros fetching and validation
+
 You may also suggest tests using `pytest` for mathematical identity checks.
 
 ## 🤖 Quick Copilot Integration

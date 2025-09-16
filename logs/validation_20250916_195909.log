@@ -1,0 +1,13 @@
+2025-09-16 19:59:09,734 - INFO - 🔬 Running Riemann Hypothesis validation...
+2025-09-16 19:59:09,734 - INFO - Parameters: δ=0.01, P=200, K=50, T=50, N_Ξ=100, σ₀=2.0
+2025-09-16 19:59:09,734 - INFO - Log file: logs/validation_20250916_195909.log
+2025-09-16 19:59:09,734 - INFO - Computing arithmetic side (prime_sum + archimedean_sum)...
+2025-09-16 19:59:09,756 - INFO - Prime sum computed: 2.74027144156463
+2025-09-16 20:00:03,117 - INFO - Archimedean sum computed: 0.0
+2025-09-16 20:00:03,117 - INFO - Total arithmetic side: 2.74027144156463
+2025-09-16 20:00:03,117 - INFO - Computing zero side...
+2025-09-16 20:00:17,082 - INFO - Zero side computed: 1.18480513936296e-6
+2025-09-16 20:00:17,082 - INFO - ✅ Computation completed!
+2025-09-16 20:00:17,082 - INFO - Results: Arithmetic=2.74027144156463, Zero=1.18480513936296e-6, Error=2.74027025675949
+2025-09-16 20:00:17,082 - INFO - Relative error: 0.999999567632198
+2025-09-16 20:00:17,083 - INFO - 📊 Results saved to data/validation_results_20250916_195909.csv and data/validation_results.csv

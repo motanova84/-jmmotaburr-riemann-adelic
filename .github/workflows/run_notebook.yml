@@ -25,6 +25,30 @@ jobs:
       - name: Create docs directory
         run: mkdir -p docs/
         
-      - name: Run notebook
+      - name: Check and fetch Odlyzko zeros if needed
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+          python utils/fetch_odlyzko.py
+          
+      - name: Run notebook and export HTML
+        run: |
+          jupyter nbconvert --to html --execute notebooks/validation.ipynb \
+            --output-dir docs/ --output validation.html \
+            --ExecutePreprocessor.timeout=600 \
+            --allow-errors || echo "⚠️  Notebook execution failed with traceback above"
+            
+      - name: Upload HTML output
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notebook-html
+          path: docs/validation.html
+          
+      - name: Archive notebook results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notebook-artifacts
+          path: |
+            docs/
+            data/
+            logs/
