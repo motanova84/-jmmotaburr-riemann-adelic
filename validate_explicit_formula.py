@@ -72,20 +72,23 @@ if __name__ == "__main__":
     import os
     
     parser = argparse.ArgumentParser(description='Validate Riemann Hypothesis explicit formula')
-    parser.add_argument('--delta', type=float, default=0.01, help='Precision parameter (unused, for compatibility)')
-    parser.add_argument('--max_primes', type=int, default=1000, help='Maximum prime P to use')
-    parser.add_argument('--max_zeros', type=int, default=2000, help='Maximum number of zeros to use')
+    parser.add_argument('--delta', type=float, default=0.01, help='Precision parameter')
+    parser.add_argument('--P', '--max_primes', type=int, default=1000, dest='max_primes', help='Maximum prime P to use')
+    parser.add_argument('--K', type=int, default=50, help='Maximum power K for primes')
+    parser.add_argument('--N_Xi', '--max_zeros', type=int, default=2000, dest='max_zeros', help='Maximum number of zeros N_Ξ to use')
+    parser.add_argument('--sigma0', type=float, default=2.0, help='σ₀ parameter for archimedean sum')
+    parser.add_argument('--T', type=float, default=50.0, help='T parameter for integration limit')
     parser.add_argument('--test_functions', nargs='+', default=['f1'], help='Test functions to use')
     parser.add_argument('--timeout', type=int, default=300, help='Timeout in seconds')
     
     args = parser.parse_args()
     
-    # Use reduced parameters for faster computation
+    # Use parameters from command line arguments
     P = min(args.max_primes, 10000)  # Cap at 10000 to prevent timeout
-    K = 5
-    sigma0 = 2.0
-    T = max(1, min(100, args.max_zeros // 10))  # Ensure T >= 1, reduce T based on max_zeros
-    lim_u = 3.0  # Reduced integration limit
+    K = args.K
+    sigma0 = args.sigma0
+    T = args.T
+    lim_u = 5.0  # Integration limit
     
     print(f"🔬 Running Riemann Hypothesis validation...")
     print(f"Parameters: P={P}, K={K}, T={T}, max_zeros={args.max_zeros}")
@@ -124,10 +127,12 @@ if __name__ == "__main__":
             f.write(f"zero_side,{Z}\n")
             f.write(f"absolute_error,{error}\n")
             f.write(f"relative_error,{error / abs(A) if abs(A) > 0 else 'inf'}\n")
+            f.write(f"delta,{args.delta}\n")
             f.write(f"P,{P}\n")
             f.write(f"K,{K}\n")
+            f.write(f"N_Xi,{args.max_zeros}\n")
+            f.write(f"sigma0,{sigma0}\n")
             f.write(f"T,{T}\n")
-            f.write(f"max_zeros,{args.max_zeros}\n")
         
         print("📊 Results saved to data/validation_results.csv")
         

@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /home/runner/work/-jmmotaburr-riemann-adelic/-jmmotaburr-riemann-adelic
+plugins: anyio-4.10.0
+collecting ... collected 5 items
+
+tests/test_validation.py::test_explicit_formula_identity PASSED          [ 20%]
+tests/test_validation.py::test_numerical_consistency PASSED              [ 40%]
+tests/test_validation.py::test_data_integrity PASSED                     [ 60%]
+tests/test_validation.py::test_mellin_transform_properties PASSED        [ 80%]
+tests/test_validation.py::test_parameter_validation PASSED               [100%]
+
+============================== 5 passed in 13.32s ==============================
