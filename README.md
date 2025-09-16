@@ -21,16 +21,54 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 
 ```plaintext
 .
-├── notebooks/                  # Jupyter notebooks (e.g. validation.ipynb)
+├── notebooks/                     # Jupyter notebooks (e.g. validation.ipynb)
 ├── utils/
-│   └── mellin.py              # Tools for computing Mellin transforms
+│   ├── mellin.py                 # Tools for computing Mellin transforms
+│   ├── riemann_tools.py          # Riemann zeta zeros utilities
+│   └── fetch_odlyzko.py          # Download Odlyzko zeros data
 ├── zeros/
-│   └── zeros_t1e8.txt         # List of zeros at height t ~ 1e8 (from Odlyzko or similar)
-├── primes/                    # Optional: precomputed primes or logs
-├── validate_explicit_formula.py  # Main CLI validation script
+│   └── zeros_t1e8.txt           # List of zeros at height t ~ 1e8 (from Odlyzko)
+├── tests/
+│   └── test_validation.py       # pytest tests for validation
+├── data/                        # Output directory for results
+├── validate_explicit_formula.py # Main CLI validation script
+├── validate_by_height.py        # Height-specific validation script
 ├── requirements.txt
 └── README.md
 ```
+
+## 🚀 Usage
+
+### Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+### Basic Validation
+
+1. **Explicit Formula Validation** (recommended for general use):
+```bash
+python validate_explicit_formula.py --max_primes 1000 --max_zeros 100
+```
+
+2. **Height-specific Validation**:
+```bash
+python validate_by_height.py 20
+```
+
+### Running Tests
+
+```bash
+python -m pytest tests/ -v
+```
+
+### Performance Notes
+
+The validation scripts have been optimized for reasonable computation times:
+- `validate_explicit_formula.py`: Uses reduced parameters (P≤10000, precision=15 digits)
+- `validate_by_height.py`: Uses reduced parameters (P≤1000, K≤3, precision=25 digits)
+- Both scripts include proper error handling and progress indicators
 
 ## 🧠 Copilot Prompt (IA guidance)
 
