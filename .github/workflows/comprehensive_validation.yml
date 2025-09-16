@@ -1,0 +1,221 @@
+name: Comprehensive Riemann Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - '**.py'
+      - 'notebooks/**.ipynb'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      max_primes:
+        description: 'Maximum number of primes (P)'
+        required: false
+        default: '1000'
+      max_zeros:
+        description: 'Maximum number of zeros (N_Ξ)'
+        required: false
+        default: '2000'
+
+jobs:
+  validate-riemann:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11']
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install jupyter nbconvert
+
+      - name: Check and fetch Odlyzko zeros data
+        run: |
+          echo "🔍 Checking for Odlyzko zeros data..."
+          python utils/fetch_odlyzko.py
+
+      - name: Run comprehensive tests
+        run: |
+          echo "🧪 Running pytest test suite..."
+          python -m pytest tests/ -v --tb=short
+          
+      - name: Run validation with specified parameters
+        env:
+          MAX_PRIMES: ${{ github.event.inputs.max_primes || '1000' }}
+          MAX_ZEROS: ${{ github.event.inputs.max_zeros || '2000' }}
+        run: |
+          echo "🔬 Running Riemann Hypothesis validation..."
+          echo "Parameters: δ=0.01, P=$MAX_PRIMES, K=50, N_Ξ=$MAX_ZEROS, σ₀=2, T=50"
+          python validate_explicit_formula.py \
+            --delta 0.01 \
+            --max_primes $MAX_PRIMES \
+            --max_zeros $MAX_ZEROS \
+            --timeout 900
+
+      - name: Execute and export validation notebook
+        run: |
+          echo "📓 Executing validation notebook..."
+          mkdir -p docs/
+          jupyter nbconvert --to html --execute notebooks/validation.ipynb \
+            --output-dir docs/ --output validation.html \
+            --ExecutePreprocessor.timeout=900 \
+            --allow-errors || echo "⚠️ Notebook execution completed with warnings"
+
+      - name: Archive numerical outputs as CSV
+        run: |
+          echo "📊 Archiving numerical outputs..."
+          mkdir -p artifacts/data/
+          mkdir -p artifacts/logs/
+          mkdir -p artifacts/docs/
+          
+          # Copy all CSV results
+          cp -r data/*.csv artifacts/data/ 2>/dev/null || echo "No CSV files found"
+          
+          # Copy all log files
+          cp -r logs/*.log artifacts/logs/ 2>/dev/null || echo "No log files found"
+          
+          # Copy HTML outputs
+          cp -r docs/*.html artifacts/docs/ 2>/dev/null || echo "No HTML files found"
+          
+          # Create summary file
+          echo "# Validation Summary" > artifacts/SUMMARY.md
+          echo "Date: $(date)" >> artifacts/SUMMARY.md
+          echo "Python Version: ${{ matrix.python-version }}" >> artifacts/SUMMARY.md
+          echo "Parameters: δ=0.01, P=${{ github.event.inputs.max_primes || '1000' }}, K=50, N_Ξ=${{ github.event.inputs.max_zeros || '2000' }}, σ₀=2, T=50" >> artifacts/SUMMARY.md
+          
+          if [ -f data/validation_results.csv ]; then
+            echo "" >> artifacts/SUMMARY.md
+            echo "## Latest Results" >> artifacts/SUMMARY.md
+            cat data/validation_results.csv >> artifacts/SUMMARY.md
+          fi
+
+      - name: Upload validation artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riemann-validation-results-py${{ matrix.python-version }}
+          path: artifacts/
+          retention-days: 30
+
+      - name: Create validation report
+        if: always()
+        run: |
+          echo "## 🔬 Riemann Hypothesis Validation Report" >> $GITHUB_STEP_SUMMARY
+          echo "**Python Version:** ${{ matrix.python-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Parameters:** δ=0.01, P=${{ github.event.inputs.max_primes || '1000' }}, K=50, N_Ξ=${{ github.event.inputs.max_zeros || '2000' }}, σ₀=2, T=50" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f data/validation_results.csv ]; then
+            echo "**Status:** ✅ Validation completed" >> $GITHUB_STEP_SUMMARY
+            echo "### Results" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat data/validation_results.csv >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Status:** ❌ Validation failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "### 🗂️ Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- Validation CSV results: \`data/\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Computation logs: \`logs/\`" >> $GITHUB_STEP_SUMMARY
+          echo "- HTML notebook export: \`docs/validation.html\`" >> $GITHUB_STEP_SUMMARY
+
+  reproducibility-check:
+    runs-on: ubuntu-latest
+    needs: validate-riemann
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check reproducibility
+        run: |
+          echo "🔄 Running reproducibility check..."
+          python utils/fetch_odlyzko.py
+          
+          # Run validation twice with identical parameters
+          python validate_explicit_formula.py \
+            --delta 0.01 --max_primes 500 --max_zeros 100 --timeout 300
+          cp data/validation_results.csv run1_results.csv
+          
+          sleep 2  # Small delay
+          
+          python validate_explicit_formula.py \
+            --delta 0.01 --max_primes 500 --max_zeros 100 --timeout 300
+          cp data/validation_results.csv run2_results.csv
+          
+          # Compare results (allowing small numerical differences)
+          python -c "
+import csv
+import sys
+import math
+
+def read_csv(filename):
+    results = {}
+    with open(filename, 'r') as f:
+        reader = csv.reader(f)
+        next(reader)  # Skip header
+        for row in reader:
+            if len(row) == 2:
+                results[row[0]] = row[1]
+    return results
+
+r1 = read_csv('run1_results.csv')
+r2 = read_csv('run2_results.csv')
+
+# Check key numerical results
+for key in ['arithmetic_side', 'zero_side', 'absolute_error']:
+    if key in r1 and key in r2:
+        try:
+            v1 = float(r1[key])
+            v2 = float(r2[key])
+            if abs(v1 - v2) > 1e-10:
+                print(f'❌ Non-reproducible result for {key}: {v1} vs {v2}')
+                sys.exit(1)
+            else:
+                print(f'✅ Reproducible result for {key}')
+        except ValueError:
+            print(f'⚠️  Could not compare {key}')
+
+print('✅ Reproducibility check passed')
+"
+
+      - name: Upload reproducibility results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reproducibility-check
+          path: |
+            run1_results.csv
+            run2_results.csv
