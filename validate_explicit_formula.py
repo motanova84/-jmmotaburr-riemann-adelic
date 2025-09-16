@@ -73,12 +73,20 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description='Validate Riemann Hypothesis explicit formula')
     parser.add_argument('--delta', type=float, default=0.01, help='Precision parameter (unused, for compatibility)')
-    parser.add_argument('--max_primes', type=int, default=1000, help='Maximum prime P to use')
-    parser.add_argument('--max_zeros', type=int, default=2000, help='Maximum number of zeros to use')
+    parser.add_argument('--max_primes', type=int, default=1000, help='Maximum prime P to use (default: 1000, max: 10000)')
+    parser.add_argument('--max_zeros', type=int, default=100, help='Maximum number of zeros to use (default: 100)')
     parser.add_argument('--test_functions', nargs='+', default=['f1'], help='Test functions to use')
     parser.add_argument('--timeout', type=int, default=300, help='Timeout in seconds')
     
     args = parser.parse_args()
+    
+    # Validate arguments
+    if args.max_primes <= 0:
+        print("Error: max_primes must be positive")
+        sys.exit(1)
+    if args.max_zeros <= 0:
+        print("Error: max_zeros must be positive")
+        sys.exit(1)
     
     # Use reduced parameters for faster computation
     P = min(args.max_primes, 10000)  # Cap at 10000 to prevent timeout
