@@ -22,9 +22,21 @@ jobs:
           pip install -r requirements.txt
           pip install jupyter mpmath sympy nbconvert
           
-      - name: Create docs directory
-        run: mkdir -p docs/
-        
-      - name: Run notebook
+      - name: Run notebook and handle failures gracefully
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+          mkdir -p docs/
+          mkdir -p logs/
+          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html 2>&1 | tee logs/notebook.log || {
+            echo "❌ Notebook execution failed. Creating error report..." | tee -a logs/notebook.log
+            echo "Traceback and error details are logged above." | tee -a logs/notebook.log
+            exit 1
+          }
+          
+      - name: Upload notebook results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notebook-results
+          path: |
+            docs/validation.html
+            logs/notebook.log
