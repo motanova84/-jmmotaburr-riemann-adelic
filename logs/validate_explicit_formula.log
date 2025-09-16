@@ -1,0 +1,11 @@
+🔬 Running Riemann Hypothesis validation...
+Parameters: P=100, K=10, T=10.0, max_zeros=500
+Computing arithmetic side...
+Computing zero side...
+Used 500 zeros for computation
+✅ Computation completed!
+Aritmético (Primes + Arch): 2.73970732617128
+Zero side (explicit sum):   0.0560663769769126
+Error absoluto:             2.68364094919437
+Error relativo:             0.979535632714731
+📊 Results saved to data/validation_results.csv

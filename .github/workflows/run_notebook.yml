@@ -22,9 +22,18 @@ jobs:
           pip install -r requirements.txt
           pip install jupyter mpmath sympy nbconvert
           
-      - name: Create docs directory
-        run: mkdir -p docs/
-        
-      - name: Run notebook
+      - name: Create directories
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+          mkdir -p data logs
+        
+      - name: Run notebook and export HTML
+        run: |
+          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir data --output validation.html || echo "Notebook execution failed with traceback above"
+        continue-on-error: true
+        
+      - name: Upload notebook artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: notebook-output
+          path: data/validation.html
+        if: always()
