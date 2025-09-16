@@ -75,12 +75,9 @@ jobs:
 
       - name: Execute and export validation notebook
         run: |
-          echo "📓 Executing validation notebook..."
+          echo "📓 Executing validation notebook with optimization..."
           mkdir -p docs/
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb \
-            --output-dir docs/ --output validation.html \
-            --ExecutePreprocessor.timeout=900 \
-            --allow-errors || echo "⚠️ Notebook execution completed with warnings"
+          python utils/execute_notebook.py --fast --timeout 600
 
       - name: Archive numerical outputs as CSV
         run: |

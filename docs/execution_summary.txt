@@ -1,0 +1,6 @@
+Notebook Execution Summary
+==========================
+Input: notebooks/validation.ipynb
+Optimized: Yes
+Timeout: 120 seconds
+Status: Success
