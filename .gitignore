@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.pyc
+*.pyo
+
+# Utilities cache (English and Spanish)
+utils/__pycache__/
+utilidades/__pycache__/
 
 # Distribution / packaging
 .Python
