@@ -16,8 +16,8 @@ import mpmath as mp
 import sympy as sp
 from utils.mellin import truncated_gaussian, mellin_transform
 
-# Balanced precision for accurate computation
-mp.mp.dps = 30  # Balanced precision for target error ≤10^{-6}
+# High precision for accurate computation
+mp.mp.dps = 50  # Increased precision for target error ≤10^{-6}
 
 # Parámetros del experimento
 P = 10000          # Máximo primo
@@ -100,7 +100,6 @@ def save_results(A, Z, P, K, T, max_zeros, precision_met, target_error=1e-6):
     error = abs(A - Z)
     rel_error = error / abs(A) if abs(A) > 0 else float('inf')
     
-    import os
     os.makedirs('data', exist_ok=True)
     with open('data/validation_results.csv', 'w') as f:
         f.write("parameter,value\n")
@@ -131,12 +130,12 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    # Balanced parameters for high precision and reasonable computation time
-    P = min(args.max_primes, 10000)  # Reasonable prime limit
-    K = 5  # Standard prime powers
+    # Optimized parameters for high precision
+    P = min(args.max_primes, 50000)  # Increase prime limit for better convergence
+    K = 10  # More prime powers for better accuracy
     sigma0 = 2.0
-    T = max(30, min(200, args.max_zeros // 20))  # Balanced T for good convergence
-    lim_u = 4.0  # Balanced integration limit
+    T = max(50, min(500, args.max_zeros // 20))  # Increase T for better convergence
+    lim_u = 5.0  # Restore full integration limit
     
     print(f"🔬 Running Riemann Hypothesis validation...")
     print(f"Parameters: P={P}, K={K}, T={T}, max_zeros={args.max_zeros}")
@@ -159,10 +158,48 @@ if __name__ == "__main__":
         # Use only first max_zeros lines from file for faster computation
         Z = zero_sum_limited(f, zeros_file, args.max_zeros, lim_u)
 
-        # Validate precision and save results
-        precision_met = validate_precision(A, Z, target_error=1e-6)
-        save_results(A, Z, P, K, T, args.max_zeros, precision_met)
+def validate_precision(A, Z, target_error=1e-6):
+    """Validate that the error meets precision requirements."""
+    error = abs(A - Z)
+    rel_error = error / abs(A) if abs(A) > 0 else float('inf')
+    
+    print(f"✅ Computation completed!")
+    print(f"Aritmético (Primes + Arch): {A}")
+    print(f"Zero side (explicit sum):   {Z}")
+    print(f"Error absoluto:             {error}")
+    if abs(A) > 0:
+        print(f"Error relativo:             {rel_error}")
+    
+    # Check precision requirement
+    if error <= target_error:
+        print(f"🎯 SUCCESS: Error {error:.2e} ≤ {target_error:.0e} (target achieved)")
+        return True
+    else:
+        print(f"⚠️  WARNING: Error {error:.2e} > {target_error:.0e} (target not met)")
+        return False
+
+def save_results(A, Z, P, K, T, max_zeros, precision_met, target_error=1e-6):
+    """Save validation results with precision tracking."""
+    error = abs(A - Z)
+    rel_error = error / abs(A) if abs(A) > 0 else float('inf')
+    
+    os.makedirs('data', exist_ok=True)
+    with open('data/validation_results.csv', 'w') as f:
+        f.write("parameter,value\n")
+        f.write(f"arithmetic_side,{A}\n")
+        f.write(f"zero_side,{Z}\n")
+        f.write(f"absolute_error,{error}\n")
+        f.write(f"relative_error,{rel_error}\n")
+        f.write(f"target_error,{target_error}\n")
+        f.write(f"precision_met,{precision_met}\n")
+        f.write(f"P,{P}\n")
+        f.write(f"K,{K}\n")
+        f.write(f"T,{T}\n")
+        f.write(f"max_zeros,{max_zeros}\n")
+    
+    print("📊 Results saved to data/validation_results.csv")
         
     except Exception as e:
         print(f"❌ Error during computation: {e}")
         sys.exit(1)
+
