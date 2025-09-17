@@ -28,3 +28,11 @@ jobs:
       - name: Run notebook
         run: |
           jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+
+      - name: Upload notebook HTML output
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: notebook-output
+          path: docs/validation.html
+          retention-days: 30
