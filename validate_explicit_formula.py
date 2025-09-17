@@ -26,6 +26,105 @@ from utils.test_functions import phi_gaussian, truncated_gaussian
 # Set precision for computation
 mp.mp.dps = 25  # Increased for better accuracy
 
+def validate_riemann_hypothesis_notebook(test_function_name, P=1000, K=50, N=1000):
+    """
+    Validate the Riemann Hypothesis using the notebook's working method.
+    
+    Args:
+        test_function_name: Name of test function ('f1', 'f2', 'f3')
+        P: Number of primes to use
+        K: Maximum prime powers
+        N: Number of zeros to use
+    
+    Returns:
+        Dictionary with validation results
+    """
+    from utils.test_functions import get_test_function
+    
+    print(f"🔬 Validating with notebook method: {test_function_name}")
+    print(f"   Parameters: P={P}, K={K}, N={N}")
+    
+    # Get test function and its limit
+    phi, lim = get_test_function(test_function_name)
+    
+    def fhat(s, limit):
+        """Compute f̂(s) = ∫ f(u) * exp(s * u) du"""
+        return mp.quad(lambda u: phi(u) * mp.exp(s * u), [-limit, limit], maxdegree=10)
+    
+    def prime_sum_notebook(f, P=1000, K=50):
+        """Prime sum as in notebook."""
+        s = mp.mpf(0)
+        primes = list(sp.primerange(2, 7919))[:P]  # Use first P primes
+        for p in primes:
+            lp = mp.log(p)
+            for k in range(1, K+1):
+                s += lp * f(k * lp)
+        return s
+    
+    def A_infty_notebook(f, sigma0=2.0, lim=3, T=20):  # Reduce T from 50 to 20
+        """A_infinity as in notebook."""
+        print(f"    Computing A_infty with T={T}, lim={lim}")
+        
+        def integrand(t):
+            s = mp.mpc(sigma0, t)
+            return (mp.digamma(s/2) - mp.log(mp.pi)) * fhat(s, lim)
+        
+        # Use lower precision for speed
+        old_dps = mp.mp.dps
+        mp.mp.dps = 15
+        try:
+            integ = mp.quad(integrand, [-T, T], maxdegree=6) / (2 * mp.pi)  # Reduce maxdegree
+            res1 = fhat(mp.mpf(1), lim) / mp.mpf(1)
+            result = integ - res1
+        finally:
+            mp.mp.dps = old_dps
+        
+        print(f"    A_infty: integral={integ}, correction={res1}, result={result}")
+        return result
+    
+    def zero_sum_notebook(f, N=2000, lim=3):
+        """Zero sum as in notebook (corrected)."""
+        s = mp.mpf(0)
+        for n in range(1, N+1):
+            if n % 100 == 0:
+                print(f"    Processing zero {n}/{N}")
+            rho = mp.zetazero(n)
+            # Use i*gamma instead of just gamma for the Mellin transform
+            s += fhat(1j * mp.im(rho), lim).real
+        return s
+    
+    # Compute all terms
+    print("Computing prime sum...")
+    ps = prime_sum_notebook(phi, P, K)
+    
+    print("Computing A_infty...")
+    ain = A_infty_notebook(phi, lim=lim, T=50)
+    
+    print("Computing zero sum...")
+    zs = zero_sum_notebook(phi, N=N, lim=lim)
+    
+    # Total arithmetic side
+    tot = ps + ain
+    
+    # Compute errors
+    error_abs = abs(tot - zs)
+    error_rel = error_abs / abs(tot) if abs(tot) > 0 else float('inf')
+    
+    return {
+        'arithmetic_side': tot,
+        'prime_sum': ps,
+        'archimedean_term': ain,
+        'zero_side': zs,
+        'error_abs': error_abs,
+        'error_rel': error_rel,
+        'function': test_function_name,
+        'P': P,
+        'K': K,
+        'N': N,
+        'lim': lim
+    }
+
+
 def validate_riemann_hypothesis(test_function, X=8.0, max_zeros=1000, alpha=1.0):
     """
     Validate the Riemann Hypothesis using the explicit formula.
@@ -108,13 +207,21 @@ def zero_sum_limited(f, filename, max_zeros, lim_u=5):
     return zero_sum_from_file(f, filename, max_zeros, lim_u)
 
 if __name__ == "__main__":
+    import sympy as sp  # Add this import for prime generation
+    
     parser = argparse.ArgumentParser(description='Validate Riemann Hypothesis explicit formula')
-    parser.add_argument('--function', choices=['gaussian', 'truncated'], default='gaussian',
+    parser.add_argument('--function', choices=['f1', 'f2', 'f3', 'gaussian', 'truncated'], default='f1',
                         help='Test function to use')
-    parser.add_argument('--X', type=float, default=8.0, 
-                        help='Parameter X (n_max = exp(X))')
-    parser.add_argument('--max_zeros', type=int, default=1000, 
+    parser.add_argument('--method', choices=['notebook', 'vonmangoldt'], default='notebook',
+                        help='Method to use: notebook (working) or vonmangoldt (corrected)')
+    parser.add_argument('--P', type=int, default=1000, 
+                        help='Number of primes to use')
+    parser.add_argument('--K', type=int, default=50,
+                        help='Maximum prime power')
+    parser.add_argument('--N', '--max_zeros', type=int, default=1000, 
                         help='Maximum number of zeros to use')
+    parser.add_argument('--X', type=float, default=8.0, 
+                        help='Parameter X (n_max = exp(X)) for von Mangoldt method')
     parser.add_argument('--alpha', type=float, default=1.0, 
                         help='Scale parameter for test function')
     parser.add_argument('--legacy', action='store_true',
@@ -132,7 +239,7 @@ if __name__ == "__main__":
             P = 1000
             K = 5
             sigma0 = 2.0
-            T = max(1, min(100, args.max_zeros // 10))
+            T = max(1, min(100, args.N // 10))
             lim_u = 3.0
             
             f = truncated_gaussian
@@ -143,7 +250,7 @@ if __name__ == "__main__":
             A = prime_part + arch_part
             
             print("Computing zero side (legacy)...")
-            Z = zero_sum_limited(f, 'zeros/zeros_t1e8.txt', args.max_zeros, lim_u)
+            Z = zero_sum_limited(f, 'zeros/zeros_t1e8.txt', args.N, lim_u)
             
             error = abs(A - Z)
             error_rel = error / abs(A) if abs(A) > 0 else float('inf')
@@ -156,17 +263,29 @@ if __name__ == "__main__":
                 'P': P,
                 'K': K,
                 'T': T,
-                'max_zeros': args.max_zeros
+                'max_zeros': args.N
             }
+            
+        elif args.method == 'notebook':
+            # Use the working notebook method
+            if args.function in ['f1', 'f2', 'f3']:
+                results = validate_riemann_hypothesis_notebook(args.function, args.P, args.K, args.N)
+            else:
+                print(f"❌ Function {args.function} not available for notebook method. Use f1, f2, or f3.")
+                sys.exit(1)
+                
         else:
-            # Use new corrected implementation
+            # Use new corrected implementation with von Mangoldt
             if args.function == 'gaussian':
                 test_func = phi_gaussian
+            elif args.function in ['f1', 'f2', 'f3']:
+                from utils.test_functions import get_test_function
+                test_func, _ = get_test_function(args.function)
             else:
                 test_func = truncated_gaussian
                 
             results = validate_riemann_hypothesis(
-                test_func, args.X, args.max_zeros, args.alpha
+                test_func, args.X, args.N, args.alpha
             )
         
         # Display results
@@ -194,8 +313,17 @@ if __name__ == "__main__":
             f.write(f"absolute_error,{results['error_abs']}\n")
             f.write(f"relative_error,{results['error_rel']}\n")
             f.write(f"validation_passed,{validation_passed}\n")
+            f.write(f"method,{args.method if not args.legacy else 'legacy'}\n")
             
-            if not args.legacy:
+            if args.method == 'notebook' and not args.legacy:
+                f.write(f"function,{results['function']}\n")
+                f.write(f"P,{results['P']}\n")
+                f.write(f"K,{results['K']}\n")
+                f.write(f"N,{results['N']}\n")
+                f.write(f"lim,{results['lim']}\n")
+                f.write(f"prime_sum,{results['prime_sum']}\n")
+                f.write(f"archimedean_term,{results['archimedean_term']}\n")
+            elif not args.legacy:
                 f.write(f"X,{results['X']}\n")
                 f.write(f"n_max,{results['n_max']}\n")
                 f.write(f"alpha,{results['alpha']}\n")
@@ -207,7 +335,7 @@ if __name__ == "__main__":
                 f.write(f"K,{results['K']}\n")
                 f.write(f"T,{results['T']}\n")
                 
-            f.write(f"max_zeros,{results['max_zeros']}\n")
+            f.write(f"max_zeros,{results.get('max_zeros', args.N)}\n")
         
         print("📊 Results saved to data/validation_results.csv")
         

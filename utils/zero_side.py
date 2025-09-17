@@ -7,30 +7,38 @@ import mpmath as mp
 from utils.mellin import mellin_transform
 
 
-def zero_side(phi, zeros, multiply_by_two=False):
+def zero_side_notebook(phi, N=1000, lim_u=3.0):
     """
-    Compute the zero side of the explicit formula.
-    
-    Sum over zeros: ∑_γ φ̂(γ) where φ̂ is the Fourier/Mellin transform of φ
+    Compute the zero side using the notebook's working method.
+    Uses mpmath.zetazero to get zeros directly.
     
     Args:
         phi: Test function φ(u)
-        zeros: List of zero imaginary parts γ
-        multiply_by_two: If True, multiply result by 2 (for positive zeros only)
+        N: Number of zeros to use
+        lim_u: Integration limit for f̂
     
     Returns:
         Zero side sum
     """
+    print(f"Computing zero side with {N} zeros using mpmath.zetazero")
+    
+    def fhat(s, lim):
+        """Compute f̂(s) = ∫ f(u) * exp(s * u) du"""
+        return mp.quad(lambda u: phi(u) * mp.exp(s * u), [-lim, lim], maxdegree=10)
+    
     total = mp.mpf('0')
     
-    for gamma in zeros:
-        # Compute φ̂(γ) using Mellin transform
-        phi_hat = mellin_transform(phi, 1j * gamma, lim=5.0)
-        total += phi_hat.real
-    
-    if multiply_by_two:
-        total *= 2
+    for n in range(1, N + 1):
+        if n % 100 == 0:
+            print(f"  Progress: zero {n}/{N}")
+            
+        rho = mp.zetazero(n)  # Get the n-th zero
+        gamma = mp.im(rho)    # Get the imaginary part
         
+        fhat_val = fhat(1j * gamma, lim_u)
+        total += fhat_val.real
+    
+    print(f"Used {N} zeros for computation")
     return total
 
 
