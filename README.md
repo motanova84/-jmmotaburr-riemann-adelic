@@ -6,9 +6,13 @@ This repository contains numerical validation code for the paper:
 Author: José Manuel Mota Burruezo  
 Date: September 13, 2025  
 DOI: [(https://doi.org/10.5281/zenodo.17116291)
+
+Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
+https://zenodo.org/records/17137704
+
 Notebook Validation Commit: `abc123`
 
-## 🧪 Objective
+##  Objective
 
 Validate the Weil-type explicit formula for the canonical function $D(s)$ constructed via adelic flows, without using the Euler product of $\zeta(s)$. The validation includes:
 
@@ -17,7 +21,7 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
   - Sum over nontrivial zeros
 - For various test functions $f(u)$ with compact support
 
-## 📂 Structure
+##  Structure
 
 ```plaintext
 .
