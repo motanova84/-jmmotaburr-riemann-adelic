@@ -1,9 +1,16 @@
-parameter,value
-arithmetic_side,2.73958035893656
-zero_side,-0.002678284255677
-absolute_error,2.74225864319224
-relative_error,1.00097762573269
-P,100
-K,5
-T,5
-max_zeros,50
+parameter,value,description
+arithmetic_side,2.739580358936564565531596,Prime sum + Archimedean sum
+prime_contribution,2.739580358936564565531596,Sum over prime powers
+archimedean_contribution,0.0,Archimedean integral
+zero_side,0.0000009996177886846624251618524,Sum over nontrivial zeros
+absolute_error,2.739579359318776,|Arithmetic - Spectral|
+relative_error,0.9999996351201068,Relative error
+tolerance,0.001,Validation tolerance
+validation_result,FAIL,PASS or FAIL
+max_primes,100,Maximum prime used
+K,5,Maximum prime powers
+T,10,Integration limit
+max_zeros,50,Number of zeros used
+precision,25,Decimal precision
+frequency_signature,141.7001,JMMB Ψ✧ signature Hz
+computation_time,29.20,Total time in seconds

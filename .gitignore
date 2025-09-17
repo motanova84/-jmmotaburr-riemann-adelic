@@ -41,3 +41,8 @@ ENV/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Project specific
+logs/
+data/validation_results.csv
+docs/validation_report.html
