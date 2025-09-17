@@ -1,9 +1,36 @@
-parameter,value
-arithmetic_side,2.73958035893656
-zero_side,-0.00400183885906136
-absolute_error,2.74358219779563
-relative_error,1.0014607488501
-P,100
-K,5
-T,1
-max_zeros,10
+# JMMB Riemann Hypothesis Validation Results
+# Generated at: 2025-09-17 23:51:44
+# JMMB Frequency: 141.7001 Hz
+# D ≡ Ξ Axiom Validation
+function,parameter,value
+global,P,50
+global,K,5
+global,T,1
+global,max_zeros,10
+global,tolerance,0.1
+global,precision,15
+global,integration_limit,5.0
+global,computation_time,54.027867555618286
+global,overall_success,False
+global,jmmb_frequency,141.7001
+f1,arithmetic_side,2.733790951835964
+f1,zero_side,2.8915116539656734e-07
+f1,absolute_error,2.733790662684799
+f1,relative_error,0.9999998942306964
+f1,validation_passed,False
+f1,prime_contribution,2.733790951835964
+f1,archimedean_contribution,0.0
+f2,arithmetic_side,2.658466634440691
+f2,zero_side,-0.003981925048853379
+f2,absolute_error,2.6624485594895444
+f2,relative_error,1.001497827731696
+f2,validation_passed,False
+f2,prime_contribution,2.658466634440691
+f2,archimedean_contribution,0.0
+f3,arithmetic_side,1.4648275559371966
+f3,zero_side,0.0007697593684888249
+f3,absolute_error,1.4640577965687078
+f3,relative_error,0.9994745051283553
+f3,validation_passed,False
+f3,prime_contribution,1.4648275559371966
+f3,archimedean_contribution,0.0

@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "timestamp": "2025-09-17 23:51:44",
+    "jmmb_frequency": 141.7001,
+    "axiom": "D \u2261 \u039e",
+    "computation_time": 54.027867555618286,
+    "overall_success": false
+  },
+  "parameters": {
+    "P": 50,
+    "K": 5,
+    "T": 1,
+    "max_zeros": 10,
+    "tolerance": 0.1,
+    "precision": 15,
+    "integration_limit": 5.0
+  },
+  "results": {
+    "f1": {
+      "arithmetic_side": 2.733790951835964,
+      "zero_side": 2.8915116539656734e-07,
+      "absolute_error": 2.733790662684799,
+      "relative_error": 0.9999998942306964,
+      "validation_passed": false,
+      "prime_contribution": 2.733790951835964,
+      "archimedean_contribution": 0.0,
+      "analysis": {
+        "status": "FAIL",
+        "tolerance_used": 0.1,
+        "error_magnitude": "excessive",
+        "arithmetic_side": 2.733790951835964,
+        "zero_side": 2.8915116539656734e-07,
+        "convergence_indicator": "poor",
+        "jmmb_signature": "\u03a8\u2727 resonance at 141.7001 Hz"
+      }
+    },
+    "f2": {
+      "arithmetic_side": 2.658466634440691,
+      "zero_side": -0.003981925048853379,
+      "absolute_error": 2.6624485594895444,
+      "relative_error": 1.001497827731696,
+      "validation_passed": false,
+      "prime_contribution": 2.658466634440691,
+      "archimedean_contribution": 0.0,
+      "analysis": {
+        "status": "FAIL",
+        "tolerance_used": 0.1,
+        "error_magnitude": "excessive",
+        "arithmetic_side": 2.658466634440691,
+        "zero_side": -0.003981925048853379,
+        "convergence_indicator": "poor",
+        "jmmb_signature": "\u03a8\u2727 resonance at 141.7001 Hz"
+      }
+    },
+    "f3": {
+      "arithmetic_side": 1.4648275559371966,
+      "zero_side": 0.0007697593684888249,
+      "absolute_error": 1.4640577965687078,
+      "relative_error": 0.9994745051283553,
+      "validation_passed": false,
+      "prime_contribution": 1.4648275559371966,
+      "archimedean_contribution": 0.0,
+      "analysis": {
+        "status": "FAIL",
+        "tolerance_used": 0.1,
+        "error_magnitude": "excessive",
+        "arithmetic_side": 1.4648275559371966,
+        "zero_side": 0.0007697593684888249,
+        "convergence_indicator": "poor",
+        "jmmb_signature": "\u03a8\u2727 resonance at 141.7001 Hz"
+      }
+    }
+  }
+}
