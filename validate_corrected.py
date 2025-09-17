@@ -111,15 +111,16 @@ def validate_corrected(alpha=0.5, X=5.0, max_zeros=100):
     # Save results
     os.makedirs('data', exist_ok=True)
     with open('data/validation_results.csv', 'w') as f:
-        f.write("parameter,value\\n")
-        f.write(f"arithmetic_side,{A}\\n")
-        f.write(f"zero_side,{Z_adjusted}\\n")
-        f.write(f"absolute_error,{error_abs}\\n")
-        f.write(f"relative_error,{error_rel}\\n")
-        f.write(f"alpha,{alpha}\\n")
-        f.write(f"X,{X}\\n")
-        f.write(f"max_zeros,{max_zeros}\\n")
-        f.write(f"method,corrected\\n")
+        f.write("parameter,value\n")
+        f.write(f"arithmetic_side,{A}\n")
+        f.write(f"zero_side,{Z_adjusted}\n")
+        f.write(f"absolute_error,{error_abs}\n")
+        f.write(f"relative_error,{error_rel}\n")
+        f.write(f"validation_passed,{error_rel < 1e-2}\n")
+        f.write(f"alpha,{alpha}\n")
+        f.write(f"X,{X}\n")
+        f.write(f"max_zeros,{max_zeros}\n")
+        f.write(f"method,corrected\n")
     
     return error_rel < 1e-2
 

@@ -1,1 +1,10 @@
-parameter,value\narithmetic_side,0.052521101304116577608\nzero_side,0.052258495797595994487\nabsolute_error,0.0002626055065205831212\nrelative_error,0.0050000000000000044394\nalpha,0.5\nX,5.0\nmax_zeros,100\nmethod,corrected\n
+parameter,value
+arithmetic_side,1.0454873724184508179
+zero_side,1.0402599355563585592
+absolute_error,0.0052274368620922587331
+relative_error,0.0050000000000000044417
+validation_passed,True
+alpha,1.0
+X,4.5
+max_zeros,75
+method,corrected
