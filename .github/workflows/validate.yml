@@ -30,3 +30,11 @@ jobs:
         run: |
           mkdir -p data/
           cp data/validation_results.csv data/validation_output.csv || echo "No CSV output found"
+
+      - name: Upload validation results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-results
+          path: data/
+          retention-days: 30
