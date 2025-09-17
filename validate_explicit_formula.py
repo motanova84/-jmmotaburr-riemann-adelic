@@ -134,11 +134,15 @@ def archimedean_sum(f, sigma0, T, lim_u):
             mellin_val = mellin_transform(f, s, lim_u)
             return kernel * mellin_val
         
-        # Use higher precision integration
-        integral, error = mp.quad(integrand, [-T, T], error=True, maxdegree=15)
+        # Use adaptive integration with reasonable precision
+        # Reduce maxdegree for faster computation on larger intervals
+        maxdegree = min(10, max(5, int(20 - T/10)))  # Adaptive based on T
+        
+        integral, error = mp.quad(integrand, [-T, T], error=True, maxdegree=maxdegree)
         result = (integral / (2j * mp.pi)).real
         
         logger.info(f"📐 Integration error estimate: {error}")
+        logger.info(f"🔧 Used maxdegree: {maxdegree} for integration")
         logger.info(f"✅ Archimedean sum computed: {result}")
         
         return result
@@ -279,6 +283,60 @@ def suggest_improvements(error, relative_error, tolerance):
     print(f"  - More zeros: max_zeros = 5000-10000")
     print(f"  - Smaller support: lim_u = 3.0-4.0")
     print("-"*50)
+
+def create_html_report(validation_result, config, args, computation_time):
+    """Create an HTML report of the validation results."""
+    import time
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Riemann Hypothesis Validation Report</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; margin: 40px; }}
+            .header {{ background: #f0f8ff; padding: 20px; border-radius: 10px; }}
+            .result {{ background: {'#e8f5e8' if validation_result['is_valid'] else '#ffe8e8'}; 
+                      padding: 15px; border-radius: 5px; margin: 20px 0; }}
+            .config {{ background: #f9f9f9; padding: 15px; border-radius: 5px; }}
+            table {{ border-collapse: collapse; width: 100%; }}
+            th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+            th {{ background-color: #f2f2f2; }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🔬 Riemann Hypothesis Validation Report</h1>
+            <h2>JMMB Ψ✧ Framework - José Manuel Mota Burruezo</h2>
+            <p>Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}</p>
+        </div>
+        
+        <div class="result">
+            <h2>{validation_result['result_emoji']} Validation Result: {validation_result['result_text']}</h2>
+            <p><strong>Error:</strong> {validation_result['error']:.2e}</p>
+            <p><strong>Tolerance:</strong> {config['tolerance']:.2e}</p>
+            <p><strong>Computation Time:</strong> {computation_time:.2f} seconds</p>
+        </div>
+        
+        <div class="config">
+            <h3>Configuration Parameters</h3>
+            <table>
+                <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+                <tr><td>max_primes</td><td>{config['P']}</td><td>Maximum prime used</td></tr>
+                <tr><td>max_zeros</td><td>{config['max_zeros']}</td><td>Number of zeros</td></tr>
+                <tr><td>precision</td><td>{args.precision}</td><td>Decimal precision</td></tr>
+                <tr><td>tolerance</td><td>{config['tolerance']}</td><td>Validation tolerance</td></tr>
+                <tr><td>frequency_sig</td><td>{config['frequency_sig']} Hz</td><td>JMMB Ψ✧ signature</td></tr>
+            </table>
+        </div>
+    </body>
+    </html>
+    """
+    
+    os.makedirs('docs', exist_ok=True)
+    with open('docs/validation_report.html', 'w') as f:
+        f.write(html_content)
+    
+    print("📄 HTML report saved to docs/validation_report.html")
 
 if __name__ == "__main__":
     import argparse
@@ -449,57 +507,4 @@ Examples:
         import traceback
         logger.error(traceback.format_exc())
         sys.exit(1)
-
-def create_html_report(validation_result, config, args, computation_time):
-    """Create an HTML report of the validation results."""
-    html_content = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Riemann Hypothesis Validation Report</title>
-        <style>
-            body {{ font-family: Arial, sans-serif; margin: 40px; }}
-            .header {{ background: #f0f8ff; padding: 20px; border-radius: 10px; }}
-            .result {{ background: {'#e8f5e8' if validation_result['is_valid'] else '#ffe8e8'}; 
-                      padding: 15px; border-radius: 5px; margin: 20px 0; }}
-            .config {{ background: #f9f9f9; padding: 15px; border-radius: 5px; }}
-            table {{ border-collapse: collapse; width: 100%; }}
-            th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-            th {{ background-color: #f2f2f2; }}
-        </style>
-    </head>
-    <body>
-        <div class="header">
-            <h1>🔬 Riemann Hypothesis Validation Report</h1>
-            <h2>JMMB Ψ✧ Framework - José Manuel Mota Burruezo</h2>
-            <p>Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}</p>
-        </div>
-        
-        <div class="result">
-            <h2>{validation_result['result_emoji']} Validation Result: {validation_result['result_text']}</h2>
-            <p><strong>Error:</strong> {validation_result['error']:.2e}</p>
-            <p><strong>Tolerance:</strong> {config['tolerance']:.2e}</p>
-            <p><strong>Computation Time:</strong> {computation_time:.2f} seconds</p>
-        </div>
-        
-        <div class="config">
-            <h3>Configuration Parameters</h3>
-            <table>
-                <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
-                <tr><td>max_primes</td><td>{config['P']}</td><td>Maximum prime used</td></tr>
-                <tr><td>max_zeros</td><td>{config['max_zeros']}</td><td>Number of zeros</td></tr>
-                <tr><td>precision</td><td>{args.precision}</td><td>Decimal precision</td></tr>
-                <tr><td>tolerance</td><td>{config['tolerance']}</td><td>Validation tolerance</td></tr>
-                <tr><td>frequency_sig</td><td>{config['frequency_sig']} Hz</td><td>JMMB Ψ✧ signature</td></tr>
-            </table>
-        </div>
-    </body>
-    </html>
-    """
-    
-    os.makedirs('docs', exist_ok=True)
-    with open('docs/validation_report.html', 'w') as f:
-        f.write(html_content)
-    
-    print("📄 HTML report saved to docs/validation_report.html")
 
