@@ -1,6 +1,7 @@
+---
 name: Validate RH Proof
 
-on:
+"on":
   push:
     paths:
       - '**.py'
@@ -28,22 +29,14 @@ jobs:
         run: |
           mkdir -p zeros/
           # Create a minimal zeros file for testing if none exists
-          if [ ! -f zeros/zeros_t1e8.txt ]; then
-            echo "Creating sample zeros file for validation..."
-            python -c "
-import math
-# Generate first 100 sample zeros (approximate Gram points for testing)
-with open('zeros/zeros_t1e8.txt', 'w') as f:
-    for n in range(1, 101):
-        # Approximate zeros using Gram points formula
-        t_n = 2 * math.pi * n / math.log(n) if n > 1 else 14.134725
-        f.write(f'{t_n:.10f}\n')
-print('✅ Sample zeros file created')
-"
-          fi
+          python3 utils/create_sample_zeros.py
 
       - name: Run validation script with optimized parameters
-        run: python validate_explicit_formula.py --max_primes 500 --max_zeros 100 --timeout 180
+        run: |
+          python validate_explicit_formula.py \
+            --max_primes 500 \
+            --max_zeros 100 \
+            --timeout 180
 
       - name: Save validation results
         run: |
