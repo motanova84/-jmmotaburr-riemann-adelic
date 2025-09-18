@@ -44,4 +44,4 @@ Thumbs.db
 
 # Generated validation results
 data/validation_results.csv
-data/validation_output.csv
+data/validation_output.csvzeros/*.txt

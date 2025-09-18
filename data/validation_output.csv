@@ -1,0 +1,9 @@
+parameter,value
+arithmetic_side,2.74014447432991
+zero_side,-0.00145881682246679
+absolute_error,2.74160329115238
+relative_error,1.00053238682709
+P,500
+K,5
+T,10
+max_zeros,100
