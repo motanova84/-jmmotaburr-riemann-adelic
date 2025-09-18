@@ -1,0 +1,2 @@
+test_function,arithmetic_side,zero_side,absolute_error,relative_error,status
+truncated_gaussian,2.739580358936564,-0.0026782842556769995,2.7422586431922413,1.0009776257326932,FAILED

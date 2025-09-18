@@ -131,7 +131,34 @@ if __name__ == "__main__":
         
         print("📊 Results saved to data/validation_results.csv")
         
+        # Create results.csv and results.md for workflow
+        with open('data/results.csv', 'w') as f:
+            f.write("test_function,arithmetic_side,zero_side,absolute_error,relative_error,status\n")
+            relative_error = error / abs(A) if abs(A) > 0 else float('inf')
+            status = "PASSED" if error < 1e-5 else "FAILED"
+            f.write(f"truncated_gaussian,{float(A)},{float(Z)},{float(error)},{float(relative_error)},{status}\n")
+        
+        # Create results.md summary
+        with open('data/results.md', 'w') as f:
+            f.write("### Riemann Hypothesis Validation Results\n\n")
+            f.write(f"**Test Function:** Truncated Gaussian\n")
+            f.write(f"**Arithmetic Side:** {float(A):.6f}\n")
+            f.write(f"**Zero Side:** {float(Z):.6f}\n")
+            f.write(f"**Absolute Error:** {float(error):.2e}\n")
+            f.write(f"**Relative Error:** {float(error / abs(A)) if abs(A) > 0 else 'inf':.2e}\n")
+            f.write(f"**Parameters:** P={P}, K={K}, T={T}, max_zeros={args.max_zeros}\n\n")
+            
+        # Determine overall result based on error threshold
+        error_threshold = float(os.environ.get('ERROR_THRESHOLD', '1e-5'))
+        if float(error) < error_threshold:
+            print(f"\n🎉 Overall test result: ✅ PASSED (error {float(error):.2e} < threshold {error_threshold:.2e})")
+            sys.exit(0)
+        else:
+            print(f"\n❌ Overall test result: ❌ FAILED (error {float(error):.2e} >= threshold {error_threshold:.2e})")
+            sys.exit(1)
+        
     except Exception as e:
         print(f"❌ Error during computation: {e}")
+        print(f"\n❌ Overall test result: ❌ FAILED (computation error)")
         sys.exit(1)
 
