@@ -3,7 +3,12 @@ arithmetic_side,2.73958035893656
 zero_side,-0.0026740068349822
 absolute_error,2.74225436577155
 relative_error,1.00097606439112
+verified,NO
+tolerance_absolute,0.01
+tolerance_relative,0.05
 P,100
 K,5
 T,10
 max_zeros,100
+frequency_hz,141.7001
+signature,JMMB Ψ✧

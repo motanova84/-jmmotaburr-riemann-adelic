@@ -97,6 +97,25 @@ if __name__ == "__main__":
         zeros_file = 'zeros/zeros_t1e8.txt'
         if not os.path.exists(zeros_file):
             print(f"❌ Zeros file not found: {zeros_file}")
+            # Create error CSV for auto-evolution continuity
+            os.makedirs('data', exist_ok=True)
+            with open('data/validation_results.csv', 'w') as f:
+                f.write("parameter,value\n")
+                f.write(f"arithmetic_side,ERROR\n")
+                f.write(f"zero_side,ERROR\n")
+                f.write(f"absolute_error,inf\n")
+                f.write(f"relative_error,inf\n")
+                f.write(f"verified,ERROR\n")
+                f.write(f"tolerance_absolute,0.01\n")
+                f.write(f"tolerance_relative,0.05\n")
+                f.write(f"P,{P}\n")
+                f.write(f"K,{K}\n")
+                f.write(f"T,{T}\n")
+                f.write(f"max_zeros,{args.max_zeros}\n")
+                f.write(f"frequency_hz,141.7001\n")
+                f.write(f"signature,JMMB Ψ✧\n")
+                f.write(f"error_message,Zeros file not found: {zeros_file}\n")
+            print("📊 Error information saved to data/validation_results.csv for auto-evolution continuity")
             sys.exit(1)
         
         print("Computing arithmetic side...")
@@ -112,9 +131,19 @@ if __name__ == "__main__":
         print(f"Aritmético (Primes + Arch): {A}")
         print(f"Zero side (explicit sum):   {Z}")
         error = abs(A - Z)
+        relative_error = error / abs(A) if abs(A) > 0 else float('inf')
+        
+        # Determine verification verdict based on error thresholds
+        # Note: These are research-appropriate tolerances for the Riemann Hypothesis validation
+        tolerance_absolute = 0.01  # Strict absolute tolerance for mathematical precision
+        tolerance_relative = 0.05  # 5% relative error tolerance
+        verified = error < tolerance_absolute and relative_error < tolerance_relative
+        verdict = "YES" if verified else "NO"
+        
         print(f"Error absoluto:             {error}")
         if abs(A) > 0:
-            print(f"Error relativo:             {error / abs(A)}")
+            print(f"Error relativo:             {relative_error}")
+        print(f"🎯 Verification verdict:     {verdict}")
         
         # Save results to CSV
         os.makedirs('data', exist_ok=True)
@@ -123,15 +152,41 @@ if __name__ == "__main__":
             f.write(f"arithmetic_side,{A}\n")
             f.write(f"zero_side,{Z}\n")
             f.write(f"absolute_error,{error}\n")
-            f.write(f"relative_error,{error / abs(A) if abs(A) > 0 else 'inf'}\n")
+            f.write(f"relative_error,{relative_error if relative_error != float('inf') else 'inf'}\n")
+            f.write(f"verified,{verdict}\n")
+            f.write(f"tolerance_absolute,{tolerance_absolute}\n")
+            f.write(f"tolerance_relative,{tolerance_relative}\n")
             f.write(f"P,{P}\n")
             f.write(f"K,{K}\n")
             f.write(f"T,{T}\n")
             f.write(f"max_zeros,{args.max_zeros}\n")
+            f.write(f"frequency_hz,141.7001\n")
+            f.write(f"signature,JMMB Ψ✧\n")
         
         print("📊 Results saved to data/validation_results.csv")
         
     except Exception as e:
         print(f"❌ Error during computation: {e}")
+        
+        # Create fallback CSV with error information for auto-evolution continuity
+        os.makedirs('data', exist_ok=True)
+        with open('data/validation_results.csv', 'w') as f:
+            f.write("parameter,value\n")
+            f.write(f"arithmetic_side,ERROR\n")
+            f.write(f"zero_side,ERROR\n")
+            f.write(f"absolute_error,inf\n")
+            f.write(f"relative_error,inf\n")
+            f.write(f"verified,ERROR\n")
+            f.write(f"tolerance_absolute,0.01\n")
+            f.write(f"tolerance_relative,0.05\n")
+            f.write(f"P,{P}\n")
+            f.write(f"K,{K}\n")
+            f.write(f"T,{T}\n")
+            f.write(f"max_zeros,{args.max_zeros}\n")
+            f.write(f"frequency_hz,141.7001\n")
+            f.write(f"signature,JMMB Ψ✧\n")
+            f.write(f"error_message,{str(e)}\n")
+        
+        print("📊 Error information saved to data/validation_results.csv for auto-evolution continuity")
         sys.exit(1)
 
