@@ -1,1 +1,1 @@
-parameter,value\narithmetic_side,2.74014447432991\nspectral_side,104412.88341056\nabsolute_error,104410.143266086\nrelative_error,38103.8825668558\nvalidation_passed,False\ncoherence_factor,9.57752179239679e-6\ntotal_time,475.24762749671936\nprimes_processed,168\n
+parameter,value\narithmetic_side,2.73958035893656\nspectral_side,0.0509921303646379\nabsolute_error,2.68858822857193\nrelative_error,0.981386882776298\nvalidation_passed,False\ncoherence_factor,0.271106433690258\ntotal_time,107.01424598693848\nprimes_processed,25\n
