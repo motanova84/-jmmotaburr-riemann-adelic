@@ -42,14 +42,19 @@ def archimedean_sum(f, sigma0, T, lim_u):
         kernel = mp.digamma(s / 2) - mp.log(mp.pi)
         return kernel * mellin_transform(f, s, lim_u)
     integral, err = mp.quad(integrand, [-T, T], error=True)
-    return (integral / (2j * mp.pi)).real
+    # The correct Archimedean sum includes the residue correction
+    integ_part = (integral / (2 * mp.pi)).real
+    residue_part = mellin_transform(f, mp.mpf(1), lim_u).real
+    return integ_part - residue_part
 
 def zero_sum(f, filename, lim_u=5):
     total = mp.mpf('0')
     with open(filename) as file:
         for line in file:
             gamma = mp.mpf(line.strip())
-            total += mellin_transform(f, 1j * gamma, lim_u).real
+            # The zeros are at ρ = 1/2 + iγ, so we compute f̂(1/2 + iγ)
+            rho = mp.mpc(0.5, gamma)
+            total += mellin_transform(f, rho, lim_u).real
     return total
 
 def zero_sum_limited(f, filename, max_zeros, lim_u=5):
@@ -61,7 +66,9 @@ def zero_sum_limited(f, filename, max_zeros, lim_u=5):
             if count >= max_zeros:
                 break
             gamma = mp.mpf(line.strip())
-            total += mellin_transform(f, 1j * gamma, lim_u).real
+            # The zeros are at ρ = 1/2 + iγ, so we compute f̂(1/2 + iγ)
+            rho = mp.mpc(0.5, gamma)
+            total += mellin_transform(f, rho, lim_u).real
             count += 1
     print(f"Used {count} zeros for computation")
     return total
