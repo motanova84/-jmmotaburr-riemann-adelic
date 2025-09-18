@@ -41,3 +41,7 @@ ENV/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Generated validation results
+data/validation_results.csv
+data/validation_output.csv
