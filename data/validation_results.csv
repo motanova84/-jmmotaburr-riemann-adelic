@@ -1,9 +1,1 @@
-parameter,value
-arithmetic_side,-5.3429856211441
-zero_side,-0.00625605277041631
-absolute_error,5.33672956837368
-relative_error,0.99882910918838
-P,100
-K,5
-T,50
-max_zeros,500
+parameter,value\narithmetic_side,2.74014447432991\nspectral_side,104412.88341056\nabsolute_error,104410.143266086\nrelative_error,38103.8825668558\nvalidation_passed,False\ncoherence_factor,9.57752179239679e-6\ntotal_time,475.24762749671936\nprimes_processed,168\n
