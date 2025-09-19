@@ -43,7 +43,7 @@ print('✅ Sample zeros file created')
           fi
 
       - name: Run validation script with optimized parameters  
-        run: python validate_explicit_formula.py --max_primes 200 --max_zeros 200 --timeout 120 --tolerance 1e-3
+        run: python validate_explicit_formula.py --max_primes 200 --max_zeros 200 --timeout 120
 
       - name: Save validation results
         run: |
