@@ -27,42 +27,90 @@ T = 100
 lim_u = 5.0
 
 def prime_sum(f, P, K):
+    """Compute prime sum with proper mpmath type handling."""
     total = mp.mpf('0')
     # Generate all primes up to P
     primes = list(sp.primerange(2, P + 1))
     for p in primes:
-        lp = mp.log(p)
+        # Ensure p is converted to mpmath for log computation
+        lp = mp.log(mp.mpf(p))  # Convert prime to mpmath first
         for k in range(1, K + 1):
-            total += lp * f(k * lp)
+            # Compute k * lp as mpmath multiplication
+            klp = mp.mpf(k) * lp  # Ensure k is mpmath too
+            total += lp * f(klp)
     return total
 
 def archimedean_sum(f, sigma0, T, lim_u):
+    """Compute archimedean sum with proper mpmath type handling."""
     def integrand(t):
-        s = sigma0 + 1j * t
-        kernel = mp.digamma(s / 2) - mp.log(mp.pi)
+        # Ensure t is mpmath type for complex number construction
+        s = mp.mpf(sigma0) + 1j * mp.mpf(t)
+        kernel = mp.digamma(s / mp.mpf(2)) - mp.log(mp.pi)
         return kernel * mellin_transform(f, s, lim_u)
-    integral, err = mp.quad(integrand, [-T, T], error=True)
-    return (integral / (2j * mp.pi)).real
+    
+    # Ensure integration bounds are mpmath
+    integral, err = mp.quad(integrand, [-mp.mpf(T), mp.mpf(T)], error=True)
+    result = (integral / (2j * mp.pi)).real
+    return result
 
 def zero_sum(f, filename, lim_u=5):
+    """Compute zero sum over all zeros in file.
+    
+    Optimized version ensuring proper mpmath type handling and error resilience.
+    Uses manual loop for better performance than mp.nsum approaches.
+    """
     total = mp.mpf('0')
-    with open(filename) as file:
+    count = 0
+    with open(filename, 'r') as file:
         for line in file:
-            gamma = mp.mpf(line.strip())
-            total += mellin_transform(f, 1j * gamma, lim_u).real
+            try:
+                # Ensure proper conversion to mpmath format
+                gamma_str = line.strip()
+                if not gamma_str:  # Skip empty lines
+                    continue
+                gamma = mp.mpf(gamma_str)
+                
+                # Compute mellin transform and add real part
+                fhat_val = mellin_transform(f, 1j * gamma, lim_u)
+                total += fhat_val.real
+                count += 1
+                
+            except (ValueError, TypeError) as e:
+                print(f"Warning: Skipping invalid zero value '{line.strip()}': {e}")
+                continue
+                
+    print(f"Processed {count} zeros total")
     return total
 
 def zero_sum_limited(f, filename, max_zeros, lim_u=5):
-    """Compute zero sum using only first max_zeros from file."""
+    """Compute zero sum using only first max_zeros from file.
+    
+    Optimized version using manual loop instead of mp.nsum for better
+    performance and stability. Ensures all gamma values are properly
+    converted to mpmath format to avoid float/mp mismatches.
+    """
     total = mp.mpf('0')
     count = 0
-    with open(filename) as file:
+    with open(filename, 'r') as file:
         for line in file:
             if count >= max_zeros:
                 break
-            gamma = mp.mpf(line.strip())
-            total += mellin_transform(f, 1j * gamma, lim_u).real
-            count += 1
+            try:
+                # Ensure proper conversion to mpmath format to avoid type mismatches
+                gamma_str = line.strip()
+                if not gamma_str:  # Skip empty lines
+                    continue
+                gamma = mp.mpf(gamma_str)
+                
+                # Compute mellin transform and add real part
+                fhat_val = mellin_transform(f, 1j * gamma, lim_u)
+                total += fhat_val.real
+                count += 1
+                
+            except (ValueError, TypeError) as e:
+                print(f"Warning: Skipping invalid zero value '{line.strip()}': {e}")
+                continue
+                
     print(f"Used {count} zeros for computation")
     return total
 
