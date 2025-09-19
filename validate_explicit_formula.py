@@ -37,12 +37,24 @@ def prime_sum(f, P, K):
     return total
 
 def archimedean_sum(f, sigma0, T, lim_u):
+    """Compute the archimedean contribution to the explicit formula.
+    
+    This implements the notebook-style formula:
+    (1/2π) ∫ [ψ(s/2) - log π] * f̂(s) dt - f̂(1)
+    where s = σ₀ + it
+    """
     def integrand(t):
-        s = sigma0 + 1j * t
-        kernel = mp.digamma(s / 2) - mp.log(mp.pi)
+        s = mp.mpc(sigma0, t)
+        kernel = mp.digamma(s/2) - mp.log(mp.pi)
         return kernel * mellin_transform(f, s, lim_u)
-    integral, err = mp.quad(integrand, [-T, T], error=True)
-    return (integral / (2j * mp.pi)).real
+    
+    # Integration part (note: 2*pi, not 2j*pi)
+    integral = mp.quad(integrand, [-T, T], maxdegree=10) / (2 * mp.pi)
+    
+    # Subtract residue at s=1  
+    residue = mellin_transform(f, mp.mpf(1), lim_u)
+    
+    return (integral - residue).real
 
 def zero_sum(f, filename, lim_u=5):
     total = mp.mpf('0')
@@ -77,6 +89,7 @@ if __name__ == "__main__":
     parser.add_argument('--max_zeros', type=int, default=2000, help='Maximum number of zeros to use')
     parser.add_argument('--test_functions', nargs='+', default=['f1'], help='Test functions to use')
     parser.add_argument('--timeout', type=int, default=300, help='Timeout in seconds')
+    parser.add_argument('--tolerance', type=float, default=1e-3, help='Tolerance for relative error (default: 1e-3 for CI)')
     
     args = parser.parse_args()
     
@@ -112,9 +125,17 @@ if __name__ == "__main__":
         print(f"Aritmético (Primes + Arch): {A}")
         print(f"Zero side (explicit sum):   {Z}")
         error = abs(A - Z)
+        relative_error = error / abs(A) if abs(A) > 0 else float('inf')
         print(f"Error absoluto:             {error}")
-        if abs(A) > 0:
-            print(f"Error relativo:             {error / abs(A)}")
+        print(f"Error relativo:             {relative_error}")
+        
+        # Check tolerance
+        if relative_error <= args.tolerance:
+            print(f"✅ PASSED: Error relativo ({float(relative_error):.2e}) ≤ tolerancia ({args.tolerance:.2e})")
+            validation_status = "PASSED"
+        else:
+            print(f"❌ FAILED: Error relativo ({float(relative_error):.2e}) > tolerancia ({args.tolerance:.2e})")
+            validation_status = "FAILED"
         
         # Save results to CSV
         os.makedirs('data', exist_ok=True)
@@ -123,13 +144,19 @@ if __name__ == "__main__":
             f.write(f"arithmetic_side,{str(A)}\n")
             f.write(f"zero_side,{str(Z)}\n")
             f.write(f"absolute_error,{str(error)}\n")
-            f.write(f"relative_error,{str(error / abs(A)) if abs(A) > 0 else 'inf'}\n")
+            f.write(f"relative_error,{str(relative_error)}\n")
+            f.write(f"tolerance,{args.tolerance}\n")
+            f.write(f"validation_status,{validation_status}\n")
             f.write(f"P,{P}\n")
             f.write(f"K,{K}\n")
             f.write(f"T,{T}\n")
             f.write(f"max_zeros,{args.max_zeros}\n")
         
         print("📊 Results saved to data/validation_results.csv")
+        
+        # Exit with error code if validation failed
+        if validation_status == "FAILED":
+            sys.exit(1)
         
     except Exception as e:
         print(f"❌ Error during computation: {e}")
