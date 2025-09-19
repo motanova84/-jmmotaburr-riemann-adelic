@@ -9,6 +9,7 @@ on:
 jobs:
   notebook:
     runs-on: ubuntu-latest
+    timeout-minutes: 30  # Increased timeout to 30 minutes
     steps:
       - uses: actions/checkout@v4
       
@@ -27,12 +28,37 @@ jobs:
         
       - name: Run notebook
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+          echo "🚀 Starting notebook execution with increased timeout..."
+          jupyter nbconvert --to html --execute notebooks/validation.ipynb \
+            --output-dir docs/ --output validation.html \
+            --ExecutePreprocessor.timeout=1800 || {
+            echo "❌ Notebook execution failed with traceback above"
+            exit 1
+          }
+
+      - name: Check output file exists
+        run: |
+          if [ -f docs/validation.html ]; then
+            echo "✅ Successfully generated docs/validation.html"
+            ls -la docs/validation.html
+          else
+            echo "❌ docs/validation.html not found"
+            exit 1
+          fi
+
+      - name: Display notebook output preview
+        run: |
+          if [ -f docs/validation.html ]; then
+            echo "📄 Notebook output preview (first 20 lines):"
+            head -20 docs/validation.html | grep -E "(completed|error|Error|✅|❌)" || echo "No specific status messages found in preview"
+          else
+            echo "⚠️ docs/validation.html does not exist - cannot display"
+          fi
 
       - name: Upload notebook HTML output
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: notebook-output
-          path: docs/validation.html
+          path: docs/
           retention-days: 30
