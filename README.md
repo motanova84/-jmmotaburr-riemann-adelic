@@ -8,7 +8,7 @@ Date: September 13, 2025
 DOI: [(https://doi.org/10.5281/zenodo.17116291)
 
 Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
-https://zenodo.org/records/17137704
+https://doi.org/10.5281/zenodo.17161831
 
 Notebook Validation Commit: `abc123`
 
