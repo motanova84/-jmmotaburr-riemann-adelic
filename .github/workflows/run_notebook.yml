@@ -6,6 +6,9 @@ on:
       - 'notebooks/validation.ipynb'
   workflow_dispatch:
 
+env:
+  CI: true  # Enable CI mode for faster execution
+
 jobs:
   notebook:
     runs-on: ubuntu-latest
@@ -25,9 +28,33 @@ jobs:
       - name: Create docs directory
         run: mkdir -p docs/
         
-      - name: Run notebook
+      - name: Run notebook with timeout handling
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
+          set -e  # Exit on first error
+          echo "🤖 Starting notebook execution in CI mode..."
+          if timeout 300 jupyter nbconvert \
+            --to html \
+            --execute notebooks/validation.ipynb \
+            --output-dir docs/ \
+            --output validation.html \
+            --ExecutePreprocessor.timeout=300; then
+            echo "✅ Notebook executed successfully!"
+            ls -la docs/validation.html
+          else
+            echo "❌ Notebook execution failed or timed out"
+            echo "⚠️ This may be due to computational complexity"
+            exit 1
+          fi
+
+      - name: Check output file
+        run: |
+          if [ -f "docs/validation.html" ]; then
+            echo "✅ HTML output generated successfully"
+            echo "File size: $(du -h docs/validation.html | cut -f1)"
+          else
+            echo "❌ HTML output file not found"
+            exit 1
+          fi
 
       - name: Upload notebook HTML output
         uses: actions/upload-artifact@v4
