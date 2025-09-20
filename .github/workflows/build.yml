@@ -5,46 +5,43 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45  # Increased job timeout
+    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       - name: Setup Environment and Download Data
         run: |
           mkdir -p zeros
-          curl -L -o zeros/zeros_t1e8.txt https://github.com/motanova84/-jmmotaburr-riemann-adelic/raw/main/zeros/zeros_t1e8.txt || echo "Warning: Could not download precomputed zeros."
+          curl -L -o zeros/zeros_t1e8.txt https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 || echo "Warning: Could not download precomputed zeros."
           sudo apt-get update
           sudo apt-get install -y texlive-full
           pip install -r requirements.txt
-          pip install nbconvert jupyter mpmath sympy numpy
+          pip install nbconvert jupyter mpmath sympy numpy requests pytest
       - name: Compile LaTeX
         run: |
           cd paper
-          pdflatex main.tex || echo "LaTeX compilation failed but continuing"
+          pdflatex main.tex
       - name: Execute Notebook with Optimized Timeout
         run: |
           export PYTHONUNBUFFERED=1
           export PRIME_COUNT=100
-          export PRIME_POWERS=5
           export ZERO_COUNT=100
           export INTEGRATION_T=10
-          mkdir -p docs
-          jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=1800 \
-            --ExecutePreprocessor.kernel_name=python3 \
-            validation.ipynb --output-dir docs/ --output validation.html
+          jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=1800 \
+            validation.ipynb --output docs/validation.html
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        if: always()
+        uses: actions/upload-artifact@v4  # Actualizado de v3 a v4
         with:
           name: paper-output
           path: |
             paper/main.pdf
             docs/validation.html
+          retention-days: 30  # Opcional: ajusta retención
       - name: Check Execution Time and Errors
         if: failure()
         run: |
           echo "Execution failed. Check logs for details."
-          cat docs/validation.html || echo "HTML not generated"
+          ls -la docs/ || echo "Docs directory empty"
