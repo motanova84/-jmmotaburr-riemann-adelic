@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+
+\title{A Complete Conditional Resolution of the Riemann Hypothesis \\
+via S-Finite Adelic Spectral Systems}
+\author{José Manuel Mota Burruezo \\
+\texttt{institutoconciencia@proton.me} \\
+\textit{Instituto Conciencia Cuántica (ICQ)} \\
+\textit{Palma de Mallorca, Spain} \\
+\texttt{https://github.com/motanova84/-jmmotaburr-riemanna-adelic} \\
+\texttt{Zenodo DOI: 10.5281/zenodo.17116291}}
+\date{September 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper presents a complete conditional resolution of the Riemann Hypothesis, based on a spectral framework built from S-finite adelic systems. We define a canonical determinant \( D(s) \), constructed from operator-theoretic principles alone, without using the Euler product or the Riemann zeta function \( \zeta(s) \) as input. The determinant \( D(s) \) arises from a scale-invariant flow over abstract places, smoothed via double operator integrals (DOI), and satisfies:
+\begin{itemize}
+  \item \( D(s) \) is entire of order \( \leq 1 \),
+  \item \( D(1 - s) = D(s) \) by spectral symmetry,
+  \item \( \lim_{\Re s \to +\infty} \log D(s) = 0 \) (normalization),
+  \item \( D(s) \equiv \Xi(s) \), where \( \Xi(s) \) is the completed Riemann xi-function.
+\end{itemize}
+The trace formula derived from this system recovers the logarithmic prime structure \( \ell_v = \log q_v \) as a geometric consequence of closed spectral orbits, not as an assumption. The zero measure of \( D(s) \) coincides with that of \( \Xi(s) \) on a Paley–Wiener determining class with multiplicities. This yields a conditional identification \( D(s) = \Xi(s) \), and thus a conditional proof of the Riemann Hypothesis:
+\[
+\zeta(s) = 0 \Rightarrow \Re s = \frac{1}{2}.
+\]
+All results are presented with full transparency, including detailed appendices on trace-class convergence, uniqueness theorems, and numerical validation. The code and data are openly provided at the GitHub repository above.
+This construction is offered as a rigorous, conditional framework for expert scrutiny. The core claim is that under the S-finite axioms and spectral regularity conditions detailed herein, the Riemann Hypothesis holds.
+\end{abstract}
+
+\section{Axiomatic Scale Flow and Spectral System}
+\input{section1.tex}
+
+\section{Construction of the Canonical Determinant \( D(s) \)}
+\input{section2.tex}
+
+\section{Trace Formula and Geometric Emergence of Logarithmic Lengths}
+\input{section3.tex}
+
+\section{Asymptotic Normalization and Hadamard Identification}
+\input{section4.tex}
+
+\appendix
+
+\section*{Appendix A — Paley–Wiener Uniqueness with Multiplicities}
+\input{appendix_a.tex}
+
+\section*{Appendix B — Archimedean Term via Operator Calculus}
+\input{appendix_b.tex}
+
+\section*{Appendix C — Uniform Bounds and Spectral Stability}
+\input{appendix_c.tex}
+
+\begin{thebibliography}{12}
+\bibitem{boas1954} R. P. Boas, \emph{Entire Functions}, Academic Press, 1954, Ch. VII.
+\bibitem{birman2003} M. Sh. Birman and M. Z. Solomyak, \emph{Double Operator Integrals in a Hilbert Space}, Integr. Equ. Oper. Theory 47 (2003), 131–168. DOI: 10.1007/s00020-003-1137-8.
+\bibitem{debranges1968} L. de Branges, \emph{Hilbert Spaces of Entire Functions}, Prentice-Hall, 1968.
+\bibitem{fesenko2021} I. Fesenko, \emph{Adelic Analysis and Zeta Functions}, Eur. J. Math. 7:3 (2021), 793–833. DOI: 10.1007/s40879-020-00432-9.
+\bibitem{hormander1990} L. Hörmander, \emph{An Introduction to Complex Analysis in Several Variables}, North-Holland, 1990, Thm. 7.3.1. DOI: 10.1016/C2009-0-23715-4.
+\bibitem{koosis1988} P. Koosis, \emph{The Logarithmic Integral I}, Cambridge Stud. Adv. Math., vol. 12, Cambridge Univ. Press, 1988, Ch. VI.
+\bibitem{levin1996} B. Ya. Levin, \emph{Distribution of Zeros of Entire Functions}, rev. ed., Amer. Math. Soc., 1996, Thm. II.4.3.
+\bibitem{peller2003} V. V. Peller, \emph{Hankel Operators and Their Applications}, Springer, 2003. DOI: 10.1007/978-0-387-21681-2.
+\bibitem{simon2005} B. Simon, \emph{Trace Ideals and Their Applications}, 2nd ed., AMS, 2005, Thms. 9.2-9.3. DOI: 10.1090/surv/017.
+\bibitem{tate1967} J. Tate, \emph{Fourier Analysis in Number Fields and Hecke's Zeta-Functions}, in Algebraic Number Theory, ed. J. W. S. Cassels and A. Fröhlich, Academic Press, 1967, pp. 305–347.
+\bibitem{young1980} R. M. Young, \emph{An Introduction to Nonharmonic Fourier Series}, Academic Press, 1980, Ch. V.
+\bibitem{heathbrown1986} D. R. Heath-Brown, \emph{The Theory of the Riemann Zeta-Function}, Oxford Univ. Press, 1986, Ch. III.
+\end{thebibliography}
+
+\end{document}

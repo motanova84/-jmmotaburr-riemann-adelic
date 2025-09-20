@@ -45,3 +45,19 @@ Thumbs.db
 # Generated validation results
 data/validation_results.csv
 data/validation_output.csv
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
