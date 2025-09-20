@@ -1,0 +1,48 @@
+name: Build and Validate
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45  # Mantiene el timeout extendido
+    steps:
+      - uses: actions/checkout@v4  # Actualizado a v4 para consistencia
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Setup Environment and Download Data
+        run: |
+          mkdir -p zeros
+          curl -L -o zeros/zeros_t1e8.txt https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 || echo "Warning: Could not download precomputed zeros."
+          sudo apt-get update
+          sudo apt-get install -y texlive-full
+          pip install -r requirements.txt
+          pip install nbconvert jupyter mpmath sympy numpy requests pytest
+      - name: Compile LaTeX
+        run: |
+          cd paper
+          pdflatex -interaction=nonstopmode main.tex
+      - name: Execute Notebook with Optimized Timeout
+        run: |
+          export PYTHONUNBUFFERED=1
+          export PRIME_COUNT=100
+          export ZERO_COUNT=100
+          export INTEGRATION_T=10
+          mkdir -p docs
+          jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=1800 \
+            notebooks/validation.ipynb --output-dir docs --output validation.html
+      - name: Upload Artifacts  # Actualizado a v4
+        uses: actions/upload-artifact@v4  # Cambio clave: v3 -> v4
+        with:
+          name: paper-output
+          path: |
+            paper/main.pdf
+            docs/validation.html
+          retention-days: 30  # Opcional: ajusta retención en v4
+      - name: Check Execution Time and Errors
+        if: failure()
+        run: |
+          echo "Execution failed. Check logs for details."
+          ls -la docs/ || echo "Docs directory empty"
