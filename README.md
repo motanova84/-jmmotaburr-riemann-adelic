@@ -2,15 +2,16 @@
 
 This repository contains numerical validation code for the paper:
 
-**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Definitive Revision V3.6)**  
-Author: José Manuel Mota Burruezo  
-Date: September 13, 2025  
-DOI: [(https://doi.org/10.5281/zenodo.17116291)
+- *A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)*
+- Author: José Manuel Mota Burruezo
+- Date: September 13, 2025
+- DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
-Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
-https://doi.org/10.5281/zenodo.17161831
-
-Notebook Validation Commit: `abc123`
+## Reproduction Steps
+1. Install dependencies: `pip install -r requirements.txt`
+2. Ensure `zeros/zeros_t1e8.txt` is present (see Data section).
+3. Run the validation script: `python validate_explicit_formula.py --max_zeros 1000 --precision_dps 30`
+4. Check results in `data/validation_results.csv`.
 
 ##  Objective
 
@@ -35,6 +36,27 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ├── requirements.txt
 └── README.md
 ```
+
+## Environment Setup
+- **Python**: 3.10.12 (recommended; current system uses 3.12.3)
+- **Dependencies**: Install with `pip install -r requirements.txt`
+- **Environment**: Recommended to use a virtual environment (e.g., `python -m venv env; source env/bin/activate`).
+
+## Data
+- `zeros/zeros_t1e8.txt`: Contains ~100,000 zeros from Odlyzko's tables (source: https://www-users.cse.umn.edu/~odlyzko/zeta_tables/, accessed 2025-09-01, license: Public Domain).
+
+## Experiments / Numerical Validation
+- `max_zeros`: 1000
+- `precision_dps`: 30
+- `max_primes`: 1000
+- `prime_powers`: 5
+- `integration_t`: 50
+- `lim_u`: 3.0
+- Notebooks and scripts use these values unless overridden via CLI.
+
+## License
+- **Manuscript**: CC-BY 4.0 (DOI: 10.5281/zenodo.17161831) - See LICENSE-MANUSCRIPT file
+- **Code**: MIT License - See LICENSE-CODE file
 
 ## 🧠 Copilot Prompt (IA guidance)
 
