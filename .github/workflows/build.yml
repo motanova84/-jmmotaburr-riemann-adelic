@@ -26,7 +26,9 @@ jobs:
       - name: Compile LaTeX
         run: |
           cd paper
-          pdflatex -interaction=nonstopmode main.tex || echo "LaTeX compilation encountered issues but continuing"
+          pdflatex -interaction=nonstopmode main.tex || { echo "LaTeX compilation failed"; exit 1; }
+          # Second pass for references and cross-references
+          pdflatex -interaction=nonstopmode main.tex || { echo "Second LaTeX pass failed"; exit 1; }
       - name: Execute Notebook with Optimized Timeout
         run: |
           export PYTHONUNBUFFERED=1
