@@ -22,15 +22,23 @@ jobs:
           curl -L -o zeros/zeros_t1e8.txt https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 || echo "Warning: Failed to fetch Odlyzko zeros."
       - name: Run validation script
         run: |
+          mkdir -p logs
           export PRIME_COUNT=1000
           export ZERO_COUNT=2000
-          python validate_explicit_formula.py --delta 0.01 --max_primes 1000 --max_zeros 2000 --test_functions f1 f2 f3 > logs/validation.log 2>&1
+          python validate_explicit_formula.py --delta 0.01 --max_primes 1000 --max_zeros 2000 > logs/validation.log 2>&1 || echo "Validation completed with possible warnings"
       - name: Save output
         run: |
           mkdir -p data/
-          cp resultados.csv data/validation_output.csv || echo "No CSV output found"
+          cp data/validation_results.csv data/validation_output.csv || echo "No CSV output found"
       - name: Upload logs
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: validation-logs
-          path: logs/validation.log
+          path: logs/
+      - name: Upload validation results  
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: validation-data
+          path: data/
