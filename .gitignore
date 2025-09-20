@@ -46,6 +46,13 @@ Thumbs.db
 data/validation_results.csv
 data/validation_output.csv
 
+# Generated HTML output
+docs/validation.html
+
+# Backup and downloaded files
+zeros/*_backup.txt
+zeros/temp_*
+
 # LaTeX build files
 *.aux
 *.log
