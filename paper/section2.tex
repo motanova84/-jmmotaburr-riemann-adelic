@@ -1,0 +1,77 @@
+\subsection{Smoothing and Operator Perturbation}
+
+Let \( Z = -i \frac{d}{d\tau} \) be the generator of the scale-flow \( (S_u) \), acting on the Hilbert space \( H = L^2(\mathbb{R}) \). Let \( P = Z \) by notation. Consider the total perturbation kernel:
+\[
+K_{S,\delta} := \sum_{v \in S} K_{v,\delta}, \quad \text{where} \quad K_{v,\delta} := \left( w_\delta * T_v \right)(P),
+\]
+with \( w_\delta \in \mathcal{S}(\mathbb{R}) \) an even Gaussian smoothing kernel, defined as:
+\[
+w_\delta(u) := \frac{1}{\sqrt{4\pi \delta}} e^{-u^2 / 4\delta}.
+\]
+
+We define the perturbed (self-adjoint) operator:
+\[
+A_{S,\delta} := Z + K_{S,\delta}.
+\]
+This defines a family of trace-class perturbations of the unperturbed operator \( A_0 := Z \), indexed by finite sets \( S \subset V \).
+
+\subsection{Smoothed Resolvent and Trace Perturbation}
+
+Let \( s = \sigma + it \in \mathbb{C} \), with \( \sigma > \frac{1}{2} \). Define the smoothed resolvent kernel:
+\[
+R_\delta(s; A) := \int_{\mathbb{R}} e^{(\sigma - \frac{1}{2})u} e^{itu} w_\delta(u) e^{iuA} \, du.
+\]
+Then we define the difference operator:
+\[
+B_{S,\delta}(s) := R_\delta(s; A_{S,\delta}) - R_\delta(s; A_0),
+\]
+and the canonical determinant:
+\[
+D_{S,\delta}(s) := \det \left( I + B_{S,\delta}(s) \right).
+\]
+
+\subsection{Holomorphy and Schatten Control}
+
+\begin{proposition}
+For each fixed \( \delta > 0 \), and on every vertical strip \( \Omega_\varepsilon = \{ s : |\Re s - \frac{1}{2}| \geq \varepsilon \} \) with \( \varepsilon > 0 \), the operator \( B_{S,\delta}(s) \in \mathcal{S}_1 \) (trace-class), and the map \( s \mapsto D_{S,\delta}(s) \) is holomorphic on \( \Omega_\varepsilon \).
+\end{proposition}
+
+\begin{proof}[Sketch]
+Since \( w_\delta \in \mathcal{S}(\mathbb{R}) \), the smoothed resolvent \( R_\delta(s; A) \) is an operator-valued Bochner integral, convergent in the strong operator topology. The boundedness of \( B_{S,\delta}(s) \) in \( \mathcal{S}_1 \) follows from Kato–Seiler–Simon estimates, which bound the trace norm of convolutions of Schwartz functions with operator kernels. Specifically, the trace-class property arises because \( K_{v,\delta} \) is a compact perturbation, and the sum over \( v \in S \) is finite. Holomorphy of \( s \mapsto D_{S,\delta}(s) \) follows from the analyticity of the resolvent and the fact that the determinant of a trace-class perturbation is a holomorphic function of \( s \) (see Simon, 2005, Theorem 9.2).
+\end{proof}
+
+\subsection{Limit and Canonical Determinant \( D(s) \)}
+
+Taking the limit \( S \uparrow V \) (where \( V \) is the full set of places), we define the full kernel:
+\[
+K_\delta := \sum_{v \in V} K_{v,\delta}, \quad A_\delta := Z + K_\delta.
+\]
+By the uniform convergence of the series \( \sum_{v \in V} K_{v,\delta} \) in \( \mathcal{S}_1 \) (guaranteed by the decay properties of \( w_\delta \) and the finiteness of trace norms, as shown in Appendix C), the family \( B_{S,\delta}(s) \) converges to \( B_\delta(s) := R_\delta(s; A_\delta) - R_\delta(s; A_0) \) uniformly on \( \Omega_\varepsilon \). We thus define the canonical determinant:
+\[
+D(s) := \det \left( I + B_\delta(s) \right).
+\]
+
+\begin{remark}[Convergence Justification]
+The convergence relies on the fact that \( \sum_{v} \| K_{v,\delta} \|_{\mathcal{S}_1} < \infty \), which holds due to the exponential decay of local contributions \( T_v \) weighted by \( w_\delta \). This is detailed in Proposition C.10 of Appendix C.
+\end{remark}
+
+\subsection{Functional Equation}
+
+Let \( J \) be the parity operator on \( H \), defined by \( (J\varphi)(\tau) := \varphi(-\tau) \). Then \( J Z J^{-1} = -Z \), and since \( K_\delta \) is symmetric under parity (as \( T_v \) respects the adelic structure), we have \( J A_\delta J^{-1} = 1 - A_\delta \). This yields the symmetry:
+\[
+B_\delta(1 - s) = J B_\delta(s) J^{-1} \quad \Rightarrow \quad D(1 - s) = D(s).
+\]
+
+\begin{proof}[Sketch]
+The symmetry follows from the invariance of the resolvent under the transformation \( s \mapsto 1 - s \) and the parity operator \( J \). Since \( \det(J A J^{-1}) = \det(A) \) for any operator \( A \), the functional equation holds by the properties of the determinant.
+\end{proof}
+
+\subsection{Remarks}
+
+\begin{remark}[Zeta-Free Construction]
+At no point is \( \zeta(s) \), \( \Xi(s) \), or the Euler product used in the definition of \( D(s) \). The entire construction arises from operator theory, smoothing via \( w_\delta \), and spectral perturbations of a scale-invariant system, making it independent of classical zeta-function inputs.
+\end{remark}
+
+\begin{remark}[Order and Growth]
+The determinant \( D(s) \) is entire of order \( \leq 1 \), as established in Section 4 via Hadamard theory and uniform norm control on \( B_\delta(s) \). Its zero set and asymptotic behavior will be analyzed in subsequent sections using explicit formulas and spectral analysis.
+\end{remark}
