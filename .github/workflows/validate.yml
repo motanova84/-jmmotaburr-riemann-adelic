@@ -1,64 +1,36 @@
 name: Validate RH Proof
-
 on:
   push:
     paths:
       - '**.py'
       - 'notebooks/**.ipynb'
   workflow_dispatch:
-
 jobs:
   run-validation:
     runs-on: ubuntu-latest
-    timeout-minutes: 60  # Set maximum job timeout to 60 minutes
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install jupyter mpmath sympy
-
-      - name: Create zeros directory and fetch sample data
+          pip install jupyter mpmath sympy numpy requests
+          mkdir -p zeros
+          curl -L -o zeros/zeros_t1e8.txt https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 || echo "Warning: Failed to fetch Odlyzko zeros."
+      - name: Run validation script
         run: |
-          mkdir -p zeros/
-          # Create a minimal zeros file for testing if none exists
-          if [ ! -f zeros/zeros_t1e8.txt ]; then
-            echo "Creating sample zeros file for validation..."
-            python -c "
-import math
-# Generate first 100 sample zeros (approximate Gram points for testing)
-with open('zeros/zeros_t1e8.txt', 'w') as f:
-    for n in range(1, 101):
-        # Approximate zeros using Gram points formula
-        t_n = 2 * math.pi * n / math.log(n) if n > 1 else 14.134725
-        f.write(f'{t_n:.10f}\n')
-print('✅ Sample zeros file created')
-"
-          fi
-
-      - name: Run validation script with optimized parameters
-        run: python validate_explicit_formula.py --max_primes 500 --max_zeros 100 --timeout 180
-
-      - name: Save validation results
+          export PRIME_COUNT=1000
+          export ZERO_COUNT=2000
+          python validate_explicit_formula.py --delta 0.01 --max_primes 1000 --max_zeros 2000 --test_functions f1 f2 f3 > logs/validation.log 2>&1
+      - name: Save output
         run: |
           mkdir -p data/
-          if [ -f data/validation_results.csv ]; then
-            cp data/validation_results.csv data/validation_output.csv
-            echo "✅ Validation results saved"
-          else
-            echo "❌ No validation results found"
-          fi
-
-      - name: Upload validation results
-        uses: actions/upload-artifact@v4
-        if: always()
+          cp resultados.csv data/validation_output.csv || echo "No CSV output found"
+      - name: Upload logs
+        uses: actions/upload-artifact@v3
         with:
-          name: validation-results
-          path: data/
-          retention-days: 30
+          name: validation-logs
+          path: logs/validation.log

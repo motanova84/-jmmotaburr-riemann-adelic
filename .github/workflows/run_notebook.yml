@@ -1,38 +1,34 @@
 name: Execute Notebook
-
 on:
   push:
     paths:
       - 'notebooks/validation.ipynb'
   workflow_dispatch:
-
 jobs:
   notebook:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          
-      - name: Setup environment
+      - name: Setup environment and fetch zeros
         run: |
           pip install -r requirements.txt
-          pip install jupyter mpmath sympy nbconvert
-          
+          pip install jupyter mpmath sympy nbconvert numpy requests
+          mkdir -p zeros
+          curl -L -o zeros/zeros_t1e8.txt https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 || echo "Warning: Failed to fetch Odlyzko zeros."
       - name: Create docs directory
         run: mkdir -p docs/
-        
       - name: Run notebook
         run: |
-          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html || echo "Notebook execution failed with traceback above"
-
-      - name: Upload notebook HTML output
-        uses: actions/upload-artifact@v4
-        if: always()
+          export PRIME_COUNT=100
+          export ZERO_COUNT=100
+          export INTEGRATION_T=10
+          jupyter nbconvert --to html --execute notebooks/validation.ipynb --output-dir docs/ --output validation.html --ExecutePreprocessor.timeout=1800 || echo "Notebook execution failed with traceback above"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
         with:
           name: notebook-output
           path: docs/validation.html
-          retention-days: 30
