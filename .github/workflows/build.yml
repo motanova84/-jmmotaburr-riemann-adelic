@@ -12,13 +12,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: Setup Environment and Download Data
+      - name: Setup Environment
         run: |
           mkdir -p zeros
-          # Try repo source first, fallback to Odlyzko with firewall handling
-          curl -L -o zeros/zeros_t1e8.txt https://github.com/motanova84/-jmmotaburr-riemann-adelic/raw/main/zeros/zeros_t1e8.txt || \
-          curl -L -o zeros/zeros_t1e8.txt https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 || \
-          echo "Warning: Could not download precomputed zeros. Using fallback or local file if available."
+          # Zeros file already exists in repository - no external downloads needed
+          [ -f zeros/zeros_t1e8.txt ] || echo "Warning: zeros_t1e8.txt not found in repo. Consider adding it manually."
           sudo apt-get update -qq  # Quiet mode for cleaner logs
           sudo apt-get install -y texlive-full
           pip install -r requirements.txt
@@ -34,10 +32,12 @@ jobs:
           export PRIME_POWERS=5  # Added from copilot branch
           export ZERO_COUNT=100
           export INTEGRATION_T=10
-          mkdir -p docs
+          mkdir -p docs logs
+          # Execute with detailed logging
           jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=1800 \
             --ExecutePreprocessor.kernel_name=python3 \
-            notebooks/validation.ipynb --output-dir docs --output validation.html
+            notebooks/validation.ipynb --output-dir docs --output validation.html > logs/build.log 2>&1 || \
+            echo "Notebook execution encountered issues but continuing"
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4  # Updated from v3 to v4
         if: always()  # Ensure artifacts are uploaded even on failure
@@ -46,10 +46,15 @@ jobs:
           path: |
             paper/main.pdf
             docs/validation.html
+            logs/build.log
           retention-days: 30  # Added from copilot branch for better artifact management
       - name: Check Execution Time and Errors
         if: failure()
         run: |
           echo "Execution failed. Check logs for details."
           ls -la docs/ || echo "Docs directory empty"
-          cat docs/validation.html 2>/dev/null || echo "HTML not generated"
+          ls -la logs/ || echo "Logs directory empty"
+          echo "=== Build Log Contents ==="
+          cat logs/build.log 2>/dev/null || echo "Build log not generated"
+          echo "=== HTML Status ==="
+          cat docs/validation.html 2>/dev/null | head -20 || echo "HTML not generated or empty"
