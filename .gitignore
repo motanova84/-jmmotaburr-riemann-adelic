@@ -68,3 +68,10 @@ zeros/temp_*
 *.nav
 *.snm
 *.vrb
+
+# Temporary logs
+logs/*.log
+logs/temp_*
+
+# Exclude test-specific HTML
+docs/validation_test.html
