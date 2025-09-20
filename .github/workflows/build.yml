@@ -36,7 +36,7 @@ jobs:
             --ExecutePreprocessor.kernel_name=python3 \
             validation.ipynb --output-dir docs/ --output validation.html
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: paper-output
