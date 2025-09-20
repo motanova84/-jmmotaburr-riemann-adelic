@@ -15,9 +15,12 @@ jobs:
       - name: Setup Environment and Download Data
         run: |
           mkdir -p zeros
-          curl -L -o zeros/zeros_t1e8.txt https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 || echo "Warning: Could not download precomputed zeros."
+          # Try to download zeros data, but continue if it fails (data already exists in repo)
+          if [ ! -f zeros/zeros_t1e8.txt ]; then
+            curl -L -o zeros/zeros_t1e8.txt https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1 || echo "Warning: Could not download precomputed zeros, using existing data."
+          fi
           sudo apt-get update
-          sudo apt-get install -y texlive-full
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-fonts-recommended
           pip install -r requirements.txt
           pip install nbconvert jupyter mpmath sympy numpy requests pytest
       - name: Compile LaTeX
