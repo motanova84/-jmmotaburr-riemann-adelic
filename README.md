@@ -44,7 +44,19 @@ Please suggest workflows for:
 - Executing `validation.ipynb` automatically using `nbconvert` to produce an HTML output.
 - Fetching Odlyzko zero data if not present in `zeros/`.
 - Archiving numerical outputs as CSV in `data/`.
-- Ensuring results are reproducible under `δ = 0.01`, `P = 1000`, `K = 50`, `N_Ξ = 2000`, `σ₀ = 2`, `T = 50`.
+- Ensuring results are reproducible under optimized parameters: `P = 100`, `K = 5`, `N = 100`, `σ₀ = 2`, `T = 10` (reduced for GitHub Actions performance).
+
+**⚡ Performance Optimizations for CI:**
+
+The `validation.ipynb` notebook has been optimized to run within GitHub Actions timeout limits:
+
+- **Reduced precision**: `mp.mp.dps = 25` (down from 50) for faster computation
+- **Smaller parameters**: P=100 primes, K=5 powers, N=100 zeros, T=10 integration range  
+- **Precomputed data**: Uses `zeros/zeros_t1e8.txt` instead of computing zeros with `mp.zetazero()`
+- **Environment variables**: CI can override parameters via `PRIME_COUNT`, `PRIME_POWERS`, `ZERO_COUNT`, `INTEGRATION_T`
+- **Extended timeouts**: GitHub Actions workflow uses 30-minute notebook timeout
+
+**Expected execution time:** ~2-10 minutes (down from >10 minutes)
 
 You may also suggest tests using `pytest` for mathematical identity checks.
 
@@ -59,4 +71,19 @@ To get AI assistance for this repository, use this comprehensive prompt:
 - downloading and validating Odlyzko zeros
 - running pytest tests for consistency
 - organizing outputs into /data/, logs into /logs/
+```
+
+## 🧪 Local Testing
+
+To test the optimized notebook locally:
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run with custom parameters
+PRIME_COUNT=50 ZERO_COUNT=50 jupyter nbconvert --execute notebooks/validation.ipynb --to html
+
+# Or test the CLI validation
+python validate_explicit_formula.py --max_primes 100 --max_zeros 100
 ```

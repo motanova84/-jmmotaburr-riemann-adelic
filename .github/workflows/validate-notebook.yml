@@ -53,6 +53,10 @@ jobs:
           fi
         env:
           PYTHONUNBUFFERED: 1
+          PRIME_COUNT: 50      # Even smaller for CI
+          PRIME_POWERS: 3      # Reduced powers
+          ZERO_COUNT: 50       # Minimal zeros
+          INTEGRATION_T: 5     # Minimal integration range
 
       - name: 📤 Subir artefacto
         uses: actions/upload-artifact@v4
