@@ -16,8 +16,8 @@ import mpmath as mp
 import sympy as sp
 from utils.mellin import truncated_gaussian, mellin_transform
 
-# Reduce precision for faster computation
-mp.mp.dps = 15  # Reduced from 50
+# Set initial precision (will be overridden by command line args)
+mp.mp.dps = 30  # Increased from 15 for better convergence
 
 # Parámetros del experimento
 P = 10000          # Máximo primo
@@ -66,29 +66,18 @@ def zero_sum_limited(f, filename, max_zeros, lim_u=5):
     print(f"Used {count} zeros for computation")
     return total
 
-if __name__ == "__main__":
-    import argparse
-    import sys
-    import os
+def validate_explicit_formula(max_zeros=1000, precision_dps=30, max_primes=1000, prime_powers=5, integration_t=50, lim_u=3.0):
+    """Main validation function with configurable parameters."""
+    mp.mp.dps = precision_dps  # Set precision
     
-    parser = argparse.ArgumentParser(description='Validate Riemann Hypothesis explicit formula')
-    parser.add_argument('--delta', type=float, default=0.01, help='Precision parameter (unused, for compatibility)')
-    parser.add_argument('--max_primes', type=int, default=1000, help='Maximum prime P to use')
-    parser.add_argument('--max_zeros', type=int, default=2000, help='Maximum number of zeros to use')
-    parser.add_argument('--test_functions', nargs='+', default=['f1'], help='Test functions to use')
-    parser.add_argument('--timeout', type=int, default=300, help='Timeout in seconds')
-    
-    args = parser.parse_args()
-    
-    # Use reduced parameters for faster computation
-    P = min(args.max_primes, 10000)  # Cap at 10000 to prevent timeout
-    K = 5
+    # Use parameters with reasonable caps for performance
+    P = min(max_primes, 10000)  # Cap at 10000 to prevent timeout
+    K = prime_powers
     sigma0 = 2.0
-    T = max(1, min(100, args.max_zeros // 10))  # Ensure T >= 1, reduce T based on max_zeros
-    lim_u = 3.0  # Reduced integration limit
+    T = integration_t
     
     print(f"🔬 Running Riemann Hypothesis validation...")
-    print(f"Parameters: P={P}, K={K}, T={T}, max_zeros={args.max_zeros}")
+    print(f"Parameters: P={P}, K={K}, T={T}, max_zeros={max_zeros}, precision_dps={precision_dps}")
     
     try:
         f = truncated_gaussian
@@ -97,7 +86,7 @@ if __name__ == "__main__":
         zeros_file = 'zeros/zeros_t1e8.txt'
         if not os.path.exists(zeros_file):
             print(f"❌ Zeros file not found: {zeros_file}")
-            sys.exit(1)
+            raise FileNotFoundError(f"Zeros file not found: {zeros_file}")
         
         print("Computing arithmetic side...")
         prime_part = prime_sum(f, P, K)
@@ -106,32 +95,77 @@ if __name__ == "__main__":
         
         print("Computing zero side...")
         # Use only first max_zeros lines from file for faster computation
-        Z = zero_sum_limited(f, zeros_file, args.max_zeros, lim_u)
+        Z = zero_sum_limited(f, zeros_file, max_zeros, lim_u)
 
         print(f"✅ Computation completed!")
         print(f"Aritmético (Primes + Arch): {A}")
         print(f"Zero side (explicit sum):   {Z}")
         error = abs(A - Z)
         print(f"Error absoluto:             {error}")
-        if abs(A) > 0:
-            print(f"Error relativo:             {error / abs(A)}")
+        relative_error = error / abs(A) if abs(A) > 0 else float('inf')
+        print(f"Error relativo:             {relative_error}")
         
         # Save results to CSV
         os.makedirs('data', exist_ok=True)
         with open('data/validation_results.csv', 'w') as f:
             f.write("parameter,value\n")
+            f.write(f"relative_error,{relative_error}\n")
+            f.write(f"validation_status,{'PASSED' if relative_error < 1e-6 else 'FAILED'}\n")
             f.write(f"arithmetic_side,{str(A)}\n")
             f.write(f"zero_side,{str(Z)}\n")
             f.write(f"absolute_error,{str(error)}\n")
-            f.write(f"relative_error,{str(error / abs(A)) if abs(A) > 0 else 'inf'}\n")
             f.write(f"P,{P}\n")
             f.write(f"K,{K}\n")
             f.write(f"T,{T}\n")
-            f.write(f"max_zeros,{args.max_zeros}\n")
+            f.write(f"max_zeros,{max_zeros}\n")
+            f.write(f"precision_dps,{precision_dps}\n")
         
         print("📊 Results saved to data/validation_results.csv")
         
+        # Check if validation passed
+        if relative_error >= 1e-6:
+            print(f"❌ Validation FAILED: Relative error {relative_error} exceeds tolerance 1e-6")
+            raise ValueError(f"Relative error {relative_error} exceeds tolerance 1e-6")
+        else:
+            print(f"✅ Validation PASSED: Relative error {relative_error} is within tolerance 1e-6")
+        
+        return relative_error
+        
     except Exception as e:
         print(f"❌ Error during computation: {e}")
-        sys.exit(1)
+        # Still save error results to CSV
+        os.makedirs('data', exist_ok=True)
+        with open('data/validation_results.csv', 'w') as f:
+            f.write("parameter,value\n")
+            f.write(f"relative_error,inf\n")
+            f.write(f"validation_status,ERROR\n")
+            f.write(f"error_message,{str(e)}\n")
+        raise
+
+if __name__ == "__main__":
+    import argparse
+    import sys
+    import os
+    
+    parser = argparse.ArgumentParser(description='Validate Riemann Hypothesis explicit formula')
+    parser.add_argument('--max_zeros', type=int, default=1000, help='Maximum number of zeros to use')
+    parser.add_argument('--precision_dps', type=int, default=30, help='Decimal precision for mpmath')
+    parser.add_argument('--max_primes', type=int, default=1000, help='Maximum number of primes')
+    parser.add_argument('--prime_powers', type=int, default=5, help='Number of prime powers')
+    parser.add_argument('--integration_t', type=int, default=50, help='Integration range T')
+    parser.add_argument('--lim_u', type=float, default=3.0, help='Upper limit for u')
+    parser.add_argument('--timeout', type=int, default=300, help='Timeout in seconds (unused)')
+    
+    args = parser.parse_args()
+    
+    # Call main validation function with parsed arguments
+    validate_explicit_formula(
+        max_zeros=args.max_zeros,
+        precision_dps=args.precision_dps,
+        max_primes=args.max_primes,
+        prime_powers=args.prime_powers,
+        integration_t=args.integration_t,
+        lim_u=args.lim_u
+    )
+
 
