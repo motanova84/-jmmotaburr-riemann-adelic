@@ -108,4 +108,4 @@ zeros/*_t1e12.txt
 # MyPy
 .mypy_cache/
 .dmypy.json
-dmypy.json
+dmypy.json*.png
