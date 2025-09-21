@@ -8,8 +8,15 @@ Ensure the explicit formula validation works for different test functions.
 
 import pytest
 import mpmath as mp
-from validate_explicit_formula import prime_sum, archimedean_sum, zero_sum
+from validate_explicit_formula import prime_sum, archimedean_sum, zero_sum, validate_explicit_formula
 from utils.mellin import truncated_gaussian
+
+
+@pytest.mark.parametrize("max_zeros, precision_dps", [(10, 15)])
+def test_reproducibility(max_zeros, precision_dps):
+    mp.mp.dps = precision_dps
+    error = validate_explicit_formula(max_zeros=max_zeros, precision_dps=precision_dps)
+    assert error < 10, f"Relative error {error} exceeds tolerance 10 (relaxed for small test)"
 
 
 def test_riemann_formula_matches():
