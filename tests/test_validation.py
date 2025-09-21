@@ -103,8 +103,8 @@ def test_weil_formula_basic():
     mp.mp.dps = 15  # Lower precision for speed
     
     try:
-        error, left_side, right_side = weil_explicit_formula(
-            zeros, primes, f, t_max=10, precision=15
+        error, rel_error, left_side, right_side, simulated_parts = weil_explicit_formula(
+            zeros, primes, f, max_zeros=len(zeros), t_max=10, precision=15
         )
         
         # Check that we get finite results
@@ -113,7 +113,8 @@ def test_weil_formula_basic():
         assert mp.isfinite(right_side), "Right side should be finite"
         assert error >= 0, "Error should be non-negative"
         
-        print(f"Weil formula test: error={error}, left={left_side}, right={right_side}")
+        print(f"Weil formula test: error={error}, rel_error={rel_error}, left={left_side}, right={right_side}")
+        print(f"Simulated parts: {simulated_parts}")
         
     except Exception as e:
         pytest.fail(f"Weil formula computation failed: {e}")

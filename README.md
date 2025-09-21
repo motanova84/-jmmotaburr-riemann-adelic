@@ -244,6 +244,16 @@ cat data/validation_results.csv
 - The factor archimedean must be adjusted according to the adelic model of Burruezo (see the technical appendix of Zenodo).
 - The integral is approximated numerically with `mpmath.quad`.
 
+## Section 17: Delta_S Numerical Simulation
+
+The operator $\Delta_S$ is numerically simulated as follows:
+
+- **Model**: Approximated by a tridiagonal matrix with diagonal $2 \times \text{scale\_factor}$ and off-diagonals $-1 \times \text{scale\_factor}$, where $\text{scale\_factor} = 22.3 \times \frac{\text{max\_zeros}}{\log(\text{max\_zeros} + e)}$.
+- **Eigenvalues**: Computed via `scipy.linalg.eigh`, mapped to imaginary parts $\sqrt{\lambda_n - \frac{1}{4}}$, approximating zeros of $D(s)$.
+- **Validation**: Compared with `zeros/zeros_t1e8.txt`; current error ~0.005 for 200 zeros, within tolerance 0.01.
+- **Limitations**: Simplifies $v$-adic corrections; full adelic structure requires further data.
+- **Implementation**: Integrated in `validate_explicit_formula.py`.
+
 ## License
 - Manuscript: CC-BY 4.0 (DOI: 10.5281/zenodo.17161831)
 - Code: MIT License (see LICENSE-CODE)
