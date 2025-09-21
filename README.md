@@ -42,10 +42,14 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 3. Run validation: `python validate_explicit_formula.py --max_zeros 1000 --precision_dps 30`
 4. Check results in `data/validation_results.csv`.
 
+## Data
+
+- `zeros/zeros_t1e8.txt`: Odlyzko (2024), [https://www-users.cse.umn.edu/~odlyzko/zeta_tables/](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/).
+
 ## Environment Setup
 - **Python**: 3.10.12
 - **Dependencies**: `pip install -r requirements.txt`
-- **Data**: `zeros/zeros_t1e8.txt` from Odlyzko (https://www-users.cse.umn.edu/~odlyzko/zeta_tables/, 2025-09-01, Public Domain).
+- **Data**: Automatically fetched via `utils/fetch_odlyzko.py` or manually from Odlyzko's tables
 
 ## Numerical Validation Parameters
 - `max_zeros`: 1000
