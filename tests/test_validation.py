@@ -103,8 +103,8 @@ def test_weil_formula_basic():
     mp.mp.dps = 15  # Lower precision for speed
     
     try:
-        error, left_side, right_side = weil_explicit_formula(
-            zeros, primes, f, t_max=10, precision=15
+        error, relative_error, left_side, right_side = weil_explicit_formula(
+            zeros, primes, f, max_zeros=len(zeros), t_max=10, precision=15
         )
         
         # Check that we get finite results
