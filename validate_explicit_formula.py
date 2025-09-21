@@ -47,7 +47,8 @@ def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
     mp.mp.dps = precision
     
     # Left side: suma sobre ceros con factor de escala + integral archimedeana
-    # Add scaling factor as specified in problem statement: 421.6 * sqrt(max_zeros)
+    # Add scaling factor as specified in problem statement: 421.6 * sqrt(max_zeros) 
+    # Note: This implementation follows the problem statement but may need empirical adjustment
     scale_factor = mp.mpf('421.6') * mp.sqrt(max_zeros)
     zero_sum = scale_factor * sum(f(mp.mpc(0, rho)) for rho in zeros)
     

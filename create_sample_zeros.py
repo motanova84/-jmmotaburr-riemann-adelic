@@ -24,7 +24,9 @@ def create_sample_zeros(n=100, file_path="zeros/zeros_t1e8.txt"):
         file_path: Output file path for the zeros
     """
     # Ensure directory exists
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    dir_path = os.path.dirname(file_path)
+    if dir_path:  # Only create directory if there is one
+        os.makedirs(dir_path, exist_ok=True)
     
     print(f"🔢 Generating {n} sample zeros...")
     print(f"📁 Output file: {file_path}")
