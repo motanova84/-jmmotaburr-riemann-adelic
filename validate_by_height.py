@@ -16,11 +16,25 @@ def prime_sum(f, P, K):
     return total
 
 def archimedean_sum(f, sigma0=2.0, T=100, lim_u=5.0):
+    """Compute the archimedean contribution to the explicit formula.
+    
+    This implements: (1/4π) ∫ [ψ(s/2) - log π] * f̂(s) dt - f̂(1) 
+    where s = σ₀ + it. The 1/2 factor in the kernel addresses the 
+    "doubling" issue mentioned in the problem statement.
+    """
     def integrand(t):
-        s = sigma0 + 1j * t
-        kernel = mp.digamma(s/2) - mp.log(mp.pi)
+        s = mp.mpc(sigma0, t)
+        # Apply 1/2 factor to address "summing twice" issue
+        kernel = 0.5 * (mp.digamma(s/2) - mp.log(mp.pi))
         return kernel * mellin_transform(f, s, lim_u)
-    return (mp.quad(integrand, [-T, T]) / (2j * mp.pi)).real
+    
+    # Integration part (note: 2*pi, not 2j*pi)
+    integral = mp.quad(integrand, [-T, T]) / (2 * mp.pi)
+    
+    # Subtract residue at s=1  
+    residue = mellin_transform(f, mp.mpf(1), lim_u)
+    
+    return (integral - residue).real
 
 def zero_sum(f, zeros, lim_u=5.0):
     total = mp.mpf('0')

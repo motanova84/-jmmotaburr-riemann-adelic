@@ -78,6 +78,26 @@ The `validation.ipynb` notebook has been optimized to run within GitHub Actions 
 
 You may also suggest tests using `pytest` for mathematical identity checks.
 
+## 🧪 Validation Parameters
+
+### CI vs Scientific Validation
+
+This repository implements **two levels of validation**:
+
+**CI (Technical) Validation:**
+- Parameters: `--max_primes 200 --max_zeros 200 --tolerance 1.5`
+- Purpose: Verify scripts run without errors and produce reasonable results
+- Expected runtime: ~2 minutes  
+- Tolerance: 150% relative error (acceptable for significantly reduced parameter sets)
+
+**Scientific Validation:**
+- Parameters: `--max_primes 1000 --max_zeros 2000 --tolerance 1e-6`  
+- Purpose: High-precision validation of mathematical identities
+- Expected runtime: >1 hour
+- Tolerance: 1e-6 relative error (documented in Appendix C and Zenodo)
+
+> **Note**: The CI uses reduced parameters for speed and accepts higher error tolerance. Full scientific validation with tight tolerances is performed offline with larger parameter sets.
+
 ## 🤖 Quick Copilot Integration
 
 To get AI assistance for this repository, use this comprehensive prompt:
