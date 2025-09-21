@@ -46,6 +46,9 @@ Thumbs.db
 data/validation_results.csv
 data/validation_output.csv
 
+# Checksum files
+*.md5
+
 # Generated HTML output
 docs/validation.html
 
