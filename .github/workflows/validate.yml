@@ -10,7 +10,7 @@ on:
 jobs:
   run-validation:
     runs-on: ubuntu-latest
-    timeout-minutes: 60  # Set maximum job timeout to 60 minutes
+    timeout-minutes: 30  # Reduced timeout for balanced parameters
     steps:
       - uses: actions/checkout@v4
 
@@ -43,7 +43,13 @@ print('✅ Sample zeros file created')
           fi
 
       - name: Run validation script with optimized parameters
-        run: python validate_explicit_formula.py --max_primes 500 --max_zeros 100 --timeout 180
+        run: |
+          echo "Running validation with improved parameters:"
+          echo "- max_zeros: 500 (increased from 100)"  
+          echo "- precision_dps: 25 (increased from 15)"
+          echo "- max_primes: 500 (balanced for CI)"
+          echo "- integration_t: 20 (optimized for convergence vs speed)"
+          python validate_explicit_formula.py --max_zeros 500 --precision_dps 25 --max_primes 500 --prime_powers 5 --integration_t 20 --lim_u 3.0
 
       - name: Run tests
         run: pytest tests/ -v
