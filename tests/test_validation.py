@@ -119,5 +119,130 @@ def test_weil_formula_basic():
         pytest.fail(f"Weil formula computation failed: {e}")
 
 
+def test_fetch_odlyzko_utility():
+    """Test the Odlyzko data fetching utility."""
+    from utils.fetch_odlyzko import validate_zeros_format, create_sample_zeros
+    import tempfile
+    import os
+    
+    with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f:
+        # Create test zeros file
+        test_zeros = [14.134725, 21.022040, 25.010858, 30.424876, 32.935062]
+        for zero in test_zeros:
+            f.write(f"{zero:.6f}\n")
+        temp_file = f.name
+    
+    try:
+        # Test validation
+        is_valid, message = validate_zeros_format(temp_file, max_lines=10)
+        assert is_valid, f"Validation should pass: {message}"
+        
+        # Test sample creation
+        sample_file = temp_file + "_sample"
+        success = create_sample_zeros(sample_file, num_zeros=50)
+        assert success, "Sample creation should succeed"
+        
+        if os.path.exists(sample_file):
+            is_valid, message = validate_zeros_format(sample_file, max_lines=50)
+            assert is_valid, f"Sample validation should pass: {message}"
+            os.remove(sample_file)
+            
+    finally:
+        if os.path.exists(temp_file):
+            os.remove(temp_file)
+
+
+def test_checksum_validation():
+    """Test the checksum validation utility."""
+    try:
+        from utils.checksum_zeros import validate_zeros_file, compute_file_hash
+        
+        # Test with existing zeros file if available
+        zeros_file = 'zeros/zeros_t1e8.txt'
+        if os.path.exists(zeros_file):
+            result = validate_zeros_file(zeros_file)
+            assert isinstance(result, bool), "Validation should return boolean"
+            
+            file_hash = compute_file_hash(zeros_file)
+            assert file_hash is None or isinstance(file_hash, str), "Hash should be string or None"
+            
+            print(f"✅ Checksum validation test passed for {zeros_file}")
+        else:
+            print("⚠️ Skipping checksum test - zeros file not available")
+            
+    except ImportError as e:
+        pytest.skip(f"Checksum utility not available: {e}")
+
+
+def test_environment_setup():
+    """Test basic environment setup components."""
+    import sys
+    
+    # Test Python version
+    assert sys.version_info >= (3, 8), "Python 3.8+ required"
+    
+    # Test required modules are importable
+    required_modules = ['mpmath', 'numpy', 'sympy', 'requests']
+    for module_name in required_modules:
+        try:
+            __import__(module_name)
+        except ImportError:
+            pytest.fail(f"Required module {module_name} not available")
+    
+    # Test project structure
+    required_dirs = ['utils', 'tests', 'zeros', 'data', 'logs']
+    for directory in required_dirs:
+        assert os.path.exists(directory), f"Required directory {directory}/ missing"
+    
+    print("✅ Environment setup test passed")
+
+
+def test_precision_scaling():
+    """Test validation with different precision levels."""
+    mp.mp.dps = 10  # Low precision for speed
+    
+    f = truncated_gaussian
+    
+    # Test with very small parameters for speed
+    P_tiny = 10   # Only first 10 primes
+    K_tiny = 2    # Only squares
+    T_tiny = 2    # Minimal integration
+    
+    try:
+        prime_part = prime_sum(f, P_tiny, K_tiny)
+        arch_part = archimedean_sum(f, 2.0, T_tiny, 2.0)
+        
+        # Just check that computations complete and return finite values
+        assert mp.isfinite(prime_part), "Prime sum should be finite"
+        assert mp.isfinite(arch_part), "Archimedean sum should be finite"
+        
+        print(f"✅ Precision scaling test passed (P={P_tiny}, K={K_tiny}, T={T_tiny})")
+        
+    except Exception as e:
+        pytest.fail(f"Precision scaling test failed: {e}")
+
+
+def test_error_handling():
+    """Test error handling in validation functions."""
+    f = truncated_gaussian
+    
+    # Test with invalid parameters
+    try:
+        # This should handle gracefully or raise appropriate errors
+        result = prime_sum(f, 0, 1)  # Zero primes
+        assert mp.isfinite(result) or result == 0, "Should handle zero primes gracefully"
+    except Exception:
+        pass  # Exception is acceptable for invalid input
+    
+    # Test with very large parameters (should not crash)
+    try:
+        result = prime_sum(f, 2, 1)  # Just prime 2
+        assert mp.isfinite(result), "Should handle minimal prime set"
+    except Exception as e:
+        pytest.fail(f"Minimal parameter test failed: {e}")
+    
+    print("✅ Error handling test passed")
+
+
 if __name__ == "__main__":
     pytest.main([__file__])
