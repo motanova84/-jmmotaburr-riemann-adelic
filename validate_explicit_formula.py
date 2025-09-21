@@ -18,7 +18,7 @@ import sympy as sp
 from scipy.linalg import schur, eigh
 from sympy import bernoulli, S, integrate, exp
 import matplotlib.pyplot as plt
-from utils.mellin import truncated_gaussian, mellin_transform
+from utils.mellin import truncated_gaussian, mellin_transform, get_test_function
 
 # Reduce precision for faster computation
 mp.mp.dps = 15  # Reduced from 50
@@ -262,7 +262,10 @@ if __name__ == "__main__":
     print(f"Precision: {args.precision_dps} decimal places")
     
     try:
-        f = truncated_gaussian
+        # Select test function
+        test_function_name = args.test_functions[0] if args.test_functions else 'truncated_gaussian'
+        f = get_test_function(test_function_name)
+        print(f"Using test function: {test_function_name}")
         
         # Check if zeros file exists
         zeros_file = 'zeros/zeros_t1e8.txt'

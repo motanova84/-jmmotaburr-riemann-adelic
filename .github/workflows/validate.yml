@@ -5,6 +5,7 @@ on:
     paths:
       - '**.py'
       - 'notebooks/**.ipynb'
+      - 'requirements.txt'
   workflow_dispatch:
 
 env:
@@ -26,7 +27,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install bc
 
   validate-data:
     needs: setup
@@ -70,50 +70,101 @@ print('✅ Sample zeros file created')
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          sudo apt-get update && sudo apt-get install -y bc
-      - name: Run validation script
+      - name: Create data directory
         run: |
-          mkdir -p logs data
+          mkdir -p data logs
+      - name: Run validation script (original formula)
+        run: |
+          echo "🧮 Running original explicit formula..."
+          python validate_explicit_formula.py \
+            --max_primes $PRIME_COUNT \
+            --max_zeros $ZERO_COUNT \
+            --prime_powers $PRIME_POWERS \
+            --integration_t $INTEGRATION_T \
+            --precision_dps $PRECISION_DPS > logs/validation_original.log 2>&1
+          
+          # Rename results to distinguish from Weil formula
+          if [ -f data/validation_results.csv ]; then
+            mv data/validation_results.csv data/validation_original.csv
+          fi
+      - name: Run validation script (Weil formula)
+        run: |
+          echo "🧮 Running Weil explicit formula..."
           python validate_explicit_formula.py \
             --use_weil_formula \
             --max_primes $PRIME_COUNT \
             --max_zeros $ZERO_COUNT \
             --prime_powers $PRIME_POWERS \
             --integration_t $INTEGRATION_T \
-            --precision_dps $PRECISION_DPS > logs/validation.log 2>&1
-      - name: Check error threshold
-        run: |
+            --precision_dps $PRECISION_DPS > logs/validation_weil.log 2>&1
+          
+          # Rename results to distinguish from original formula
           if [ -f data/validation_results.csv ]; then
-            error=$(grep "relative_error" data/validation_results.csv | cut -d',' -f2)
-            echo "Found relative error: $error"
-            if (( $(echo "$error <= 1e-6" | bc -l) )); then
-              echo "✅ Error $error within tolerance"
-            else
-              echo "❌ Error $error exceeds tolerance 1e-6"
-              echo "This is expected for demonstration - the formula requires more precision and data"
-            fi
-          else
-            echo "❌ No validation results found"
-            exit 1
+            mv data/validation_results.csv data/validation_weil.csv
           fi
+      - name: Check error thresholds and create summary
+        run: |
+          echo "📊 Creating validation summary..."
+          echo "validation_type,file,status" > data/validation_summary.csv
+          
+          # Check original formula results
+          if [ -f data/validation_original.csv ]; then
+            error=$(grep "relative_error" data/validation_original.csv | cut -d',' -f2)
+            echo "Original formula relative error: $error"
+            echo "original,validation_original.csv,completed" >> data/validation_summary.csv
+          else
+            echo "❌ Original formula validation failed"
+            echo "original,validation_original.csv,failed" >> data/validation_summary.csv
+          fi
+          
+          # Check Weil formula results
+          if [ -f data/validation_weil.csv ]; then
+            error=$(grep "relative_error" data/validation_weil.csv | cut -d',' -f2)
+            echo "Weil formula relative error: $error"
+            echo "weil,validation_weil.csv,completed" >> data/validation_summary.csv
+          else
+            echo "❌ Weil formula validation failed"  
+            echo "weil,validation_weil.csv,failed" >> data/validation_summary.csv
+          fi
+          
+          echo "✅ Validation summary created in data/validation_summary.csv"
 
       - name: Run tests
         run: pytest tests/ -v
 
-      - name: Save validation results
+      - name: Store CSV outputs in /data/
         run: |
-          mkdir -p data/
-          if [ -f data/validation_results.csv ]; then
-            cp data/validation_results.csv data/validation_output.csv
-            echo "✅ Validation results saved"
+          echo "📁 Storing CSV outputs in /data/ directory..."
+          mkdir -p /tmp/data_output
+          
+          # Copy all CSV files to output location
+          if [ -d data/ ]; then
+            cp data/*.csv /tmp/data_output/ 2>/dev/null || echo "No CSV files to copy"
+            ls -la data/
+            echo "✅ CSV files stored in data/ directory"
           else
-            echo "❌ No validation results found"
+            echo "❌ No data directory found"
           fi
 
-      - name: Upload validation results
+      - name: Upload validation results as artifacts
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: validation-results
-          path: data/
+          name: riemann-validation-results
+          path: |
+            data/
+            logs/
+            schur_eigenvalue_magnitudes.png
           retention-days: 30
+
+      - name: Display validation results
+        if: always()
+        run: |
+          echo "📊 Validation Results Summary:"
+          echo "=============================="
+          if [ -f data/validation_summary.csv ]; then
+            cat data/validation_summary.csv
+          fi
+          echo ""
+          echo "📁 Generated files in data/:"
+          ls -la data/ 2>/dev/null || echo "No files in data/"

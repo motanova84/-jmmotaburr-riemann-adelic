@@ -45,6 +45,13 @@ Thumbs.db
 # Generated validation results
 data/validation_results.csv
 data/validation_output.csv
+data/validation_original.csv
+data/validation_weil.csv
+data/validation_summary.csv
+
+# Generated plots
+schur_eigenvalue_magnitudes.png
+*.png
 
 # Generated HTML output
 docs/validation.html
