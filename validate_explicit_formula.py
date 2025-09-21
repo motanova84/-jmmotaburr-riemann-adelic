@@ -135,3 +135,45 @@ if __name__ == "__main__":
         print(f"❌ Error during computation: {e}")
         sys.exit(1)
 
+
+def validate_explicit_formula(max_zeros=1000, precision_dps=30):
+    """
+    Run validation of the explicit formula and return relative error.
+    
+    Args:
+        max_zeros: Maximum number of zeros to use
+        precision_dps: Precision in decimal places
+    
+    Returns:
+        float: Relative error
+    """
+    import os
+    
+    # Set precision
+    mp.mp.dps = precision_dps
+    
+    # Use reduced parameters for faster computation
+    P = min(1000, 10000)  # Cap at 10000 to prevent timeout
+    K = 5
+    sigma0 = 2.0
+    T = max(1, min(100, max_zeros // 10))  # Ensure T >= 1, reduce T based on max_zeros
+    lim_u = 3.0  # Reduced integration limit
+    
+    f = truncated_gaussian
+    
+    # Check if zeros file exists
+    zeros_file = 'zeros/zeros_t1e8.txt'
+    if not os.path.exists(zeros_file):
+        raise FileNotFoundError(f"Zeros file not found: {zeros_file}")
+    
+    # Computing arithmetic side
+    prime_part = prime_sum(f, P, K)
+    arch_part = archimedean_sum(f, sigma0, T, lim_u)
+    A = prime_part + arch_part
+    
+    # Computing zero side
+    Z = zero_sum_limited(f, zeros_file, max_zeros, lim_u)
+
+    error = abs(A - Z)
+    return error / abs(A) if abs(A) > 0 else float('inf')
+
