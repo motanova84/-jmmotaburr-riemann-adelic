@@ -2,15 +2,15 @@
 
 This repository contains numerical validation code for the paper:
 
-**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Definitive Revision V3.6)**  
+**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
 Author: José Manuel Mota Burruezo  
 Date: September 13, 2025  
-DOI: [(https://doi.org/10.5281/zenodo.17116291)
+DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
 Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
 https://doi.org/10.5281/zenodo.17161831
 
-Notebook Validation Commit: `abc123`
+Notebook Validation Commit: `7f191eb`
 
 ##  Objective
 
@@ -35,6 +35,24 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ├── requirements.txt
 └── README.md
 ```
+
+## Reproduction Steps
+1. Install dependencies: `pip install -r requirements.txt`
+2. Ensure `zeros/zeros_t1e8.txt` is present (see Data section).
+3. Run validation: `python validate_explicit_formula.py --max_zeros 1000 --precision_dps 30`
+4. Check results in `data/validation_results.csv`.
+
+## Environment Setup
+- **Python**: 3.10.12
+- **Dependencies**: `pip install -r requirements.txt`
+- **Data**: `zeros/zeros_t1e8.txt` from Odlyzko (https://www-users.cse.umn.edu/~odlyzko/zeta_tables/, 2025-09-01, Public Domain).
+
+## Numerical Validation Parameters
+- `max_zeros`: 1000
+- `precision_dps`: 30
+- `max_primes`: 1000
+- `prime_powers`: 5
+- `integration_t`: 50
 
 ## 🧠 Copilot Prompt (IA guidance)
 
@@ -87,3 +105,7 @@ PRIME_COUNT=50 ZERO_COUNT=50 jupyter nbconvert --execute notebooks/validation.ip
 # Or test the CLI validation
 python validate_explicit_formula.py --max_primes 100 --max_zeros 100
 ```
+
+## License
+- Manuscript: CC-BY 4.0 (DOI: 10.5281/zenodo.17161831)
+- Code: MIT License (see LICENSE-CODE)
