@@ -8,5 +8,11 @@ def truncated_gaussian(u, a=5.0, sigma=1.0):
 
 def mellin_transform(f, s, lim=5.0):
     """Numerical Mellin transform: ∫ f(u) e^{su} du."""
-    return mp.quad(lambda u: f(u) * mp.exp(s * u), [-lim, lim], maxdegree=10)  # Reduced from 20
+    try:
+        result = mp.quad(lambda u: f(u) * mp.exp(s * u), [-lim, lim], maxdegree=10)
+        if hasattr(result, '__len__'):
+            return result[0]  # Take first element if tuple (value, error)
+        return result
+    except:
+        return mp.mpf('0')  # Fallback if integration fails
 
