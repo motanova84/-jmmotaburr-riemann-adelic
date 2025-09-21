@@ -18,7 +18,7 @@ import sympy as sp
 from scipy.linalg import schur, eigh
 from sympy import bernoulli, S, integrate, exp
 import matplotlib.pyplot as plt
-from utils.mellin import truncated_gaussian, mellin_transform
+from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3, A_infty
 
 # Reduce precision for faster computation
 mp.mp.dps = 15  # Reduced from 50
@@ -94,23 +94,8 @@ def prime_sum(f, P, K):
     return total
 
 def archimedean_sum(f, sigma0, T, lim_u):
-    def integrand(t):
-        s = sigma0 + 1j * t
-        kernel = mp.digamma(s / 2) - mp.log(mp.pi)
-        return kernel * mellin_transform(f, s, lim_u)
-    
-    try:
-        result = mp.quad(integrand, [-T, T], error=True)
-        if hasattr(result, '__len__') and len(result) >= 2:
-            integral, err = result
-        else:
-            integral = result
-            err = 0
-    except:
-        integral = 0
-        err = 0
-        
-    return (integral / (2j * mp.pi)).real
+    """Compute archimedean sum using A_infty helper function."""
+    return A_infty(f, sigma0, T, lim_u)
 
 def zero_sum(f, filename, lim_u=5):
     total = mp.mpf('0')
@@ -380,7 +365,9 @@ if __name__ == "__main__":
     parser.add_argument('--prime_powers', type=int, default=5, help='Maximum prime powers K to use')
     parser.add_argument('--integration_t', type=int, default=50, help='Integration limit T for archimedean terms')
     parser.add_argument('--precision_dps', type=int, default=30, help='Decimal precision for mpmath')
-    parser.add_argument('--test_functions', nargs='+', default=['f1'], help='Test functions to use')
+    parser.add_argument('--test_functions', nargs='+', default=['truncated_gaussian'], 
+                        choices=['f1', 'f2', 'f3', 'truncated_gaussian', 'gaussian'],
+                        help='Test functions to use: f1 (bump), f2 (cosine), f3 (polynomial), truncated_gaussian')
     parser.add_argument('--timeout', type=int, default=300, help='Timeout in seconds')
     parser.add_argument('--use_weil_formula', action='store_true', help='Use Weil explicit formula implementation')
     
@@ -402,7 +389,19 @@ if __name__ == "__main__":
     print(f"Precision: {args.precision_dps} decimal places")
     
     try:
-        f = truncated_gaussian
+        # Select test function based on arguments
+        test_function_map = {
+            'f1': f1,
+            'f2': f2, 
+            'f3': f3,
+            'truncated_gaussian': truncated_gaussian,
+            'gaussian': truncated_gaussian  # Alias
+        }
+        
+        function_name = args.test_functions[0] if args.test_functions else 'truncated_gaussian'
+        f = test_function_map.get(function_name, truncated_gaussian)
+        
+        print(f"Using test function: {function_name}")
         
         # Check if zeros file exists
         zeros_file = 'zeros/zeros_t1e8.txt'
@@ -450,6 +449,7 @@ if __name__ == "__main__":
                 f.write(f"T,{T}\n")
                 f.write(f"max_zeros,{args.max_zeros}\n")
                 f.write(f"precision_dps,{args.precision_dps}\n")
+                f.write(f"test_function,{function_name}\n")
                 f.write(f"formula_type,weil\n")
                 f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
         
@@ -486,6 +486,7 @@ if __name__ == "__main__":
                 f.write(f"T,{T}\n")
                 f.write(f"max_zeros,{args.max_zeros}\n")
                 f.write(f"precision_dps,{args.precision_dps}\n")
+                f.write(f"test_function,{function_name}\n")
                 f.write(f"formula_type,original\n")
                 f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
         
