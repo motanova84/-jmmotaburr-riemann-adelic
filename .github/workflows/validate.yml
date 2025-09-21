@@ -45,6 +45,9 @@ print('✅ Sample zeros file created')
       - name: Run validation script with optimized parameters
         run: python validate_explicit_formula.py --max_primes 500 --max_zeros 100 --timeout 180
 
+      - name: Run tests
+        run: pytest tests/ -v
+
       - name: Save validation results
         run: |
           mkdir -p data/
