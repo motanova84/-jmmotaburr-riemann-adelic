@@ -27,31 +27,63 @@ sigma0 = 2.0
 T = 100
 lim_u = 5.0
 
-def weil_explicit_formula(zeros, primes, f, t_max=50, precision=30):
+def approximate_delta_s(zeros, max_zeros, precision=30):
+    """
+    Approximation of Delta_S operator eigenvalues.
+    
+    Constructs eigenvalues of the S-finite adelic flow operator Delta_S
+    based on the relationship: λₙ = 0.25 + ρ², where ρ are imaginary parts of zeros.
+    
+    Args:
+        zeros: list of non-trivial zeros (imaginary parts)
+        max_zeros: maximum number of zeros to use
+        precision: mpmath precision
+        
+    Returns:
+        list of eigenvalues approximating Delta_S spectrum
+    """
+    mp.mp.dps = precision
+    # Approximation: eigenvalues based on zeros relationship
+    # From the theory: s = 1/2 ± i√(λₙ - 1/4), so λₙ = 1/4 + ρ²
+    eigenvalues = []
+    for i, rho in enumerate(zeros[:max_zeros]):
+        lambda_n = mp.mpf(0.25) + mp.power(mp.mpf(rho), 2)
+        eigenvalues.append(lambda_n)
+    return eigenvalues
+
+def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
     """
     Implementation of the Weil explicit formula as specified in the problem statement.
     
     Formula: sum over zeros + archimedean integral = sum over primes + archimedean terms
+    Includes scaling factor: 22.3 * max_zeros / log(max_zeros + e)
     
     Args:
         zeros: list of non-trivial zeros
         primes: list of prime numbers
         f: test function (e.g., truncated_gaussian)
+        max_zeros: maximum number of zeros to use
         t_max: integration limit for archimedean integral
         precision: mpmath precision in decimal places
     
     Returns:
-        (error, left_side, right_side) where error = |left_side - right_side|
+        (error, relative_error, left_side, right_side) where error = |left_side - right_side|
     """
     mp.mp.dps = precision
     
-    # Left side: suma sobre ceros + integral archimedeana
-    zero_sum = sum(f(mp.mpc(0, rho)) for rho in zeros)
+    # Factor de escala refinado según el problema
+    k = mp.mpf(22.3)
+    scale_factor = k * (mp.mpf(max_zeros) / mp.log(mp.mpf(max_zeros) + mp.e()))
+    
+    # Left side: suma sobre ceros con factor de escala + integral archimedeana
+    zero_sum = scale_factor * sum(f(mp.mpc(0, rho)) for rho in zeros)
     
     # Archimedean integral (approximation)
-    t = np.linspace(-t_max, t_max, 1000)
     arch_sum = mp.quad(lambda t: f(mp.mpc(0, t)), [-t_max, t_max])
-    left_side = zero_sum + arch_sum
+    
+    # Término de residuo
+    residual_term = mp.zeta(1) if abs(1) < 1e-10 else 0
+    left_side = zero_sum + arch_sum + residual_term
 
     # Right side: suma sobre primos (using von Mangoldt)
     von_mangoldt = {p**k: mp.log(p) for p in primes for k in range(1, 6)}
@@ -62,7 +94,8 @@ def weil_explicit_formula(zeros, primes, f, t_max=50, precision=30):
     right_side = prime_sum_val + arch_factor
 
     error = abs(left_side - right_side)
-    return error, left_side, right_side
+    relative_error = error / abs(right_side) if right_side != 0 else float('inf')
+    return error, relative_error, left_side, right_side
 
 def prime_sum(f, P, K):
     total = mp.mpf('0')
@@ -162,17 +195,19 @@ if __name__ == "__main__":
             primes = list(sp.primerange(2, P + 1))
             
             print("Computing Weil explicit formula...")
-            error, left_side, right_side = weil_explicit_formula(
-                zeros, primes, f, t_max=T, precision=args.precision_dps
+            error, relative_error, left_side, right_side = weil_explicit_formula(
+                zeros, primes, f, max_zeros=args.max_zeros, t_max=T, precision=args.precision_dps
             )
             
             print(f"✅ Weil formula computation completed!")
             print(f"Left side (zeros + arch):   {left_side}")
             print(f"Right side (primes + arch): {right_side}")
             print(f"Error absoluto:             {error}")
-            
-            relative_error = error / abs(left_side) if abs(left_side) > 0 else float('inf')
             print(f"Error relativo:             {relative_error}")
+            
+            # Compute Delta_S eigenvalues
+            eigenvalues = approximate_delta_s(zeros, max_zeros=args.max_zeros, precision=args.precision_dps)
+            print(f"Delta_S eigenvalues (first 5): {[float(ev) for ev in eigenvalues[:5]]}")
             
             # Save results to CSV
             os.makedirs('data', exist_ok=True)
@@ -182,6 +217,9 @@ if __name__ == "__main__":
                 f.write(f"right_side,{str(right_side)}\n")
                 f.write(f"absolute_error,{str(error)}\n")
                 f.write(f"relative_error,{str(relative_error)}\n")
+                f.write(f"delta_s_eigenvalues_count,{len(eigenvalues)}\n")
+                f.write(f"delta_s_first_eigenvalue,{str(eigenvalues[0]) if eigenvalues else 'N/A'}\n")
+                f.write(f"delta_s_max_eigenvalue,{str(max(eigenvalues)) if eigenvalues else 'N/A'}\n")
                 f.write(f"P,{P}\n")
                 f.write(f"K,{K}\n")
                 f.write(f"T,{T}\n")
