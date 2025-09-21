@@ -42,6 +42,14 @@ print('✅ Sample zeros file created')
 "
           fi
 
+      - name: Validate Odlyzko data integrity
+        run: |
+          echo "🔍 Running Odlyzko data validation techniques..."
+          python utils/checksum_zeros.py
+          python utils/validate_monotonicity.py
+          python utils/validate_known_zeros.py
+          python utils/cross_validate_zeros.py
+
       - name: Run validation script with optimized parameters
         run: python validate_explicit_formula.py --max_primes 500 --max_zeros 100 --timeout 180
 
