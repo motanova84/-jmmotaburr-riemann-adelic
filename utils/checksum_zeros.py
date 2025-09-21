@@ -82,7 +82,11 @@ def compute_file_hash(filename="zeros/zeros_t1e8.txt", algorithm="md5"):
     if not os.path.exists(filename):
         return None
         
-    hash_obj = hashlib.new(algorithm)
+    try:
+        hash_obj = hashlib.new(algorithm)
+    except ValueError:
+        print(f"❌ Unsupported hash algorithm: {algorithm}")
+        return None
     
     try:
         with open(filename, 'rb') as f:
@@ -99,6 +103,29 @@ def compute_file_hash(filename="zeros/zeros_t1e8.txt", algorithm="md5"):
         return None
 
 
+def compute_multiple_hashes(filename="zeros/zeros_t1e8.txt", algorithms=None):
+    """Compute multiple hash algorithms for enhanced integrity checking."""
+    if algorithms is None:
+        algorithms = ["md5", "sha256", "sha512"]
+    
+    if not os.path.exists(filename):
+        print(f"❌ File not found: {filename}")
+        return {}
+    
+    print(f"🔐 Computing multiple hashes for: {filename}")
+    hashes = {}
+    
+    for algorithm in algorithms:
+        try:
+            file_hash = compute_file_hash(filename, algorithm)
+            if file_hash:
+                hashes[algorithm] = file_hash
+        except Exception as e:
+            print(f"⚠️  Failed to compute {algorithm.upper()}: {e}")
+    
+    return hashes
+
+
 def main():
     """Main validation function."""
     zeros_file = "zeros/zeros_t1e8.txt"
@@ -110,10 +137,27 @@ def main():
         print("❌ Zeros file validation FAILED")
         sys.exit(1)
     
-    # Compute integrity hash
-    file_hash = compute_file_hash(zeros_file)
-    if file_hash:
-        print("🔐 File hash computed successfully")
+    # Compute multiple integrity hashes for enhanced validation
+    print("\n🔐 Computing integrity hashes...")
+    hashes = compute_multiple_hashes(zeros_file, ["md5", "sha256", "sha512"])
+    
+    if hashes:
+        print(f"✅ Successfully computed {len(hashes)} hash checksums")
+        
+        # Save hashes to a file for future verification
+        try:
+            os.makedirs("data", exist_ok=True)
+            hash_file = "data/zeros_checksums.txt"
+            with open(hash_file, 'w') as f:
+                f.write(f"# Integrity checksums for {zeros_file}\n")
+                f.write(f"# Generated on: {os.path.getctime(zeros_file)}\n")
+                for algo, hash_val in hashes.items():
+                    f.write(f"{algo.upper()}:{hash_val}\n")
+            print(f"💾 Checksums saved to {hash_file}")
+        except Exception as e:
+            print(f"⚠️  Could not save checksums: {e}")
+    else:
+        print("⚠️  No hash checksums computed")
     
     print("✅ Zeros file validation PASSED")
     return 0
