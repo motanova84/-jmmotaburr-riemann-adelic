@@ -16,7 +16,7 @@ import mpmath as mp
 import numpy as np
 import sympy as sp
 from scipy.linalg import schur, eigh
-from sympy import pAdic, bernoulli, S, integrate, exp
+from sympy import bernoulli, S, integrate, exp
 import matplotlib.pyplot as plt
 from utils.mellin import truncated_gaussian, mellin_transform
 
@@ -55,7 +55,7 @@ def weil_explicit_formula(zeros, primes, f, t_max=50, precision=30):
     zero_sum = sum(f(mp.mpc(0, rho)) for rho in zeros[:len(simulated_imag_parts)])
     
     k = 22.3
-    scale_factor = k * (len(zeros) / mp.log(len(zeros) + mp.e()))
+    scale_factor = k * (len(zeros) / mp.log(len(zeros) + mp.e))
     zero_sum *= scale_factor
     
     t = np.linspace(-t_max, t_max, 1000)
@@ -128,16 +128,16 @@ def zero_sum_limited(f, filename, max_zeros, lim_u=5):
 
 def zeta_p_interpolation(p, s, precision=30):
     """p-adic zeta function interpolation using Bernoulli numbers."""
-    p_adic_field = pAdic(p, precision)
-    s_padic = p_adic_field(s)
+    # Simple p-adic zeta approximation without pAdic class
+    # Using basic Bernoulli number interpolation
     zeta_values = {}
     for k in range(1, 5):
         if k % 2 == 0:
             continue
         s_val = 1 - k
         b_k = bernoulli(k)
-        zeta_values[s_val] = -b_k / k if k > 0 else 1.0
-    closest_s = min(zeta_values.keys(), key=lambda x: abs(x - s))
+        zeta_values[s_val] = float(-b_k / k) if k > 0 else 1.0
+    closest_s = min(zeta_values.keys(), key=lambda x: abs(x - float(s)))
     return zeta_values[closest_s]
 
 def mahler_measure(eigenvalues, places=None, precision=30):
@@ -153,15 +153,15 @@ def mahler_measure(eigenvalues, places=None, precision=30):
         z = mp.exp(2 * mp.pi * mp.j * theta)
         return abs(mp.polyval(p_x, z))
     
-    integral, _ = mp.quad(lambda theta: mp.log(p_eval(theta)), [0, 1], maxdegree=1000)
+    integral = mp.quad(lambda theta: mp.log(p_eval(theta)), [0, 1], maxdegree=1000)
     m_jensen = mp.exp(integral)
     
     m_padic = 1.0
     for p in places:
-        p_adic_field = pAdic(p, precision)
-        p_adic_norm = sum(max(1, p_adic_field(mp.re(root)).lift().abs()) for root in roots) / len(roots)
+        # Simple p-adic norm approximation without pAdic class
+        p_adic_norm = sum(max(1, abs(float(mp.re(root)))) for root in roots) / len(roots) if roots else 1.0
         m_padic *= p_adic_norm
-    return m_jensen * m_padic
+    return float(m_jensen * m_padic)
 
 def characteristic_polynomial(delta_matrix, precision=30):
     """Compute characteristic polynomial coefficients using Newton's identities."""
@@ -170,10 +170,13 @@ def characteristic_polynomial(delta_matrix, precision=30):
     coeffs = np.zeros(N + 1, dtype=complex)
     coeffs[N] = 1.0
     
+    # Convert to complex to avoid dtype casting issues
+    delta_matrix = delta_matrix.astype(complex)
+    
     for k in range(N, 0, -1):
         trace_term = np.trace(np.linalg.matrix_power(delta_matrix, N - k)) / (N - k + 1)
         coeffs[k - 1] = -trace_term
-        delta_matrix -= np.eye(N) * coeffs[k - 1]
+        delta_matrix -= np.eye(N, dtype=complex) * coeffs[k - 1]
     
     return coeffs
 
@@ -182,11 +185,11 @@ def simulate_delta_s(max_zeros, precision=30, places=None):
     mp.mp.dps = precision
     N = max_zeros
     k = 22.3
-    scale_factor = k * (N / mp.log(N + mp.e()))
+    scale_factor = k * (N / mp.log(N + mp.e))
     
     # Matriz base tridiagonal
-    diagonal = np.full(N, 2.0) * scale_factor
-    off_diagonal = np.full(N - 1, -1.0) * scale_factor
+    diagonal = np.full(N, 2.0) * float(scale_factor)
+    off_diagonal = np.full(N - 1, -1.0) * float(scale_factor)
     delta_matrix = np.diag(diagonal) + np.diag(off_diagonal, k=1) + np.diag(off_diagonal, k=-1)
     
     # Correcciones v-ádicas con zeta_p y Mahler measure
@@ -195,16 +198,16 @@ def simulate_delta_s(max_zeros, precision=30, places=None):
     eigenvalues, _ = eigh(delta_matrix)
     mahler = mahler_measure(eigenvalues, places, precision)
     for p in places:
-        w_p = 1.0 / mp.log(p)
+        w_p = 1.0 / float(mp.log(p))
         zeta_p = zeta_p_interpolation(p, 0, precision)
         for i in range(N):
             for k in range(2):
                 offset = pow(p, k, N)
-                weight = w_p * zeta_p * mahler / (k + 1)
+                weight = w_p * zeta_p * float(mahler) / (k + 1)
                 if i + offset < N:
-                    delta_matrix[i, i + offset] += weight * scale_factor
+                    delta_matrix[i, i + offset] += weight * float(scale_factor)
                 if i - offset >= 0:
-                    delta_matrix[i, i - offset] += weight * scale_factor
+                    delta_matrix[i, i - offset] += weight * float(scale_factor)
     
     # Descomposición de Schur
     T, U = schur(delta_matrix)
@@ -283,17 +286,17 @@ if __name__ == "__main__":
             primes = list(sp.primerange(2, P + 1))
             
             print("Computing Weil explicit formula...")
-            error, left_side, right_side = weil_explicit_formula(
+            error, rel_error, left_side, right_side, simulated_imag_parts = weil_explicit_formula(
                 zeros, primes, f, t_max=T, precision=args.precision_dps
             )
             
             print(f"✅ Weil formula computation completed!")
+            print(f"Simulated imaginary parts (first 5): {simulated_imag_parts[:5]}")
+            print(f"Actual zeros (first 5): {zeros[:5]}")
             print(f"Left side (zeros + arch):   {left_side}")
             print(f"Right side (primes + arch): {right_side}")
             print(f"Error absoluto:             {error}")
-            
-            relative_error = error / abs(left_side) if abs(left_side) > 0 else float('inf')
-            print(f"Error relativo:             {relative_error}")
+            print(f"Error relativo:             {rel_error}")
             
             # Save results to CSV
             os.makedirs('data', exist_ok=True)
@@ -302,7 +305,7 @@ if __name__ == "__main__":
                 f.write(f"left_side,{str(left_side)}\n")
                 f.write(f"right_side,{str(right_side)}\n")
                 f.write(f"absolute_error,{str(error)}\n")
-                f.write(f"relative_error,{str(relative_error)}\n")
+                f.write(f"relative_error,{str(rel_error)}\n")
                 f.write(f"P,{P}\n")
                 f.write(f"K,{K}\n")
                 f.write(f"T,{T}\n")

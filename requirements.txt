@@ -5,3 +5,5 @@ jupyter==1.0.0
 nbconvert==7.16.4
 requests==2.32.0
 pytest==8.2.0
+scipy>=1.11.0
+matplotlib>=3.5.0
