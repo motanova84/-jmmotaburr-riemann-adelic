@@ -1,0 +1,213 @@
+name: 🔬 Riemann Hypothesis Validation on Push
+
+on:
+  push:
+    branches: [main, develop, "copilot/*"]
+    paths:
+      - 'validate_explicit_formula.py'
+      - 'utils/*.py'
+      - 'requirements.txt'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      use_weil_formula:
+        description: 'Use Weil explicit formula implementation'
+        required: false
+        default: 'false'
+        type: boolean
+      max_primes:
+        description: 'Maximum number of primes to use'
+        required: false
+        default: '100'
+        type: string
+      max_zeros:
+        description: 'Maximum number of zeros to use'
+        required: false
+        default: '100' 
+        type: string
+
+jobs:
+  validate-hypothesis:
+    name: 🧮 Validate Riemann Hypothesis
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    env:
+      MAX_PRIMES: ${{ github.event.inputs.max_primes || '100' }}
+      MAX_ZEROS: ${{ github.event.inputs.max_zeros || '100' }}
+      USE_WEIL: ${{ github.event.inputs.use_weil_formula || 'false' }}
+      PRECISION_DPS: 30
+      INTEGRATION_T: 10
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: 💾 Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          # Install additional dependencies that may be needed
+          pip install scipy matplotlib
+      
+      - name: 📊 Prepare zeros data
+        run: |
+          # Ensure zeros directory and data exist
+          if [[ ! -f zeros/zeros_t1e8.txt ]] && [[ -f utils/fetch_odlyzko.py ]]; then
+            echo "🔍 Fetching zeros data..."
+            python utils/fetch_odlyzko.py --precision t1e8 || echo "⚠️ Could not fetch zeros data, using existing"
+          fi
+          
+          # Check if we have any zeros data
+          if [[ -f zeros/zeros_t1e8.txt ]]; then
+            line_count=$(wc -l < zeros/zeros_t1e8.txt)
+            echo "✅ Using zeros file with $line_count zeros"
+          else
+            echo "❌ No zeros data available"
+            exit 1
+          fi
+      
+      - name: 🔬 Run validation (Standard)
+        if: env.USE_WEIL != 'true'
+        run: |
+          echo "🔬 Running standard Riemann Hypothesis validation..."
+          echo "Parameters: primes=$MAX_PRIMES, zeros=$MAX_ZEROS, precision=$PRECISION_DPS"
+          
+          python validate_explicit_formula.py \
+            --max_primes $MAX_PRIMES \
+            --max_zeros $MAX_ZEROS \
+            --integration_t $INTEGRATION_T \
+            --precision_dps $PRECISION_DPS
+      
+      - name: 🔬 Run validation (Weil Formula)
+        if: env.USE_WEIL == 'true'
+        run: |
+          echo "🧮 Running Weil explicit formula validation..."
+          echo "Parameters: primes=$MAX_PRIMES, zeros=$MAX_ZEROS, precision=$PRECISION_DPS"
+          
+          python validate_explicit_formula.py \
+            --use_weil_formula \
+            --max_primes $MAX_PRIMES \
+            --max_zeros $MAX_ZEROS \
+            --integration_t $INTEGRATION_T \
+            --precision_dps $PRECISION_DPS
+      
+      - name: 📊 Validate results
+        run: |
+          if [[ -f data/validation_results.csv ]]; then
+            echo "✅ Validation completed successfully!"
+            echo ""
+            echo "📋 Results Summary:"
+            cat data/validation_results.csv
+            echo ""
+            
+            # Extract key metrics
+            if grep -q "relative_error" data/validation_results.csv; then
+              relative_error=$(grep "relative_error" data/validation_results.csv | cut -d',' -f2)
+              validation_status=$(grep "validation_status" data/validation_results.csv | cut -d',' -f2)
+              formula_type=$(grep "formula_type" data/validation_results.csv | cut -d',' -f2)
+              
+              echo "📊 Key Metrics:"
+              echo "  • Formula Type: $formula_type"
+              echo "  • Relative Error: $relative_error"
+              echo "  • Status: $validation_status"
+              
+              # Set outputs for later steps
+              echo "relative_error=$relative_error" >> $GITHUB_OUTPUT
+              echo "validation_status=$validation_status" >> $GITHUB_OUTPUT
+              echo "formula_type=$formula_type" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "❌ No validation results found!"
+            echo "🔍 Checking for errors..."
+            ls -la data/ || echo "No data directory"
+            exit 1
+          fi
+        id: validate_results
+      
+      - name: 🎨 Generate visualization (if available)
+        run: |
+          if [[ -f schur_eigenvalue_magnitudes.png ]]; then
+            echo "✅ Eigenvalue visualization generated"
+            ls -la *.png
+          else
+            echo "ℹ️ No visualization generated (expected for standard formula)"
+          fi
+      
+      - name: 📤 Store validation results as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: riemann-validation-results-${{ github.run_id }}
+          path: |
+            data/validation_results.csv
+            *.png
+          retention-days: 30
+      
+      - name: 💾 Commit results to repository (on main branch)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          # Configure git
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Create timestamped copy of results
+          timestamp=$(date +%Y%m%d_%H%M%S)
+          cp data/validation_results.csv "data/validation_results_${timestamp}.csv"
+          
+          # Add and commit results
+          git add data/validation_results*.csv
+          if [[ -f schur_eigenvalue_magnitudes.png ]]; then
+            git add *.png
+          fi
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🔬 Auto: Validation results from ${{ github.sha }} [skip ci]
+            
+            Formula: ${{ steps.validate_results.outputs.formula_type }}
+            Status: ${{ steps.validate_results.outputs.validation_status }}
+            Error: ${{ steps.validate_results.outputs.relative_error }}
+            
+            Generated: $(date)
+            Workflow: ${{ github.workflow }}
+            Run: ${{ github.run_id }}"
+            
+            git push
+            echo "✅ Results committed to repository"
+          fi
+      
+      - name: 📋 Summary comment
+        run: |
+          echo "## 🧮 Riemann Hypothesis Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ steps.validate_results.outputs.validation_status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Formula:** ${{ steps.validate_results.outputs.formula_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Relative Error:** ${{ steps.validate_results.outputs.relative_error }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Parameters Used" >> $GITHUB_STEP_SUMMARY
+          echo "- **Max Primes:** $MAX_PRIMES" >> $GITHUB_STEP_SUMMARY
+          echo "- **Max Zeros:** $MAX_ZEROS" >> $GITHUB_STEP_SUMMARY  
+          echo "- **Precision:** $PRECISION_DPS decimal places" >> $GITHUB_STEP_SUMMARY
+          echo "- **Integration Range:** $INTEGRATION_T" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Full Results" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`csv" >> $GITHUB_STEP_SUMMARY
+          cat data/validation_results.csv >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Results stored in \`data/validation_results.csv\` and uploaded as workflow artifact." >> $GITHUB_STEP_SUMMARY
