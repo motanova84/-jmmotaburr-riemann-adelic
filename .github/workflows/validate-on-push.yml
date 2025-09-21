@@ -12,6 +12,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: read
+  issues: write
+  pull-requests: write
+
 env:
   # Fast execution parameters for push validation
   PRIME_COUNT: 100
