@@ -1,5 +1,10 @@
 # Riemann-Adelic
 
+### (Español) Repositorio de validación numérica para la prueba condicional de la Hipótesis de Riemann
+### (English) Numerical validation repository for the conditional proof of the Riemann Hypothesis
+
+**📖 See [README_EN.md](README_EN.md) for the complete English version.**
+
 This repository contains numerical validation code for the paper:
 
 **A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
