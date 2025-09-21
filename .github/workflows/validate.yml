@@ -42,6 +42,9 @@ print('✅ Sample zeros file created')
 "
           fi
 
+      - name: Validate zeros checksum
+        run: python utils/checksum_zeros.py
+
       - name: Run validation script with optimized parameters
         run: python validate_explicit_formula.py --max_primes 500 --max_zeros 100 --timeout 180
 
