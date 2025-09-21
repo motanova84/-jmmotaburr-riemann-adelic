@@ -12,6 +12,49 @@ https://doi.org/10.5281/zenodo.17161831
 
 Notebook Validation Commit: `7f191eb`
 
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.8+ 
+- Internet connection (for downloading Riemann zeros data)
+
+### One-Command Setup
+```bash
+# Clone and setup in one go
+git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic.git
+cd -jmmotaburr-riemann-adelic
+python setup_environment.py --full-setup
+```
+
+### Manual Setup
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Fetch Riemann zeros data  
+python utils/fetch_odlyzko.py --precision t1e8
+
+# 3. Run quick validation
+python validate_explicit_formula.py --max_primes 100 --max_zeros 100
+
+# 4. Execute notebook
+jupyter nbconvert --execute notebooks/validation.ipynb --to html
+```
+
+### Validation Results
+The validation compares two sides of the Weil explicit formula:
+- **Left side**: Sum over non-trivial zeros + archimedean integral
+- **Right side**: Sum over prime powers + archimedean terms
+
+Expected output:
+```
+✅ Computation completed!
+Aritmético (Primes + Arch): [complex number]
+Zero side (explicit sum):   [complex number]  
+Error absoluto:             [small value]
+Error relativo:             [< 1e-6 for high precision]
+```
+
 ##  Objective
 
 Validate the Weil-type explicit formula for the canonical function $D(s)$ constructed via adelic flows, without using the Euler product of $\zeta(s)$. The validation includes:
