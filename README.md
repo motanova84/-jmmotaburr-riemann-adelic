@@ -106,6 +106,39 @@ PRIME_COUNT=50 ZERO_COUNT=50 jupyter nbconvert --execute notebooks/validation.ip
 python validate_explicit_formula.py --max_primes 100 --max_zeros 100
 ```
 
+## Section 14: Weil Explicit Formula Details
+
+This repository implements a numerical validation of the Weil-type explicit formula, adapted for the canonical function $D(s) \equiv \Xi(s)$ via S-finite adelic flows. The formula is:
+
+$$
+\sum_{\rho} f(\rho) + \int_{-\infty}^{\infty} f(it) dt = \sum_{n=1}^{\infty} \Lambda(n) f(\log n) + \text{archimedean terms},
+$$
+
+where:
+- $\rho$ are the non-trivial zeros (from `zeros/zeros_t1e8.txt`).
+- $\Lambda(n)$ is the von Mangoldt function.
+- $f(u)$ is a compact-support test function (e.g., $e^{-u^2}$).
+- Archimedean terms include $\Gamma(s/2) \pi^{-s/2}$ adjustments.
+
+The validation compares the left-hand side (zeros + integral) with the right-hand side (primes + archimedean) to achieve a relative error $\leq 10^{-6}$. See `validate_explicit_formula.py` for implementation.
+
+**Usage:**
+```bash
+# Run Weil explicit formula validation
+python validate_explicit_formula.py --use_weil_formula \
+  --max_primes 1000 --max_zeros 1000 \
+  --prime_powers 5 --integration_t 50 \
+  --precision_dps 30
+
+# Check validation results
+cat data/validation_results.csv
+```
+
+**Implementation Notes:**
+- Requires `mpmath` for high precision and `numpy` for efficiency.
+- The factor archimedean must be adjusted according to the adelic model of Burruezo (see the technical appendix of Zenodo).
+- The integral is approximated numerically with `mpmath.quad`.
+
 ## License
 - Manuscript: CC-BY 4.0 (DOI: 10.5281/zenodo.17161831)
 - Code: MIT License (see LICENSE-CODE)

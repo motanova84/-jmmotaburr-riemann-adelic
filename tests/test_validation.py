@@ -9,7 +9,12 @@ Ensure the explicit formula validation works for different test functions.
 import pytest
 import mpmath as mp
 import os
-from validate_explicit_formula import prime_sum, archimedean_sum, zero_sum_limited
+import sys
+
+# Add the project root to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from validate_explicit_formula import prime_sum, archimedean_sum, zero_sum_limited, weil_explicit_formula
 from utils.mellin import truncated_gaussian
 
 
@@ -84,6 +89,34 @@ def test_mellin_transform_properties():
     result = mellin_transform(f, s, lim)
     assert isinstance(result, (mp.mpc, mp.mpf))  # Should return a complex number
     assert mp.isfinite(result)  # Should be finite
+
+
+def test_weil_formula_basic():
+    """Test that the Weil explicit formula runs without errors."""
+    import sympy as sp
+    
+    # Use small test data
+    zeros = [mp.mpf(14.13), mp.mpf(21.02), mp.mpf(25.01)]  # First few zeros (approximate)
+    primes = [2, 3, 5, 7, 11]  # First few primes
+    f = truncated_gaussian
+    
+    mp.mp.dps = 15  # Lower precision for speed
+    
+    try:
+        error, left_side, right_side = weil_explicit_formula(
+            zeros, primes, f, t_max=10, precision=15
+        )
+        
+        # Check that we get finite results
+        assert mp.isfinite(error), "Error should be finite"
+        assert mp.isfinite(left_side), "Left side should be finite"  
+        assert mp.isfinite(right_side), "Right side should be finite"
+        assert error >= 0, "Error should be non-negative"
+        
+        print(f"Weil formula test: error={error}, left={left_side}, right={right_side}")
+        
+    except Exception as e:
+        pytest.fail(f"Weil formula computation failed: {e}")
 
 
 if __name__ == "__main__":
