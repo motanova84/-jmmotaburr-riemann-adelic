@@ -134,8 +134,8 @@ def run_validation_demo(max_primes=1000, max_zeros=1000, precision_dps=30, show_
                 original = zeros[i] if i < len(zeros) else "N/A"
                 print(f"     {i+1:2d}. Original: {original}, Corrected: {sim_zero}")
             
-            print(f"   Error magnitude: {abs(error):.2e}")
-            print(f"   Error in scientific notation: {error:.6e}")
+            print(f"   Error magnitude: {abs(float(error)):.2e}")
+            print(f"   Error in scientific notation: {float(error):.6e}")
         
         return True
         
