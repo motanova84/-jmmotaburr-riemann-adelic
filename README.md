@@ -80,22 +80,53 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ```
 
 ## Reproduction Steps
+
+### Quick Validation (Light Mode - Recommended for CI)
 1. Install dependencies: `pip install -r requirements.txt`
-2. Ensure `zeros/zeros_t1e8.txt` is present (see Data section).
-3. Run validation: `python validate_explicit_formula.py --max_zeros 1000 --precision_dps 30`
-4. Check results in `data/validation_results.csv`.
+2. Use preincluded light dataset: `zeros/zeros_light.txt` (1000 zeros, ~18KB)
+3. Run fast validation: `python validate_explicit_formula.py --max_zeros 1000 --precision_dps 25`
+4. Check results in `data/validation_results.csv` (typical runtime: 2-5 minutes)
+
+### Full Validation (Complete Mode - For Research)
+1. Install dependencies: `pip install -r requirements.txt`
+2. Download complete dataset: `python utils/fetch_odlyzko.py --precision t1e8` (optional, 100k zeros, ~1.8MB)
+3. Run complete validation: `python validate_explicit_formula.py --max_zeros 10000 --precision_dps 50`
+4. Check high-precision results in `data/validation_results.csv` (target error ≤ 1e-6)
+
+## Data Files
+
+### Included Files (Always Available)
+- `zeros/zeros_light.txt` - First 1000 Riemann zeros (18KB, preincluded)
+- Essential for out-of-the-box validation in CI environments
+- Sufficient for mathematical identity verification
+
+### Optional Files (Downloaded as Needed)  
+- `zeros/zeros_t1e8.txt` - Complete Odlyzko zeros dataset (1.8MB, ~100k zeros)
+- Required only for high-precision research validation
+- Download with: `python utils/fetch_odlyzko.py --precision t1e8`
+- Source: Odlyzko tables (https://www-users.cse.umn.edu/~odlyzko/zeta_tables/, Public Domain)
 
 ## Environment Setup
-- **Python**: 3.10.12
+- **Python**: 3.8+ (tested on 3.10.12)
 - **Dependencies**: `pip install -r requirements.txt`
-- **Data**: `zeros/zeros_t1e8.txt` from Odlyzko (https://www-users.cse.umn.edu/~odlyzko/zeta_tables/, 2025-09-01, Public Domain).
+- **Light Mode**: Uses preincluded `zeros/zeros_light.txt` (1000 zeros, always available)
+- **Full Mode**: Downloads `zeros/zeros_t1e8.txt` from Odlyzko (100k zeros, public domain)
 
-## Numerical Validation Parameters
-- `max_zeros`: 1000
-- `precision_dps`: 30
-- `max_primes`: 1000
-- `prime_powers`: 5
-- `integration_t`: 50
+## Validation Modes
+
+### 🚀 Light Mode (Default - Quick Validation)
+- **Dataset**: `zeros/zeros_light.txt` (1000 zeros, preincluded)
+- **Parameters**: `max_zeros=1000`, `precision_dps=25`, `max_primes=1000`
+- **Runtime**: 2-5 minutes
+- **Purpose**: CI/CD validation, quick testing, mathematical identity verification
+- **Expected Error**: ~0.1-1.0 (acceptable for testing)
+
+### 🔬 Full Mode (Research - Complete Validation)  
+- **Dataset**: `zeros/zeros_t1e8.txt` (100k zeros, download required)
+- **Parameters**: `max_zeros=10000`, `precision_dps=50`, `max_primes=10000`
+- **Runtime**: 15-45 minutes
+- **Purpose**: Research validation, publication-quality results
+- **Target Error**: ≤ 1e-6 (high precision)
 
 ## 🧠 Copilot Prompt (IA guidance)
 

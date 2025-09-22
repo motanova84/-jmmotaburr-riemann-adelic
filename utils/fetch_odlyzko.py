@@ -1,6 +1,20 @@
 """
-Enhanced Odlyzko zeros fetching utility with improved error handling.
-Supports multiple sources and formats with validation and fallback options.
+Fetch Odlyzko's verified zeros tables (public domain) and save as zeros/zeros_t1e8.txt.
+
+This script downloads Riemann zeta function zeros computed by Andrew Odlyzko and made 
+available in the public domain. The zeros are verified to high precision and essential 
+for validating explicit formulas in analytic number theory.
+
+Features:
+- Downloads from Odlyzko's verified zeros database
+- Supports multiple precision levels (t1e8, t1e10, t1e12)
+- Automatic fallback to mirror sites
+- File validation and integrity checking
+- Generates sample data if download fails (for testing)
+
+Usage:
+    python utils/fetch_odlyzko.py --precision t1e8
+    python utils/fetch_odlyzko.py --precision t1e10 --force
 """
 
 import requests
@@ -158,6 +172,26 @@ def create_sample_zeros(output_path: str, num_zeros: int = 1000) -> bool:
         logger.error(f"❌ Failed to create sample zeros: {str(e)}")
         return False
 
+def create_light_dataset(source_file: str, light_file: str, num_zeros: int = 1000) -> bool:
+    """Create a light dataset with the first N zeros from the full dataset."""
+    try:
+        if not os.path.exists(source_file):
+            logger.warning(f"Source file {source_file} does not exist")
+            return False
+            
+        with open(source_file, 'r') as src, open(light_file, 'w') as dst:
+            for i, line in enumerate(src):
+                if i >= num_zeros:
+                    break
+                dst.write(line)
+        
+        logger.info(f"✅ Created light dataset: {light_file} ({num_zeros} zeros)")
+        return True
+        
+    except Exception as e:
+        logger.error(f"❌ Error creating light dataset: {e}")
+        return False
+
 def fetch_zeros_data(target_precision: str = "t1e8", force_download: bool = False) -> bool:
     """Main function to fetch zeros data with fallback options."""
     zeros_dir = "zeros"
@@ -228,6 +262,8 @@ def main():
                        help='Force re-download even if file exists')
     parser.add_argument('--validate-only', action='store_true',
                        help='Only validate existing file without downloading')
+    parser.add_argument('--light-dataset', action='store_true',
+                       help='Create light dataset (1000 zeros) for quick validation')
     
     args = parser.parse_args()
     
@@ -244,8 +280,16 @@ def main():
     logger.info("🚀 Starting Riemann zeros data fetching...")
     success = fetch_zeros_data(args.precision, args.force)
     
+    # Create light dataset if requested or if it doesn't exist
+    if success and (args.light_dataset or not os.path.exists("zeros/zeros_light.txt")):
+        full_file = f"zeros/zeros_{args.precision}.txt"
+        light_file = "zeros/zeros_light.txt"
+        create_light_dataset(full_file, light_file, 1000)
+    
     if success:
         logger.info("🎊 Zeros data ready for computational validation!")
+        if os.path.exists("zeros/zeros_light.txt"):
+            logger.info("💡 Light dataset available for quick validation!")
         sys.exit(0)
     else:
         logger.error("💥 Failed to prepare zeros data")
