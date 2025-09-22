@@ -353,6 +353,32 @@ def simulate_delta_s_schur(max_zeros, precision=30, places=None):
     imaginary_parts = [float(mp.sqrt(abs(lam - 0.25))) for lam in eigenvalues_schur if lam > 0.25]
     return eigenvalues_schur, imaginary_parts, U
 
+# Example usage function for when no arguments are provided
+def run_example():
+    """Run p-adic zeta function example with default parameters."""
+    print("🧮 Running p-adic zeta function example...")
+    
+    # Load zeros
+    with open("zeros/zeros_t1e8.txt", "r") as f:
+        zeros = [float(line.strip()) for line in f][:200]
+    
+    primes = np.array([2, 3, 5, 7, 11, 13, 17][:100])
+    f = lambda u: mp.exp(-u**2)
+    
+    error, relative_error, left_side, right_side, simulated_imag_parts = weil_explicit_formula(
+        zeros, primes, f, max_zeros=200, precision=30
+    )
+    
+    print(f"Simulated imaginary parts (first 5): {simulated_imag_parts[:5]}")
+    print(f"Actual zeros (first 5): {zeros[:5]}")
+    print(f"Absolute Error: {error}, Relative Error: {relative_error}")
+    
+    # Save results
+    os.makedirs("data", exist_ok=True)
+    with open("data/validation_results.csv", "w") as f:
+        f.write(f"relative_error,{relative_error}\n")
+        f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'FAILED'}\n")
+
 if __name__ == "__main__":
     import argparse
     import sys
@@ -372,6 +398,11 @@ if __name__ == "__main__":
     parser.add_argument('--use_weil_formula', action='store_true', help='Use Weil explicit formula implementation')
     
     args = parser.parse_args()
+    
+    # If no arguments provided, run the example
+    if len(sys.argv) == 1:
+        run_example()
+        sys.exit(0)
     
     # Set precision
     mp.mp.dps = args.precision_dps
@@ -496,30 +527,4 @@ if __name__ == "__main__":
         print(f"❌ Error during computation: {e}")
         sys.exit(1)
 
-
-if __name__ == "__main__":
-    # Example usage as specified in problem statement
-    if len(sys.argv) == 1:  # No arguments provided, run example
-        print("🧮 Running p-adic zeta function example...")
-        
-        # Load zeros
-        with open("zeros/zeros_t1e8.txt", "r") as f:
-            zeros = [float(line.strip()) for line in f][:200]
-        
-        primes = np.array([2, 3, 5, 7, 11, 13, 17][:100])
-        f = lambda u: mp.exp(-u**2)
-        
-        error, rel_error, left, right, simulated_imag_parts = weil_explicit_formula(
-            zeros, primes, f, max_zeros=200, precision=30
-        )
-        
-        print(f"Simulated imaginary parts (first 5): {simulated_imag_parts[:5]}")
-        print(f"Actual zeros (first 5): {zeros[:5]}")
-        print(f"Absolute Error: {error}, Relative Error: {rel_error}")
-        
-        # Save results
-        os.makedirs("data", exist_ok=True)
-        with open("data/validation_results.csv", "w") as f:
-            f.write(f"relative_error,{rel_error}\n")
-            f.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
 
