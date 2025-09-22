@@ -497,29 +497,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
 
-if __name__ == "__main__":
-    # Example usage as specified in problem statement
-    if len(sys.argv) == 1:  # No arguments provided, run example
-        print("🧮 Running p-adic zeta function example...")
-        
-        # Load zeros
-        with open("zeros/zeros_t1e8.txt", "r") as f:
-            zeros = [float(line.strip()) for line in f][:200]
-        
-        primes = np.array([2, 3, 5, 7, 11, 13, 17][:100])
-        f = lambda u: mp.exp(-u**2)
-        
-        error, rel_error, left, right, simulated_imag_parts = weil_explicit_formula(
-            zeros, primes, f, max_zeros=200, precision=30
-        )
-        
-        print(f"Simulated imaginary parts (first 5): {simulated_imag_parts[:5]}")
-        print(f"Actual zeros (first 5): {zeros[:5]}")
-        print(f"Absolute Error: {error}, Relative Error: {rel_error}")
-        
-        # Save results
-        os.makedirs("data", exist_ok=True)
-        with open("data/validation_results.csv", "w") as f:
-            f.write(f"relative_error,{rel_error}\n")
-            f.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
+
 
