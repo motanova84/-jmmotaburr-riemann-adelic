@@ -70,6 +70,13 @@ ODLYZKO_SOURCES = {
     ]
 }
 
+# Height-based mapping for computational precision scaling
+HEIGHT_TO_PRECISION_MAP = {
+    1e8: "t1e8",
+    1e10: "t1e10", 
+    1e12: "t1e12"
+}
+
 def validate_zeros_format(filepath: str, max_lines: int = 1000) -> Tuple[bool, str]:
     """Validate that zeros file contains proper float values."""
     try:
@@ -199,6 +206,19 @@ def create_sample_zeros(output_path: str, num_zeros: int = 1000) -> bool:
         logger.error(f"❌ Failed to create sample zeros: {str(e)}")
         return False
 
+def determine_precision_from_height(height: float) -> str:
+    """Convert height parameter to appropriate precision level."""
+    # Find the best matching precision level for the given height
+    best_precision = "t1e8"  # Default fallback
+    
+    for target_height, precision in HEIGHT_TO_PRECISION_MAP.items():
+        if height <= target_height:
+            best_precision = precision
+            break
+    
+    logger.info(f"🎯 Height {height:.0e} mapped to precision level: {best_precision}")
+    return best_precision
+
 def fetch_zeros_data(target_precision: str = "t1e8", force_download: bool = False) -> bool:
     """Main function to fetch zeros data with fallback options."""
     zeros_dir = "zeros"
@@ -262,9 +282,28 @@ def main():
     """Main entry point with command-line argument support."""
     import argparse
     
-    parser = argparse.ArgumentParser(description='Fetch Riemann zeta zeros data')
-    parser.add_argument('--precision', default='t1e8', choices=['t1e8', 't1e10', 't1e12'],
+    parser = argparse.ArgumentParser(
+        description='Fetch Riemann zeta zeros data',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+    # Fetch data for T~10^8 (default precision level)
+    python fetch_odlyzko.py --precision t1e8
+    
+    # Fetch data up to height 10^8
+    python fetch_odlyzko.py --height 1e8
+    
+    # Force re-download for high precision
+    python fetch_odlyzko.py --height 1e10 --force
+    
+    # Validate existing data only
+    python fetch_odlyzko.py --validate-only --precision t1e8
+        """
+    )
+    parser.add_argument('--precision', default=None, choices=['t1e8', 't1e10', 't1e12'],
                        help='Target precision level (default: t1e8)')
+    parser.add_argument('--height', type=float, default=None,
+                       help='Target height for zeros (e.g., 1e8 for T~10^8)')
     parser.add_argument('--force', action='store_true',
                        help='Force re-download even if file exists')
     parser.add_argument('--validate-only', action='store_true',
@@ -274,8 +313,20 @@ def main():
     
     args = parser.parse_args()
     
+    # Determine target precision
+    if args.height is not None and args.precision is not None:
+        logger.error("❌ Cannot specify both --height and --precision. Use one or the other.")
+        sys.exit(1)
+    elif args.height is not None:
+        target_precision = determine_precision_from_height(args.height)
+        logger.info(f"🎯 Using height-based precision: {target_precision} for height {args.height:.0e}")
+    elif args.precision is not None:
+        target_precision = args.precision
+    else:
+        target_precision = "t1e8"  # Default
+    
     if args.validate_only:
-        target_file = f"zeros/zeros_{args.precision}.txt"
+        target_file = f"zeros/zeros_{target_precision}.txt"
         if os.path.exists(target_file):
             is_valid, message = validate_zeros_format(target_file)
             print(f"Validation result: {message}")
@@ -296,7 +347,11 @@ def main():
             # Fall through to advanced interface
     
     logger.info("🚀 Starting Riemann zeros data fetching...")
-    success = fetch_zeros_data(args.precision, args.force)
+    
+    if args.height is not None:
+        logger.info(f"📊 Target computational height: T ~ {args.height:.0e}")
+    
+    success = fetch_zeros_data(target_precision, args.force)
     
     if success:
         logger.info("🎊 Zeros data ready for computational validation!")
