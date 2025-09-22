@@ -112,6 +112,8 @@ def test_weil_formula_basic():
         assert mp.isfinite(left_side), "Left side should be finite"  
         assert mp.isfinite(right_side), "Right side should be finite"
         assert error >= 0, "Error should be non-negative"
+        assert relative_error >= 0, "Relative error should be non-negative"
+        assert len(simulated_imag_parts) > 0, "Should have simulated parts"
         
         print(f"Weil formula test: error={error}, rel_error={relative_error}, left={left_side}, right={right_side}")
         print(f"Simulated imaginary parts (first 3): {simulated_imag_parts[:3]}")
