@@ -1,0 +1,13 @@
+parameter,value
+left_side,(33.8102222156425 + 0.0j)
+right_side,9.08234062960552
+absolute_error,24.727881586037
+relative_error,2.72263313990141
+P,25
+K,5
+T,2
+max_zeros,25
+precision_dps,15
+test_function,f2
+formula_type,weil
+validation_status,NEEDS_IMPROVEMENT
