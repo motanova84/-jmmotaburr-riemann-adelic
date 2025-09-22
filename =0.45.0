@@ -1,0 +1,26 @@
+Defaulting to user installation because normal site-packages is not writeable
+Collecting qiskit
+  Downloading qiskit-2.2.0-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+     - 12.9 kB 107.2 MB/s 0:00:00
+Collecting rustworkx>=0.15.0 (from qiskit)
+  Downloading rustworkx-0.17.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+     - 10.1 kB ? 0:00:00
+Requirement already satisfied: numpy<3,>=1.17 in /home/runner/.local/lib/python3.12/site-packages (from qiskit) (1.26.0)
+Requirement already satisfied: scipy>=1.5 in /home/runner/.local/lib/python3.12/site-packages (from qiskit) (1.16.2)
+Collecting dill>=0.3 (from qiskit)
+  Downloading dill-0.4.0-py3-none-any.whl.metadata
+     - 10.2 kB ? 0:00:00
+Collecting stevedore>=3.0.0 (from qiskit)
+  Downloading stevedore-5.5.0-py3-none-any.whl.metadata
+     - 2.2 kB ? 0:00:00
+Requirement already satisfied: typing-extensions in /usr/lib/python3/dist-packages (from qiskit) (4.10.0)
+Downloading qiskit-2.2.0-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+   \ 8.0 MB 69.9 MB/s 0:00:00
+Downloading dill-0.4.0-py3-none-any.whl
+   - 119.7 kB 176.0 MB/s 0:00:00
+Downloading rustworkx-0.17.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+   - 2.2 MB 189.5 MB/s 0:00:00
+Downloading stevedore-5.5.0-py3-none-any.whl
+   - 49.5 kB 149.7 MB/s 0:00:00
+Installing collected packages: stevedore, rustworkx, dill, qiskit
+Successfully installed dill-0.4.0 qiskit-2.2.0 rustworkx-0.17.1 stevedore-5.5.0
