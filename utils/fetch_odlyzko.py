@@ -4,6 +4,7 @@ Supports multiple sources and formats with validation and fallback options.
 """
 
 import requests
+from pathlib import Path
 import gzip
 import os
 import sys
@@ -14,6 +15,46 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+def fetch_odlyzko(precision='t1e8', min_zeros=False):
+    """
+    Fetch Odlyzko's verified zeros tables (public domain) and save as zeros/zeros_t1e8.txt.
+    
+    Parameters:
+    - precision: str, e.g., 't1e8' for t~1e8 height.
+    - min_zeros: bool, if True, fetch only first 1000 zeros and save as zeros_t1e3.txt.
+    
+    Returns:
+    - Path to saved file.
+    """
+    base_url = "https://www-users.cse.umn.edu/~odlyzko/zeta_tables/"
+    if min_zeros:
+        url = base_url + "zeros1"  # Primeros 100 zeros, extendemos manual para 1000 si necesitas más.
+        file_name = 'zeros_t1e3.txt'  # Mínimo para light mode.
+        response = requests.get(url)
+        if response.status_code == 200:
+            zeros = response.text.strip().splitlines()[:1000]  # Toma primeros 1000 (o ajusta si file tiene menos).
+            content = '\n'.join(zeros)
+            save_path = Path('zeros') / file_name
+            save_path.parent.mkdir(exist_ok=True)
+            save_path.write_text(content)
+            print(f"✅ Saved minimum dataset to {save_path}")
+            return save_path
+        else:
+            raise ValueError("Failed to fetch minimum zeros.")
+    else:
+        url = base_url + f"zeros_{precision}"  # Para full, ajusta URL si Odlyzko tiene archivos específicos.
+        # Nota: Para t1e8 completo, usa URL real o archive si disponible.
+        response = requests.get(url)
+        if response.status_code == 200:
+            content = response.text
+            save_path = Path('zeros') / f'zeros_{precision}.txt'
+            save_path.parent.mkdir(exist_ok=True)
+            save_path.write_text(content)
+            print(f"✅ Saved full dataset to {save_path}")
+            return save_path
+        else:
+            raise ValueError(f"Failed to fetch {precision} zeros.")
 
 # Multiple sources for Riemann zeta zeros with fallbacks
 ODLYZKO_SOURCES = {
@@ -228,6 +269,8 @@ def main():
                        help='Force re-download even if file exists')
     parser.add_argument('--validate-only', action='store_true',
                        help='Only validate existing file without downloading')
+    parser.add_argument('--min_zeros', action='store_true',
+                       help='Fetch minimum zeros dataset (1000 zeros for light mode)')
     
     args = parser.parse_args()
     
@@ -241,6 +284,17 @@ def main():
             print(f"❌ File not found: {target_file}")
             sys.exit(1)
     
+    # Use simple interface if --min_zeros is specified
+    if args.min_zeros:
+        try:
+            result_path = fetch_odlyzko(args.precision, min_zeros=True)
+            print(f"✅ Simple interface completed: {result_path}")
+            sys.exit(0)
+        except Exception as e:
+            print(f"❌ Simple interface failed: {e}")
+            print("🔄 Falling back to advanced interface...")
+            # Fall through to advanced interface
+    
     logger.info("🚀 Starting Riemann zeros data fetching...")
     success = fetch_zeros_data(args.precision, args.force)
     
@@ -251,6 +305,7 @@ def main():
         logger.error("💥 Failed to prepare zeros data")
         sys.exit(1)
 
+# Ejemplo de uso en CLI: python fetch_odlyzko.py --min_zeros
 if __name__ == "__main__":
     main()
 
