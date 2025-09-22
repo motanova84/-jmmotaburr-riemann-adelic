@@ -120,6 +120,43 @@ def test_weil_formula_basic():
         pytest.fail(f"Weil formula computation failed: {e}")
 
 
+def test_height_parameter_functionality():
+    """Test the new height parameter functionality in fetch_odlyzko utility."""
+    from utils.fetch_odlyzko import determine_precision_from_height, HEIGHT_TO_PRECISION_MAP
+    import subprocess
+    import os
+    
+    # Test height to precision mapping function
+    assert determine_precision_from_height(1e8) == "t1e8"
+    assert determine_precision_from_height(1e10) == "t1e10"
+    assert determine_precision_from_height(1e12) == "t1e12"
+    assert determine_precision_from_height(5e7) == "t1e8"  # Below 1e8 threshold
+    assert determine_precision_from_height(5e11) == "t1e12"  # Above 1e10, should get t1e12
+    
+    # Test command line height parameter (dry run with validation only)
+    temp_file = "zeros/zeros_t1e8.txt"
+    if os.path.exists(temp_file):
+        result = subprocess.run([
+            "python", "utils/fetch_odlyzko.py", 
+            "--height", "1e8", 
+            "--validate-only"
+        ], capture_output=True, text=True, cwd=".")
+        
+        assert result.returncode == 0, f"Height validation should succeed: {result.stderr}"
+        assert "t1e8" in result.stdout or "Valid format" in result.stdout
+    
+    # Test error case: both height and precision specified
+    result = subprocess.run([
+        "python", "utils/fetch_odlyzko.py", 
+        "--height", "1e8", 
+        "--precision", "t1e10"
+    ], capture_output=True, text=True, cwd=".")
+    
+    assert result.returncode == 1, "Should fail when both height and precision are specified"
+    assert "Cannot specify both" in result.stderr
+    
+    print("✅ Height parameter functionality test passed")
+
 def test_fetch_odlyzko_utility():
     """Test the Odlyzko data fetching utility."""
     from utils.fetch_odlyzko import validate_zeros_format, create_sample_zeros
