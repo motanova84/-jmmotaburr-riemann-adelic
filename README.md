@@ -1,5 +1,7 @@
 # Riemann-Adelic
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17161831.svg)](https://doi.org/10.5281/zenodo.17161831)
+
 This repository contains numerical validation code for the paper:
 
 **A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
@@ -7,38 +9,75 @@ Author: José Manuel Mota Burruezo
 Date: September 13, 2025  
 DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
-Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
-https://doi.org/10.5281/zenodo.17161831
+**Related Publications:**
+- Technical Appendix to V4.1: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)  
+- Additional DOIs: V1-V4.1 series available at Zenodo
 
 Notebook Validation Commit: `7f191eb`
 
-## 🚀 Quick Start
+## 🚀 Quickstart
 
 ### Prerequisites
 - Python 3.8+ 
 - Internet connection (for downloading Riemann zeros data)
 
-### One-Command Setup
+### Clone repo:
 ```bash
-# Clone and setup in one go
-git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic.git
+git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic
 cd -jmmotaburr-riemann-adelic
-python setup_environment.py --full-setup
 ```
 
-### Manual Setup
+### Install dependencies:
 ```bash
-# 1. Install dependencies
 pip install -r requirements.txt
+```
 
-# 2. Fetch Riemann zeros data  
-python utils/fetch_odlyzko.py --precision t1e8
+### Run validation (default parameters):
+```bash
+python validate_explicit_formula.py --max_primes 1000 --max_zeros 1000 --precision_dps 30
+```
 
-# 3. Run quick validation
-python validate_explicit_formula.py --max_primes 100 --max_zeros 100
+### Check results:
+```bash
+cat data/validation_results.csv
+```
 
-# 4. Execute notebook
+### Or run Jupyter notebook:
+```bash
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
+```
+
+---
+
+## 📊 Usage Examples
+
+### Basic Validation (Fast)
+```bash
+# Quick test with small parameters
+python validate_explicit_formula.py --max_primes 100 --max_zeros 100 --precision_dps 15
+```
+
+### High-Precision Validation (Recommended)
+```bash
+# Production-quality validation
+python validate_explicit_formula.py --max_primes 1000 --max_zeros 1000 --precision_dps 30
+```
+
+### Custom Test Function
+```bash
+# Use specific test function
+python validate_explicit_formula.py --test_functions f1 --max_primes 500 --max_zeros 500
+```
+
+### Notebook Execution
+```bash
+# Execute and export notebook
+jupyter nbconvert --execute notebooks/validation.ipynb --to html --output-dir docs/
+```
+
+### Environment Setup (One-Command)
+```bash
+python setup_environment.py --full-setup
 ```
 
 ### Validation Results
@@ -78,6 +117,25 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ├── requirements.txt
 └── README.md
 ```
+
+## 📁 Data Provenance
+
+### Riemann Zeros (`zeros_t1e8.txt`)
+
+The file `zeros/zeros_t1e8.txt` contains Riemann zeros at height ~1e8, sourced from [Odlyzko's tables](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/)  
+
+**Data Details:**
+- **Source**: A.M. Odlyzko's Riemann zeta function zeros tables
+- **URL**: https://www-users.cse.umn.edu/~odlyzko/zeta_tables/
+- **Date Retrieved**: 2025-09-01  
+- **Checksum (SHA256)**: `3436c916a7878261ac183fd7b9448c9a4736b8bbccf1356874a6ce1788541632`
+- **License**: Public Domain
+- **Format**: One zero per line, height values ~1e8
+- **Count**: 100,000 zeros
+
+This data enables high-precision validation of the explicit formula without relying on computational zero-finding algorithms.
+
+---
 
 ## Reproduction Steps
 1. Install dependencies: `pip install -r requirements.txt`
