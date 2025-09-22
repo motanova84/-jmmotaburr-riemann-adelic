@@ -1,14 +1,20 @@
 # Riemann-Adelic
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17161831.svg)](https://doi.org/10.5281/zenodo.17161831)
+[![Tests](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
 This repository contains numerical validation code for the paper:
 
-**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
-Author: José Manuel Mota Burruezo  
-Date: September 13, 2025  
+**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**
+Author: José Manuel Mota Burruezo
+Date: September 13, 2025
 DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
-Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
-https://doi.org/10.5281/zenodo.17161831
+**Related Publications:**
+- Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
+  DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
 Notebook Validation Commit: `7f191eb`
 
@@ -16,13 +22,13 @@ Notebook Validation Commit: `7f191eb`
 
 **Important**: This paper is conditional under S-finite axioms:
 - **A1**: Flujo escala finito (finite scale flow)
-- **A2**: Simetría (symmetry) 
+- **A2**: Simetría (symmetry)
 - **A4**: Regularidad espectral (spectral regularity)
 
 **Logical Proof Structure**: The mathematical "proof" is detailed in the PDF (Zenodo DOI [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)). The construction proceeds as follows:
 
 1. **Construction of D(s)**: Builds D(s) as an entire function of order ≤1
-2. **Functional Symmetry**: Establishes symmetry D(1-s) = D(s)  
+2. **Functional Symmetry**: Establishes symmetry D(1-s) = D(s)
 3. **Normalization**: Applies normalization condition lim log D(s) = 0
 4. **Uniqueness**: Identifies D ≡ Ξ via Paley-Wiener uniqueness (Theorem 4.2, including zero multiplicities)
 5. **Riemann Hypothesis**: Derives RH as Theorem 4.3
@@ -36,10 +42,40 @@ Notebook Validation Commit: `7f191eb`
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.8+ 
+- Python 3.8+
 - Internet connection (for downloading Riemann zeros data)
 
-### One-Command Setup
+### Quickstart
+
+**Clone repo:**
+```bash
+git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic
+cd -jmmotaburr-riemann-adelic
+```
+
+**Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+**Run validation (default parameters):**
+```bash
+python validate_explicit_formula.py --max_primes 1000 --max_zeros 1000 --precision_dps 30
+```
+
+**Check results:**
+```bash
+cat data/validation_results.csv
+```
+
+**Or run Jupyter notebook:**
+```bash
+jupyter nbconvert --execute notebooks/validation.ipynb --to html
+```
+
+### Advanced Usage
+
+**One-Command Setup:**
 ```bash
 # Clone and setup in one go
 git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic.git
@@ -47,12 +83,12 @@ cd -jmmotaburr-riemann-adelic
 python setup_environment.py --full-setup
 ```
 
-### Manual Setup
+**Manual Setup with Data Fetching:**
 ```bash
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Fetch Riemann zeros data  
+# 2. Fetch Riemann zeros data
 python utils/fetch_odlyzko.py --precision t1e8
 
 # 3. Run quick validation
@@ -60,6 +96,23 @@ python validate_explicit_formula.py --max_primes 100 --max_zeros 100
 
 # 4. Execute notebook
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
+```
+
+**Custom Parameters:**
+```bash
+# High precision validation
+python validate_explicit_formula.py \
+  --max_primes 1000 \
+  --max_zeros 1000 \
+  --prime_powers 5 \
+  --integration_t 50 \
+  --precision_dps 30
+
+# Quick test with reduced parameters
+python validate_explicit_formula.py \
+  --max_primes 100 \
+  --max_zeros 100 \
+  --precision_dps 15
 ```
 
 ### Validation Results
@@ -71,10 +124,19 @@ Expected output:
 ```
 ✅ Computation completed!
 Aritmético (Primes + Arch): [complex number]
-Zero side (explicit sum):   [complex number]  
+Zero side (explicit sum):   [complex number]
 Error absoluto:             [small value]
 Error relativo:             [< 1e-6 for high precision]
 ```
+
+### Data Provenance
+
+The file `zeros/zeros_t1e8.txt` contains Riemann zeros at height ~1e8, sourced from [Odlyzko's tables](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/)
+**Date retrieved:** 2025-09-01
+**Checksum (SHA256):** `3436c916a7878261ac183fd7b9448c9a4736b8bbccf1356874a6ce1788541632`
+**License:** Public domain
+
+This ensures data traceability and confidence for academic citation and reproducible research.
 
 ##  Objective
 
@@ -133,7 +195,7 @@ Please suggest workflows for:
 The `validation.ipynb` notebook has been optimized to run within GitHub Actions timeout limits:
 
 - **Reduced precision**: `mp.mp.dps = 25` (down from 50) for faster computation
-- **Smaller parameters**: P=100 primes, K=5 powers, N=100 zeros, T=10 integration range  
+- **Smaller parameters**: P=100 primes, K=5 powers, N=100 zeros, T=10 integration range
 - **Precomputed data**: Uses `zeros/zeros_t1e8.txt` instead of computing zeros with `mp.zetazero()`
 - **Environment variables**: CI can override parameters via `PRIME_COUNT`, `PRIME_POWERS`, `ZERO_COUNT`, `INTEGRATION_T`
 - **Extended timeouts**: GitHub Actions workflow uses 30-minute notebook timeout
@@ -174,7 +236,7 @@ python validate_explicit_formula.py --max_primes 100 --max_zeros 100
 
 ### Context and Objective
 
-The Weil explicit formula is a key tool in analytic number theory for studying the distribution of zeros of L-functions, such as $\zeta(s)$. In this project, it is applied to $D(s)$, a canonical construction equivalent to $\Xi(s)$ (the Riemann xi function), derived from S-finite adelic flows without depending on the Euler product of $\zeta(s)$. 
+The Weil explicit formula is a key tool in analytic number theory for studying the distribution of zeros of L-functions, such as $\zeta(s)$. In this project, it is applied to $D(s)$, a canonical construction equivalent to $\Xi(s)$ (the Riemann xi function), derived from S-finite adelic flows without depending on the Euler product of $\zeta(s)$.
 
 The objective is to derive the form:
 $$
