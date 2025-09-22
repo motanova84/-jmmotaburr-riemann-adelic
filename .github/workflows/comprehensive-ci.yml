@@ -27,6 +27,10 @@ on:
           - t1e10
           - t1e12
 
+permissions:
+  contents: read
+  actions: read
+
 env:
   # Optimized parameters for CI performance
   PRIME_COUNT: ${{ github.event.inputs.run_full_validation == 'true' && '1000' || '100' }}
