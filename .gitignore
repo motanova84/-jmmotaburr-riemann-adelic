@@ -54,6 +54,7 @@ Thumbs.db
 
 # Generated validation results (keep structure but not data)
 data/validation_results*.csv
+!data/validation_results_ref.csv
 data/validation_output*.csv
 data/temp_*
 data/*.tmp
@@ -99,6 +100,7 @@ paper/*.vrb
 # Large data files (but keep sample/test data)
 zeros/*_t1e10.txt
 zeros/*_t1e12.txt
+!zeros/zeros_light.txt
 
 # IDE and editor files
 .spyderproject
