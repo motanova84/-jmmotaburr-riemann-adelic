@@ -11,7 +11,7 @@ nbconvert==7.16.4
 mistune==2.0.5
 
 # HTTP requests for data fetching
-requests==2.32.0
+requests==2.32.3
 
 # Testing framework
 pytest==8.2.0
