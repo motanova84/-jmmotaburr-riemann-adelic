@@ -1,6 +1,12 @@
-name: Quick Validation CI
+name: 🚀 Quick Validation CI
 
 on: [push, pull_request]
+
+env:
+  # Light mode parameters for quick validation
+  MAX_ZEROS: 1000
+  MAX_PRIMES: 100
+  PRECISION_DPS: 15
 
 jobs:
   validate:
@@ -16,7 +22,7 @@ jobs:
       - name: Fetch minimum zeros
         run: python utils/fetch_odlyzko.py --min_zeros
       - name: Run light validation
-        run: python validate_explicit_formula.py --max_zeros 1000 --precision_dps 15 --mode light
+        run: python validate_explicit_formula.py --max_zeros $MAX_ZEROS --max_primes $MAX_PRIMES --precision_dps $PRECISION_DPS
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:

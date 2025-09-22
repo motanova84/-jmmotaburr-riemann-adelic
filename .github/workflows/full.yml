@@ -1,6 +1,13 @@
-name: Full Validation CI
+name: 🔬 Full Validation CI
 
 on: [workflow_dispatch]  # Solo manual o en release
+
+env:
+  # Full mode parameters for comprehensive validation  
+  MAX_ZEROS: 1000000
+  MAX_PRIMES: 1000
+  PRECISION_DPS: 30
+  INTEGRATION_T: 50
 
 jobs:
   validate:
@@ -16,7 +23,7 @@ jobs:
       - name: Fetch full zeros
         run: python utils/fetch_odlyzko.py --precision t1e8
       - name: Run full validation
-        run: python validate_explicit_formula.py --max_zeros 1000000 --precision_dps 30 --mode full --integration_t 50
+        run: python validate_explicit_formula.py --max_zeros $MAX_ZEROS --max_primes $MAX_PRIMES --precision_dps $PRECISION_DPS --integration_t $INTEGRATION_T
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
