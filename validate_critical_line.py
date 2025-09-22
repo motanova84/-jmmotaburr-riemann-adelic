@@ -206,7 +206,7 @@ def verify_explicit_formula_on_critical_line(imaginary_parts: list, test_functio
         'total_zeros_available': len(imaginary_parts),
         'primes_used': primes_used,
         'test_function': test_function_name,
-        'note': 'Simplified explicit formula demonstration with critical line assumption'
+        'note': 'Simplified explicit formula demonstration with critical line assumption. Relative errors ~1.0 are expected for this simplified formulation.'
     }
 
 def save_results_to_csv(results: dict, output_file: str):
