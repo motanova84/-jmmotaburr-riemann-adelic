@@ -1,5 +1,10 @@
 # Riemann-Adelic
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17161831.svg)](https://doi.org/10.5281/zenodo.17161831)
+[![Tests](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
 This repository contains numerical validation code for the paper:
 
 **A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
@@ -7,18 +12,49 @@ Author: José Manuel Mota Burruezo
 Date: September 13, 2025  
 DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
-Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
-https://doi.org/10.5281/zenodo.17161831
+**Related Publications:**
+- Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model  
+  DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
 Notebook Validation Commit: `7f191eb`
 
-## 🚀 Quick Start
+## 🚀 Usage
 
 ### Prerequisites
 - Python 3.8+ 
 - Internet connection (for downloading Riemann zeros data)
 
-### One-Command Setup
+### Quickstart
+
+**Clone repo:**
+```bash
+git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic
+cd -jmmotaburr-riemann-adelic
+```
+
+**Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+**Run validation (default parameters):**
+```bash
+python validate_explicit_formula.py --max_primes 1000 --max_zeros 1000 --precision_dps 30
+```
+
+**Check results:**
+```bash
+cat data/validation_results.csv
+```
+
+**Or run Jupyter notebook:**
+```bash
+jupyter nbconvert --execute notebooks/validation.ipynb --to html
+```
+
+### Advanced Usage
+
+**One-Command Setup:**
 ```bash
 # Clone and setup in one go
 git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic.git
@@ -26,7 +62,7 @@ cd -jmmotaburr-riemann-adelic
 python setup_environment.py --full-setup
 ```
 
-### Manual Setup
+**Manual Setup with Data Fetching:**
 ```bash
 # 1. Install dependencies
 pip install -r requirements.txt
@@ -39,6 +75,23 @@ python validate_explicit_formula.py --max_primes 100 --max_zeros 100
 
 # 4. Execute notebook
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
+```
+
+**Custom Parameters:**
+```bash
+# High precision validation
+python validate_explicit_formula.py \
+  --max_primes 1000 \
+  --max_zeros 1000 \
+  --prime_powers 5 \
+  --integration_t 50 \
+  --precision_dps 30
+
+# Quick test with reduced parameters  
+python validate_explicit_formula.py \
+  --max_primes 100 \
+  --max_zeros 100 \
+  --precision_dps 15
 ```
 
 ### Validation Results
@@ -54,6 +107,15 @@ Zero side (explicit sum):   [complex number]
 Error absoluto:             [small value]
 Error relativo:             [< 1e-6 for high precision]
 ```
+
+### Data Provenance
+
+The file `zeros/zeros_t1e8.txt` contains Riemann zeros at height ~1e8, sourced from [Odlyzko's tables](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/)  
+**Date retrieved:** 2025-09-01  
+**Checksum (SHA256):** `3436c916a7878261ac183fd7b9448c9a4736b8bbccf1356874a6ce1788541632`  
+**License:** Public domain
+
+This ensures data traceability and confidence for academic citation and reproducible research.
 
 ##  Objective
 

@@ -1,9 +1,9 @@
-# Core computational dependencies
+# Core computational dependencies - Fixed versions for reproducibility
 mpmath==1.3.0
 numpy==1.26.0
 sympy==1.12
-scipy>=1.11.0
-matplotlib>=3.7.0
+scipy==1.16.2
+matplotlib==3.10.6
 
 # Jupyter and notebook execution
 jupyter==1.0.0
@@ -13,7 +13,7 @@ mistune==2.0.5
 # HTTP requests for data fetching
 requests==2.32.0
 
-# Testing framework
+# Testing framework for automated validation
 pytest==8.2.0
 pytest-cov==6.0.0
 
