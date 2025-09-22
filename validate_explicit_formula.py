@@ -15,6 +15,8 @@ Add helper utilities if missing.
 import mpmath as mp
 import numpy as np
 import sympy as sp
+import sys
+import os
 from scipy.linalg import schur, eigh
 from sympy import bernoulli, S, integrate, exp
 import matplotlib.pyplot as plt
@@ -109,6 +111,8 @@ def zero_sum_limited(f, filename, max_zeros, lim_u=5):
     """Compute zero sum using only first max_zeros from file."""
     total = mp.mpf('0')
     count = 0
+    progress_interval = max(1, max_zeros // 10)  # Show progress every 10%
+    
     with open(filename) as file:
         for line in file:
             if count >= max_zeros:
@@ -116,7 +120,19 @@ def zero_sum_limited(f, filename, max_zeros, lim_u=5):
             gamma = mp.mpf(line.strip())
             total += mellin_transform(f, 1j * gamma, lim_u).real
             count += 1
+            
+            # Show progress for long computations
+            if count % progress_interval == 0:
+                percentage = (count / max_zeros) * 100
+                print(f"  Progress: {percentage:.0f}% ({count}/{max_zeros} zeros processed)", end='\r')
+                sys.stdout.flush()
+    
+    if count > progress_interval:
+        print()  # New line after progress updates
+        sys.stdout.flush()
+    
     print(f"Used {count} zeros for computation")
+    sys.stdout.flush()
     return total
 
 def zeta_p_interpolation(p, s, precision=30):
@@ -387,6 +403,7 @@ if __name__ == "__main__":
     print(f"Parameters: P={P}, K={K}, T={T}, max_zeros={args.max_zeros}")
     print(f"Using Weil formula: {args.use_weil_formula}")
     print(f"Precision: {args.precision_dps} decimal places")
+    sys.stdout.flush()  # Ensure initial status is visible
     
     try:
         # Select test function based on arguments
@@ -402,6 +419,7 @@ if __name__ == "__main__":
         f = test_function_map.get(function_name, truncated_gaussian)
         
         print(f"Using test function: {function_name}")
+        sys.stdout.flush()  # Ensure progress is visible
         
         # Check if zeros file exists
         zeros_file = 'zeros/zeros_t1e8.txt'
@@ -412,6 +430,7 @@ if __name__ == "__main__":
         if args.use_weil_formula:
             # Use new Weil explicit formula implementation
             print("🧮 Using Weil explicit formula implementation...")
+            sys.stdout.flush()  # Ensure progress is visible
             
             # Load zeros
             zeros = []
@@ -425,6 +444,7 @@ if __name__ == "__main__":
             primes = list(sp.primerange(2, P + 1))
             
             print("Computing Weil explicit formula...")
+            sys.stdout.flush()  # Ensure progress is visible
             error, relative_error, left_side, right_side, simulated_imag_parts = weil_explicit_formula(
                 zeros, primes, f, max_zeros=args.max_zeros, t_max=T, precision=args.precision_dps
             )
@@ -452,15 +472,20 @@ if __name__ == "__main__":
                 f.write(f"test_function,{function_name}\n")
                 f.write(f"formula_type,weil\n")
                 f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
+                # Ensure file is properly written
+                f.flush()
+                os.fsync(f.fileno())
         
         else:
             # Use original implementation
             print("Computing arithmetic side...")
+            sys.stdout.flush()  # Show progress immediately
             prime_part = prime_sum(f, P, K)
             arch_part = archimedean_sum(f, sigma0, T, lim_u)
             A = prime_part + arch_part
             
             print("Computing zero side...")
+            sys.stdout.flush()  # Show progress immediately
             # Use only first max_zeros lines from file for faster computation
             Z = zero_sum_limited(f, zeros_file, args.max_zeros, lim_u)
 
@@ -489,11 +514,18 @@ if __name__ == "__main__":
                 f.write(f"test_function,{function_name}\n")
                 f.write(f"formula_type,original\n")
                 f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
+                # Ensure file is properly written
+                f.flush()
+                os.fsync(f.fileno())
         
         print("📊 Results saved to data/validation_results.csv")
+        # Ensure output is flushed to prevent truncation in external tools
+        sys.stdout.flush()
         
     except Exception as e:
         print(f"❌ Error during computation: {e}")
+        sys.stdout.flush()
+        sys.stderr.flush()
         sys.exit(1)
 
 
@@ -520,6 +552,21 @@ if __name__ == "__main__":
         # Save results
         os.makedirs("data", exist_ok=True)
         with open("data/validation_results.csv", "w") as f:
+            f.write("parameter,value\n")
             f.write(f"relative_error,{rel_error}\n")
+            f.write(f"absolute_error,{error}\n")
+            f.write(f"left_side,{left}\n")
+            f.write(f"right_side,{right}\n")
+            f.write(f"max_zeros,200\n")
+            f.write(f"precision_dps,30\n")
+            f.write(f"test_function,weil_example\n")
+            f.write(f"formula_type,weil\n")
             f.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
+            # Ensure file is properly written
+            f.flush()
+            os.fsync(f.fileno())
+        
+        print("📊 Example results saved to data/validation_results.csv")
+        # Ensure all output is flushed
+        sys.stdout.flush()
 
