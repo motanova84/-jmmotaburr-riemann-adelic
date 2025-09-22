@@ -1,6 +1,7 @@
 # Riemann-Adelic
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17161831.svg)](https://doi.org/10.5281/zenodo.17161831)
+[![Tests](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions)
 
 This repository contains numerical validation code for the paper:
 
@@ -344,6 +345,64 @@ cat data/validation_results.csv
 - Requires `mpmath` for high precision and `numpy` for efficiency.
 - The factor archimedean must be adjusted according to the adelic model of Burruezo (see the technical appendix of Zenodo).
 - The integral is approximated numerically with `mpmath.quad`.
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Dependency Installation Problems:**
+```bash
+# If pip install fails, try upgrading pip first
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+**SciPy/Matplotlib Import Errors:**
+If you encounter `ModuleNotFoundError` for scipy or matplotlib, install them separately:
+```bash
+pip install scipy==1.14.0 matplotlib==3.9.2
+```
+
+**Large Memory Usage:**
+For systems with limited memory, reduce parameters:
+```bash
+python validate_explicit_formula.py --max_primes 50 --max_zeros 50 --precision_dps 10
+```
+
+**Slow Execution:**
+For faster testing, use minimal parameters:
+```bash
+python validate_explicit_formula.py --max_primes 20 --max_zeros 20 --precision_dps 15
+```
+
+**Missing Zeros File:**
+If `zeros/zeros_t1e8.txt` is missing:
+```bash
+python utils/fetch_odlyzko.py --precision t1e8
+```
+
+### Test Suite
+
+Run the full test suite:
+```bash
+python -m pytest tests/ -v
+```
+
+Run specific test categories:
+```bash
+# Basic functionality tests
+python -m pytest tests/test_basic_validation.py -v
+
+# Environment validation  
+python -m pytest tests/test_basic_validation.py::test_environment_setup -v
+```
+
+### Performance Tips
+
+- Use `--precision_dps 15` for development and testing
+- Use `--precision_dps 30` for production validation
+- Start with small `--max_primes` and `--max_zeros` values
+- Check `data/validation_results.csv` for detailed timing information
 
 ## License
 - Manuscript: CC-BY 4.0 (DOI: 10.5281/zenodo.17161831)
