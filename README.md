@@ -1,7 +1,7 @@
 # Riemann-Adelic
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17161831.svg)](https://doi.org/10.5281/zenodo.17161831)
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions)
+[![Tests](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
