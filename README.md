@@ -77,8 +77,8 @@ Expected output:
 ✅ Computation completed!
 Aritmético (Primes + Arch): [complex number]
 Zero side (explicit sum):   [complex number]  
-Error absoluto:             [small value]
-Error relativo:             [< 1e-6 for high precision]
+Absolute error:             [small value]
+Relative error:             [< 1e-6 for high precision]
 ```
 
 **Sample Output File**: Results are automatically saved to `data/validation_results.csv`:
