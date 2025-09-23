@@ -12,26 +12,57 @@ https://doi.org/10.5281/zenodo.17161831
 
 Notebook Validation Commit: `7f191eb`
 
-## 📋 Theoretical Framework
+## 🔬 Theoretical Framework
 
-**Important**: This paper is conditional under S-finite axioms:
-- **A1**: Flujo escala finito (finite scale flow)
-- **A2**: Simetría (symmetry) 
-- **A4**: Regularidad espectral (spectral regularity)
+This repository implements numerical validation for a **conditional proof** of the Riemann Hypothesis based on **S-finite adelic spectral systems**. The approach constructs a canonical determinant D(s) through operator-theoretic principles, avoiding the traditional Euler product of ζ(s).
 
-**Logical Proof Structure**: The mathematical "proof" is detailed in the PDF (Zenodo DOI [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)). The construction proceeds as follows:
+### S-Finite Axioms
 
-1. **Construction of D(s)**: Builds D(s) as an entire function of order ≤1
-2. **Functional Symmetry**: Establishes symmetry D(1-s) = D(s)  
-3. **Normalization**: Applies normalization condition lim log D(s) = 0
-4. **Uniqueness**: Identifies D ≡ Ξ via Paley-Wiener uniqueness (Theorem 4.2, including zero multiplicities)
-5. **Riemann Hypothesis**: Derives RH as Theorem 4.3
+The proof is conditional under three fundamental axioms:
 
-**Framework Properties**:
-- **Internally Consistent**: Zeta-free construction where primes emerge from adelic trace
-- **Conditional Validity**: Valid as conditional framework under specified axioms
-- **Falsifiable**: Appendix C shows perturbations ℓ_v ≠ log q_v would collapse the framework
-- **Mathematical Rigor**: Non-circular, rigorous within trace-class theory (Birman-Solomyak)
+#### **A1: Finite Scale Flow** 
+```
+Each local unitary U_v commutes with the scale-flow:
+U_v S_u = S_u U_v for all u ∈ ℝ
+```
+This axiom ensures compatibility between local adelic structures and the global spectral scaling.
+
+#### **A2: Symmetry**
+```
+Each U_v induces discrete periodic orbits in the scale-flow variable u.
+Minimal orbital length: ℓ_v > 0 such that the orbit is periodic with period ℓ_v
+```
+This symmetry condition guarantees the emergence of logarithmic lengths ℓ_v = log q_v.
+
+#### **A4: Spectral Regularity**
+```
+The system admits well-defined double operator integral (DOI) calculus
+based on smoothed convolution kernel w_δ ∈ S(ℝ), typically Gaussian:
+w_δ(u) := (1/√4πδ) e^(-u²/4δ)
+```
+This regularity ensures mathematical rigor within trace-class theory.
+
+### 5-Step Logical Proof Structure
+
+1. **Construction of D(s)**: Build canonical determinant from S-finite axioms alone
+2. **Spectral Analysis**: Establish D(s) is entire of order ≤ 1 with functional equation D(1-s) = D(s)  
+3. **Trace Formula**: Derive geometric emergence of logarithmic lengths ℓ_v = log q_v
+4. **Asymptotic Normalization**: Prove lim_{Re s → +∞} log D(s) = 0
+5. **Hadamard Identification**: Show D(s) ≡ Ξ(s) via Paley-Wiener uniqueness, proving RH
+
+### Framework Properties
+
+- **Conditional Validity**: Proof holds under axioms A1, A2, A4
+- **Falsifiability**: Framework collapses if perturbations ℓ_v ≠ log q_v occur
+- **Mathematical Rigor**: Established within Birman-Solomyak trace-class theory
+- **Zeta-Free Construction**: Primes emerge from adelic trace, not assumed a priori
+- **Internal Consistency**: All mathematical objects well-defined under spectral theory
+
+### Updated Reference
+
+**Latest Paper**: [DOI: 10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
+
+This theoretical foundation provides the mathematical context for understanding the numerical validation performed by the code in this repository. The validation tests whether the constructed D(s) function satisfies the explicit formula relationships under the critical line assumption Re(s) = 1/2.
 
 ## 🚀 Quick Start
 
