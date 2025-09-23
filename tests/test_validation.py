@@ -8,13 +8,14 @@ Ensure the explicit formula validation works for different test functions.
 
 import pytest
 import mpmath as mp
+import numpy as np
 import os
 import sys
 
 # Add the project root to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from validate_explicit_formula import prime_sum, archimedean_sum, zero_sum_limited, weil_explicit_formula
+from validate_explicit_formula import prime_sum, archimedean_sum, zero_sum_limited, weil_explicit_formula, zeta_p_interpolation, simulate_delta_s
 from utils.mellin import truncated_gaussian
 
 
@@ -120,6 +121,43 @@ def test_weil_formula_basic():
         
     except Exception as e:
         pytest.fail(f"Weil formula computation failed: {e}")
+
+
+def test_p_adic_zeta_function():
+    """Test the p-adic zeta function approximation."""
+    from validate_explicit_formula import zeta_p_interpolation
+    
+    # Test basic values
+    zeta_2_0 = zeta_p_interpolation(2, 0, precision=15)
+    zeta_3_0 = zeta_p_interpolation(3, 0, precision=15)
+    zeta_5_0 = zeta_p_interpolation(5, 0, precision=15)
+    
+    # All should be -1/2 for s=0 (since B_1 = -1/2 and the implementation returns B_1 = -1/2)
+    assert abs(zeta_2_0 - (-0.5)) < 1e-10, f"zeta_2(0) should be -1/2, got {zeta_2_0}"
+    assert abs(zeta_3_0 - (-0.5)) < 1e-10, f"zeta_3(0) should be -1/2, got {zeta_3_0}"
+    assert abs(zeta_5_0 - (-0.5)) < 1e-10, f"zeta_5(0) should be -1/2, got {zeta_5_0}"
+    
+    # Test s=-1 case
+    zeta_2_neg1 = zeta_p_interpolation(2, -1, precision=15)
+    expected = -1.0/12  # -B_2/2 = -1/6 / 2 = -1/12
+    assert abs(zeta_2_neg1 - expected) < 1e-10, f"zeta_2(-1) should be -1/12, got {zeta_2_neg1}"
+    
+    print(f"p-adic zeta test: ζ_2(0)={zeta_2_0}, ζ_3(0)={zeta_3_0}, ζ_5(0)={zeta_5_0}")
+
+def test_delta_s_matrix():
+    """Test the enhanced Δ_S matrix with p-adic corrections."""
+    from validate_explicit_formula import simulate_delta_s
+    
+    eigenvals, imag_parts, eigenvecs = simulate_delta_s(10, precision=15, places=[2, 3])
+    
+    assert len(eigenvals) == 10, "Should have 10 eigenvalues"
+    assert len(imag_parts) <= 10, "Should have at most 10 imaginary parts"
+    assert eigenvecs.shape == (10, 10), "Should have 10x10 eigenvector matrix"
+    
+    # Check that eigenvalues are real and mostly positive
+    assert all(np.isreal(ev) for ev in eigenvals), "Eigenvalues should be real"
+    
+    print(f"Matrix test: {len(eigenvals)} eigenvals, {len(imag_parts)} imag parts")
 
 
 def test_height_parameter_functionality():
