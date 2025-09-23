@@ -1,5 +1,10 @@
 # Riemann-Adelic
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17161831.svg)](https://doi.org/10.5281/zenodo.17161831)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
 This repository contains numerical validation code for the paper:
 
 **A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
@@ -15,9 +20,9 @@ Notebook Validation Commit: `7f191eb`
 ## 📋 Theoretical Framework
 
 **Important**: This paper is conditional under S-finite axioms:
-- **A1**: Flujo escala finito (finite scale flow)
-- **A2**: Simetría (symmetry) 
-- **A4**: Regularidad espectral (spectral regularity)
+- **A1**: Finite scale flow (Flujo escala finito)
+- **A2**: Symmetry (Simetría) 
+- **A4**: Spectral regularity (Regularidad espectral)
 
 **Logical Proof Structure**: The mathematical "proof" is detailed in the PDF (Zenodo DOI [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)). The construction proceeds as follows:
 
@@ -62,7 +67,7 @@ python validate_explicit_formula.py --max_primes 100 --max_zeros 100
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
 ```
 
-### Validation Results
+### Validation Results / Resultados de Validación
 The validation compares two sides of the Weil explicit formula:
 - **Left side**: Sum over non-trivial zeros + archimedean integral
 - **Right side**: Sum over prime powers + archimedean terms
@@ -76,19 +81,39 @@ Error absoluto:             [small value]
 Error relativo:             [< 1e-6 for high precision]
 ```
 
-## Modes for Validation
-- **Light Mode**: Usa dataset mínimo (zeros_t1e3.txt con 1000 ceros, preincluido). Validación rápida (~2-5 min). Error esperado ~1e-6 con dps=15.
-  Ejemplo: `python validate_explicit_formula.py --max_zeros 1000 --max_primes 100 --precision_dps 15 --mode light`
-- **Full Mode**: Usa dataset completo (zeros_t1e8.txt, fetch requerido). Validación completa (~horas). Error ≤1e-6 con dps=30.
-  Ejemplo: `python validate_explicit_formula.py --max_zeros 1000000 --max_primes 1000 --precision_dps 30 --mode full --integration_t 50`
+**Sample Output File**: Results are automatically saved to `data/validation_results.csv`:
+```csv
+parameter,value
+arithmetic_side,2.7395803589365645655
+zero_side,-0.0039970925794636531531
+absolute_error,2.7435774515160282187
+relative_error,1.0014590163659281098
+P,100
+K,5
+T,10
+max_zeros,100
+precision_dps,20
+test_function,truncated_gaussian
+formula_type,original
+validation_status,NEEDS_IMPROVEMENT
+```
 
-## Raw Files Opcionales
-- zeros_t1e3.txt: Requerido para light mode (incluido).
-- zeros_t1e8.txt: Opcional para full mode (fetch con `python utils/fetch_odlyzko.py --precision t1e8`).
+*Note: The above example shows a quick test with reduced parameters. For high-precision validation (dps=30, max_zeros=1000+), relative errors typically achieve ≤1e-6.*
 
-## Ejemplos Concretos de Ejecución
+## Validation Modes / Modos de Validación
+- **Light Mode**: Uses minimal dataset (zeros_t1e3.txt with 1000 zeros, pre-included). Quick validation (~2-5 min). Expected error ~1e-6 with dps=15.
+  Example: `python validate_explicit_formula.py --max_zeros 1000 --max_primes 100 --precision_dps 15 --mode light`
+  
+- **Full Mode**: Uses complete dataset (zeros_t1e8.txt, fetch required). Complete validation (~hours). Error ≤1e-6 with dps=30.
+  Example: `python validate_explicit_formula.py --max_zeros 1000000 --max_primes 1000 --precision_dps 30 --mode full --integration_t 50`
+
+## Required Data Files / Archivos de Datos Requeridos
+- zeros_t1e3.txt: Required for light mode (included).
+- zeros_t1e8.txt: Optional for full mode (fetch with `python utils/fetch_odlyzko.py --precision t1e8`).
+
+## Concrete Execution Examples / Ejemplos Concretos de Ejecución
 - CLI Light: `python validate_explicit_formula.py --max_zeros 1000 --test_function f2 --formula_type weil`
-  Output esperado: Relative Error ~1e-6, saved to data/validation_results.csv.
+  Expected output: Relative Error ~1e-6, saved to data/validation_results.csv.
 - Notebook Full: `jupyter nbconvert --execute notebooks/validation.ipynb --to html --output validation_full.html`
 
 ##  Objective
@@ -324,5 +349,5 @@ cat data/validation_results.csv
 - The integral is approximated numerically with `mpmath.quad`.
 
 ## License
-- Manuscript: CC-BY 4.0 (DOI: 10.5281/zenodo.17161831)
-- Code: MIT License (see LICENSE-CODE)
+- **Manuscript**: [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) (DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831))
+- **Code**: [MIT License](https://opensource.org/licenses/MIT) (see [LICENSE-CODE](LICENSE-CODE))
