@@ -33,6 +33,10 @@ Notebook Validation Commit: `7f191eb`
 - **Falsifiable**: Appendix C shows perturbations ℓ_v ≠ log q_v would collapse the framework
 - **Mathematical Rigor**: Non-circular, rigorous within trace-class theory (Birman-Solomyak)
 
+## 📚 Estado actual
+
+Las secciones `docs/teoremas_basicos/rigidez_arquimediana.tex`, `unicidad_paley_wiener.tex`, `de_branges.tex`, `axiomas_a_lemas.tex`, `factor_arquimediano.tex` y `localizacion_ceros.tex` contienen las versiones en progreso de las demostraciones formales para los cuatro puntos críticos hacia una solución definitiva.
+
 ## 🚀 Quick Start
 
 ### Prerequisites
