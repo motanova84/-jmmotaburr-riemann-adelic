@@ -1,5 +1,7 @@
 # Riemann-Adelic
 
+[![LaTeX & Proof-Checks](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/latex-and-proof.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/latex-and-proof.yml)
+
 This repository contains numerical validation code for the paper:
 
 **A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
