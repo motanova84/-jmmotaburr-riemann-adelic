@@ -1,17 +1,13 @@
 \section{Teorema de Rigidez Arquimediana}
 
-\newtheorem{theoremA}{Theorem}[section]
-\newtheorem{lemmaA}[theoremA]{Lemma}
-\newtheorem{propA}[theoremA]{Proposition}
-
-\begin{theoremA}[Rigidez arquimediana]
+\begin{theorem}[Rigidez arquimediana]
 Sea $D(s)$ una función entera de orden $\le 1$, con simetría $D(1-s)=D(s)$, tal que
 sus factores locales satisfacen la ley de producto global del índice de Weil. Entonces
 el factor local en $v=\infty$ (lugar arquimediano) está fijado de forma única como
 \[
 \gamma_\infty(s)=\pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right).
 \]
-\end{theoremA}
+\end{theorem}
 
 \begin{proof}
 Trabajamos en el marco de Schwartz--Bruhat $\mathcal{S}(\Bbb A_\Bbb Q)$ y su transformada de Fourier adélica $\widehat{\Phi}$ con normalización metapléctica (índice de Weil).
@@ -36,11 +32,11 @@ y el \emph{producto global} de índices satisface $\prod_v \gamma_v(s)=1$ (recip
 que es precisamente el que se obtiene con la gaussiana $e^{-\pi x^2}$ y la normalización metapléctica estándar (Weil). Cualquier otra normalización en $v=\infty$ rompería bien la ley de producto (no se obtiene $1$) o la simetría $s\mapsto 1-s$.
 \end{proof}
 
-\begin{propA}[Rigidez por método de fase estacionaria]
+\begin{prop}[Rigidez por método de fase estacionaria]
 Sea $I_\infty(s)$ el término arquimediano en la fórmula explícita asociado a un kernel gaussiano.
 La evaluación por fase estacionaria del integral oscilatorio en el lugar real produce
 el mismo factor $\pi^{-s/2}\Gamma(s/2)$. Por tanto, la constante global se fija de modo independiente de la ruta metapléctica.
-\end{propA}
+\end{prop}
 
 \begin{proof}[Bosquejo]
 Se reescribe $I_\infty(s)$ como integral de Mellin--Fourier con fase cuadrática; al
