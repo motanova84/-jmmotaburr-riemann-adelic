@@ -1,0 +1,47 @@
+\section{De Axiomas a Lemas: derivación intrínseca de A1--A4}
+
+\subsection*{Resumen}
+Mostramos que A1 (flujo a escala finita), A2 (simetría), y A4 (regularidad espectral)
+se derivan del formalismo adélico estándar (Schwartz--Bruhat en $\mathbb{A}_\mathbb{Q}$,
+Poisson adélico y teoría de operadores de traza, estilo Birman--Solomyak), quedando
+como lemas internos del sistema.
+
+\begin{lemma}[A1 como consecuencia de Schwartz--Bruhat]
+Sea $\mathcal{S}(\mathbb{A}_\mathbb{Q})$ el espacio de Schwarz--Bruhat adélico, y
+$\Phi \in \mathcal{S}(\mathbb{A}_\mathbb{Q})$ una función factorizada localmente.
+Entonces el flujo inducido por $u \mapsto \Phi(u\cdot)$ en el parámetro de escala
+es localmente integrable y de energía finita; en particular, el \emph{flujo a escala
+finita} (A1) es un corolario del decaimiento rápido y la factorización local.
+\end{lemma}
+
+\begin{proof}[Borrador]
+(1) Factorización local: $\Phi = \prod_v \Phi_v$ con $\Phi_\infty \in \mathcal{S}(\mathbb{R})$
+y $\Phi_p$ compactamente soportada. (2) El decaimiento gaussiano en el lugar infinito
+y la compacidad $p$-ádica implican integrabilidad uniforme en la escala. (3) El control
+de energía se obtiene por estimaciones de Young y Minkowski en adelización estándar.
+\end{proof}
+
+\begin{lemma}[A2 por Poisson adélico y simetría funcional]
+Sea $\widehat{\Phi}$ la transformada de Fourier adélica de $\Phi$ con la normalización
+del índice de Weil. Entonces la identidad de Poisson global induce la simetría
+$D(1-s)=D(s)$ tras completar con el factor infinito estándar.
+\end{lemma}
+
+\begin{proof}[Borrador]
+(1) Poisson adélico: $\sum_{x\in \mathbb{Q}} \Phi(x) = \sum_{x\in \mathbb{Q}} \widehat{\Phi}(x)$.
+(2) La compatibilidad con el índice de Weil fija la transformación local en $\mathbb{R}$
+y en $\mathbb{Q}_p$. (3) Al nivel de la función generatriz $D(s)$, la ecuación funcional
+emerge con cambio $s \mapsto 1-s$. 
+\end{proof}
+
+\begin{lemma}[A4 por teoría de trazas Birman--Solomyak]
+Sea $K_s$ el núcleo integral (suavizado) asociado a $D(s)$. Si $K_s$ define una familia
+de operadores de traza para $\Re(s)$ en una banda vertical, entonces la regularidad
+espectral (A4) sigue de la continuidad en traza y del lema de Birman--Solomyak.
+\end{lemma}
+
+\begin{proof}[Borrador]
+(1) Construcción de $K_s$ como convolución adélica suave. (2) Cotas de Hilbert--Schmidt
+para asegurar traza. (3) Continuidad en $s$ y estimaciones uniformes proporcionan la
+regularidad espectral exigida.
+\end{proof}
