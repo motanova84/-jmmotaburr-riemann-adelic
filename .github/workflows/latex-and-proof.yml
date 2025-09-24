@@ -1,0 +1,39 @@
+name: Build LaTeX and Proof-Checks
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - 'proof-check/**'
+      - 'tests/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX Live minimal
+        run: sudo apt-get update && sudo apt-get install -y texlive-latex-base
+      - name: Build core theorems PDF
+        working-directory: docs/teoremas_basicos
+        run: make
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: teoremas-basicos
+          path: docs/teoremas_basicos/main.pdf
+
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install mpmath sympy pytest
+      - name: Run proof-check tests
+        run: pytest -q
