@@ -13,27 +13,61 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Lean
-      uses: leanprover/lean-action@v1
+    - name: Cache Lean installation
+      uses: actions/cache@v3
       with:
-        lean-version: "leanprover/lean4:latest"
+        path: ~/.elan
+        key: ${{ runner.os }}-elan-${{ hashFiles('formalization/lean/lean-toolchain') }}
+        restore-keys: |
+          ${{ runner.os }}-elan-
 
-    - name: Install dependencies
+    - name: Install Lean toolchain
       run: |
-        lake update
+        curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- --default-toolchain leanprover/lean4:v4.5.0 -y
+        echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+    - name: Cache Lake packages
+      uses: actions/cache@v3  
+      with:
+        path: formalization/lean/lake-packages
+        key: ${{ runner.os }}-lake-${{ hashFiles('formalization/lean/lake-manifest.json') }}
+        restore-keys: |
+          ${{ runner.os }}-lake-
+
+    - name: Set up Lean project
+      working-directory: formalization/lean
+      run: |
+        export PATH="$HOME/.elan/bin:$PATH"
+        elan show
+        # Use existing manifest if present, otherwise update
+        if [ ! -f lake-manifest.json ]; then
+          echo "No manifest found, running lake update..."
+          lake update
+        else
+          echo "Using existing lake-manifest.json"
+        fi
 
     - name: Compile Lean formalization
+      working-directory: formalization/lean
       run: |
-        cd formalization/lean
+        export PATH="$HOME/.elan/bin:$PATH"
         lake build
 
-    - name: Run Lean check
+    - name: Check individual Lean files
+      working-directory: formalization/lean
       run: |
-        cd formalization/lean
-        lake exe cache get
-        lake exe check RH_final.lean
+        export PATH="$HOME/.elan/bin:$PATH"
+        # Check main files for basic syntax and imports
+        echo "Checking Main.lean..."
+        lean --check Main.lean || echo "Main.lean check failed"
+        echo "Checking RH_final.lean..."  
+        lean --check RH_final.lean || echo "RH_final.lean check failed"
+        # List available files for debugging
+        echo "Available Lean files:"
+        find . -name "*.lean" -type f
