@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.25)  25 SEP 2025 03:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.25)  25 SEP 2025 03:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -341,7 +341,241 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count296
 \l__pdf_internal_box=\box54
 )
-No file main.aux.
+(./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking d
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+Package hyperref Info: Link coloring OFF on input line 27.
+ (./main.out) (./main.out)
+\@outlinefile=\write3
+\openout3 = `main.out'.
+
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count297
+\scratchdimen=\dimen174
+\scratchbox=\box55
+\nofMPsegments=\count298
+\nofMParguments=\count299
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count300
+\MPscratchDim=\dimen175
+\MPnumerator=\count301
+\makeMPintoPDFobject=\count302
+\everyMPtoPDFconversion=\toks33
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (./main.toc [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+\tf@toc=\write4
+\openout4 = `main.toc'.
+
+ (./sections/introduction.tex
+[2]) (./sections/axiomas_a_lemas.tex
+
+Package amsfonts Warning: Obsolete command \Bbb; \mathbb should be used instead
+ on input line 4.
+
+[3]) (./sections/rigidez_arquimediana.tex [4])
+(./sections/unicidad_paley_wiener.tex) (./sections/de_branges.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1.
+
+[5]) (./sections/factor_arquimediano.tex
+Overfull \hbox (11.96144pt too wide) in paragraph at lines 3--7
+\OT1/cmr/m/n/12 Demostramos que el ^^Sunico fac-tor lo-cal en $\U/msb/m/n/12 R$
+ \OT1/cmr/m/n/12 com-pat-i-ble con el for-mal-ismo ad^^Selico es $\OML/cmm/m/it
+/12 ^^Y[]\OT1/cmr/m/n/12 ^^@(\OML/cmm/m/it/12 s=\OT1/cmr/m/n/12 2)$.
+ []
+
+
+LaTeX Warning: Citation `Weil' on page 6 undefined on input line 26.
+
+
+LaTeX Warning: Citation `Weil' on page 6 undefined on input line 47.
+
+) (./sections/localizacion_ceros.tex [6]
+
+LaTeX Warning: Citation `deBranges' on page 7 undefined on input line 16.
+
+
+LaTeX Warning: Citation `deBranges' on page 7 undefined on input line 20.
+
+
+Overfull \hbox (1.02011pt too wide) in paragraph at lines 16--22
+[]\OT1/cmr/m/n/12 Por [[]], $\OML/cmm/m/it/12 E$ \OT1/cmr/m/n/12 HB $\OMS/cmsy/
+m/n/12 )$ \OT1/cmr/m/n/12 ex-iste n^^Sucleo pos-i-tivo $\OML/cmm/m/it/12 K[]\OT
+1/cmr/m/n/12 (\OML/cmm/m/it/12 z\OT1/cmr/m/n/12 )$ que gen-era sis-tema $\OML/c
+mm/m/it/12 Y[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = \OML/cmm/m
+/it/12 JH\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 Y
+\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )$.
+ []
+
+
+LaTeX Warning: Citation `Weil' on page 7 undefined on input line 48.
+
+
+LaTeX Warning: Citation `IK' on page 7 undefined on input line 59.
+
+) (./sections/teorema_suorema.tex [7]
+
+LaTeX Warning: Reference `sec:axiomas' on page 8 undefined on input line 21.
+
+
+LaTeX Warning: Reference `sec:rigidez' on page 8 undefined on input line 23.
+
+
+LaTeX Warning: Reference `sec:debranges' on page 8 undefined on input line 25.
+
+
+LaTeX Warning: Reference `sec:localizacion' on page 8 undefined on input line 2
+7.
+
+
+LaTeX Warning: Reference `sec:unicidad' on page 8 undefined on input line 29.
+
+
+Overfull \hbox (47.67218pt too wide) in paragraph at lines 40--41
+[]\OT1/cmr/m/n/12 Se sigue in-medi-ata-mente del Teo-rema []14.1[] y la relaci^
+^Son fun-cional $\OML/cmm/m/it/12 ^^P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 s\OT1/cm
+r/m/n/12 ) = ^^D(\OML/cmm/m/it/12 s\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 =\OT1/cmr/
+m/n/12 [^^@(\OML/cmm/m/it/12 s=\OT1/cmr/m/n/12 2)\OML/cmm/m/it/12 ^^Y[]s\OT1/cm
+r/m/n/12 (\OML/cmm/m/it/12 s \OMS/cmsy/m/n/12 ^^@
+ []
+
+[8]
+
+LaTeX Warning: Reference `sec:numerical' on page 9 undefined on input line 48.
+
+) (./sections/conclusion.tex [9]) (./sections/appendix_traces.tex)
+(./sections/appendix_numerical.tex [10]) [11]
+Underfull \hbox (badness 1629) in paragraph at lines 96--97
+[]\OT1/cmr/m/n/12 V. V. Peller, \OT1/cmr/m/it/12 Han-kel Op-er-a-tors and Their
+ Ap-pli-ca-tions\OT1/cmr/m/n/12 , Springer, 2003. DOI:
+ []
+
+[12] (./main.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+ ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 4AE977D3EED6C84060048EF4FE8F85C3;5139.
+ ) 
+Here is how much of TeX's memory you used:
+ 11116 strings out of 476182
+ 171236 string characters out of 5795595
+ 1937975 words of memory out of 5000000
+ 32850 multiletter control sequences out of 15000+600000
+ 573634 words of font info for 94 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 75i,7n,79p,541b,584s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/runner/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.60
+0pk> </home/runner/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.
+600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (12 pages, 279349 bytes).
+PDF statistics:
+ 391 PDF objects out of 1000 (max. 8388607)
+ 333 compressed objects within 4 object streams
+ 96 named destinations out of 1000 (max. 500000)
+ 225 words of extra memory for PDF output out of 10000 (max. 10000000)
+
