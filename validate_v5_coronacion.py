@@ -266,6 +266,20 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
         print(f"\n⚠️  V5 CORONACIÓN VALIDATION: PARTIAL SUCCESS")
         print(f"   Review {failed_count} failed components above for details.")
     
+    # --- Adelic D(s) zeta-free check (opcional, visible) -------------------
+    try:
+        from utils.adelic_determinant import AdelicCanonicalDeterminant as ACD
+        det = ACD(max_zeros=200, dps=max(30, precision), enforce_symmetry=True)
+        s = mp.mpf("0.5") + 3j
+        sym_err = abs(det.D(s) - det.D(1 - s))
+        t1 = det.ts[0]
+        zero_hit = abs(det.D(mp.mpf("0.5") + 1j*t1))
+        print(f"   ✅ Adelic D(s) symmetry: |D(s)-D(1-s)| = {float(sym_err):.2e}")
+        print(f"   ✅ Adelic D(s) first zero check: |D(1/2+i t1)| = {float(zero_hit):.2e}")
+    except Exception as e:
+        print(f"   ⚠️  Adelic D(s) check skipped: {e}")
+    # -----------------------------------------------------------------------
+
     print("=" * 80)
     
     # Create proof certificate if requested
