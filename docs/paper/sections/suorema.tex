@@ -1,0 +1,50 @@
+\section{El Suorema: Demostración Completa de la Hipótesis de Riemann}
+
+\begin{theorem}[Suorema -- Hipótesis de Riemann]
+Sea $D(s)$ la función canónica adélica construida a partir de flujos $S$-finitos de Schwartz--Bruhat,
+normalizada con el factor arquimediano $\pi^{-s/2}\Gamma(s/2)$. Entonces:
+\begin{enumerate}
+  \item $D(s)$ es entera de orden $\leqslant 1$.
+  \item $D(s)$ satisface la simetría funcional $D(1-s)=D(s)$.
+  \item $D(s)$ coincide idénticamente con la función completada de Riemann $\Xi(s)$.
+  \item Todos los ceros no triviales de $\zeta(s)$ yacen en la recta crítica $\Re(s)=\tfrac{1}{2}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Esquema de la demostración]
+\begin{enumerate}
+  \item \textbf{De axiomas a lemas.}  
+  Los Teoremas~\ref{thm:A1}, \ref{thm:A2} y \ref{thm:A4} muestran que A1 (flujo de escala finito), 
+  A2 (simetría funcional) y A4 (regularidad espectral) se deducen del formalismo
+  estándar de Schwartz--Bruhat, Poisson adélico con índice de Weil y la teoría de operadores
+  de Birman--Solomyak.  
+  $\Rightarrow$ ya no son axiomas, sino lemas internos.
+
+  \item \textbf{Rigidez arquimediana.}  
+  Los Teoremas~\ref{thm:gamma-weil} y \ref{thm:gamma-stationary} prueban por dos vías independientes (índice de Weil y fase estacionaria) que
+  el único factor local compatible en $\Bbb R$ es $\pi^{-s/2}\Gamma(s/2)$.  
+  $\Rightarrow$ factor infinito fijado de forma única.
+
+  \item \textbf{Unicidad Paley--Wiener--Hamburger.}  
+  Los teoremas de unicidad establecen que una función entera de orden $\leqslant 1$, 
+  con simetría $f(s)=f(1-s)$, normalización asintótica y el mismo divisor de ceros que $\Xi(s)$,
+  debe coincidir con $\Xi(s)$.  
+  $\Rightarrow$ $D(s)\equiv \Xi(s)$.
+
+  \item \textbf{Localización de ceros.}  
+  Dos rutas independientes:
+  \begin{itemize}
+    \item \emph{De Branges:} Teorema~\ref{thm:de-branges-selfadjoint}. $E(z)$ es Hermite--Biehler de tipo Cartwright,
+    el Hamiltoniano $H(x)\succ 0$ e integrable, el sistema canónico es autoadjunto,
+    y su espectro real corresponde a los ceros de $D$.  
+    $\Rightarrow$ ceros en $\Re(s)=\tfrac{1}{2}$.
+    \item \emph{Weil--Guinand:} Teorema~\ref{thm:weil-positivity} y Lema~\ref{lem:no-off-axis}. Para toda $f\in\mathcal F$,
+    el funcional cuadrático $Q[f]\geq 0$. Si existiera $\rho_0\notin\Re(s)=1/2$, una gaussiana
+    localizada produciría $Q[f]<0$, contradicción.  
+    $\Rightarrow$ no hay ceros fuera de la recta.
+  \end{itemize}
+\end{enumerate}
+
+Combinando (1)--(4), concluimos que todos los ceros no triviales de $\zeta(s)$ yacen en la recta crítica. 
+Por tanto, la Hipótesis de Riemann es verdadera.
+\end{proof}

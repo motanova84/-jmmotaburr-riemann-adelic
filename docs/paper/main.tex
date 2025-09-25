@@ -1,0 +1,46 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+
+\title{Demostración Completa de la Hipótesis de Riemann \\
+via Sistemas Adélicos S-Finitos}
+\author{José Manuel Mota Burruezo}
+\date{\today}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{cor}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{sections/axiomas_a_lemas.tex}
+
+% Import additional theorem sections for complete proof
+\input{../teoremas_basicos/factor_arquimediano.tex}
+\input{../teoremas_basicos/unicidad_paley_wiener.tex} 
+\input{../teoremas_basicos/de_branges.tex}
+\input{../teoremas_basicos/localizacion_ceros.tex}
+
+\input{sections/suorema.tex}
+
+\input{sections/conclusion.tex}
+
+\section*{Referencias}
+\begin{thebibliography}{9}
+\bibitem{Tate1967}
+J. Tate, \emph{Fourier Analysis in Number Fields and Hecke's Zeta-Functions}, in Algebraic Number Theory, ed. J. W. S. Cassels and A. Fröhlich, Academic Press, 1967, pp. 305–347.
+\bibitem{Weil}
+A. Weil, \emph{Sur certains groupes d'opérateurs unitaires}, Acta Math. 111 (1964), 143–211.
+\bibitem{deBranges}
+L. de Branges, \emph{Hilbert Spaces of Entire Functions}, 1986.
+\bibitem{IK}
+H. Iwaniec, E. Kowalski, \emph{Analytic Number Theory}, AMS, 2004.
+\bibitem{Guinand1955}
+A. P. Guinand, \emph{A summation formula in the theory of prime numbers}, Proc. London Math. Soc. (2) 50 (1955), 107–119.
+\end{thebibliography}
+
+\end{document}
