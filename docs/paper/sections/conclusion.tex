@@ -1,20 +1,31 @@
 \section{Conclusion}
 
-We presented an adelic framework with the following results:
+The present notes assemble the ingredients of an adelic programme aimed at
+deriving the Riemann Hypothesis.  At this stage they should be read as a
+research blueprint:
 \begin{itemize}
-    \item Axioms A1--A4 are derived from Schwartz--Bruhat factorisation, adelic Poisson summation, and Birman--Solomyak trace theory.
-    \item The Archimedean factor is rigidly determined as $\pi^{-s/2}\Gamma(s/2)$ by independent Weil-index and stationary-phase calculations.
-    \item Paley--Wiener--Hamburger uniqueness forces $D(s)$ to coincide with $\Xi(s)$.
-    \item de Branges and Weil--Guinand positivity routes place every zero of $D$ on the critical line.
+    \item Sections on A1--A4, the Archimedean factor, and Paley--Wiener
+    uniqueness record the classical routes by which these properties are
+    expected to follow from Schwartz--Bruhat theory, Poisson summation, and
+    Hadamard factorisation.
+    \item The de Branges and Weil--Guinand sections describe how spectral
+    positivity might enforce critical-line zeros once the required operator and
+    quadratic-form estimates are proved.
 \end{itemize}
 
-\subsection*{Status and limitations}
-The arguments rely on classical adelic analysis, spectral positivity, and standard
-regularity assumptions (e.g. decay of Schwartz--Bruhat functions and integrable
-Hamiltonians).  A complete publication must document the analytic details of the
-kernel estimates, the limit-point verification for the canonical system, and the
-control of the quadratic form $Q[f]$ for truncated test functions.  These points
-are highlighted as priorities for peer review and future formal verification.
+\subsection*{Outstanding analytic work}
+The key analytic closures remain open.  In particular we still require:
+\begin{itemize}
+    \item detailed proofs that the adelic flow construction forces A1--A4
+    without auxiliary axioms (Deliverables P1.1--P1.4),
+    \item a complete verification of the canonical system's limit-point
+    behaviour and self-adjointness, plus sharp bounds establishing positivity of
+    the Weil--Guinand quadratic form (Deliverables P2.1--P2.4),
+    \item two independent derivations of the Archimedean factor fixing
+    $\pi^{-s/2}\Gamma(s/2)$ (Deliverables P3.1--P3.2), and
+    \item publication-ready documentation together with mechanised verification
+    of the argument (Deliverables P4.1--P4.4).
+\end{itemize}
 
-This repository serves as a public, reproducible framework to advance towards a
-complete proof of the Riemann Hypothesis.
+Until these steps are completed, the project remains a conditional framework
+rather than a universally accepted proof.

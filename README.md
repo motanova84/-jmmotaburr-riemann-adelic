@@ -29,8 +29,12 @@ It includes:
 - Paley--Wiener uniqueness
 
 ### In Progress
-- Full analytical closure of zeros on the critical line
-  (via de Branges or Weil--Guinand positivity).
+- Removal of all auxiliary axioms by deriving A1--A4 inside the adelic flow.
+- Complete analytic proofs of critical-line localisation (de Branges \\&
+  Weil--Guinand routes).
+- Archimedean factor rigidity with independent Weil-index and stationary-phase
+  derivations.
+- Community-acceptable formalisation (Lean/Isabelle) and publication package.
 
 👉 Latest compiled PDF: [Artifacts](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions)
 
@@ -52,8 +56,8 @@ It includes:
 **Framework Properties**:
 - **Internally Consistent**: Zeta-free construction where primes emerge from adelic trace
 - **Conditional Validity**: Valid as conditional framework under specified axioms
-- **Falsifiable**: Appendix C shows perturbations ℓ_v ≠ log q_v would collapse the framework
-- **Mathematical Rigor**: Non-circular, rigorous within trace-class theory (Birman-Solomyak)
+- **Outstanding Work**: Requires full operator estimates, quadratic-form bounds,
+  and formal verification before any claim to a proof can be entertained.
 
 ## 🚀 Quick Start
 

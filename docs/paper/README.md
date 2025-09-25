@@ -1,8 +1,9 @@
 # Core Theorems towards a Complete Proof of the Riemann Hypothesis
 
 This folder contains the **foundational theorems** that bridge the gap between a
-conditional adelic framework and a **full mathematical proof** of the Riemann
-Hypothesis (RH).
+conditional adelic framework and a potential **full mathematical proof** of the
+Riemann Hypothesis (RH).  All sections remain provisional: key estimates and
+operator arguments still need to be written in full detail.
 
 ## Structure
 
@@ -37,7 +38,8 @@ cd docs/paper
 make
 ```
 
-This produces `main.pdf` with all core theorems and references.
+This produces `main.pdf` with the current blueprints for all core theorems and
+references.
 
 ## Purpose
 
@@ -50,7 +52,8 @@ framework from conditional validity to a Millennium Problem-level proof:
 - Force analytically that all zeros lie on the critical line.
 
 Together, they form the checklist of missing steps for a universally accepted
-resolution of RH.
+resolution of RH.  None of these steps has yet been validated to the standard
+required for publication or community acceptance.
 
 **Author:** José Manuel Mota Burruezo  
 **Affiliation:** Instituto Conciencia Cuántica -- 2025
