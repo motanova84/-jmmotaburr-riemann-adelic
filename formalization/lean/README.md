@@ -68,7 +68,7 @@ lake exe cache get
 3. Open Lean files with your editor (e.g. VS Code with Lean 4 extension):
 
    ```bash
-   code axioms_to_lemmas.lean
+   code RiemannAdelic/axioms_to_lemmas.lean
    ```
 
 ---
