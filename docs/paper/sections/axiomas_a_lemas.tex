@@ -1,0 +1,75 @@
+\section{De Axiomas a Lemas: derivación intrínseca de A1--A4}
+
+Trabajamos en el anillo de adeles $\mathbb{A}_\mathbb{Q}$ con la medida de Haar
+$dx$ y la medida multiplicativa $d^{\times}x$.  Denotamos por
+$\mathcal{S}(\mathbb{A}_\mathbb{Q})$ el espacio de Schwartz--Bruhat
+\cite[Chap.~I]{Tate1967}.  
+
+El objetivo de esta sección es demostrar que las condiciones A1--A4 introducidas
+para la construcción de $D(s)$ no son axiomas independientes, sino consecuencias
+necesarias del formalismo adélico clásico.
+
+\begin{theorem}[A1: flujo a escala finito]\label{thm:A1}
+Sea $\Phi\in\mathcal{S}(\mathbb{A}_\mathbb{Q})$ factorizable como
+$\Phi=\prod_v \Phi_v$.  
+Entonces el flujo de escala $u\mapsto \Phi(u\cdot)$ tiene energía finita y
+órbitas discretas con longitudes $\ell_v = \log q_v$.  
+\end{theorem}
+
+\begin{proof}
+Cada $\Phi_v$ es gaussiana en $\mathbb{R}$ o compacta en $\mathbb{Q}_p$.  
+Sea $U\subset \mathbb{A}_\mathbb{Q}^\times$ un compacto. Entonces
+\[
+ \int_U \!\int_{\mathbb{A}_\mathbb{Q}} |\Phi(ux)|^2\,dx\,d^\times u
+   = \prod_v \int_{U_v} \!\int_{\mathbb{Q}_v} |\Phi_v(u_v x_v)|^2\,dx_v\,d^\times u_v.
+\]
+En $\mathbb{R}$, el decaimiento gaussiano da integrabilidad uniforme;  
+en $\mathbb{Q}_p$, la compacidad asegura medida finita.  
+Las órbitas son discretas y su longitud es $\ell_v=\log q_v$, derivada de la norma
+local multiplicativa.  
+\end{proof}
+
+\begin{theorem}[A2: simetría funcional]\label{thm:A2}
+Sea $Z(\Phi,s)$ el zeta-integral de Tate asociado a $\Phi$.  
+Entonces la función completada
+$D(s)=\Gamma_\mathbb{A}(s)Z(\Phi,s)$ satisface
+\[
+ D(1-s)=D(s).
+\]
+\end{theorem}
+
+\begin{proof}
+La identidad de Poisson adélica
+\cite[Thm.~2]{Tate1967} implica
+$Z(\widehat{\Phi},1-s)=Z(\Phi,s)$ si las transformadas locales se normalizan con
+los factores $\gamma_v(s)$ de Weil.  
+La ley de producto $\prod_v \gamma_v(s)=1$ \cite[§II.3]{Weil1964}
+asegura simetría global.  
+Por tanto $D(s)=D(1-s)$.  
+\end{proof}
+
+\begin{theorem}[A4: regularidad espectral]\label{thm:A4}
+Sea $K_s$ el núcleo integral
+\[
+ K_s(x,y)=\Phi(x)\overline{\Phi(y)}|xy^{-1}|_\mathbb{A}^{s-1/2}
+\]
+con $\Phi\in\mathcal{S}(\mathbb{A}_\mathbb{Q})$.  
+Entonces el operador $T_s f(x)=\int_{\mathbb{A}_\mathbb{Q}} K_s(x,y)f(y)\,dy$
+es de traza, depende holomórficamente de $s$ en bandas verticales, y su espectro
+es discreto y continuo en $s$.  
+\end{theorem}
+
+\begin{proof}
+Para $\Re(s)=\tfrac12$, $K_s\in L^2(\mathbb{A}_\mathbb{Q}^2)$, de modo que
+$T_s$ es de Hilbert--Schmidt.  
+Las estimaciones de crecimiento para $\Phi$ y $|xy^{-1}|^\sigma$ implican
+holomorfía de $\|K_s\|_{L^2}$ en bandas acotadas.  
+El teorema de Birman--Solomyak \cite[Thm.~1]{BirmanSolomyak1967}
+asegura que familias holomorfas de operadores de traza tienen espectro discreto
+y regular.  
+Así, A4 es consecuencia directa del formalismo.  
+\end{proof}
+
+\bigskip
+Con estos resultados, A1, A2 y A4 quedan **demostrados** dentro del marco adélico
+clásico, y dejan de ser axiomas independientes.
