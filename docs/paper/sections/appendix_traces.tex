@@ -1,19 +1,133 @@
-This appendix provides detailed proofs of the trace-class convergence properties essential to our spectral framework.
+\section{Trace-Class Convergence and Canonical Determinants}
+\label{sec:appendix-traces}
 
-\begin{theorem}[Trace-Class Convergence]
-Let $\{T_n\}$ be the sequence of trace-class operators arising from the spectral discretization of the adelic flow. Then the series $\sum_{n=1}^{\infty} \text{tr}(T_n)$ converges absolutely.
-\end{theorem}
+\subsection*{Set-up and smoothing}
 
-\begin{proof}
-The proof relies on the uniform bounds established in the main text and the exponential decay properties of the kernel functions.
+Let $Z$ denote the unperturbed scale generator on a suitable Hilbert space
+$\mathcal H$ attached to the S-finite adelic flow (Sections~\ref{sec:axiomas_a_lemas}
+and~\ref{sec:rigidez}). For $\delta>0$ fix an even window $w_\delta\in\mathcal S(\R)$
+with $\int_\R w_\delta(u)\,du=1$ and define the smoothed resolvent
+\[
+R_\delta(s;A)\;:=\;\int_\R w_\delta(u)\,(A+u - s)^{-1}\,du,
+\qquad s\in\C,
+\]
+whenever the Bochner integral converges in the operator norm.
+Let $A_\delta:=Z+K_\delta$ be the smoothed (bounded) perturbation,
+with $K_\delta$ built from the adelic kernel and the double operator integral (DOI)
+machinery (cf. Birman–Solomyak). We compare against the reference $A_0:=Z$ and set
+\[
+B_{S,\delta}(s)\;:=\;R_\delta(s;A_{S,\delta})-R_\delta(s;A_0),
+\qquad
+B_\delta(s)\;:=\;\lim_{S\uparrow V} B_{S,\delta}(s),
+\]
+where $S\subset V$ is finite and $V$ runs over all places (S-finiteness).
 
-(Detailed proof follows the methodology of Simon \cite{simon2005}, adapted to the adelic setting.)
-\end{proof}
-
-\begin{lemma}[Spectral Stability]
-The eigenvalues of the discretized operators remain stable under perturbations of the adelic measure.
+\begin{lemma}[Boundedness and DOI representation]
+\label{lem:bounded-doi}
+For every fixed $\delta>0$ and $s$ with $|\Re s-\tfrac12|\ge \varepsilon>0$,
+the integral defining $R_\delta(s;A)$ converges in operator norm and yields a bounded
+operator on $\mathcal H$. Moreover,
+\[
+R_\delta(s;A)-R_\delta(s;A_0)
+\;=\;\int_{\R} \!\!\int_{\R}
+\frac{w_\delta(u)-w_\delta(v)}{(u-s)-(v-s)}\,dE_A(u)\,K_\delta\,dE_{A_0}(v),
+\]
+where $E_A,E_{A_0}$ are the spectral measures. In particular $B_{S,\delta}(s)$ is a DOI
+with kernel in $L^2(\R^2)$.
 \end{lemma}
 
-\begin{proof}
-This follows from the general theory of operator perturbations combined with the specific structure of our adelic construction.
+\begin{proof}[Sketch]
+The Bochner integral is standard since $w_\delta\in\mathcal S$ and
+$\|(A+u-s)^{-1}\|\lesssim \langle u\rangle^{-1}$ for $s$ away from the spectrum of $A$.
+The DOI formula follows from Birman–Solomyak's calculus for functions of (possibly
+unbounded) self-adjoint operators applied to $f_u(\lambda)=(\lambda+u-s)^{-1}$; see
+\cite{birman2003} and \cite[Ch.~9]{simon2005}.
 \end{proof}
+
+\subsection*{Trace class and holomorphy}
+
+\begin{proposition}[Schatten bounds and holomorphy]
+\label{prop:trace-class}
+For every strip $\Omega_\varepsilon=\{s\in\C:\,|\Re s-\tfrac12|\ge \varepsilon\}$ and
+fixed $\delta>0$ we have $B_{S,\delta}(s)\in\mathcal S_1$ (\emph{trace class}) uniformly
+in $S$, and $s\mapsto B_{S,\delta}(s)$ is holomorphic with values in $\mathcal S_1$.
+Consequently $B_\delta(s)\in\mathcal S_1$ and $s\mapsto B_\delta(s)$ is $\mathcal S_1$-holomorphic
+on $\Omega_\varepsilon$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+The DOI kernel belongs to $L^2(\R^2)$ and $K_\delta$ is Hilbert–Schmidt at the local
+(adelic) level by S-finiteness; thus $B_{S,\delta}(s)\in \mathcal S_2$.
+Refining with Kato–Seiler–Simon type estimates for integral kernels and the smoothing of
+$w_\delta$ yields $\mathcal S_1$ bounds, uniformly in $S$. Holomorphy in
+$\mathcal S_1$ follows from the analytic vector-valued mapping theorem for trace ideals
+(\cite[Thm.~3.7]{simon2005}).
+\end{proof}
+
+\begin{corollary}[Lidskii series and normal convergence]
+\label{cor:lidskii}
+For $s\in\Omega_\varepsilon$ the Lidskii series
+\[
+\log\det\bigl(I+B_{S,\delta}(s)\bigr)
+=\sum_{n\ge 1}\frac{(-1)^{n+1}}{n}\,\mathrm{tr}\bigl(B_{S,\delta}(s)^n\bigr)
+\]
+converges absolutely and locally uniformly in $s$, uniformly in $S$. The same holds
+for $B_\delta(s)$.
+\end{corollary}
+
+\begin{proof}
+Absolute convergence follows from $\|B_{S,\delta}(s)\|_{\mathcal S_1}$ bounds and
+standard estimates for power series in trace ideals; see \cite[Ch.~3,9]{simon2005}.
+Uniformity in $S$ is granted by the S-finite truncation and the DOI control.
+\end{proof}
+
+\subsection*{Canonical determinant and independence of $\delta,S$}
+
+\begin{theorem}[Canonical determinant and order $\le 1$]
+\label{thm:canonical-det}
+The function
+\[
+D_{S,\delta}(s)\;:=\;\det\bigl(I+B_{S,\delta}(s)\bigr),
+\qquad
+D_\delta(s)\;:=\;\det\bigl(I+B_{\delta}(s)\bigr),
+\]
+is entire on $\C$, satisfies $D_\delta(1-s)=D_\delta(s)$, and
+has order $\le 1$. Moreover $D_\delta$ is independent of $S$ and $\delta$ up to a
+nonzero entire factor of \emph{zero exponential type}; after the normalization
+$\lim_{\Re s\to +\infty}\log D_\delta(s)=0$ we obtain a canonical $D(s)$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Entireness follows from Corollary~\ref{cor:lidskii} and Montel–Vitali arguments for
+$\mathcal S_1$-holomorphic families. The functional symmetry comes from the conjugation
+$J\varphi(x)=\varphi(-x)$ at the level of the flow, giving $JA_\delta J^{-1}=1-A_\delta$,
+hence $B_\delta(1-s)=JB_\delta(s)J^{-1}$ and $\det(I+B_\delta(1-s))=\det(I+B_\delta(s))$.
+Order $\le 1$ follows from Hadamard factorization combined with growth bounds of
+$\|B_\delta(s)\|_{\mathcal S_1}$ on vertical strips (Paley–Wiener type control,
+cf.~\cite{koosis1988,levin1996}). Independence from $S$ and $\delta$ is a standard
+Tauberian/approximation argument: variations produce a trace-class coboundary whose
+determinant factor has zero type; the normalization fixes this factor to~1.
+\end{proof}
+
+\subsection*{Archimedean factor and functional equation}
+
+\begin{proposition}[Archimedean rigidity]
+\label{prop:arch-factor}
+Under the metaplectic normalization and adelic Poisson summation \cite{Weil1964,tate1967},
+the Archimedean contribution equals $\gamma_\infty(s)=\pi^{-s/2}\Gamma(s/2)$ and enforces
+$D(1-s)=D(s)$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+It is the standard computation of the Weil index at the real place with even test
+functions; see \cite{Weil1964}, and the usual stationary phase arguments.
+\end{proof}
+
+\medskip
+\noindent\textbf{References used in this appendix.}
+\begin{itemize}
+  \item Birman–Solomyak DOI calculus \cite{birman2003};
+  \item Simon's trace ideals and analytic families \cite{simon2005};
+  \item Paley–Wiener / growth control \cite{koosis1988,levin1996};
+  \item Adelic Poisson, Tate's thesis, Weil's index \cite{tate1967,Weil1964}.
+\end{itemize}
