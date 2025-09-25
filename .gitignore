@@ -109,3 +109,8 @@ zeros/*_t1e12.txt
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Lean 4 build artifacts
+formalization/lean/lake-packages/
+formalization/lean/.lake/
+formalization/lean/build/
