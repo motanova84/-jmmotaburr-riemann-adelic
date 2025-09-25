@@ -2,7 +2,7 @@
 
 This repository contains numerical validation code for the paper:
 
-**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
+**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Unconditional Version V5.1)**  
 Author: José Manuel Mota Burruezo  
 Date: September 13, 2025  
 DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
