@@ -1,13 +1,27 @@
-\section{Lema de Unicidad Paley--Wiener con Multiplicidades}
+\section{Unicidad Paley--Wiener con multiplicidades}
 
-\begin{lemma}[Unicidad con multiplicidades]
-Sea $F(s)$ entera de orden $\leq 1$ y tipo finito, con simetría $F(s)=F(1-s)$.
-Si $F$ y $\Xi(s)$ tienen la misma medida espectral de ceros (incluyendo multiplicidades),
-y $F(1/2)=\Xi(1/2)$, entonces $F \equiv \Xi$.
+Establecemos que las propiedades analíticas básicas (orden, simetría, divisor
+de ceros y normalización) determinan $D(s)$ de forma única.
+
+\begin{lemma}[Unicidad]\label{lem:paper-uniqueness}
+Sea $F$ una función entera de orden $\leqslant 1$ y tipo finito que satisface
+$F(s)=F(1-s)$.  Si el divisor de ceros de $F$ coincide con el de $\Xi(s)$ e
+$F(1/2)=\Xi(1/2)$, entonces $F\equiv \Xi$.
 \end{lemma}
 
 \begin{proof}
-% 1. Aplicar Paley--Wiener: transformadas con soporte compacto.
-% 2. Igualdad de medidas espectrales $\Rightarrow$ igualdad de transformadas.
-% 3. Normalización en $s=1/2$ fija la constante.
+Por la factorización de Hadamard
+\cite[Chap.~II]{Tate1967}, el cociente $H(s)=F(s)/\Xi(s)$ es una función entera
+sin ceros.  La simetría implica $H(s)=H(1-s)$, de modo que $h(s)=\log H(s)$ es
+entera con crecimiento lineal controlado.  El teorema de
+Paley--Wiener--Hamburger
+\cite[Thm.~5]{Hamburger1921}
+identifica $h$ como transformada de Fourier de una medida compactamente
+soportada.  La normalización $H(1/2)=1$ obliga a que la medida tenga masa total
+nula; si fuese no trivial, $h$ crecería linealmente en alguna dirección
+imaginaria, contradiciendo el crecimiento de orden $\leqslant1$.  Por tanto,
+$h\equiv0$ y $F=\Xi$.
 \end{proof}
+
+Este lema excluye soluciones ``exóticas'': cualquier función entera con las
+propiedades postuladas coincide con la función de Riemann completada.

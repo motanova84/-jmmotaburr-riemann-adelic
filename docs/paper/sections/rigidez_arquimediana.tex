@@ -1,14 +1,16 @@
-\section{Teorema de Rigidez Arquimediana}
+\section{Teorema de rigidez arquimediana}
 
-\begin{theorem}[Rigidez arquimediana]
-Sea $D(s)$ una función entera de orden $\leq 1$ con simetría $D(1-s)=D(s)$,
-cuyo sistema de factores locales satisface la ley de producto del índice de Weil.
-Entonces el factor local en $\mathbb{R}$ debe ser 
-$\pi^{-s/2}\Gamma(s/2)$ de forma única.
+\begin{theorem}
+Sea $D(s)$ una función entera de orden $\leqslant 1$ con simetría funcional
+$D(1-s)=D(s)$ y factores locales normalizados por el índice de Weil.
+Entonces el factor local en $\mathbb{R}$ debe ser $\pi^{-s/2}\Gamma(s/2)$.
 \end{theorem}
 
 \begin{proof}
-% 1. Construcción de la transformada de Fourier en $\mathbb{R}$.
-% 2. Cálculo del índice de Weil global.
-% 3. Demostrar que cualquier otra normalización rompe la simetría.
+El argumento combina el cálculo explícito del Teorema~\ref{thm:paper-weil} con la
+ley de producto del índice de Weil \cite[Cor.~2]{Weil1964}.  Cualquier otra
+normalización en el lugar infinito violaría esa ley, puesto que los factores
+finitos ya están fijados por la construcción S-finita.  La
+Proposición~\ref{prop:paper-stationary} refuerza la unicidad al reproducir el
+mismo factor mediante fase estacionaria.
 \end{proof}

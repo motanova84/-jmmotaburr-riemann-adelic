@@ -33,11 +33,11 @@ uniformemente acotado en $U$ para cada lugar $v$.  Aplicando Fubini obtenemos
 \[
   \int_U\!\int_{\mathbb{A}_\mathbb{Q}} |\Phi(u x)|^2\,dx\,d^{\times}u
   = \int_U\!\prod_v \biggl(\int_{\mathbb{Q}_v} |\Phi_v(u_v x_v)|^2\,dx_v\biggr)
-  d^{\times}u \
+  d^{\times}u \\
   \leqslant C_U \prod_v \|\Phi_v\|_{L^2(\mathbb{Q}_v)}^2 < \infty,
 \]
 
-con $C_U$ finito gracias a las cotas uniformes en $|u_v|_v$ y al decaimiento
+donde $C_U$ es finito gracias a las cotas uniformes en $|u_v|_v$ y al decaimiento
 gaussiano en $\mathbb{R}$.  Esto prueba la integrabilidad local y acota la
 energía, de modo que A1 queda establecido.
 \end{proof}
@@ -85,7 +85,8 @@ Las estimaciones de crecimiento para $\Phi$ y $|xy^{-1}|^\sigma$ muestran que
 $\|K_s\|_{L^2}$ depende holomórficamente de $s$ en cualquier banda vertical
 acotada; así, $T_s$ es una familia holomorfa de operadores trazables.
 El teorema de Birman--Solomyak sobre diferenciabilidad de la traza para
-familias holomorfas de operadores integrales (véase Birman--Solomyak, 1967)
+familias holomorfas de operadores integrales
+\cite[Thm.~1]{BirmanSolomyak1967}
 implica que el espectro de $T_s$ depende continuamente de $s$, sin saltos
 repentinos.  Esta continuidad es exactamente la regularidad exigida por A4.
 \end{proof}

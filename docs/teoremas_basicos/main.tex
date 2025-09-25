@@ -1,0 +1,28 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+
+\title{Teoremas básicos del programa adélico}
+\author{José Manuel Mota Burruezo}
+\date{\today}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{rigidez_arquimediana.tex}
+\input{factor_arquimediano.tex}
+\input{axiomas_a_lemas.tex}
+\input{unicidad_paley_wiener.tex}
+\input{de_branges.tex}
+\input{localizacion_ceros.tex}
+
+\bibliographystyle{plain}
+\bibliography{../paper/references}
+
+\end{document}

@@ -7,16 +7,35 @@ on:
   workflow_dispatch:
 
 jobs:
-  latex:
+  latex-teoremas:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install TeX Live
         run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
-      - name: Build PDF of RH paper
-        working-directory: docs/paper
+      - name: Build PDF of core theorems
+        working-directory: docs/teoremas_basicos
         run: make
-      - name: Upload PDF artifact
+      - name: Upload teoremas artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: teoremas-basicos
+          path: docs/teoremas_basicos/main.pdf
+
+  latex-paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX Live
+        run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
+      - name: Build RH paper
+        working-directory: docs/paper
+        run: |
+          pdflatex main.tex
+          bibtex main
+          pdflatex main.tex
+          pdflatex main.tex
+      - name: Upload RH paper artifact
         uses: actions/upload-artifact@v4
         with:
           name: rh-paper

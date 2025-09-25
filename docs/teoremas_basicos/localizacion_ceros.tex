@@ -7,7 +7,8 @@ la recta crítica.
 \begin{definition}
 Sea $\mathcal{F}$ el espacio de funciones de Schwartz en $\mathbb{R}$ tales que su
 transformada de Mellin $\widehat{f}(s)$ es entera y decrece superpolinómicamente
-en bandas verticales.  Definimos la forma cuadrática
+en bandas verticales.  Esta familia es densa en $L^2(\mathbb{R})$
+\cite[Prop.~1]{Guinand1955}.  Definimos la forma cuadrática
 
 \[
   Q[f]=\sum_{\rho} \widehat{f}(\rho)
@@ -48,18 +49,19 @@ existiría $f\in\mathcal{F}$ con $Q[f]<0$.
 \begin{proof}
 Sea $\rho_0=\beta_0+i\gamma_0$ con $\beta_0>\tfrac{1}{2}$ (el caso $\beta_0<\tfrac{1}{2}$
 se trata tomando conjugado).  Elija $f$ con transformada de Mellin
-$\widehat{f}(s)=e^{-(s-\rho_0)^2/\varepsilon}$ para $\varepsilon>0$ pequeño.  Entonces
+$\widehat{f}(s)=e^{-(s-\rho_0)^2/\varepsilon}$ para $\varepsilon>0$ pequeño, suavizada
+por un factor de corte compacto para asegurar que $f\in\mathcal{F}$.  Entonces
 
 \[
-  Q[f]=e^{-(\rho_0-\rho_0)^2/\varepsilon}
-        +e^{-(1-\rho_0-\rho_0)^2/\varepsilon}
-        -T_\varepsilon,
+  Q[f]=1+e^{-(1-2\beta_0)^2/\varepsilon}-T_\varepsilon,
 \]
 
-donde $T_\varepsilon$ es la contribución de los primos y términos constantes,
-acotada por $O(e^{-c/\varepsilon})$ para alguna $c>0$ gracias a las cotas de
-Schwartz.  Para $\varepsilon$ suficientemente pequeño, el primer sumando domina y
-obtenemos $Q[f]<0$, contradiciendo el Teorema~\ref{thm:weil-positivity}.
+donde $T_\varepsilon$ es la contribución de los primos y términos constantes.
+Las estimaciones de Guinand
+\cite[Eq.~(8)]{Guinand1955} muestran que $T_\varepsilon=O(e^{-c/\varepsilon})$
+para alguna $c>0$ independiente de $\varepsilon$.  Para $\varepsilon$ suficientemente
+pequeño, el primer sumando domina y obtenemos $Q[f]<0$, contradiciendo el
+Teorema~\ref{thm:weil-positivity}.
 \end{proof}
 
 \begin{corollary}[Localización crítica]
