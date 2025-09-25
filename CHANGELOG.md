@@ -1,5 +1,11 @@
 # Changelog
 
+## [V5.1] - 2025-09-25
+### Cambiado
+- Simplificado el proceso de validación: ahora basta con ejecutar `python3 validar_v5_coronacion.py`.
+- Eliminados comandos que pedían permisos de sistema (`find`, `cat` sobre rutas externas).
+- Documentación del README actualizada para máxima claridad y seguridad.
+
 ## V5 Coronación — 25 Sept 2025
 - Introducción del bloque formal de localización crítica
 - Creación de CHANGELOG y estructura de formalización

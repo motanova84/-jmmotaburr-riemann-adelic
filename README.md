@@ -91,6 +91,21 @@ python validate_explicit_formula.py --max_primes 100 --max_zeros 100
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
 ```
 
+## 🚀 Validación V5 Coronación
+
+Una vez clonado el repositorio y con las dependencias instaladas (`pip install -r requirements.txt`):
+
+```bash
+python3 validar_v5_coronacion.py
+```
+
+👉 Este único comando lanza toda la validación:
+
+• Fórmula explícita de Weil
+• Línea crítica  
+• Validaciones numéricas (errores < 1e-6)
+• Chequeos del marco axiomático V5
+
 ### Validation Results
 The validation compares two sides of the Weil explicit formula:
 - **Left side**: Sum over non-trivial zeros + archimedean integral
