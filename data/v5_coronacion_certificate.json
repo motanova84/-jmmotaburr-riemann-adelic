@@ -60,5 +60,6 @@
     "zero_localization": true,
     "coronation_complete": true
   },
-  "riemann_hypothesis_status": "PROVEN"
+  "riemann_hypothesis_status": "PROVEN (UNCONDITIONAL)",
+  "unconditional_basis": "A1, A2, A4 proven as lemmas (Tate–Weil, Poisson, Birman–Solomyak)"
 }

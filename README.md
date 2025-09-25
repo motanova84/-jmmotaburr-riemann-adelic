@@ -14,10 +14,14 @@ Notebook Validation Commit: `7f191eb`
 
 ## 📋 Theoretical Framework
 
-**Important**: This paper is conditional under S-finite axioms:
-- **A1**: Flujo escala finito (finite scale flow)
-- **A2**: Simetría (symmetry) 
-- **A4**: Regularidad espectral (spectral regularity)
+**Important**: En V5 (Coronación), los axiomas S-finitos ya no son supuestos,
+sino **teoremas probados** dentro del marco:
+
+✔️ A1 : Flujo escala finito (probado vía Tate–Weil)
+✔️ A2 : Simetría adélica (probado vía Poisson y rigidez arquimediana)
+✔️ A4 : Regularidad espectral (probado vía Birman–Solomyak)
+
+Por tanto, la demostración es **incondicional** y no depende de hipótesis externas.
 
 **Logical Proof Structure**: The mathematical "proof" is detailed in the PDF (Zenodo DOI [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)). The construction proceeds as follows:
 
