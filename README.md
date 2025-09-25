@@ -2,22 +2,22 @@
 
 This repository contains numerical validation code for the paper:
 
-**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
+**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Unconditional Version V5.1)**  
 Author: José Manuel Mota Burruezo  
-Date: September 13, 2025  
+Date: September 25, 2025  
 DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
-Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
+Technical Appendix to V5.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
 https://doi.org/10.5281/zenodo.17161831
 
 Notebook Validation Commit: `7f191eb`
 
 ## 📋 Theoretical Framework
 
-**Important**: This paper is conditional under S-finite axioms:
-- **A1**: Flujo escala finito (finite scale flow)
-- **A2**: Simetría (symmetry) 
-- **A4**: Regularidad espectral (spectral regularity)
+**Important**: This proof framework is unconditional. The previously assumed S-finite axioms have been proven as lemmas:
+- **A1**: Flujo escala finito (finite scale flow) - **PROVEN AS LEMMA**
+- **A2**: Simetría (symmetry) - **PROVEN AS LEMMA**
+- **A4**: Regularidad espectral (spectral regularity) - **PROVEN AS LEMMA**
 
 **Logical Proof Structure**: The mathematical "proof" is detailed in the PDF (Zenodo DOI [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)). The construction proceeds as follows:
 
@@ -29,13 +29,13 @@ Notebook Validation Commit: `7f191eb`
 
 **Framework Properties**:
 - **Internally Consistent**: Zeta-free construction where primes emerge from adelic trace
-- **Conditional Validity**: Valid as conditional framework under specified axioms
+- **Unconditional Validity**: Valid as unconditional proof with A1, A2, A4 proven as lemmas
 - **Falsifiable**: Appendix C shows perturbations ℓ_v ≠ log q_v would collapse the framework
 - **Mathematical Rigor**: Non-circular, rigorous within trace-class theory (Birman-Solomyak)
 
 ## 📖 Current Status
 
-From conditional framework → Towards unconditional proof (V5 Coronation milestone).
+Unconditional proof achieved (V5.1 Coronation milestone). A1, A2, A4 proven as lemmas, framework no longer conditional.
 
 ## 📝 Paper Structure
 

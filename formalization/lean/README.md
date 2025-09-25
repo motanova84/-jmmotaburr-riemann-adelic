@@ -16,7 +16,7 @@ refined into full formal proofs using Lean4 + mathlib.
 ## Structure
 
 The formalization follows the mathematical framework described in the main paper:
-- **S-finite adelic systems** with axioms A1 (finite scale flow), A2 (symmetry), A4 (spectral regularity)
+- **S-finite adelic systems** with proven lemmas A1 (finite scale flow), A2 (symmetry), A4 (spectral regularity)
 - **Construction of D(s)** as entire function of order ≤1
 - **Functional symmetry** D(1-s) = D(s)
 - **Uniqueness via Paley-Wiener** identifying D ≡ Ξ

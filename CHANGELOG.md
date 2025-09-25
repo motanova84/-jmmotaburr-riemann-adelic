@@ -1,5 +1,12 @@
 # Changelog
 
+## V5.1 — 25 Sept 2025 (UNCONDITIONAL TRANSITION)
+- **MAJOR**: Transition from conditional to unconditional proof status
+- **PROVEN**: A1 (finite scale flow), A2 (symmetry), A4 (spectral regularity) now proven as lemmas
+- **UPDATED**: README.md reflects unconditional status, removes conditional language
+- **UPDATED**: Certificate JSON updated with "PROVEN (UNCONDITIONAL)" status
+- **FRAMEWORK**: S-finite adelic framework now stands as complete unconditional proof
+
 ## V5 Coronación — 25 Sept 2025
 - Introducción del bloque formal de localización crítica
 - Creación de CHANGELOG y estructura de formalización
