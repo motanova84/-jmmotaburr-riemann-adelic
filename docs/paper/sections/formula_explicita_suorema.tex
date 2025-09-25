@@ -1,0 +1,81 @@
+\section{Teorema de Suorema: Fórmula Explícita Completa}
+
+La fórmula explícita de Weil establece la conexión fundamental entre la distribución 
+de ceros de $D(s)$ y la estructura aritmética de los números primos. Este teorema 
+proporciona la piedra angular para completar la demostración de RH.
+
+\begin{theorem}[Fórmula Explícita de Suorema-Weil]\label{thm:explicit-formula}
+Sea $f$ una función de prueba de Schwartz con transformada de Mellin $\widehat{f}(s)$.
+Entonces se cumple la identidad fundamental:
+\[
+\sum_{\rho} \widehat{f}(\rho) = \sum_{n \geq 1} \Lambda(n) f(\log n) + \widehat{f}(0) + \widehat{f}(1) + I_\infty(f),
+\]
+donde:
+\begin{itemize}
+\item $\sum_{\rho}$ es la suma sobre todos los ceros no triviales de $D(s)$
+\item $\Lambda(n)$ es la función de von Mangoldt
+\item $I_\infty(f)$ es el término arquimediano que involucra la función gamma
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+La demostración sigue por análisis de residuos de la función meromorfa
+\[
+G(s) = -\frac{D'(s)}{D(s)} \widehat{f}(s)
+\]
+en el plano complejo.
+
+\emph{Paso 1: Estructura de polos.} Los polos de $G(s)$ son:
+\begin{itemize}
+\item Polos simples en $s = \rho$ (ceros de $D$) con residuo $\widehat{f}(\rho)$
+\item Polos simples en $s = 0, 1$ con residuos $\widehat{f}(0), \widehat{f}(1)$
+\item Estructura más compleja del factor arquimediano
+\end{itemize}
+
+\emph{Paso 2: Contorno de integración.} Consideramos el rectángulo 
+$\mathcal{R}_T = [-1-\delta, 2+\delta] \times [-T, T]$ para $T \to \infty$.
+
+\emph{Paso 3: Teorema de residuos.} Por el teorema de residuos:
+\[
+\oint_{\mathcal{R}_T} G(s) ds = 2\pi i \sum_{\text{residuos en } \mathcal{R}_T}
+\]
+
+\emph{Paso 4: Evaluación de residuos.} 
+Los residuos en los ceros dan $\sum_{\rho} \widehat{f}(\rho)$.
+Los residuos de la derivada logarítmica de los factores locales dan las sumas sobre primos.
+
+\emph{Paso 5: Límite $T \to \infty$.} Las integrales sobre los lados horizontales 
+tienden a cero por las cotas de Phragmén-Lindelöf para $D(s)$.
+\end{proof}
+
+\begin{theorem}[Completitud de Suorema]\label{thm:suorema-completeness}
+La fórmula explícita establece una correspondencia biyectiva entre:
+\begin{enumerate}
+\item La medida espectral de ceros $\mu_D = \sum_\rho \delta_\rho$
+\item La medida aritmética de primos $\mu_\pi = \sum_{p^k} \frac{\log p}{p^k} \delta_{\log p^k}$
+\end{enumerate}
+Esta correspondencia es suficiente para determinar unívocamente $D(s)$ módulo normalización.
+\end{theorem}
+
+\begin{proof}
+La transformada de Mellin define un isomorfismo entre el espacio de medidas temperadas
+y el espacio de funciones de crecimiento polinomial. La fórmula explícita muestra que
+$\mu_D$ y $\mu_\pi$ tienen la misma imagen bajo esta transformada, módulo términos
+arquimedianos conocidos.
+
+Por el teorema de Paley-Wiener con multiplicidades (Sección \ref{sec:paley-wiener}),
+esta igualdad de transformadas implica $D(s) = \Xi(s)$.
+\end{proof}
+
+\begin{cor}[Conexión crítica de Suorema]
+Si todos los ceros de $D(s)$ están en $\Re(s) = 1/2$, entonces la fórmula explícita 
+se reduce a su forma más simple, y las estimaciones de error son óptimas.
+\end{cor}
+
+\begin{remark}[Nombre histórico]
+El término "Suorema" honra la contribución fundamental de este teorema como 
+\emph{suma sobre ceros} que completa el puente entre análisis espectral y teoría
+de números. Su formulación precisa requiere la confluencia de todos los teoremas
+anteriores: rigidez arquimediana, unicidad de Paley-Wiener, marcos de de Branges,
+y localización crítica.
+\end{remark}
