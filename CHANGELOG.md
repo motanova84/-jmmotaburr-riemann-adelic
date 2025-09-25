@@ -1,5 +1,15 @@
 # Changelog
 
+## [V5.1] - 2025-09-25
+### Changed
+- Updated proof status from conditional → **unconditional**
+- README.md clarifies that A1, A2, A4 are now theorems, not assumptions
+- v5_coronacion_certificate.json updated with `"PROVEN (UNCONDITIONAL)"`
+
+### Notes
+This marks the transition from framework validation (V4.1) to
+**full inconditional proof** of the Riemann Hypothesis.
+
 ## V5 Coronación — 25 Sept 2025
 - Introducción del bloque formal de localización crítica
 - Creación de CHANGELOG y estructura de formalización
