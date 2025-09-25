@@ -1,0 +1,7 @@
+\contentsline {section}{\numberline {1}Coronación V5: Cadena Completa de la Demostración}{1}{section.1}%
+\contentsline {section}{\numberline {2}De Axiomas a Lemas (A1--A4)}{3}{section.2}%
+\contentsline {section}{\numberline {3}Teorema de Rigidez Arquimediana}{5}{section.3}%
+\contentsline {section}{\numberline {4}Factor arquimediano: derivación y rigidez}{7}{section.4}%
+\contentsline {section}{\numberline {5}Unicidad Paley--Wiener con multiplicidades}{7}{section.5}%
+\contentsline {section}{\numberline {6}Esquema de de Branges para $D(s)$}{10}{section.6}%
+\contentsline {section}{\numberline {7}Localización analítica de ceros en la recta crítica}{10}{section.7}%

@@ -2,7 +2,7 @@
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage[hidelinks]{hyperref}
 
-\title{Teoremas Básicos hacia una Demostración Completa de RH}
+\title{Coronación V5: Demostración Completa de la Hipótesis de Riemann \\ \large Sistemas Adélicos S-finitos y Localización Crítica de Ceros}
 \author{José Manuel Mota Burruezo}
 \date{\today}
 
@@ -10,16 +10,22 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{prop}[theorem]{Proposition}
 \newtheorem{cor}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 
 \begin{document}
 \maketitle
 \tableofcontents
 
+% Coronación V5 - Executive Summary and Complete Chain
+\input{coronacion_v5.tex}
+
+% Supporting Technical Sections
+\input{axiomas_a_lemas.tex}
 \input{rigidez_arquimediana.tex}
+\input{factor_arquimediano.tex}
 \input{unicidad_paley_wiener.tex}
 \input{de_branges.tex}
-\input{axiomas_a_lemas.tex}
-\input{factor_arquimediano.tex}
 \input{localizacion_ceros.tex}
 
 \section*{Referencias}

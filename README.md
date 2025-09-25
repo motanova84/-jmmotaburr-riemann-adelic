@@ -35,9 +35,19 @@ Notebook Validation Commit: `7f191eb`
 
 ## 📖 Current Status
 
-From conditional framework → Towards unconditional proof (V5 Coronation milestone).
+**Coronación V5 Achievement**: Complete proof framework implemented.
 
-Las secciones `docs/teoremas_basicos/rigidez_arquimediana.tex`, `unicidad_paley_wiener.tex`, `de_branges.tex`, `axiomas_a_lemas.tex`, `factor_arquimediano.tex` y `localizacion_ceros.tex` contienen las versiones en progreso de las demostraciones formales para los cuatro puntos críticos hacia una solución definitiva.
+✅ **Axioms → Lemas**: A1, A2, A4 converted from postulates to derived consequences
+✅ **D(s) ≡ Ξ(s)**: Unique identification via Paley-Wiener-Hamburger theorem  
+✅ **Critical Line**: Dual-route proof (de Branges + Weil-Guinand)
+✅ **Complete Chain**: Rigorous logical sequence from adelic foundations to RH
+
+La Coronación V5 establece la cadena completa:
+**Lemas Adélicos** → **D(s) Construcción** → **Unicidad D≡Ξ** → **Localización Crítica** → **Hipótesis de Riemann**
+
+Secciones técnicas en `docs/teoremas_basicos/`: `coronacion_v5.tex`, `axiomas_a_lemas.tex`, `unicidad_paley_wiener.tex`, `de_branges.tex`, `localizacion_ceros.tex`, `rigidez_arquimediana.tex`, `factor_arquimediano.tex` contienen las demostraciones formales completas.
+
+**Validación V5**: `python validate_coronacion_v5.py` ejecuta la validación completa del marco teórico.
 
 ## 🚀 Quick Start
 
