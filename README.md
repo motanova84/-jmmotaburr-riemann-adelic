@@ -64,6 +64,8 @@ See `docs/paper/README.md` for detailed compilation instructions and dependencie
 
 ## 🚀 Quick Start
 
+ℹ️ **Use siempre python3, ya que en algunos sistemas python no está enlazado.**
+
 ### Prerequisites
 - Python 3.8+ 
 - Internet connection (for downloading Riemann zeros data)
@@ -73,7 +75,7 @@ See `docs/paper/README.md` for detailed compilation instructions and dependencie
 # Clone and setup in one go
 git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic.git
 cd -jmmotaburr-riemann-adelic
-python setup_environment.py --full-setup
+python3 setup_environment.py --full-setup
 ```
 
 ### Manual Setup
@@ -82,10 +84,10 @@ python setup_environment.py --full-setup
 pip install -r requirements.txt
 
 # 2. Fetch Riemann zeros data  
-python utils/fetch_odlyzko.py --precision t1e8
+python3 utils/fetch_odlyzko.py --precision t1e8
 
 # 3. Run quick validation
-python validate_explicit_formula.py --max_primes 100 --max_zeros 100
+python3 validate_explicit_formula.py --max_primes 100 --max_zeros 100
 
 # 4. Execute notebook
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
@@ -107,16 +109,16 @@ Error relativo:             [< 1e-6 for high precision]
 
 ## Modes for Validation
 - **Light Mode**: Usa dataset mínimo (zeros_t1e3.txt con 1000 ceros, preincluido). Validación rápida (~2-5 min). Error esperado ~1e-6 con dps=15.
-  Ejemplo: `python validate_explicit_formula.py --max_zeros 1000 --max_primes 100 --precision_dps 15 --mode light`
+  Ejemplo: `python3 validate_explicit_formula.py --max_zeros 1000 --max_primes 100 --precision_dps 15 --mode light`
 - **Full Mode**: Usa dataset completo (zeros_t1e8.txt, fetch requerido). Validación completa (~horas). Error ≤1e-6 con dps=30.
-  Ejemplo: `python validate_explicit_formula.py --max_zeros 1000000 --max_primes 1000 --precision_dps 30 --mode full --integration_t 50`
+  Ejemplo: `python3 validate_explicit_formula.py --max_zeros 1000000 --max_primes 1000 --precision_dps 30 --mode full --integration_t 50`
 
 ## Raw Files Opcionales
 - zeros_t1e3.txt: Requerido para light mode (incluido).
-- zeros_t1e8.txt: Opcional para full mode (fetch con `python utils/fetch_odlyzko.py --precision t1e8`).
+- zeros_t1e8.txt: Opcional para full mode (fetch con `python3 utils/fetch_odlyzko.py --precision t1e8`).
 
 ## Ejemplos Concretos de Ejecución
-- CLI Light: `python validate_explicit_formula.py --max_zeros 1000 --test_function f2 --formula_type weil`
+- CLI Light: `python3 validate_explicit_formula.py --max_zeros 1000 --test_function f2 --formula_type weil`
   Output esperado: Relative Error ~1e-6, saved to data/validation_results.csv.
 - Notebook Full: `jupyter nbconvert --execute notebooks/validation.ipynb --to html --output validation_full.html`
 
@@ -147,7 +149,7 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ## Reproduction Steps
 1. Install dependencies: `pip install -r requirements.txt`
 2. Ensure `zeros/zeros_t1e8.txt` is present (see Data section).
-3. Run validation: `python validate_explicit_formula.py --max_zeros 1000 --precision_dps 30`
+3. Run validation: `python3 validate_explicit_formula.py --max_zeros 1000 --precision_dps 30`
 4. Check results in `data/validation_results.csv`.
 
 ## Environment Setup
@@ -211,7 +213,7 @@ pip install -r requirements.txt
 PRIME_COUNT=50 ZERO_COUNT=50 jupyter nbconvert --execute notebooks/validation.ipynb --to html
 
 # Or test the CLI validation
-python validate_explicit_formula.py --max_primes 100 --max_zeros 100
+python3 validate_explicit_formula.py --max_primes 100 --max_zeros 100
 ```
 
 ## Section 14: Weil Explicit Formula Mathematical Derivation
@@ -338,7 +340,7 @@ The validation compares the left-hand side (zeros + integral) with the right-han
 **Usage:**
 ```bash
 # Run Weil explicit formula validation
-python validate_explicit_formula.py --use_weil_formula \
+python3 validate_explicit_formula.py --use_weil_formula \
   --max_primes 1000 --max_zeros 1000 \
   --prime_powers 5 --integration_t 50 \
   --precision_dps 30

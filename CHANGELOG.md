@@ -11,6 +11,13 @@
 - Extend analytic bounds with classical references
 - Prepare arXiv submission package
 
+## [2025-09-26] - V5 Wrapper and Python3 Compatibility
+### Added
+- `validar_v5_coronacion.py`: Universal wrapper script with proper shebang for both `python3 validar_v5_coronacion.py` and `./validar_v5_coronacion.py` execution modes
+- Explicit note in README Quick Start section about using python3 for compatibility
+### Fixed
+- Updated all README.md python command examples to use python3 instead of python to avoid 'python: command not found' errors on systems where python is not linked
+
 ## [2025-09-25]
 ### Added
 - `docs/teoremas_basicos/*.tex`: formal theorem scaffolds (rigidez_arquimediana.tex, unicidad_paley_wiener.tex, de_branges.tex, axiomas_a_lemas.tex, factor_arquimediano.tex, localizacion_ceros.tex)
