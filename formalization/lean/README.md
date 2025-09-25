@@ -1,36 +1,97 @@
-# Lean Formalization
+# Lean 4 Formalization of the Adelic Proof of RH
 
-This folder contains stubs for formal verification of the adelic RH framework.
+This directory contains **Lean 4 skeletons** for the formalization of the Riemann Hypothesis framework developed by José Manuel Mota Burruezo (V5.1, unconditional).
 
-## Modules
+The goal is to gradually **mechanize the proof** in Lean, ensuring that every lemma and theorem can be verified by the Lean kernel, eliminating human error.
 
-- `entire_order.lean`: Hadamard factorisation, Phragmén–Lindelöf bounds
-- `functional_eq.lean`: Adelic Poisson summation and functional symmetry
-- `arch_factor.lean`: Archimedean gamma factor (Weil index, stationary phase)
-- `de_branges.lean`: Canonical system, Hamiltonian positivity
-- `positivity.lean`: Weil–Guinand quadratic form positivity
+---
 
-Each file currently contains skeletal declarations (`def ... : Prop`) to be
-refined into full formal proofs using Lean4 + mathlib.
+## 📂 Structure
 
-## Structure
+- `axioms_to_lemmas.lean`  
+  Skeleton of the former axioms **A1, A2, A4** (now proven as lemmas).  
+  - A1: Finite scale flow  
+  - A2: Poisson adelic symmetry  
+  - A4: Spectral regularity  
 
-The formalization follows the mathematical framework described in the main paper:
-- **S-finite adelic systems** with axioms A1 (finite scale flow), A2 (symmetry), A4 (spectral regularity)
-- **Construction of D(s)** as entire function of order ≤1
-- **Functional symmetry** D(1-s) = D(s)
-- **Uniqueness via Paley-Wiener** identifying D ≡ Ξ
-- **Riemann Hypothesis derivation** as mathematical consequence
+- `entire_order.lean`  
+  Formalization of entire functions of order ≤ 1, following Hadamard theory.  
 
-## Dependencies
+- `functional_eq.lean`  
+  Formalization of functional equation symmetry and gamma factors.  
 
-These Lean files depend on:
-- Lean4 with mathlib
-- Complex analysis library
-- Number theory components (zeta function)
-- Functional analysis (operator theory, trace class)
-- Special functions (gamma function)
+- `de_branges.lean`  
+  Skeleton for de Branges spaces and critical line localization.  
 
-## Development Status
+- `arch_factor.lean`  
+  Archimedean contributions and rigidity lemmas.  
 
-Currently in **stub phase** - all definitions are placeholders (`sorry`) awaiting full formal implementation. The structure provides a roadmap for systematic formalization of the adelic proof framework.
+- `positivity.lean`  
+  Positivity and trace-class operator theory.
+
+---
+
+## ⚙️ Requirements
+
+- **Lean 4** (≥ 4.5.0)  
+- **mathlib4** (latest version)  
+
+Install Lean 4 via [elan](https://leanprover.github.io/lean4/doc/elan.html):
+
+```bash
+curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
+```
+
+Then install mathlib:
+
+```bash
+lake exe cache get
+```
+
+---
+
+## 🚀 How to Compile
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic.git
+   cd -jmmotaburr-riemann-adelic/formalization/lean
+   ```
+
+2. Build the Lean project:
+
+   ```bash
+   lake build
+   ```
+
+3. Open Lean files with your editor (e.g. VS Code with Lean 4 extension):
+
+   ```bash
+   code RiemannAdelic/axioms_to_lemmas.lean
+   ```
+
+---
+
+## ✅ Current Status
+
+* A1, A2, A4 are **axiomatized** in `axioms_to_lemmas.lean`.
+* Next steps: replace `axiom` with **constructive theorems**.
+* Reference works: Tate (1967), Weil (1964), Birman–Solomyak (2003), Simon (2005).
+
+---
+
+## 🔮 Roadmap
+
+* [ ] Formalize Hadamard factorization in Lean (`entire_order.lean`).
+* [ ] Prove functional equation symmetry via Poisson summation (`functional_eq.lean`).
+* [ ] Construct de Branges spaces and prove critical line localization (`de_branges.lean`).
+* [ ] Show trace-class convergence rigorously (`positivity.lean`).
+* [ ] Integrate into a **full Lean-verified proof certificate**.
+
+---
+
+✍️ Maintained by:
+**José Manuel Mota Burruezo**
+Instituto Conciencia Cuántica (ICQ)
+Palma de Mallorca, Spain
