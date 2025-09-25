@@ -14,10 +14,7 @@ Notebook Validation Commit: `7f191eb`
 
 ## 📋 Theoretical Framework
 
-**Important**: This paper is conditional under S-finite axioms:
-- **A1**: Flujo escala finito (finite scale flow)
-- **A2**: Simetría (symmetry) 
-- **A4**: Regularidad espectral (spectral regularity)
+**Important**: In V5 Coronación, the S-finite axioms (A1, A2, A4) are no longer assumed but proven as lemmas (see docs/paper/sections/axiomas_a_lemas.tex). The framework is now unconditional.
 
 **Logical Proof Structure**: The mathematical "proof" is detailed in the PDF (Zenodo DOI [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)). The construction proceeds as follows:
 
@@ -29,13 +26,13 @@ Notebook Validation Commit: `7f191eb`
 
 **Framework Properties**:
 - **Internally Consistent**: Zeta-free construction where primes emerge from adelic trace
-- **Conditional Validity**: Valid as conditional framework under specified axioms
+- **Unconditional Validity**: Valid as unconditional framework with proven axioms A1, A2, A4
 - **Falsifiable**: Appendix C shows perturbations ℓ_v ≠ log q_v would collapse the framework
 - **Mathematical Rigor**: Non-circular, rigorous within trace-class theory (Birman-Solomyak)
 
 ## 📖 Current Status
 
-From conditional framework → Towards unconditional proof (V5 Coronation milestone).
+Unconditional proof achieved (V5 Coronation milestone completed).
 
 ## 📝 Paper Structure
 
