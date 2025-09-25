@@ -2,12 +2,12 @@
 
 This repository contains numerical validation code for the paper:
 
-**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
+**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Unconditional Version V5.1)**  
 Author: José Manuel Mota Burruezo  
 Date: September 13, 2025  
 DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
 
-Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
+Technical Appendix to V5.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
 https://doi.org/10.5281/zenodo.17161831
 
 Notebook Validation Commit: `7f191eb`
