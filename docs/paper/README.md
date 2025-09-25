@@ -14,7 +14,8 @@ This directory contains the complete LaTeX source code for the mathematical pape
   - `unicidad_paley_wiener.tex` - Paley-Wiener Uniqueness results
   - `de_branges.tex` - de Branges Framework application
   - `factor_arquimediano.tex` - Archimedean Factor analysis
-  - `localizacion_ceros.tex` - Critical Line Localization (main result)
+  - `localizacion_ceros.tex` - Critical Line Localization
+  - `teorema_suorema.tex` - Teorema de Suorema: Complete Resolution (main result)
   - `conclusion.tex` - Conclusions and future work
   - `appendix_traces.tex` - Trace-Class Convergence proofs
   - `appendix_numerical.tex` - Numerical Validation results
