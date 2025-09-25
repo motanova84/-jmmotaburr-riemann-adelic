@@ -2,19 +2,19 @@
 
 This repository contains numerical validation code for the paper:
 
-**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
+**A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Version V5 Coronación - Unconditional)**  
 Author: José Manuel Mota Burruezo  
-Date: September 13, 2025  
-DOI: [10.5281/zenodo.17161831](https://doi.org/10.5281/zenodo.17161831)
+Date: September 25, 2025  
+DOI: [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)
 
-Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness in the S-Finite Adelic Model
-https://doi.org/10.5281/zenodo.17161831
+Version V5 Coronación: Complete unconditional proof with all axioms promoted to proven lemmas within standard adelic theory
+https://doi.org/10.5281/zenodo.17167857
 
 Notebook Validation Commit: `7f191eb`
 
 ## 📋 Theoretical Framework
 
-**Important**: In V5 Coronación, the S-finite axioms (A1, A2, A4) are no longer assumed but proven as lemmas (see docs/paper/sections/axiomas_a_lemas.tex). The framework is now unconditional.
+**Important**: In V5 Coronación, the S-finite axioms (A1, A2, A4) are no longer axioms but proven as lemmas (see docs/paper/sections/axiomas_a_lemas.tex). The framework is now fully unconditional.
 
 **Logical Proof Structure**: The mathematical "proof" is detailed in the PDF (Zenodo DOI [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)). The construction proceeds as follows:
 
@@ -26,13 +26,13 @@ Notebook Validation Commit: `7f191eb`
 
 **Framework Properties**:
 - **Internally Consistent**: Zeta-free construction where primes emerge from adelic trace
-- **Unconditional Validity**: Valid as unconditional framework with proven axioms A1, A2, A4
+- **Fully Unconditional**: V5 Coronación with all axioms A1, A2, A4 proven as lemmas
 - **Falsifiable**: Appendix C shows perturbations ℓ_v ≠ log q_v would collapse the framework
 - **Mathematical Rigor**: Non-circular, rigorous within trace-class theory (Birman-Solomyak)
 
 ## 📖 Current Status
 
-Unconditional proof achieved (V5 Coronation milestone completed).
+V5 Coronación proof completed - fully unconditional framework achieved.
 
 ## 📝 Paper Structure
 

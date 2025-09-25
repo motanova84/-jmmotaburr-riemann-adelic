@@ -1,5 +1,11 @@
 # Changelog
 
+## V5.2 – September 25, 2025
+- Updated version references from V4.1 to current V5 Coronación status
+- Clarified README.md and paper documents reflect fully unconditional proof
+- All axioms (A1, A2, A4) confirmed as proven lemmas, not assumptions
+- Complete repository consistency with V5 Coronación framework
+
 ## V5.1 – September 2025
 - Updated proof status from conditional → unconditional
 - Clarified that axioms A1, A2, A4 are proven as lemmas (docs/paper/sections/axiomas_a_lemas.tex)
