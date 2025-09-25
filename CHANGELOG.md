@@ -1,5 +1,10 @@
 # Changelog
 
+## V5.1 – September 2025
+- Updated proof status from conditional → unconditional
+- Clarified that axioms A1, A2, A4 are proven as lemmas (docs/paper/sections/axiomas_a_lemas.tex)
+- Synced README and certificate JSON with current status
+
 ## V5 Coronación — 25 Sept 2025
 - Introducción del bloque formal de localización crítica
 - Creación de CHANGELOG y estructura de formalización
