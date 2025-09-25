@@ -1,56 +1,56 @@
 {
-  "timestamp": "2025-09-25T05:55:03.644002",
+  "timestamp": "2025-09-25T05:59:25.119868",
   "precision": 15,
   "validation_results": {
     "Step 1: Axioms \u2192 Lemmas": {
       "status": "PASSED",
       "theory": "Adelic theory (Tate, Weil) + Birman-Solomyak",
-      "execution_time": 9.5367431640625e-06
+      "execution_time": 5.507469177246094e-05
     },
     "Step 2: Archimedean Rigidity": {
       "status": "PASSED",
       "theory": "Weil index + stationary phase analysis",
-      "execution_time": 0.0001399517059326172
+      "execution_time": 0.00020074844360351562
     },
     "Step 3: Paley-Wiener Uniqueness": {
       "status": "PASSED",
       "theory": "Paley-Wiener uniqueness (Hamburger, 1921)",
-      "execution_time": 2.6226043701171875e-06
+      "execution_time": 5.1021575927734375e-05
     },
     "Step 4A: de Branges Localization": {
       "status": "PASSED",
       "theory": "de Branges theory + self-adjoint operators",
-      "execution_time": 0.00036716461181640625
+      "execution_time": 0.0004048347473144531
     },
     "Step 4B: Weil-Guinand Localization": {
       "status": "PASSED",
       "theory": "Weil-Guinand positivity + explicit formula",
-      "execution_time": 1.6689300537109375e-06
+      "execution_time": 5.0067901611328125e-05
     },
     "Step 5: Coronaci\u00f3n Integration": {
       "status": "PASSED",
       "theory": "Logical integration of all previous steps",
-      "execution_time": 0.00013256072998046875
+      "execution_time": 0.0001983642578125
     },
     "Stress: Spectral Measure Perturbation": {
       "status": "PASSED",
-      "execution_time": 4.863739013671875e-05
+      "execution_time": 6.723403930664062e-05
     },
     "Stress: Growth Bounds Validation": {
       "status": "PASSED",
-      "execution_time": 4.0531158447265625e-06
+      "execution_time": 2.2411346435546875e-05
     },
     "Stress: Zero Subsets Consistency": {
       "status": "PASSED",
-      "execution_time": 0.00010013580322265625
+      "execution_time": 0.00012159347534179688
     },
     "Stress: Proof Certificate Generation": {
       "status": "PASSED",
-      "execution_time": 0.00012826919555664062
+      "execution_time": 0.0001895427703857422
     },
     "Integration: Explicit Formula Integration": {
       "status": "PASSED",
-      "execution_time": 0.489208459854126
+      "execution_time": 0.5005600452423096
     }
   },
   "proof_certificate": {

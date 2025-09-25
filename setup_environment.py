@@ -25,9 +25,19 @@ from typing import List, Tuple, Dict, Optional
 def check_python_version() -> bool:
     """Check if Python version is compatible."""
     version = sys.version_info
-    if version.major != 3 or version.minor < 8:
-        print(f"❌ Python {version.major}.{version.minor} detected. Required: Python 3.8+")
-        print("💡 Please upgrade Python or use a virtual environment")
+    if version.major != 3 or version.minor < 10:
+        print(f"❌ Python {version.major}.{version.minor} detected. Required: Python 3.10+")
+        print("💡 Please upgrade to Python 3.10-3.12 (recommended: 3.10.12)")
+        return False
+    elif version >= (3, 13):
+        print(f"⚠️  Python {version.major}.{version.minor} detected (Python 3.13+)")
+        print("   Recommended: Python 3.10-3.12")
+        print("   Warning: NumPy/SciPy wheels may fail to install")
+        print("   Consider using Python 3.10-3.12 for best compatibility")
+        return True  # Allow but warn
+    else:
+        print(f"✅ Python {version.major}.{version.minor} - Compatible version")
+        return True
         return False
     
     print(f"✅ Python {version.major}.{version.minor}.{version.micro} - Compatible")
