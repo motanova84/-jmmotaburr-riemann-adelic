@@ -1,5 +1,8 @@
 # Riemann-Adelic
 
+![Lean Formalization](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml/badge.svg)
+![V5 Coronación Validation](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)
+
 This repository contains the complete unconditional proof and validation code for:
 
 **Version V5 — Coronación: A Definitive Proof of the Riemann Hypothesis via S-Finite Adelic Spectral Systems**  
@@ -146,6 +149,31 @@ El wrapper ya ejecuta internamente:
 ## Raw Files Opcionales
 - zeros_t1e3.txt: Requerido para light mode (incluido).
 - zeros_t1e8.txt: Opcional para full mode (fetch con `python utils/fetch_odlyzko.py --precision t1e8`).
+
+## 🔧 Local Development Setup
+
+### Quick Validation Alias (Recommended)
+
+For convenient access from any directory, add this alias to your shell configuration:
+
+**For Zsh (.zshrc):**
+```bash
+echo 'alias rhval="cd ~/Riemann-Adelic && python3 validate_v5_coronacion.py --precision 30 --verbose"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+**For Bash (.bashrc):**
+```bash
+echo 'alias rhval="cd ~/Riemann-Adelic && python3 validate_v5_coronacion.py --precision 30 --verbose"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**Usage:**
+```bash
+rhval  # Runs complete V5 Coronación validation from anywhere
+```
+
+*Note: Adjust the path `~/Riemann-Adelic` to match your local repository location.*
 
 ## Ejemplos Concretos de Ejecución
 - CLI Light: `python3 validate_v5_coronacion.py --precision 15`
