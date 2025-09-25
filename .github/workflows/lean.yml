@@ -1,24 +1,39 @@
-name: Lean4 Formalization
+name: Lean Formalization
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'formalization/lean/**'
+      - '.github/workflows/lean.yml'
   pull_request:
-    branches: [ main ]
+    paths:
+      - 'formalization/lean/**'
+      - '.github/workflows/lean.yml'
 
 jobs:
-  lean-check:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up Lean4
-        uses: leanprover/lean-action@v1
-        with:
-          lean-version: "leanprover/lean4:stable"
+    - name: Set up Lean
+      uses: leanprover/lean-action@v1
+      with:
+        lean-version: "leanprover/lean4:latest"
 
-      - name: Build Lean formalization
-        run: |
-          cd formalization/lean
-          lake exe cache get
-          lake build
+    - name: Install dependencies
+      run: |
+        lake update
+
+    - name: Compile Lean formalization
+      run: |
+        cd formalization/lean
+        lake build
+
+    - name: Run Lean check
+      run: |
+        cd formalization/lean
+        lake exe cache get
+        lake exe check RH_final.lean
