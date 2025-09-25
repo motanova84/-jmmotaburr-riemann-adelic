@@ -85,7 +85,7 @@ pip install -r requirements.txt
 python utils/fetch_odlyzko.py --precision t1e8
 
 # 3. Run quick validation
-python validate_explicit_formula.py --max_primes 100 --max_zeros 100
+python validar_v5_coronacion.py
 
 # 4. Execute notebook
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
@@ -107,16 +107,16 @@ Error relativo:             [< 1e-6 for high precision]
 
 ## Modes for Validation
 - **Light Mode**: Usa dataset mínimo (zeros_t1e3.txt con 1000 ceros, preincluido). Validación rápida (~2-5 min). Error esperado ~1e-6 con dps=15.
-  Ejemplo: `python validate_explicit_formula.py --max_zeros 1000 --max_primes 100 --precision_dps 15 --mode light`
+  Ejemplo: `python validar_v5_coronacion.py`
 - **Full Mode**: Usa dataset completo (zeros_t1e8.txt, fetch requerido). Validación completa (~horas). Error ≤1e-6 con dps=30.
-  Ejemplo: `python validate_explicit_formula.py --max_zeros 1000000 --max_primes 1000 --precision_dps 30 --mode full --integration_t 50`
+  Ejemplo: `python validar_v5_coronacion.py --precision 50`
 
 ## Raw Files Opcionales
 - zeros_t1e3.txt: Requerido para light mode (incluido).
 - zeros_t1e8.txt: Opcional para full mode (fetch con `python utils/fetch_odlyzko.py --precision t1e8`).
 
 ## Ejemplos Concretos de Ejecución
-- CLI Light: `python validate_explicit_formula.py --max_zeros 1000 --test_function f2 --formula_type weil`
+- CLI: `python validar_v5_coronacion.py --verbose`
   Output esperado: Relative Error ~1e-6, saved to data/validation_results.csv.
 - Notebook Full: `jupyter nbconvert --execute notebooks/validation.ipynb --to html --output validation_full.html`
 
@@ -139,7 +139,7 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ├── zeros/
 │   └── zeros_t1e8.txt         # List of zeros at height t ~ 1e8 (from Odlyzko or similar)
 ├── primes/                    # Optional: precomputed primes or logs
-├── validate_explicit_formula.py  # Main CLI validation script
+├── validar_v5_coronacion.py      # Main CLI validation script
 ├── requirements.txt
 └── README.md
 ```
@@ -147,7 +147,7 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ## Reproduction Steps
 1. Install dependencies: `pip install -r requirements.txt`
 2. Ensure `zeros/zeros_t1e8.txt` is present (see Data section).
-3. Run validation: `python validate_explicit_formula.py --max_zeros 1000 --precision_dps 30`
+3. Run validation: `python validar_v5_coronacion.py`
 4. Check results in `data/validation_results.csv`.
 
 ## Environment Setup
@@ -166,7 +166,7 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 
 Please suggest workflows for:
 
-- Running `validate_explicit_formula.py` on push and saving logs.
+- Running `python validar_v5_coronacion.py` on push and saving logs.
 - Executing `validation.ipynb` automatically using `nbconvert` to produce an HTML output.
 - Fetching Odlyzko zero data if not present in `zeros/`.
 - Archiving numerical outputs as CSV in `data/`.
@@ -192,7 +192,7 @@ To get AI assistance for this repository, use this comprehensive prompt:
 
 ```
 🧠 Copilot Prompt: Suggest workflows for:
-- validating Riemann explicit formula via `validate_explicit_formula.py`
+- validating Riemann explicit formula via `python validar_v5_coronacion.py`
 - executing Jupyter notebook and exporting HTML
 - downloading and validating Odlyzko zeros
 - running pytest tests for consistency
@@ -211,7 +211,7 @@ pip install -r requirements.txt
 PRIME_COUNT=50 ZERO_COUNT=50 jupyter nbconvert --execute notebooks/validation.ipynb --to html
 
 # Or test the CLI validation
-python validate_explicit_formula.py --max_primes 100 --max_zeros 100
+python validar_v5_coronacion.py
 ```
 
 ## Section 14: Weil Explicit Formula Mathematical Derivation
@@ -313,7 +313,7 @@ where the archimedean terms include $\Gamma(s/2) \pi^{-s/2}$ and adelic correcti
 
 ### Numerical Implementation
 
-In `validate_explicit_formula.py`, this is approximated by truncating sums and integrals:
+In the validation system, this is approximated by truncating sums and integrals:
 - $\sum_{\rho} f(\rho)$ uses `zeros_t1e8.txt`.
 - $\int_{-\infty}^{\infty} f(it) dt$ is discretized with `mpmath.quad`.
 - $\sum_{n} \Lambda(n) f(\log n)$ uses precomputed primes.
@@ -333,18 +333,21 @@ where:
 - $f(u)$ is a compact-support test function (e.g., $e^{-u^2}$).
 - Archimedean terms include $\Gamma(s/2) \pi^{-s/2}$ adjustments.
 
-The validation compares the left-hand side (zeros + integral) with the right-hand side (primes + archimedean) to achieve a relative error $\leq 10^{-6}$. See `validate_explicit_formula.py` for implementation.
+The validation compares the left-hand side (zeros + integral) with the right-hand side (primes + archimedean) to achieve a relative error $\leq 10^{-6}$. Use `python validar_v5_coronacion.py` for implementation.
 
 **Usage:**
 ```bash
-# Run Weil explicit formula validation
-python validate_explicit_formula.py --use_weil_formula \
-  --max_primes 1000 --max_zeros 1000 \
-  --prime_powers 5 --integration_t 50 \
-  --precision_dps 30
+# Run validation
+python validar_v5_coronacion.py
 
-# Check validation results
-cat data/validation_results.csv
+# Run with high precision
+python validar_v5_coronacion.py --precision 50
+
+# Run with detailed output
+python validar_v5_coronacion.py --verbose
+
+# Save proof certificate
+python validar_v5_coronacion.py --save-certificate
 ```
 
 **Implementation Notes:**

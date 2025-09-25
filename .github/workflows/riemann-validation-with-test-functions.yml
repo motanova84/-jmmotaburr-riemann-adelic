@@ -64,7 +64,11 @@ jobs:
           echo "🔬 Running validation with test function: ${{ matrix.test_function }}"
           echo "Using formula type: ${{ matrix.formula_type }}"
           
-          if [[ "${{ matrix.formula_type }}" == "weil" ]]; then
+          if [[ "${{ matrix.formula_type }}" == "weil" && "${{ matrix.test_function }}" == "truncated_gaussian" ]]; then
+            # Use wrapper script for main validation with Weil formula
+            python validar_v5_coronacion.py --verbose \
+              2>&1 | tee logs/validation_${{ matrix.test_function }}_${{ matrix.formula_type }}.log
+          elif [[ "${{ matrix.formula_type }}" == "weil" ]]; then
             python validate_explicit_formula.py \
               --test_functions ${{ matrix.test_function }} \
               --use_weil_formula \

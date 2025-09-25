@@ -238,15 +238,11 @@ jobs:
           mkdir -p logs data
           
           if [[ "${{ matrix.validation_type }}" == "weil" ]]; then
-            python validate_explicit_formula.py \
-              --use_weil_formula \
-              --max_primes $PRIME_COUNT \
-              --max_zeros $ZERO_COUNT \
-              --prime_powers $PRIME_POWERS \
-              --integration_t $INTEGRATION_T \
-              --precision_dps $PRECISION_DPS \
+            # Use the wrapper script for validation
+            python validar_v5_coronacion.py --verbose \
               2>&1 | tee logs/validation_${{ matrix.validation_type }}.log
           else
+            # Use the original script for standard validation  
             python validate_explicit_formula.py \
               --max_primes $PRIME_COUNT \
               --max_zeros $ZERO_COUNT \
