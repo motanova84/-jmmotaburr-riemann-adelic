@@ -1,0 +1,23 @@
+Title: A Complete Conditional Resolution of the Riemann Hypothesis via S-Finite Adelic Spectral Systems
+
+Authors: José Manuel Mota Burruezo
+
+Abstract: This paper presents a complete conditional resolution of the Riemann Hypothesis, based on a spectral framework built from S-finite adelic systems. We define a canonical determinant D(s), constructed from operator-theoretic principles alone, without using the Euler product or the Riemann zeta function ζ(s) as input. The determinant D(s) arises from a scale-invariant flow over abstract places, smoothed via double operator integrals, and satisfies: (1) D(s) is entire of order ≤ 1, (2) D(1-s) = D(s) by spectral symmetry, (3) normalization condition at infinity, (4) D(s) ≡ Ξ(s) where Ξ(s) is the completed Riemann xi-function. The trace formula derived from this system recovers the logarithmic prime structure as a geometric consequence of closed spectral orbits. This yields a conditional identification D(s) = Ξ(s), and thus a conditional proof of the Riemann Hypothesis.
+
+Comments: 45+ pages, includes numerical validation and formal verification components
+
+MSC Classification: 
+Primary: 11M06 (ζ(s) and L(s,χ)), 11M26 (Nonreal zeros of ζ(s) and L(s,χ))
+Secondary: 11F72 (Spectral theory), 47B10 (Linear operators in functional analysis), 30D15 (Special classes of entire functions)
+
+Keywords: Riemann Hypothesis, adelic analysis, spectral theory, entire functions, canonical determinant, S-finite systems, Poisson summation, de Branges theory, operator integrals
+
+Journal-ref: To be submitted
+
+DOI: To be assigned
+
+Subjects: Number Theory (math.NT); Complex Variables (math.CV); Spectral Theory (math.SP); Functional Analysis (math.FA)
+
+Software/Code: Available at https://github.com/motanova84/-jmmotaburr-riemann-adelic
+
+Version: V5 Coronación (Unconditional Framework)
