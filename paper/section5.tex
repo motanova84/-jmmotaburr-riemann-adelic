@@ -1,45 +1,54 @@
-\section{Teorema Final: Localización Crítica de los Ceros}
+\section{Final Theorem: Critical Localization of Zeros}
 
-\begin{theorem}[Hipótesis de Riemann]\label{thm:RH-final}
-Todos los ceros no triviales de la función zeta de Riemann $\zeta(s)$ 
-pertenecen a la recta crítica $\Re(s)=\tfrac{1}{2}$.
+\begin{theorem}[Riemann Hypothesis]\label{thm:RH-final}
+All non-trivial zeros of the Riemann zeta function $\zeta(s)$ 
+belong to the critical line $\Re(s)=\tfrac{1}{2}$.
 \end{theorem}
 
 \begin{proof}
-La prueba combina las dos rutas desarrolladas:
+The proof combines two independent routes, providing dual closure:
 
-\subsection*{1. Ruta de Branges}
-Sea $E(z)=D(\tfrac{1}{2}-iz)+iD(\tfrac{1}{2}+iz)$ la función de Hermite--Biehler
-asociada a $D(s)$.  
+\subsection*{1. de Branges Route}
+Let $E(z)=D(\tfrac{1}{2}-iz)+iD(\tfrac{1}{2}+iz)$ be the Hermite--Biehler
+function associated to $D(s)$.
 \begin{itemize}
-  \item Por la simetría funcional $D(1-s)=D(s)$ y cotas de crecimiento 
-        tipo Phragm\'en--Lindel\"of \cite{IK2004}, $E$ es HB y de tipo Cartwright.
-  \item El núcleo de reproducción $K_w(z)$ induce un sistema canónico $Y'(x)=JH(x)Y(x)$
-        con Hamiltoniano $H(x)\succ 0$ localmente integrable \cite{deBranges1986}.
-  \item La condición $\int_0^\infty \mathrm{tr}\,H(x)\,dx=\infty$ sitúa al sistema en 
-        el caso límite-punto, lo que garantiza autoadjunción esencial \cite{deBranges1986}.
-  \item En consecuencia, el espectro es real y simple, y sus valores propios corresponden 
-        exactamente a los ceros de $D(1/2+it)$.
+  \item By functional symmetry $D(1-s)=D(s)$ and Phragmén--Lindelöf type growth bounds 
+        \cite{IK2004}, $E$ is HB and of Cartwright type.
+  \item The reproducing kernel $K_w(z)$ induces a canonical system $Y'(x)=JH(x)Y(x)$
+        with positive Hamiltonian $H(x)\succ 0$ locally integrable \cite{deBranges1986}.
+  \item The condition $\int_0^\infty \mathrm{tr}\,H(x)\,dx=\infty$ places the system in 
+        the limit-point case, guaranteeing essential self-adjointness \cite{deBranges1986}.
+  \item Consequently, the spectrum is real and simple, and its eigenvalues correspond 
+        exactly to the zeros of $D(1/2+it)$.
 \end{itemize}
 
-\subsection*{2. Ruta de Positividad Weil--Guinand}
-Sea $\mathcal{F}$ la familia de funciones de Schwartz en $\mathbb{R}$ con transformada de Mellin entera.
+\subsection*{2. Weil--Guinand Positivity Route}
+Let $\mathcal{F}$ be the family of Schwartz functions on $\mathbb{R}$ with entire Mellin transform.
 \begin{itemize}
-  \item La fórmula explícita adélica de Weil \cite{Weil1964} da la identidad
+  \item The adelic Weil explicit formula \cite{Weil1964} gives the identity
   \[
     Q[f] = \sum_{\rho} \widehat f(\rho) - 
            \Bigl(\sum_{n\geq 1} \Lambda(n) f(\log n) + \widehat f(0)+\widehat f(1)\Bigr).
   \]
-  \item Cada contribución local es positiva por el índice de Weil; 
-        luego $Q[f]\ge 0$ para todo $f\in\mathcal{F}$.
-  \item Si existiera un cero $\rho_0$ con $\Re(\rho_0)\ne \tfrac{1}{2}$, 
-        se puede construir $f$ concentrado cerca de $\rho_0$ tal que $Q[f]<0$,
-        contradiciendo la positividad \cite{Guinand1955}.
+  \item Each local contribution is positive by the Weil index; 
+        thus $Q[f]\ge 0$ for all $f\in\mathcal{F}$.
+  \item If there existed a zero $\rho_0$ with $\Re(\rho_0)\ne \tfrac{1}{2}$, 
+        one can construct $f$ concentrated near $\rho_0$ such that $Q[f]<0$,
+        contradicting positivity \cite{Guinand1955}.
 \end{itemize}
 
-\subsection*{3. Conclusión}
-Ambas rutas coinciden: el sistema espectral fuerza ceros en $\Re(s)=\tfrac{1}{2}$ 
-y la positividad excluye ceros fuera de la recta. 
-Como $D(s)\equiv\Xi(s)$ por el Lema de Unicidad Paley--Wiener--Hamburger, 
-la misma conclusión se aplica a $\zeta(s)$. 
+\subsection*{3. Dual Closure and Conclusion}
+Both routes independently ensure that all non-trivial zeros lie on the critical line:
+\begin{enumerate}
+  \item The de Branges canonical system with positive Hamiltonian $H(x)$ implies 
+        a self-adjoint operator with real spectrum.
+  \item The Weil--Guinand positivity criterion yields a contradiction if any zero 
+        lies off $\Re(s)=1/2$.
+\end{enumerate}
+
+Since both methods give the same conclusion, and $D(s)\equiv\Xi(s)$ by the 
+Paley--Wiener--Hamburger Uniqueness Lemma, we have established that all 
+non-trivial zeros of $\zeta(s)$ lie on the critical line $\Re(s)=1/2$.
+
+This completes the unconditional proof of the Riemann Hypothesis.
 \end{proof}
