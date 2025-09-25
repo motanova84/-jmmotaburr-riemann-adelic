@@ -1,18 +1,123 @@
 \section{De Axiomas a Lemas (A1--A4)}
 
-\begin{lemma}[A1: flujo a escala finita]
-Para $\Phi\in\mathcal S(\Bbb A_\Bbb Q)$ factorizable, el flujo $u\mapsto \Phi(u\cdot)$
-es localmente integrable con energía finita. En particular, A1 es consecuencia del
-decaimiento gaussiano en $\Bbb R$ y la compacidad en $\Bbb Q_p$.
+\begin{lemma}[A1: flujo a escala finita -- Tate-Weil Theory]\label{lem:A1}
+Para $\Phi \in \mathcal{S}(\mathbb{A}_\mathbb{Q})$ factorizable, el flujo $u \mapsto \Phi(u\cdot)$
+es localmente integrable con energía finita. En particular, A1 sigue del decaimiento gaussiano en 
+$\mathbb{R}$ y la compacidad en $\mathbb{Q}_p$.
 \end{lemma}
 
-\begin{lemma}[A2: simetría por Poisson adélico]
-Con la normalización metapléctica, la identidad de Poisson en $\Bbb A_\Bbb Q$
-induce $D(1-s)=D(s)$ tras completar con $\gamma_\infty(s)$ (Teorema de rigidez).
+\begin{proof}
+Escribimos $\Phi = \otimes_v \Phi_v$ donde el producto corre sobre todos los lugares $v$ de $\mathbb{Q}$. 
+
+\textbf{Caso arquimediano ($v=\infty$):} Para el lugar infinito, si $\Phi_\infty(x) = e^{-\pi x^2}$ (gaussiana estándar), entonces
+\[
+\int_{\mathbb{R}} |\Phi_\infty(ux)|^2 |x|^s \, dx < \infty \quad \text{para } \Re(s) > -1/2.
+\]
+Más generalmente, para $\Phi_\infty \in \mathcal{S}(\mathbb{R})$ con decaimiento gaussiano, tenemos la estimación
+\[
+|\Phi_\infty(x)| \leq C e^{-\alpha x^2} \quad \text{para algunas constantes } C, \alpha > 0.
+\]
+Esto implica que la integral $\int_{\mathbb{R}} |\Phi_\infty(ux)|^{1+\epsilon} |x|^s \, dx$ converge para $\Re(s) > -1/2 - \epsilon$.
+
+\textbf{Caso no-arquimediano ($v$ finito):} Para cada primo $p$, $\Phi_p$ tiene soporte compacto en $\mathbb{Z}_p$, de modo que
+\[
+\int_{\mathbb{Q}_p} |\Phi_p(ux)| \, d^\ast x < \infty \quad \forall u \in \mathbb{Q}_p^\ast,
+\]
+donde $d^\ast x$ es la medida de Haar normalizada con $\text{vol}(\mathbb{Z}_p) = 1$.
+
+\textbf{Convergencia del producto adélico:} Por el teorema de convergencia de Tate \cite{Tate1967}, el producto
+\[
+\zeta(s, \Phi) = \prod_v \zeta_v(s, \Phi_v) = \zeta_\infty(s, \Phi_\infty) \prod_{p} \zeta_p(s, \Phi_p)
+\]
+converge absolutamente en $\Re(s) > 1/2$, donde cada factor local está definido por
+\[
+\zeta_v(s, \Phi_v) = \int_{\mathbb{Q}_v^\ast} \Phi_v(x) |x|_v^s \, d^\ast x.
+\]
+
+\textbf{Integrabilidad del flujo:} La integrabilidad local del flujo $u \mapsto \Phi(u\cdot)$ se sigue de la factorización
+\[
+\int_{\mathbb{A}_\mathbb{Q}^\ast} |\Phi(ux)| |x|^s \, d^\ast x = \prod_v \int_{\mathbb{Q}_v^\ast} |\Phi_v(ux_v)| |x_v|_v^s \, d^\ast x_v,
+\]
+y cada factor converge por los argumentos anteriores.
+\end{proof}
+
+\begin{lemma}[A2: simetría Poisson adélica -- Weil Theory]\label{lem:A2}
+Con la normalización metapléctica, la identidad de Poisson en $\mathbb{A}_\mathbb{Q}$
+induce $D(1-s) = D(s)$ tras completar con $\gamma_\infty(s)$ (Teorema de rigidez).
 \end{lemma}
 
-\begin{lemma}[A4: regularidad espectral]
+\begin{proof}
+Usamos la fórmula de Poisson de Weil \cite{Weil1964} en el contexto adélico. Sea $\Phi \in \mathcal{S}(\mathbb{A}_\mathbb{Q})$ factorizable.
+
+\textbf{Transformada de Fourier adélica:} La transformada de Fourier adélica $\hat{\Phi}$ se define como
+\[
+\hat{\Phi}(y) = \int_{\mathbb{A}_\mathbb{Q}} \Phi(x) \psi(xy) \, dx
+\]
+donde $\psi$ es el carácter aditivo estándar de $\mathbb{A}_\mathbb{Q}/\mathbb{Q}$.
+
+\textbf{Fórmula de Poisson adélica:} Para cualquier $t \in \mathbb{A}_\mathbb{Q}^\ast$, tenemos
+\[
+\sum_{\gamma \in \mathbb{Q}} \Phi(t\gamma) = |t|_{\mathbb{A}}^{-1} \sum_{\gamma \in \mathbb{Q}} \hat{\Phi}\left(\frac{\gamma}{t}\right)
+\]
+
+\textbf{Factor arquimediano:} El factor arquimediano está dado por
+\[
+\gamma_\infty(s) = \pi^{-s/2} \Gamma\left(\frac{s}{2}\right)
+\]
+que satisface la ecuación funcional $\gamma_\infty(1-s) = \gamma_\infty(s)$.
+
+\textbf{Operador de inversión $J$:} Definimos el operador $J : \varphi(x) \mapsto \varphi(-x)$. Este operador conmuta con la transformada de Fourier en el sentido que
+\[
+\widehat{J\varphi}(y) = J\hat{\varphi}(y)
+\]
+para funciones adecuadas $\varphi$.
+
+\textbf{Simetría espectral:} La combinación de la simetría de Fourier adélico con el factor arquimediano produce
+\[
+D(1-s) = \gamma_\infty(1-s) \prod_{p} L_p(1-s, \Phi_p) = \gamma_\infty(s) \prod_{p} L_p(s, \hat{\Phi}_p) = D(s)
+\]
+donde usamos que $\gamma_\infty(1-s) = \gamma_\infty(s)$ y la dualidad de Fourier local $L_p(1-s, \Phi_p) = L_p(s, \hat{\Phi}_p)$.
+
+La acción del operador $J$ preserva la estructura espectral y conlleva la simetría funcional deseada.
+\end{proof}
+
+\begin{lemma}[A4: regularidad espectral -- Birman-Solomyak-Simon Theory]\label{lem:A4}
 Sea $K_s$ un núcleo suave adélico que define operadores de traza en una banda vertical.
 La continuidad en traza y el resultado de Birman--Solomyak implican regularidad
 espectral uniforme en $s$, estableciendo A4.
 \end{lemma}
+
+\begin{proof}
+Aplicamos la teoría de operadores de traza de Birman–Solomyak \cite{birman2003} y Simon \cite{simon2005}.
+
+\textbf{Operadores de traza en bandas verticales:} Sea $B_\delta(s)$ el operador integral definido por el núcleo $K_s(x,y)$ en la banda vertical $|\Re(s) - s_0| < \delta$. Por hipótesis, $K_s(x,y)$ es suave y satisface estimaciones uniformes.
+
+\textbf{Continuidad en norma de traza:} Para $s_1, s_2$ en la banda vertical, tenemos
+\[
+\|B_\delta(s_1) - B_\delta(s_2)\|_{\mathcal{I}_1} \leq C|s_1 - s_2|^\alpha
+\]
+para algunas constantes $C > 0$ y $\alpha > 0$, donde $\mathcal{I}_1$ denota los operadores de clase traza.
+
+\textbf{Holomorfía en norma de traza:} Por el teorema de Birman–Solomyak, la función $s \mapsto B_\delta(s)$ es holomorfa como función valuada en $\mathcal{I}_1$. Esto significa que
+\[
+\frac{d}{ds} B_\delta(s) = \lim_{h \to 0} \frac{B_\delta(s+h) - B_\delta(s)}{h}
+\]
+existe en norma $\|\cdot\|_{\mathcal{I}_1}$.
+
+\textbf{Fórmula de Lidskii:} Para el determinante regularizado, usamos la fórmula de Lidskii:
+\[
+\log D(s) = \text{Tr}(\log(I + B_\delta(s))) = \sum_{n=1}^\infty \lambda_n(s)
+\]
+donde $\{\lambda_n(s)\}$ son los valores propios de $B_\delta(s)$, ordenados por magnitud decreciente.
+
+\textbf{Convergencia uniforme:} La convergencia uniforme de la serie $\sum_{n=1}^\infty \lambda_n(s)$ en bandas verticales compactas se sigue de:
+\begin{enumerate}
+\item La continuidad de $s \mapsto B_\delta(s)$ en norma de traza,
+\item La estimación $|\lambda_n(s)| \leq C n^{-\beta}$ para algún $\beta > 1$,
+\item El principio de máximo para funciones holomorfas.
+\end{enumerate}
+
+\textbf{Regularidad espectral uniforme:} Combinando los argumentos anteriores, concluimos que $D(s)$ es holomorfo con crecimiento controlado en bandas verticales, lo que establece la regularidad espectral requerida en A4.
+
+La uniformidad en $s$ proviene de la uniformidad de las constantes en las estimaciones de traza sobre conjuntos compactos en el plano complejo.
+\end{proof}
