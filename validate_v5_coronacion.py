@@ -34,6 +34,25 @@ import numpy as np
 # Add the current directory to Python path for imports
 sys.path.append('.')
 
+def check_python_version():
+    """Check Python version compatibility and warn about potential issues"""
+    version_info = sys.version_info
+    
+    if version_info >= (3, 13):
+        print("⚠️  WARNING: Python 3.13+ detected")
+        print("   Recommended: Python 3.10-3.12 (preferably 3.10.12)")
+        print("   Issue: NumPy/SciPy wheels may fail to install on Python 3.13")
+        print("   Solution: Use Python 3.10-3.12 or update to compatible package versions")
+        print("   Continuing validation anyway...\n")
+    elif version_info < (3, 10):
+        print("❌ ERROR: Python version too old")
+        print(f"   Current: Python {version_info.major}.{version_info.minor}.{version_info.micro}")
+        print("   Required: Python 3.10-3.12")
+        print("   Please upgrade your Python version")
+        sys.exit(1)
+    else:
+        print(f"✅ Python {version_info.major}.{version_info.minor}.{version_info.micro} - Compatible version")
+
 def setup_precision(dps):
     """Setup computational precision"""
     mp.mp.dps = dps
@@ -51,6 +70,9 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
     Returns:
         dict: Validation results and proof certificate
     """
+    # Check Python version compatibility first
+    check_python_version()
+    
     setup_precision(precision)
     
     print("=" * 80)
@@ -65,6 +87,10 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
         from tests.test_coronacion_v5 import TestCoronacionV5, TestV5Integration
     except ImportError as e:
         print(f"❌ Error importing V5 test framework: {e}")
+        print("💡 Solution: Ensure you've installed requirements properly:")
+        print("   pip install --upgrade pip")
+        print("   pip install -r requirements.txt")
+        print("   Or run: bash run.sh")
         return {"success": False, "error": str(e)}
     
     # Initialize test instance
