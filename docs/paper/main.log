@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.25)  25 SEP 2025 05:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.25)  25 SEP 2025 05:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -341,7 +341,7 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count296
 \l__pdf_internal_box=\box54
 )
-(./main.aux)
+No file main.aux.
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
@@ -363,10 +363,8 @@ LaTeX Font Info:    ... okay on input line 27.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
 Package hyperref Info: Link coloring OFF on input line 27.
- (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
-
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -434,45 +432,52 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./main.toc [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+)
+No file main.toc.
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- (./sections/introduction.tex
-[2]) (./sections/axiomas_a_lemas.tex
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+(./sections/introduction.tex) (./sections/axiomas_a_lemas.tex
 
 Package amsfonts Warning: Obsolete command \Bbb; \mathbb should be used instead
  on input line 4.
 
 
-LaTeX Warning: Citation `Tate1967' on page 3 undefined on input line 10.
-
-[3]
-
-LaTeX Warning: Reference `sec:rigidez' on page 4 undefined on input line 54.
+LaTeX Warning: Citation `Tate1967' on page 2 undefined on input line 10.
 
 
-LaTeX Warning: Citation `BirmanSolomyak1977' on page 4 undefined on input line 
+LaTeX Warning: Citation `Weil1964' on page 2 undefined on input line 11.
+
+[2]
+
+LaTeX Warning: Citation `Weil1964' on page 3 undefined on input line 37.
+
+
+LaTeX Warning: Reference `sec:rigidez' on page 3 undefined on input line 54.
+
+
+LaTeX Warning: Citation `BirmanSolomyak1977' on page 3 undefined on input line 
 64.
 
 
-LaTeX Warning: Citation `SimonTraceIdeals2005' on page 4 undefined on input lin
+LaTeX Warning: Citation `SimonTraceIdeals2005' on page 3 undefined on input lin
 e 65.
 
 
-LaTeX Warning: Citation `SimonTraceIdeals2005' on page 4 undefined on input lin
+LaTeX Warning: Citation `SimonTraceIdeals2005' on page 3 undefined on input lin
 e 74.
 
-[4]
+[3]
 Overfull \hbox (16.6361pt too wide) in paragraph at lines 92--95
 []\OT1/cmr/bx/n/12 Remark 1 \OT1/cmr/m/n/12 (No--cir-cu-lar-i-dad)\OT1/cmr/bx/n
 /12 . \OT1/cmr/m/it/12 Es cru-cial ob-ser-var que ninguno de es-tos lemas uti-l
 iza propiedades
  []
 
-) (./sections/rigidez_arquimediana.tex [5])
+) (./sections/rigidez_arquimediana.tex [4])
 (./sections/unicidad_paley_wiener.tex
 Overfull \hbox (0.63574pt too wide) in paragraph at lines 4--5
 []\OT1/cmr/bx/n/12 Theorem 7.1 \OT1/cmr/m/n/12 (Uni-ci-dad Pa-ley-Wiener-Ham-bu
@@ -482,16 +487,16 @@ m/it/12 D\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 s\OT1/cmr/m/n/12 )$ \OT1/cmr/m/it/12
  []
 
 
-LaTeX Warning: Citation `Hadamard1893' on page 6 undefined on input line 19.
+LaTeX Warning: Citation `Hadamard1893' on page 5 undefined on input line 19.
+
+[5]
+
+LaTeX Warning: Citation `PhragmenLindelof1908' on page 6 undefined on input lin
+e 63.
 
 [6]
 
-LaTeX Warning: Citation `PhragmenLindelof1908' on page 7 undefined on input lin
-e 63.
-
-[7]
-
-LaTeX Warning: Reference `thm:paley-wiener-uniqueness' on page 8 undefined on i
+LaTeX Warning: Reference `thm:paley-wiener-uniqueness' on page 7 undefined on i
 nput line 97.
 
 ) (./sections/de_branges.tex
@@ -500,9 +505,13 @@ Overfull \hbox (7.3227pt too wide) in paragraph at lines 1--1
 -Guinand 
  []
 
-[8] [9]
+[7]
 
-LaTeX Warning: Citation `Guinand1947' on page 10 undefined on input line 126.
+LaTeX Warning: Citation `deBranges1986' on page 8 undefined on input line 56.
+
+[8]
+
+LaTeX Warning: Citation `Guinand1947' on page 9 undefined on input line 126.
 
 ) (./sections/factor_arquimediano.tex
 Overfull \hbox (11.96144pt too wide) in paragraph at lines 3--7
@@ -511,19 +520,27 @@ Overfull \hbox (11.96144pt too wide) in paragraph at lines 3--7
 /12 ^^Y[]\OT1/cmr/m/n/12 ^^@(\OML/cmm/m/it/12 s=\OT1/cmr/m/n/12 2)$.
  []
 
+[9]
 
 LaTeX Warning: Citation `Weil' on page 10 undefined on input line 26.
 
-[10]
 
-LaTeX Warning: Citation `Weil' on page 11 undefined on input line 47.
+LaTeX Warning: Citation `Weil' on page 10 undefined on input line 47.
+
+
+LaTeX Warning: Reference `thm:gamma-weil' on page 10 undefined on input line 52
+.
+
+
+LaTeX Warning: Reference `thm:gamma-stationary' on page 10 undefined on input l
+ine 52.
 
 ) (./sections/localizacion_ceros.tex
 
-LaTeX Warning: Citation `deBranges' on page 11 undefined on input line 16.
+LaTeX Warning: Citation `deBranges' on page 10 undefined on input line 16.
 
 
-LaTeX Warning: Citation `deBranges' on page 11 undefined on input line 20.
+LaTeX Warning: Citation `deBranges' on page 10 undefined on input line 20.
 
 
 Overfull \hbox (1.02011pt too wide) in paragraph at lines 16--22
@@ -535,52 +552,78 @@ mm/m/it/12 Y[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = \OML/cmm/m
 \OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )$.
  []
 
-[11]
+[10]
 
-LaTeX Warning: Citation `Weil' on page 12 undefined on input line 48.
+LaTeX Warning: Citation `Weil' on page 11 undefined on input line 48.
 
 
-LaTeX Warning: Citation `IK' on page 12 undefined on input line 59.
+LaTeX Warning: Citation `IK' on page 11 undefined on input line 59.
+
+
+LaTeX Warning: Reference `thm:weil-positivity' on page 11 undefined on input li
+ne 65.
+
+
+LaTeX Warning: Reference `thm:de-branges-selfadjoint' on page 11 undefined on i
+nput line 69.
+
+
+LaTeX Warning: Reference `thm:weil-positivity' on page 11 undefined on input li
+ne 69.
+
+
+LaTeX Warning: Reference `lem:no-off-axis' on page 11 undefined on input line 7
+0.
 
 )
 Overfull \hbox (0.69467pt too wide) in paragraph at lines 70--70
 []\OT1/cmr/bx/n/17.28 Teorema de Suorema / Suorema The-o-rem: F^^Sormula
  []
 
-(./sections/teorema_suorema.tex
+(./sections/teorema_suorema.tex [11]
 
 LaTeX Warning: Reference `sec:axiomas' on page 12 undefined on input line 21.
 
-[12]
 
-LaTeX Warning: Reference `sec:rigidez' on page 13 undefined on input line 23.
-
-
-LaTeX Warning: Reference `sec:debranges' on page 13 undefined on input line 25.
+LaTeX Warning: Reference `sec:rigidez' on page 12 undefined on input line 23.
 
 
+LaTeX Warning: Reference `sec:debranges' on page 12 undefined on input line 25.
 
-LaTeX Warning: Reference `sec:localizacion' on page 13 undefined on input line 
+
+
+LaTeX Warning: Reference `sec:localizacion' on page 12 undefined on input line 
 27.
 
 
-LaTeX Warning: Reference `sec:unicidad' on page 13 undefined on input line 29.
+LaTeX Warning: Reference `sec:unicidad' on page 12 undefined on input line 29.
 
 
-Overfull \hbox (47.67218pt too wide) in paragraph at lines 40--41
-[]\OT1/cmr/m/n/12 Se sigue in-medi-ata-mente del Teo-rema []14.1[] y la relaci^
-^Son fun-cional $\OML/cmm/m/it/12 ^^P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 s\OT1/cm
-r/m/n/12 ) = ^^D(\OML/cmm/m/it/12 s\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 =\OT1/cmr/
-m/n/12 [^^@(\OML/cmm/m/it/12 s=\OT1/cmr/m/n/12 2)\OML/cmm/m/it/12 ^^Y[]s\OT1/cm
-r/m/n/12 (\OML/cmm/m/it/12 s \OMS/cmsy/m/n/12 ^^@
+LaTeX Warning: Reference `thm:suorema-completo' on page 12 undefined on input l
+ine 40.
+
+
+Overfull \hbox (39.53351pt too wide) in paragraph at lines 40--41
+[]\OT1/cmr/m/n/12 Se sigue in-medi-ata-mente del Teo-rema [] y la relaci^^Son f
+un-cional $\OML/cmm/m/it/12 ^^P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 s\OT1/cmr/m/n/
+12 ) = ^^D(\OML/cmm/m/it/12 s\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 =\OT1/cmr/m/n/12
+ [^^@(\OML/cmm/m/it/12 s=\OT1/cmr/m/n/12 2)\OML/cmm/m/it/12 ^^Y[]s\OT1/cmr/m/n/
+12 (\OML/cmm/m/it/12 s \OMS/cmsy/m/n/12 ^^@
  []
 
 
-LaTeX Warning: Reference `sec:numerical' on page 13 undefined on input line 48.
+LaTeX Warning: Reference `sec:numerical' on page 12 undefined on input line 48.
 
 
-) (./sections/conclusion.tex [13]) (./sections/appendix_traces.tex [14])
-(./sections/appendix_numerical.tex [15])
+
+LaTeX Warning: Reference `thm:suorema-completo' on page 12 undefined on input l
+ine 48.
+
+[12]) (./sections/conclusion.tex [13]) (./sections/appendix_traces.tex
+
+LaTeX Warning: Citation `simon2005' on page 14 undefined on input line 10.
+
+) (./sections/appendix_numerical.tex [14]) [15]
 Underfull \hbox (badness 1629) in paragraph at lines 96--97
 []\OT1/cmr/m/n/12 V. V. Peller, \OT1/cmr/m/it/12 Han-kel Op-er-a-tors and Their
  Ap-pli-ca-tions\OT1/cmr/m/n/12 , Springer, 2003. DOI:
@@ -604,17 +647,17 @@ Package rerunfilecheck Warning: File `main.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 4AE977D3EED6C84060048EF4FE8F85C3;5139
+(rerunfilecheck)             Before: <no file>
 (rerunfilecheck)             After:  F9575539B5434F76F030524E73E4CD9C;5906.
  ) 
 Here is how much of TeX's memory you used:
- 11155 strings out of 476182
- 171711 string characters out of 5795595
- 1938975 words of memory out of 5000000
- 32858 multiletter control sequences out of 15000+600000
+ 11115 strings out of 476182
+ 171197 string characters out of 5795595
+ 1939975 words of memory out of 5000000
+ 32826 multiletter control sequences out of 15000+600000
  572079 words of font info for 88 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,10n,79p,541b,596s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,79p,541b,672s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/runner/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.60
 0pk> </home/runner/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.
 600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
@@ -636,10 +679,10 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (16 pages, 317893 bytes).
+Output written on main.pdf (16 pages, 313163 bytes).
 PDF statistics:
- 450 PDF objects out of 1000 (max. 8388607)
- 386 compressed objects within 4 object streams
+ 324 PDF objects out of 1000 (max. 8388607)
+ 261 compressed objects within 3 object streams
  127 named destinations out of 1000 (max. 500000)
- 225 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
