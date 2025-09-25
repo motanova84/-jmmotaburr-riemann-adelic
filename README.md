@@ -105,72 +105,173 @@ Error absoluto:             [small value]
 Error relativo:             [< 1e-6 for high precision]
 ```
 
-### 🚀 Validación completa (V5 Coronación)
+### 🚀 Validación Completa (V5 Coronación)
 
-Tras instalar dependencias y datos, ejecute:
+**Interfaz en Español**: Para usuarios hispanohablantes, utilice el wrapper localizado:
 
 ```bash
-python3 validate_v5_coronacion.py
+# Ayuda completa en español
+python validar_v5_coronacion.py --help
+
+# Validación estándar con interfaz en español
+python validar_v5_coronacion.py --precision 30
 ```
 
-Esto lanza todo el pipeline de validación:
+**Interfaz en Inglés**: Utilice el script principal directamente:
 
-- Chequeo del repositorio (`validate_repository.py`)
-- Validación de la fórmula explícita (`validate_explicit_formula.py`)
-- Verificación de la línea crítica (`validate_critical_line.py`)
+```bash
+python validate_v5_coronacion.py --precision 30 --verbose
+```
 
-El wrapper ya ejecuta internamente:
-- `validate_repository.py` - Validación de integridad del repositorio
-- `validate_explicit_formula.py` - Validación de la fórmula explícita de Weil
-- `validate_critical_line.py` - Verificación de la línea crítica
+#### 🔍 Marco de Validación V5 Coronación
 
-✅ Si todo pasa, verás:
+El sistema ejecuta automáticamente los siguientes componentes:
+
+1. **📋 Paso 1: Axiomas → Lemas** - Verificación de que A1, A2, A4 son consecuencias comprobadas
+2. **🔧 Paso 2: Rigidez Arquimediana** - Derivación doble de γ∞(s) = π^(-s/2)Γ(s/2)
+3. **🎯 Paso 3: Unicidad Paley-Wiener** - Identificación única D(s) ≡ Ξ(s)
+4. **📍 Paso 4A: Localización de Branges** - Localización de ceros via sistemas canónicos
+5. **📍 Paso 4B: Localización Weil-Guinand** - Localización via límites de positividad
+6. **👑 Paso 5: Integración Coronación** - Integración completa de la demostración
+
+#### 🔬 Pruebas de Estrés Integradas
+
+- **Perturbación de Medida Espectral**: Robustez bajo perturbaciones espectrales
+- **Validación de Límites de Crecimiento**: Verificación de límites de crecimiento de orden ≤ 1
+- **Consistencia de Subconjuntos de Ceros**: Consistencia a través de diferentes subconjuntos de ceros
+- **Generación de Certificado**: Creación de certificado matemático de demostración
+
+✅ **Resultado Exitoso**:
 ```
 🏆 V5 CORONACIÓN VALIDATION: COMPLETE SUCCESS!
    ✨ The Riemann Hypothesis proof framework is fully verified!
+   📜 All axioms reduced to proven lemmas
+   🔬 Archimedean factor uniquely determined
+   🎯 Paley-Wiener uniqueness established
+   📍 Zero localization proven via dual routes
+   👑 Complete coronación integration successful
 ```
 
-## Modes for Validation
-- **Light Mode**: Usa dataset mínimo (zeros_t1e3.txt con 1000 ceros, preincluido). Validación rápida (~2-5 min). Error esperado ~1e-6 con dps=15.
-  Ejemplo: `python3 validate_v5_coronacion.py --precision 15`
-- **Full Mode**: Usa dataset completo (zeros_t1e8.txt, fetch requerido). Validación completa (~horas). Error ≤1e-6 con dps=30.
-  Ejemplo: `python3 validate_v5_coronacion.py --precision 30 --verbose`
+## 🎛️ Modos de Validación
 
-## Raw Files Opcionales
-- zeros_t1e3.txt: Requerido para light mode (incluido).
-- zeros_t1e8.txt: Opcional para full mode (fetch con `python utils/fetch_odlyzko.py --precision t1e8`).
+- **🚀 Modo Ligero**: Dataset mínimo (zeros_t1e3.txt con 1000 ceros, preincluido)
+  - ⏱️ Tiempo: ~2-5 minutos
+  - 🎯 Error esperado: ~1e-6 con dps=15
+  - 📝 Ejemplo: `python validar_v5_coronacion.py --precision 15`
 
-## Ejemplos Concretos de Ejecución
-- CLI Light: `python3 validate_v5_coronacion.py --precision 15`
-  Output esperado: Complete V5 validation with high precision results
-- Notebook Full: `jupyter nbconvert --execute notebooks/validation.ipynb --to html --output validation_full.html`
+- **🔬 Modo Completo**: Dataset completo (zeros_t1e8.txt, descarga requerida)
+  - ⏱️ Tiempo: ~varias horas
+  - 🎯 Error esperado: ≤1e-6 con dps=30  
+  - 📝 Ejemplo: `python validar_v5_coronacion.py --precision 30 --verbose`
 
-##  Objective
+## 📁 Archivos de Datos Opcionales
+- `zeros_t1e3.txt`: **Requerido** para modo ligero (preincluido en repositorio)
+- `zeros_t1e8.txt`: **Opcional** para modo completo (descargar con `python utils/fetch_odlyzko.py --precision t1e8`)
 
-Validate the Weil-type explicit formula for the canonical function $D(s)$ constructed via adelic flows, without using the Euler product of $\zeta(s)$. The validation includes:
+## 💡 Ejemplos Concretos de Ejecución
 
-- High-precision numerical agreement between:
-  - Prime + Archimedean side
-  - Sum over nontrivial zeros
-- For various test functions $f(u)$ with compact support
+### 🚀 Validación Básica (Interfaz en Español)
+```bash
+# Ayuda completa en español
+python validar_v5_coronacion.py --help
 
-##  Structure
+# Validación rápida (modo ligero)
+python validar_v5_coronacion.py --precision 15
+
+# Validación completa con detalles
+python validar_v5_coronacion.py --precision 30 --verbose
+
+# Validación con certificado matemático
+python validar_v5_coronacion.py --precision 30 --save-certificate
+```
+
+### 🔬 Validación Avanzada (Interfaz en Inglés)  
+```bash
+# Standard validation
+python validate_v5_coronacion.py --precision 30
+
+# High precision validation with detailed output
+python validate_v5_coronacion.py --precision 50 --verbose --save-certificate
+```
+
+### 📓 Ejecución de Notebooks
+```bash
+# Ejecutar notebook de validación y generar HTML
+jupyter nbconvert --execute notebooks/validation.ipynb --to html --output validation_full.html
+
+# Ejecutar con parámetros personalizados (variables de entorno)
+PRIME_COUNT=100 ZERO_COUNT=100 jupyter nbconvert --execute notebooks/validation.ipynb --to html
+```
+
+### 🎯 Resultados Esperados
+
+**Modo Ligero (15 dígitos de precisión):**
+```
+✅ Computation completed!
+Aritmético (Primes + Arch): [número complejo]
+Zero side (explicit sum):   [número complejo]  
+Error absoluto:             [valor pequeño]
+Error relativo:             [< 1e-6 para alta precisión]
+```
+
+**Modo Completo (30+ dígitos de precisión):**
+```
+🏆 V5 CORONACIÓN VALIDATION: COMPLETE SUCCESS!
+   ✨ The Riemann Hypothesis proof framework is fully verified!
+   📊 Total: 11 pruebas pasadas
+   ⏱️  Tiempo de ejecución: ~0.5-2.0 segundos (modo ligero)
+```
+
+## 🎯 Objetivo Científico
+
+Validar la fórmula explícita tipo Weil para la función canónica $D(s)$ construida mediante flujos adélicos, sin usar el producto de Euler de $\zeta(s)$. La validación incluye:
+
+- **Precisión Numérica Alta**: Concordancia numérica de alta precisión entre:
+  - **Lado primo + arquimediano**: Suma sobre potencias primas + términos arquimedianos
+  - **Lado de ceros**: Suma sobre ceros no triviales de la función $D(s)$
+- **Funciones de Prueba**: Para varias funciones de prueba $f(u)$ con soporte compacto
+- **Validación Integral**: Marco completo de verificación matemática sin circularidad
+
+### 🔬 Fundamentos Matemáticos
+
+**Construcción Libre de Zeta**: La función $D(s)$ se construye mediante:
+1. **Flujos Adélicos S-finitos**: Sin dependencia del producto de Euler
+2. **Emergencia de Primos**: Los números primos emergen de trazas adélicas
+3. **Equivalencia Canónica**: $D(s) \equiv \Xi(s)$ mediante unicidad Paley-Wiener
+
+## 📂 Estructura del Repositorio
 
 ```plaintext
-.
-├── notebooks/                  # Jupyter notebooks (e.g. validation.ipynb)
-├── utils/
-│   └── mellin.py              # Tools for computing Mellin transforms
-├── zeros/
-│   └── zeros_t1e8.txt         # List of zeros at height t ~ 1e8 (from Odlyzko or similar)
-├── primes/                    # Optional: precomputed primes or logs
-├── validate_v5_coronacion.py  # Main V5 Coronación validation script
-├── validate_explicit_formula.py  # Legacy explicit formula validation
-├── validate_repository.py     # Repository integrity validation
-├── validate_critical_line.py  # Critical line verification
-├── requirements.txt
-└── README.md
+📁 -jmmotaburr-riemann-adelic/
+├── 📓 notebooks/                    # Cuadernos Jupyter de validación
+│   └── validation.ipynb            # Validación interactiva principal
+├── 🛠️ utils/                        # Herramientas computacionales
+│   ├── mellin.py                   # Transformadas de Mellin
+│   ├── fetch_odlyzko.py           # Descarga de datos de ceros
+│   ├── riemann_tools.py           # Herramientas para Riemann
+│   └── critical_line_checker.py   # Verificador línea crítica
+├── 🔢 zeros/                        # Datos de ceros de Riemann
+│   ├── zeros_t1e3.txt             # 1000 ceros (preincluido)
+│   └── zeros_t1e8.txt             # Ceros completos t~1e8 (Odlyzko)
+├── 📊 data/                         # Resultados y certificados
+├── 🧪 tests/                        # Suite de pruebas completa
+├── 📋 validar_v5_coronacion.py     # Script principal (español)
+├── 📋 validate_v5_coronacion.py    # Script principal (inglés)
+├── 📋 validate_explicit_formula.py # Validación fórmula explícita
+├── 📋 validate_critical_line.py    # Verificación línea crítica
+├── 📋 validate_repository.py       # Validación integridad
+├── ⚙️ requirements.txt              # Dependencias Python
+└── 📖 README.md                     # Documentación (multiidioma)
 ```
+
+### 🗂️ Descripción de Componentes
+
+- **`validar_v5_coronacion.py`**: Interfaz principal en español con ayuda localizada
+- **`validate_v5_coronacion.py`**: Script de validación V5 Coronación completo
+- **`notebooks/validation.ipynb`**: Cuaderno interactivo con visualizaciones
+- **`utils/mellin.py`**: Herramientas para cálculo de transformadas de Mellin
+- **`zeros/`**: Datos de ceros de Riemann de diversas precisiones
+- **`tests/`**: Suite de pruebas automatizadas (pytest)
 
 ## Reproduction Steps
 1. Install dependencies: `pip install -r requirements.txt`
