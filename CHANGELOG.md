@@ -4,6 +4,7 @@
 - Introducción del bloque formal de localización crítica
 - Creación de CHANGELOG y estructura de formalización
 - Consolidación de teoremas en docs/teoremas_basicos/
+- **NUEVO**: Añadida sección del teorema de Suorema con Riema completo (Fórmula Explícita)
 - Repositorio elevado a prueba formal en construcción
 
 ## [Unreleased]
@@ -14,6 +15,7 @@
 ## [2025-09-25]
 ### Added
 - `docs/teoremas_basicos/*.tex`: formal theorem scaffolds (rigidez_arquimediana.tex, unicidad_paley_wiener.tex, de_branges.tex, axiomas_a_lemas.tex, factor_arquimediano.tex, localizacion_ceros.tex)
+- **NEW**: `formula_explicita_suorema.tex`: Complete explicit formula theorem (Teorema de Suorema)
 - `paper/`: LaTeX structure with main.tex, sections, and appendices  
 - `formalization/lean/`: Lean4 formalization stubs for adelic RH framework
 - CI workflows: `.github/workflows/comprehensive-ci.yml`, `.github/workflows/critical-line-verification.yml`, `.github/workflows/latex-and-proof.yml`
