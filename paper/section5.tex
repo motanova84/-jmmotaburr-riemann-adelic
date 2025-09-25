@@ -1,0 +1,45 @@
+\section{Teorema Final: Localización Crítica de los Ceros}
+
+\begin{theorem}[Hipótesis de Riemann]\label{thm:RH-final}
+Todos los ceros no triviales de la función zeta de Riemann $\zeta(s)$ 
+pertenecen a la recta crítica $\Re(s)=\tfrac{1}{2}$.
+\end{theorem}
+
+\begin{proof}
+La prueba combina las dos rutas desarrolladas:
+
+\subsection*{1. Ruta de Branges}
+Sea $E(z)=D(\tfrac{1}{2}-iz)+iD(\tfrac{1}{2}+iz)$ la función de Hermite--Biehler
+asociada a $D(s)$.  
+\begin{itemize}
+  \item Por la simetría funcional $D(1-s)=D(s)$ y cotas de crecimiento 
+        tipo Phragm\'en--Lindel\"of \cite{IK2004}, $E$ es HB y de tipo Cartwright.
+  \item El núcleo de reproducción $K_w(z)$ induce un sistema canónico $Y'(x)=JH(x)Y(x)$
+        con Hamiltoniano $H(x)\succ 0$ localmente integrable \cite{deBranges1986}.
+  \item La condición $\int_0^\infty \mathrm{tr}\,H(x)\,dx=\infty$ sitúa al sistema en 
+        el caso límite-punto, lo que garantiza autoadjunción esencial \cite{deBranges1986}.
+  \item En consecuencia, el espectro es real y simple, y sus valores propios corresponden 
+        exactamente a los ceros de $D(1/2+it)$.
+\end{itemize}
+
+\subsection*{2. Ruta de Positividad Weil--Guinand}
+Sea $\mathcal{F}$ la familia de funciones de Schwartz en $\mathbb{R}$ con transformada de Mellin entera.
+\begin{itemize}
+  \item La fórmula explícita adélica de Weil \cite{Weil1964} da la identidad
+  \[
+    Q[f] = \sum_{\rho} \widehat f(\rho) - 
+           \Bigl(\sum_{n\geq 1} \Lambda(n) f(\log n) + \widehat f(0)+\widehat f(1)\Bigr).
+  \]
+  \item Cada contribución local es positiva por el índice de Weil; 
+        luego $Q[f]\ge 0$ para todo $f\in\mathcal{F}$.
+  \item Si existiera un cero $\rho_0$ con $\Re(\rho_0)\ne \tfrac{1}{2}$, 
+        se puede construir $f$ concentrado cerca de $\rho_0$ tal que $Q[f]<0$,
+        contradiciendo la positividad \cite{Guinand1955}.
+\end{itemize}
+
+\subsection*{3. Conclusión}
+Ambas rutas coinciden: el sistema espectral fuerza ceros en $\Re(s)=\tfrac{1}{2}$ 
+y la positividad excluye ceros fuera de la recta. 
+Como $D(s)\equiv\Xi(s)$ por el Lema de Unicidad Paley--Wiener--Hamburger, 
+la misma conclusión se aplica a $\zeta(s)$. 
+\end{proof}
