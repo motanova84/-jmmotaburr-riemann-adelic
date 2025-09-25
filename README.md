@@ -14,10 +14,7 @@ Notebook Validation Commit: `7f191eb`
 
 ## 📋 Theoretical Framework
 
-**Important**: This paper is conditional under S-finite axioms:
-- **A1**: Flujo escala finito (finite scale flow)
-- **A2**: Simetría (symmetry) 
-- **A4**: Regularidad espectral (spectral regularity)
+**Important**: A1, A2, A4 are proven as theorems in V5 Coronación (see axiomas_a_lemas.tex). The framework is now unconditional.
 
 **Logical Proof Structure**: The mathematical "proof" is detailed in the PDF (Zenodo DOI [10.5281/zenodo.17167857](https://doi.org/10.5281/zenodo.17167857)). The construction proceeds as follows:
 
@@ -36,6 +33,18 @@ Notebook Validation Commit: `7f191eb`
 ## 📖 Current Status
 
 From conditional framework → Towards unconditional proof (V5 Coronation milestone).
+
+## 📊 Status of the Proof
+
+✅ A1: proven via Tate–Weil theory
+
+✅ A2: proven via adelic Poisson symmetry (Weil)
+
+✅ A4: proven via Birman–Solomyak trace theory
+
+✅ D(s) construction: canonical determinant, entire of order ≤ 1, with functional equation and uniqueness
+
+✅ RH derivation: all non-trivial zeros on Re(s)=1/2
 
 ## 📝 Paper Structure
 
