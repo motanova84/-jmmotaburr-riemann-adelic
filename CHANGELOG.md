@@ -1,5 +1,11 @@
 # Changelog
 
+## V5 Coronación — 25 Sept 2025
+- Introducción del bloque formal de localización crítica
+- Creación de CHANGELOG y estructura de formalización
+- Consolidación de teoremas en docs/teoremas_basicos/
+- Repositorio elevado a prueba formal en construcción
+
 ## [Unreleased]
 - Add formalization stubs (Lean/Isabelle)
 - Extend analytic bounds with classical references
