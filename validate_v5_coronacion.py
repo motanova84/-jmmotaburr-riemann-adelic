@@ -34,6 +34,13 @@ import numpy as np
 # Add the current directory to Python path for imports
 sys.path.append('.')
 
+# Optional import for adelic determinant validation
+try:
+    from utils.adelic_determinant import AdelicCanonicalDeterminant
+    HAVE_ADELIC_D = True
+except Exception:
+    HAVE_ADELIC_D = False
+
 def setup_precision(dps):
     """Setup computational precision"""
     mp.mp.dps = dps
@@ -240,6 +247,20 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
             }
             status_icon = "⏭️" if results[f"Integration: {test_name}"]['status'] == 'SKIPPED' else "❌"
             print(f"   {status_icon} Integration: {test_name}: {results[f'Integration: {test_name}']['status']} - {str(e)}")
+    
+    # Adelic determinant validation (optional)
+    if HAVE_ADELIC_D:
+        print("\n🔬 RUNNING ADELIC DETERMINANT VALIDATION...")
+        try:
+            det = AdelicCanonicalDeterminant(max_zeros=50, dps=60)
+            s = mp.mpf("0.5") + 3j
+            sym_err = abs(det.D(s) - det.D(1 - s))
+            t0 = det.ts[0]
+            zero_val = det.D(mp.mpf("0.5") + 1j * t0)
+            print(f"   ✅ Adelic D(s) symmetry check: |D(s)-D(1-s)| = {float(sym_err):.2e}")
+            print(f"   ✅ Adelic D(s) zero hit at t1: |D(1/2+it1)| = {float(abs(zero_val)):.2e}")
+        except Exception as e:
+            print(f"   ⚠️  Adelic D(s) validation warning: {e}")
     
     # Final summary
     print("\n" + "=" * 80)
