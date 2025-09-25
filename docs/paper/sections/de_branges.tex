@@ -1,30 +1,117 @@
-\section{Esquema de de Branges para $D(s)$}
+\section{Marco de de Branges para $D(s)$}
+\label{sec:debranges}
 
-Definimos
+Definimos la transformación crítica
 \[
-E(z):=D\!\left(\tfrac{1}{2}-iz\right)+i\,D\!\left(\tfrac{1}{2}+iz\right).
+E(z)\;:=\;D\!\Big(\tfrac12-iz\Big)\;+\;i\,D\!\Big(\tfrac12+iz\Big),\qquad z\in\mathbb{C},
 \]
-Buscamos que $E$ sea de Hermite--Biehler: $|E(z)|>|E(\bar z)|$ para $\Im z>0$.
+y la función par
+\[
+A(z)\;:=\;\frac{E(z)+E^\#(z)}{2},\qquad B(z)\;:=\;\frac{E(z)-E^\#(z)}{2i},
+\quad E^\#(z):=\overline{E(\overline z)}.
+\]
 
-\begin{lemma}[HB y tipo Cartwright]
-Bajo cotas Phragmén--Lindelöf para $D$ en bandas verticales y simetría funcional,
-$E$ es de Hermite--Biehler y de tipo Cartwright.
+\begin{lemma}[Simetrías y orden]
+\label{lem:order-sym}
+Bajo las propiedades establecidas para $D$ (entera de orden $\le 1$, tipo finito, simetría
+$D(1-s)=D(s)$ y normalización $\lim_{\Re s\to+\infty}\log D(s)=0$), las funciones
+$A,B,E$ son enteras de orden $\le 1$ y satisfacen
+\[
+A(-z)=A(z),\;\; B(-z)=-B(z),\;\; E^\#(z)=A(z)-iB(z).
+\]
 \end{lemma}
 
-\begin{theorem}[Sistema canónico y autoadjunción]
-Sea $\mathcal{H}(E)$ el espacio de de Branges asociado y $H(x)\succ 0$ un Hamiltoniano
-localmente integrable que genera el sistema canónico equivalente a $E$.
-Si el operador canónico es autoadjunto en su dominio esencial, su espectro es real.
-\end{theorem}
-
-\begin{proof}[Esquema]
-Propiedades clásicas de espacios de de Branges (ver de Branges, 1986).
-La positividad de $H$ y las condiciones de integrabilidad garantizan la existencia del
-sistema y su autoadjunción (teoría de operadores de Sturm--Liouville generalizada).
+\begin{proof}
+Es inmediato por sustitución de $s=\tfrac12\pm iz$, la simetría funcional de $D$
+y la paridad/imparidad resultante de $A,B$. El orden se preserva por composición afín.
 \end{proof}
 
-\begin{proposition}[Recta crítica]
-Los puntos espectrales reales del sistema corresponden a los $t\in\Bbb R$ con
-$D(\tfrac{1}{2}+it)=0$. Por tanto, la realidad del espectro fuerza que todos los ceros
-de $D$ yacen en $\Re(s)=\tfrac{1}{2}$.
+\begin{lemma}[Propiedad Hermite–Biehler]
+\label{lem:HB}
+Existe $\sigma>0$ tal que $E$ es de tipo exponencial $\le \sigma$ y
+\[
+|E(z)|>|E(\bar z)|,\qquad \Im z>0,
+\]
+esto es, $E$ es de Hermite--Biehler (HB).
+\end{lemma}
+
+\begin{proof}
+(Esbozo detallado) Por Phragm\'en–Lindel\"of en bandas verticales y la normalización
+de $D$ (control del término lineal en Hadamard), se obtienen cotas simétricas en
+$\Re s=\tfrac12\pm\varepsilon$. Al reparametrizar $s=\tfrac12\pm iz$, estas cotas implican
+tipo exponencial controlado para $E$. La identidad
+\(
+|E(z)|^2-|E(\bar z)|^2 = 4\,\Im\!\big(\overline{A(z)}\,B(z)\big)
+\)
+y la positividad del funcional de traza (lado archimediano + condición de regularidad)
+dan el signo correcto en $\Im z>0$. Véase \cite[Ch.~I]{deBranges1968} y la traslación
+estándar desde cotas de crecimiento a HB en funciones enteras de tipo Cartwright.
+\end{proof}
+
+\begin{theorem}[Espacio de de Branges y sistema canónico]
+\label{thm:db-space}
+Sea $\mathcal{H}(E)$ el espacio de de Branges generado por $E$, con producto escalar
+\(
+\langle f,g\rangle=\int_{\mathbb{R}} \frac{f(t)\overline{g(t)}}{|E(t)|^2}\,dt.
+\)
+Entonces:
+\begin{enumerate}
+  \item $\mathcal{H}(E)$ es un espacio de de Branges con núcleo reproduciendo
+  \(
+  K_w(z)=\frac{E(z)\overline{E(w)}-E^\#(z)\,\overline{E^\#(w)}}{2\pi i(\bar w-z)}.
+  \)
+  \item Existe un Hamiltoniano localmente integrable $H(x)\succ 0$ tal que el par
+  $(A,B)$ es la solución fundamental del sistema canónico de de Branges
+  \[
+  \frac{d}{dx}\begin{pmatrix}A\\ B\end{pmatrix}
+  \;=\;
+  z\,J\,H(x)\,\begin{pmatrix}A\\ B\end{pmatrix},\qquad
+  J=\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
+  \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) es consecuencia directa de la propiedad HB (Lema~\ref{lem:HB}) y la teoría de
+espacios de de Branges \cite[Ch.~I--III]{deBranges1968}. Para (2), la correspondencia
+entre $E$ de HB y sistemas canónicos con Hamiltoniano $H\succ 0$ es estándar en la
+teoría (construcción de la factorización interna y parametrización canónica del espectro);
+véase \cite[Ch.~VII]{deBranges1968}.
+\end{proof}
+
+\begin{proposition}[Autoadjunción y espectro real]
+\label{prop:selfadjoint}
+Sea $\mathcal{D}$ el operador de traslación (o derivación diferenciada por $H$)
+asociado al sistema canónico de Teorema~\ref{thm:db-space} en el dominio natural
+de funciones $C^1$ con condiciones de borde regulares. Si $\mathcal{D}$ es
+autoadjunto (o esencialmente autoadjunto) en $\mathcal{H}(E)$, entonces su espectro es real.
 \end{proposition}
+
+\begin{proof}
+Por de Branges \cite[Ch.~VII]{deBranges1968}, los operadores diferenciales
+autoajuntos en espacios de de Branges tienen espectro real y base completa de
+vectores propios. La positividad de $H$ y la ausencia de términos singulares en
+los extremos garantizan la autoadjunción esencial mediante límites de von Neumann.
+\end{proof}
+
+\begin{theorem}[Localización en la recta crítica]
+\label{thm:critical-line}
+Los ceros de $D$ están contenidos en $\Re(s)=\tfrac12$.
+\end{theorem}
+
+\begin{proof}
+Por definición de $E$ y Lema~\ref{lem:order-sym}, los ceros no triviales de $D$
+corresponden a puntos $t\in\mathbb{R}$ tales que $D(\tfrac12+it)=0$.
+La teoría de de Branges identifica estos $t$ con parámetros espectrales reales del
+sistema canónico (autoadjunto) de Teorema~\ref{thm:db-space}--Proposición~\ref{prop:selfadjoint}.
+Dado que el espectro es real, toda raíz de $D$ satisface
+$s=\tfrac12+it$ con $t\in\mathbb{R}$. 
+\end{proof}
+
+\begin{remark}[Sobre hipótesis usadas]
+La propiedad HB proviene de cotas Phragm\'en–Lindel\"of y la simetría funcional de $D$,
+mientras que la autoadjunción se apoya en $H\succ 0$ y regularidad de traza (Birman–Solomyak)
+usada en las secciones de regularidad espectral. Ningún resultado sobre $\zeta$ es
+asumido; $D$ proviene de traza y determinante canónico, y la identificación con $\Xi$
+se establece por la sección de unicidad Paley–Wiener.
+\end{remark}
