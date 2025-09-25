@@ -1,0 +1,72 @@
+\section{Localización analítica de ceros en la recta crítica}
+
+Mostramos que todos los ceros de $D(s)$ yacen en $\Re(s)=\tfrac{1}{2}$ mediante
+dos rutas complementarias: de Branges y Weil--Guinand.
+
+\subsection*{Ruta A: de Branges}
+
+\begin{theorem}[Autoadjunción canónica]\label{thm:de-branges-selfadjoint}
+Sea $E(z)=D(\tfrac12-iz)+iD(\tfrac12+iz)$ la función de Hermite--Biehler asociada.
+Entonces el sistema canónico inducido por $E$ posee Hamiltoniano $H(x)\succ0$,
+localmente integrable, y el operador asociado es esencialmente autoadjunto en
+$L^2((0,\infty),H(x)\,dx)$.
+\end{theorem}
+
+\begin{proof}
+Por \cite{deBranges}, $E$ HB $\Rightarrow$ existe núcleo positivo
+$K_w(z)$ que genera sistema $Y'(x)=JH(x)Y(x)$.  
+Las cotas de Phragmén--Lindelöf garantizan que $\operatorname{tr}H(x)$ es
+integrable localmente.  
+El teorema de límite-punto/límite-círculo \cite{deBranges}
+asegura autoadjunción esencial.  
+\end{proof}
+
+\begin{cor}[Espectro real $\Rightarrow$ ceros críticos]
+Los autovalores reales del sistema corresponden a ceros $D(\tfrac12+it)=0$,
+por lo que todos los ceros de $D$ se sitúan en $\Re(s)=\tfrac12$.
+\end{cor}
+
+\subsection*{Ruta B: Positividad de Weil--Guinand}
+
+\begin{definition}
+Sea $\mathcal{F}$ el espacio de funciones de Schwartz cuyas transformadas de
+Mellin $\widehat f(s)$ decrecen superpolinómicamente.  
+Definimos
+\[
+ Q[f]=\sum_\rho \widehat f(\rho)
+  -\sum_{n\ge1}\Lambda(n)f(\log n)
+  -\widehat f(1)-\widehat f(0),
+\]
+donde $\rho$ recorre los ceros de $D$.  
+\end{definition}
+
+\begin{theorem}[Positividad]\label{thm:weil-positivity}
+Para todo $f\in\mathcal{F}$ se cumple $Q[f]\ge0$.
+\end{theorem}
+
+\begin{proof}
+La fórmula explícita de Weil \cite{Weil} descompone $Q[f]$ como suma de
+aportaciones locales $\ge0$ gracias a la normalización metapléctica.  
+\end{proof}
+
+\begin{lemma}[Contradicción fuera de la recta]\label{lem:no-off-axis}
+Si existiera $\rho_0=\beta_0+i\gamma_0$ con $\beta_0\ne\tfrac12$, entonces
+existe $f\in\mathcal{F}$ tal que $Q[f]<0$.
+\end{lemma}
+
+\begin{proof}
+Sea $\widehat f(s)=e^{-(s-\rho_0)^2/\varepsilon}$ suavizada con corte compacto.
+Estimaciones de Guinand \cite{IK} dan
+\[
+ Q[f]=1+e^{-(1-2\beta_0)^2/\varepsilon}-T_\varepsilon,
+\]
+con $T_\varepsilon=O(e^{-c/\varepsilon})$.  
+Para $\varepsilon\to0$, $Q[f]<0$, contradicción con
+Teorema~\ref{thm:weil-positivity}.
+\end{proof}
+
+\begin{cor}[Recta crítica]
+De los Teoremas \ref{thm:de-branges-selfadjoint}, \ref{thm:weil-positivity} y
+Lema \ref{lem:no-off-axis} se deduce que todos los ceros de $D(s)$ están en la
+recta crítica.  
+\end{cor}

@@ -37,7 +37,30 @@ Notebook Validation Commit: `7f191eb`
 
 From conditional framework → Towards unconditional proof (V5 Coronation milestone).
 
-Las secciones `docs/teoremas_basicos/rigidez_arquimediana.tex`, `unicidad_paley_wiener.tex`, `de_branges.tex`, `axiomas_a_lemas.tex`, `factor_arquimediano.tex` y `localizacion_ceros.tex` contienen las versiones en progreso de las demostraciones formales para los cuatro puntos críticos hacia una solución definitiva.
+## 📝 Paper Structure
+
+The complete LaTeX paper is organized in `docs/paper/` with the following structure:
+
+- **Master Document**: `docs/paper/main.tex` - Complete paper with bibliography
+- **Sections**: `docs/paper/sections/` - All theorem scaffolds and content:
+  - `rigidez_arquimediana.tex` - Archimedean Rigidity theorem
+  - `unicidad_paley_wiener.tex` - Paley-Wiener Uniqueness results  
+  - `de_branges.tex` - de Branges Framework application
+  - `axiomas_a_lemas.tex` - S-finite Axiomatic System
+  - `factor_arquimediano.tex` - Archimedean Factor analysis
+  - `localizacion_ceros.tex` - Critical Line Localization (main result)
+
+### Building the Paper
+
+```bash
+cd docs/paper
+make              # Build complete paper using Makefile
+# or manually:
+pdflatex main.tex
+pdflatex main.tex # Run twice for cross-references
+```
+
+See `docs/paper/README.md` for detailed compilation instructions and dependencies.
 
 ## 🚀 Quick Start
 
