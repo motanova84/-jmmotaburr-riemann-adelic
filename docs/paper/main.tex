@@ -1,0 +1,31 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm,hyperref,mathtools}
+\usepackage[margin=3cm]{geometry}
+
+\title{Adelic Framework Towards a Proof of the Riemann Hypothesis}
+\author{Jos\'e Manuel Mota Burruezo}
+\date{\today}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\input{sections/intro.tex}
+\input{sections/construction_D.tex}
+\input{sections/axiomas_a_lemas.tex}
+\input{sections/factor_arquimediano.tex}
+\input{sections/unicidad_paley_wiener.tex}
+\input{sections/de_branges.tex}
+\input{sections/localizacion_ceros.tex}
+\input{sections/conclusion.tex}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

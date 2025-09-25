@@ -1,5 +1,7 @@
 # Riemann-Adelic
 
+[![LaTeX & Proof-Checks](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/latex-and-proof.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/latex-and-proof.yml)
+
 This repository contains numerical validation code for the paper:
 
 **A Complete Proof of the Riemann Hypothesis via S-Finite Adelic Systems (Final Conditional Version V4.1)**  
@@ -11,6 +13,26 @@ Technical Appendix to V4.1: Uniform Bounds, Logarithmic Lengths, and Uniqueness 
 https://doi.org/10.5281/zenodo.17161831
 
 Notebook Validation Commit: `7f191eb`
+
+## 📖 Current Status
+
+This repository contains a **conditional adelic framework** for RH.  
+It includes:
+
+- Formal LaTeX proofs in `docs/paper/sections/`
+- Validation scripts and Odlyzko zero data
+- Continuous integration (LaTeX build + proof-checks)
+
+### Demonstrated
+- Axioms A1--A4 derived as lemmas
+- Archimedean factor rigidity
+- Paley--Wiener uniqueness
+
+### In Progress
+- Full analytical closure of zeros on the critical line
+  (via de Branges or Weil--Guinand positivity).
+
+👉 Latest compiled PDF: [Artifacts](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions)
 
 ## 📋 Theoretical Framework
 
