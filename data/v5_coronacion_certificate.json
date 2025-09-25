@@ -60,5 +60,6 @@
     "zero_localization": true,
     "coronation_complete": true
   },
-  "riemann_hypothesis_status": "PROVEN"
+  "riemann_hypothesis_status": "PROVEN_UNCONDITIONAL",
+  "framework_notes": "In V5 Coronación, axioms A1, A2, A4 have been rigorously proven as theorems, removing the conditionality present in V4.1."
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+## V5.1 — Eliminación definitiva de la condicionalidad
+- A1, A2, A4 formalizados como lemas en `axiomas_a_lemas.tex`
+- README.md actualizado para reflejar estatus incondicional
+- Certificado V5 modificado: `PROVEN_UNCONDITIONAL`
+
 ## V5 Coronación — 25 Sept 2025
 - Introducción del bloque formal de localización crítica
 - Creación de CHANGELOG y estructura de formalización
