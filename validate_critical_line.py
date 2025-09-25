@@ -23,11 +23,30 @@ import json
 import csv
 from pathlib import Path
 
-import mpmath as mp
-import numpy as np
+# Python version check
+def check_python_compatibility():
+    """Check Python version compatibility"""
+    version_info = sys.version_info
+    if version_info >= (3, 13):
+        print("⚠️  WARNING: Python 3.13+ may have NumPy/SciPy compatibility issues")
+    elif version_info < (3, 10):
+        print("❌ ERROR: Python 3.10+ required")
+        sys.exit(1)
 
-# Import our critical line verification module
-from utils.critical_line_checker import CriticalLineChecker, validate_critical_line_from_file
+check_python_compatibility()
+
+try:
+    import mpmath as mp
+    import numpy as np
+    # Import our critical line verification module
+    from utils.critical_line_checker import CriticalLineChecker, validate_critical_line_from_file
+except ImportError as e:
+    print(f"❌ Error importing required packages: {e}")
+    print("💡 Solution: Install dependencies with:")
+    print("   pip install --upgrade pip")  
+    print("   pip install -r requirements.txt")
+    print("   Or run: bash run.sh")
+    sys.exit(1)
 from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3
 from utils.riemann_tools import load_zeros_near_t
 

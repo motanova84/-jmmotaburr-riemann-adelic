@@ -12,13 +12,35 @@ It uses:
 Add helper utilities if missing.
 """
 
-import mpmath as mp
-import numpy as np
-import sympy as sp
-from scipy.linalg import schur, eigh
-from sympy import bernoulli, S, integrate, exp
-import matplotlib.pyplot as plt
-from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3, A_infty
+import sys
+
+# Python version check
+def check_python_compatibility():
+    """Check Python version compatibility"""
+    version_info = sys.version_info
+    if version_info >= (3, 13):
+        print("⚠️  WARNING: Python 3.13+ may have NumPy/SciPy compatibility issues")
+    elif version_info < (3, 10):
+        print("❌ ERROR: Python 3.10+ required")
+        sys.exit(1)
+
+check_python_compatibility()
+
+try:
+    import mpmath as mp
+    import numpy as np
+    import sympy as sp
+    from scipy.linalg import schur, eigh
+    from sympy import bernoulli, S, integrate, exp
+    import matplotlib.pyplot as plt
+    from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3, A_infty
+except ImportError as e:
+    print(f"❌ Error importing required packages: {e}")
+    print("💡 Solution: Install dependencies with:")
+    print("   pip install --upgrade pip")
+    print("   pip install -r requirements.txt")
+    print("   Or run: bash run.sh")
+    sys.exit(1)
 
 # Reduce precision for faster computation
 mp.mp.dps = 15  # Reduced from 50
