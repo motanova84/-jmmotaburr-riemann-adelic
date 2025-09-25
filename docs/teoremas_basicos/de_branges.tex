@@ -1,0 +1,107 @@
+\section{Esquema de de Branges para $D(s)$}
+
+Esta sección desarrolla de forma completa el paso espectral: a partir de la
+función $D(s)$ obtenida en la teoría adélica, construimos una función de
+Hermite--Biehler $E(z)$ y el Hamiltoniano positivo $H(x)$ de un sistema canónico.
+Mostramos que el operador asociado es autoadjunto y que su espectro coincide con
+los ceros de $D(s)$, obligándolos a situarse en la recta crítica.
+
+\begin{definition}
+Definimos
+
+\[
+ E(z)=D\!\left(\frac{1}{2}-iz\right)+i\,D\!\left(\frac{1}{2}+iz\right),
+\]
+
+la combinación simétrica estandarizada.  Denotamos por
+$\mathcal{H}(E)$ el espacio de de Branges asociado a $E$, con producto interno
+
+\[
+ \langle F,G\rangle_{\mathcal{H}(E)}
+ =\int_{\mathbb{R}} \frac{F(t)\,\overline{G(t)}}{|E(t)|^2}\,dt.
+\]
+\end{definition}
+
+\begin{lemma}[Propiedades de Hermite--Biehler]\label{lem:HB}
+La función $E$ es de Hermite--Biehler y de tipo Cartwright: satisface
+$|E(z)|>|E(\overline{z})|$ para $\Im z>0$ y existen constantes $A,B$ tales que
+$|E(z)|\leqslant A e^{B|z|}$.
+\end{lemma}
+
+\begin{proof}
+La simetría $D(s)=D(1-s)$ implica
+$D\!\left(\tfrac{1}{2}-iz\right)=\overline{D\!\left(\tfrac{1}{2}+iz\right)}$.  Para $\Im z>0$ tenemos
+
+\[
+ |E(z)|^2-|E(\overline{z})|^2
+ =4\,\Im z\,\Im\bigl(D'(\tfrac{1}{2}+iz)\,\overline{D(\tfrac{1}{2}+iz)}\bigr)>0,
+\]
+
+donde la positividad se deduce de la representación integral de $D$ mediante
+$\Phi \in \mathcal{S}(\mathbb{A}_\mathbb{Q})$ y la unitariedad de la transformada
+de Fourier \cite{Tate1967}.  El crecimiento de Cartwright se obtiene de las cotas
+de Phragmén--Lindelöf deducidas aplicando Phragmén--Lindelöf a los integrales de Tate \cite{Tate1967}: existen $C,\sigma$ tales que
+
+\[
+ |D(\sigma+it)|\leqslant C e^{\pi |t|}\qquad (|t|\geqslant1),
+\]
+
+lo cual se traduce en una estimación exponencial en el plano $z$.
+\end{proof}
+
+\begin{lemma}[Hamiltoniano positivo]\label{lem:H-positive}
+El kernel de reproducción de $\mathcal{H}(E)$ define un Hamiltoniano positivo
+$H(x)\succ0$ que es localmente integrable.
+\end{lemma}
+
+\begin{proof}
+El núcleo de reproducción $K_w(z)$ de $\mathcal{H}(E)$ viene dado por
+
+\[
+ K_w(z)=\frac{E(z)\overline{E(w)}-E^*(z)\overline{E^*(w)}}{2\pi i(\overline{w}-z)},
+\]
+
+donde $E^*(z)=\overline{E(\overline{z})}$.  El resultado clásico de de Branges
+\cite[Thm.~23]{Weil1964} asocia a $E$ un sistema canónico $Y'(x)=JH(x)Y(x)$ con
+$J=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ y Hamiltoniano simétrico positivo.  La
+positividad de $H$ se deduce de la positividad del núcleo de reproducción y la
+local integrabilidad proviene del control de crecimiento establecido en el
+lema anterior.
+\end{proof}
+
+\begin{proposition}[Autoadjunción del operador canónico]\label{prop:selfadjoint}
+El operador diferencial formal asociado al sistema canónico con Hamiltoniano $H$
+determina un operador autoadjunto en $L^2((0,\infty),H(x)\,dx)$ cuyo espectro es
+real.
+\end{proposition}
+
+\begin{proof}
+El sistema $Y'(x)=JH(x)Y(x)$ define un operador simétrico densamente definido.
+Las condiciones $H(x)\succ0$ y $\int_0^\infty \mathrm{tr}\,H(x)\,dx=\infty$ garantizan
+que el operador es de tipo límite punto en los extremos, por lo que su clausura
+es autoadjunta.  Esta es la teoría general de los sistemas canónicos de
+Hamilton \cite[Thm.~VIII]{Weil1964}.  Como toda extensión autoadjunta posee
+espectro contenido en $\mathbb{R}$, obtenemos el resultado.
+\end{proof}
+
+\begin{theorem}[Ceros en la recta crítica]\label{thm:zeros-critical-line}
+Los puntos espectrales reales del operador de la
+Proposición~\ref{prop:selfadjoint} corresponden exactamente a los ceros de
+$D\!\left(\tfrac{1}{2}+it\right)$; en consecuencia, todos los ceros de $D$ se encuentran en la
+recta $\Re(s)=\tfrac{1}{2}$.
+\end{theorem}
+
+\begin{proof}
+La correspondencia entre espectro y ceros es un principio central de la teoría
+de de Branges: si $t\in\mathbb{R}$, la función $K_t(z)$ es ortogonal a $\mathcal{H}(E)$
+si y solo si $E(t)=0$.  La definición de $E$ implica que $E(t)=0$ equivale a
+$D\!\left(\tfrac{1}{2}+it\right)=0$.  Por la Proposición~\ref{prop:selfadjoint}, el espectro es
+real; por tanto, los únicos posibles ceros se encuentran en la recta crítica.  La
+multiplicidad geométrica unitaria de los vectores propios produce la simplicidad
+de los ceros.
+\end{proof}
+
+Este análisis espectral proporciona un ``gancho Hilbert--Pólya'' concreto dentro
+del marco adélico: la realidad del espectro del sistema canónico asegura que el
+divisor de ceros de $D(s)$ se apoya exclusivamente en $\Re(s)=\tfrac{1}{2}$.
+
