@@ -84,8 +84,8 @@ pip install -r requirements.txt
 # 2. Fetch Riemann zeros data  
 python utils/fetch_odlyzko.py --precision t1e8
 
-# 3. Run quick validation
-python validate_explicit_formula.py --max_primes 100 --max_zeros 100
+# 3. Run complete V5 Coronación validation
+python3 validate_v5_coronacion.py
 
 # 4. Execute notebook
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
@@ -105,19 +105,44 @@ Error absoluto:             [small value]
 Error relativo:             [< 1e-6 for high precision]
 ```
 
+### 🚀 Validación completa (V5 Coronación)
+
+Tras instalar dependencias y datos, ejecute:
+
+```bash
+python3 validate_v5_coronacion.py
+```
+
+Esto lanza todo el pipeline de validación:
+
+- Chequeo del repositorio (`validate_repository.py`)
+- Validación de la fórmula explícita (`validate_explicit_formula.py`)
+- Verificación de la línea crítica (`validate_critical_line.py`)
+
+El wrapper ya ejecuta internamente:
+- `validate_repository.py` - Validación de integridad del repositorio
+- `validate_explicit_formula.py` - Validación de la fórmula explícita de Weil
+- `validate_critical_line.py` - Verificación de la línea crítica
+
+✅ Si todo pasa, verás:
+```
+🏆 V5 CORONACIÓN VALIDATION: COMPLETE SUCCESS!
+   ✨ The Riemann Hypothesis proof framework is fully verified!
+```
+
 ## Modes for Validation
 - **Light Mode**: Usa dataset mínimo (zeros_t1e3.txt con 1000 ceros, preincluido). Validación rápida (~2-5 min). Error esperado ~1e-6 con dps=15.
-  Ejemplo: `python validate_explicit_formula.py --max_zeros 1000 --max_primes 100 --precision_dps 15 --mode light`
+  Ejemplo: `python3 validate_v5_coronacion.py --precision 15`
 - **Full Mode**: Usa dataset completo (zeros_t1e8.txt, fetch requerido). Validación completa (~horas). Error ≤1e-6 con dps=30.
-  Ejemplo: `python validate_explicit_formula.py --max_zeros 1000000 --max_primes 1000 --precision_dps 30 --mode full --integration_t 50`
+  Ejemplo: `python3 validate_v5_coronacion.py --precision 30 --verbose`
 
 ## Raw Files Opcionales
 - zeros_t1e3.txt: Requerido para light mode (incluido).
 - zeros_t1e8.txt: Opcional para full mode (fetch con `python utils/fetch_odlyzko.py --precision t1e8`).
 
 ## Ejemplos Concretos de Ejecución
-- CLI Light: `python validate_explicit_formula.py --max_zeros 1000 --test_function f2 --formula_type weil`
-  Output esperado: Relative Error ~1e-6, saved to data/validation_results.csv.
+- CLI Light: `python3 validate_v5_coronacion.py --precision 15`
+  Output esperado: Complete V5 validation with high precision results
 - Notebook Full: `jupyter nbconvert --execute notebooks/validation.ipynb --to html --output validation_full.html`
 
 ##  Objective
@@ -139,7 +164,10 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ├── zeros/
 │   └── zeros_t1e8.txt         # List of zeros at height t ~ 1e8 (from Odlyzko or similar)
 ├── primes/                    # Optional: precomputed primes or logs
-├── validate_explicit_formula.py  # Main CLI validation script
+├── validate_v5_coronacion.py  # Main V5 Coronación validation script
+├── validate_explicit_formula.py  # Legacy explicit formula validation
+├── validate_repository.py     # Repository integrity validation
+├── validate_critical_line.py  # Critical line verification
 ├── requirements.txt
 └── README.md
 ```
@@ -147,8 +175,8 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 ## Reproduction Steps
 1. Install dependencies: `pip install -r requirements.txt`
 2. Ensure `zeros/zeros_t1e8.txt` is present (see Data section).
-3. Run validation: `python validate_explicit_formula.py --max_zeros 1000 --precision_dps 30`
-4. Check results in `data/validation_results.csv`.
+3. Run V5 Coronación validation: `python3 validate_v5_coronacion.py --precision 30`
+4. Check comprehensive results and proof certificate.
 
 ## Environment Setup
 - **Python**: 3.10.12
@@ -166,7 +194,7 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 
 Please suggest workflows for:
 
-- Running `validate_explicit_formula.py` on push and saving logs.
+- Running `validate_v5_coronacion.py` (V5 Coronación complete validation) on push and saving logs.
 - Executing `validation.ipynb` automatically using `nbconvert` to produce an HTML output.
 - Fetching Odlyzko zero data if not present in `zeros/`.
 - Archiving numerical outputs as CSV in `data/`.
@@ -192,7 +220,7 @@ To get AI assistance for this repository, use this comprehensive prompt:
 
 ```
 🧠 Copilot Prompt: Suggest workflows for:
-- validating Riemann explicit formula via `validate_explicit_formula.py`
+- validating Riemann hypothesis via complete V5 Coronación (`validate_v5_coronacion.py`)
 - executing Jupyter notebook and exporting HTML
 - downloading and validating Odlyzko zeros
 - running pytest tests for consistency
@@ -210,8 +238,8 @@ pip install -r requirements.txt
 # Run with custom parameters
 PRIME_COUNT=50 ZERO_COUNT=50 jupyter nbconvert --execute notebooks/validation.ipynb --to html
 
-# Or test the CLI validation
-python validate_explicit_formula.py --max_primes 100 --max_zeros 100
+# Or test the V5 Coronación validation
+python3 validate_v5_coronacion.py --precision 25
 ```
 
 ## Section 14: Weil Explicit Formula Mathematical Derivation
@@ -337,7 +365,10 @@ The validation compares the left-hand side (zeros + integral) with the right-han
 
 **Usage:**
 ```bash
-# Run Weil explicit formula validation
+# Run complete V5 Coronación validation (includes Weil explicit formula)
+python3 validate_v5_coronacion.py --precision 30 --verbose
+
+# Legacy: Run Weil explicit formula validation only
 python validate_explicit_formula.py --use_weil_formula \
   --max_primes 1000 --max_zeros 1000 \
   --prime_powers 5 --integration_t 50 \
