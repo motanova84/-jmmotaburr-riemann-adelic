@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """
-Wrapper script for validar_v5_coronacion.py
+Validador V5 Coronación — Wrapper
+---------------------------------
+Conveniencia para ejecutar la validación completa del marco de la
+Hipótesis de Riemann basado en sistemas adélicos S-finitos.
 
-This is a convenience alias that forwards to the actual validation script.
-Users can run 'python validar_v5_coronacion.py' as expected.
+Permite a los usuarios invocar:
+    python validar_v5_coronacion.py [args]
+y esto reenvía la ejecución al script real:
+    validate_v5_coronacion.py
 """
 
 import subprocess
 import sys
 import os
 
-# Path to the actual validation script
+# Ruta al script real
 target = os.path.join(os.path.dirname(__file__), "validate_v5_coronacion.py")
 
-# Forward all arguments to the target script and exit with the same code
+# Reenviar todos los argumentos y salir con el mismo código
 sys.exit(subprocess.call([sys.executable, target] + sys.argv[1:]))
