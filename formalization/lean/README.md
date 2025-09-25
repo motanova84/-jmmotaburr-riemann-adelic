@@ -6,8 +6,18 @@ The goal is to gradually **mechanize the proof** in Lean, ensuring that every le
 
 ## 📂 Structure
 
+### 🎯 **NEW: Complete RH Skeleton (`riemann_skeleton.lean`)**
+**The comprehensive V5.1 skeleton connecting all components to QED**
+- Canonical determinant D(s) definition
+- A1, A2, A4 axioms converted to lemmas  
+- Intermediate theorems: entirety, functional equation, Paley-Wiener uniqueness
+- de Branges localization on critical line
+- **Final theorem: RiemannHypothesis**
+
+### Core Modules
+
 - `axioms_to_lemmas.lean`  
-  Skeleton of the former axioms **A1, A2, A4** (now proven as lemmas).  
+  Former axioms **A1, A2, A4** (now proven as lemmas).  
   - A1: Finite scale flow  
   - A2: Poisson adelic symmetry  
   - A4: Spectral regularity  
