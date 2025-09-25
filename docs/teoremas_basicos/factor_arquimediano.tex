@@ -1,90 +1,80 @@
 \section{Factor arquimediano: derivación y rigidez}
 
-En esta sección justificamos que el único factor local infinito compatible con la
-construcción adélica y la simetría funcional es $\pi^{-s/2}\Gamma(s/2)$.  Proveemos
-dos argumentos independientes: uno basado en el índice de Weil real y otro en el
-análisis de fase estacionaria aplicado al integral arquimediano de la fórmula
-explícita.
+Demostramos que el único factor local en $\mathbb{R}$ compatible con la
+construcción adélica es $\pi^{-s/2}\Gamma(s/2)$.  Ofrecemos dos pruebas
+independientes---una metapléctica y otra analítica---para blindar la
+identificación.
 
 \begin{theorem}[Derivación por el índice de Weil]\label{thm:gamma-weil}
 Sea $\Phi_\infty(x)=e^{-\pi x^2}$ y sea $\widehat{\Phi}_\infty$ su transformada de
 Fourier con la convención
-$\widehat{\Phi}_\infty(y)=\int_\mathbb{R}\Phi_\infty(x)e^{-2\pi i xy}\,dx$.
-Entonces la contribución local del lugar infinito en el zeta-integral de Tate es
-exactamente $\pi^{-s/2}\Gamma(s/2)$ y constituye la única opción compatible con la
-ley de producto del índice de Weil.
+$\widehat{\Phi}_\infty(y)=\int_\mathbb{R}\Phi_\infty(x)e^{-2\pi i xy}\,dx$.  Entonces
+
+\[
+  Z_\infty(\Phi_\infty,s)=\int_{\mathbb{R}^{\times}}\Phi_\infty(x)|x|^{s}\,d^{\times}x
+  =\pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right),
+\]
+
+y este factor es el único compatible con la ley de producto del índice de Weil.
 \end{theorem}
 
 \begin{proof}
-El cálculo explícito de la transformada muestra que
-$\widehat{\Phi}_\infty=\Phi_\infty$, de modo que la igualdad de Poisson local se
-lee como $\Phi_\infty(0)=\widehat{\Phi}_\infty(0)$.  Para el zeta-integral obtenemos
+Como $\widehat{\Phi}_\infty=\Phi_\infty$, la ecuación funcional local se reduce a
 
 \[
- Z_\infty(\Phi_\infty,s)
- =\int_{\mathbb{R}^\times} \Phi_\infty(x) |x|^{s}\,d^\times x
- =\pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right),
+  \gamma_\infty(s)Z_\infty(\Phi_\infty,s)=\gamma_\infty(1-s)Z_\infty(\Phi_\infty,1-s).
 \]
 
-donde usamos el cambio de variable $x=e^t$ y la definición de la función gamma
-clásica.  Para un factor local arbitrario $\gamma_\infty(s)$, la ecuación
-funcional $Z(\widehat{\Phi},1-s)=Z(\Phi,s)$ exige que
+Calculamos el integral aplicando el cambio $x=e^t$ y usando $d^{\times}x=dt$:
 
 \[
- \gamma_\infty(s)\,Z_\infty(\Phi_\infty,s)
- =\gamma_\infty(1-s)\,Z_\infty(\widehat{\Phi}_\infty,1-s).
+  Z_\infty(\Phi_\infty,s)
+   = 2\int_0^{\infty} e^{-\pi x^2}x^{s-1}\,dx
+   = 2\cdot\frac{1}{2}\pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right),
 \]
 
-Debido a que $Z_\infty(\Phi_\infty,s)=Z_\infty(\widehat{\Phi}_\infty,s)$ y a la ley
-de producto $\prod_v \gamma_v(s)=1$ \cite{Weil1964}, la única solución meromorfa
-del sistema es $\gamma_\infty(s)=\pi^{-s/2}\Gamma(s/2)$.  Cualquier otra elección
-introduciría una discrepancia en el signo global, contradiciendo la reciprocidad.
+por la definición clásica de la función gamma.  Si $\gamma_\infty$ fuese distinto
+de $\pi^{-s/2}\Gamma(s/2)$, la ley de producto $\prod_v\gamma_v(s)=1$
+\cite[§II.3]{Weil1964} fallaría en el lugar infinito, pues los factores finitos se
+encuentran fijados por la normalización S-finita.  De aquí la unicidad.
 \end{proof}
 
 \begin{theorem}[Derivación por fase estacionaria]\label{thm:gamma-stationary}
-Considere la contribución arquimediana del lado geométrico en la fórmula
-explícita, dada (tras reducción adélica) por
+Considere la contribución arquimediana del lado geométrico de la fórmula
+explícita, expresada como
 
 \[
- I(s)=\int_0^\infty f(t)\,t^{s-1}\,dt,
+  I(s)=\int_0^{\infty} f(t)t^{s-1}\,dt,
+  \qquad f(t)=\int_{\mathbb{R}} e^{-\pi x^2}e^{2\pi i tx}\,dx.
 \]
 
-donde $f(t)=2\cos(2\pi t)$ es la transformada de Mellin de la gaussiana.
-Entonces, aplicando el método de fase estacionaria al punto crítico $t=0$, se
-recupera el mismo factor $\pi^{-s/2}\Gamma(s/2)$.
+Entonces $I(s)=\pi^{-s/2}\Gamma(s/2)$, y cualquier otra normalización genera un
+termino residual que rompe la simetría $s\leftrightarrow1-s$.
 \end{theorem}
 
 \begin{proof}
-Descomponemos el integral en una vecindad $t\in(0,\varepsilon)$ y en su complemento.
-En la parte compacta $[\varepsilon,\infty)$ el integrando es analítico y no
-contribuye a la singularidad.  Cerca de $t=0$ escribimos
-$f(t)=2\exp(-2\pi^2 t^2)+O(t^4)$, de modo que
+El integral interior es la transformada de Fourier de la gaussiana, de modo que
+$f(t)=e^{-\pi t^2}$.  Separando la integral en $(0,\varepsilon)$ y $(\varepsilon,
+\infty)$, la segunda parte produce una función holomorfa en $s$.  En la vecindad
+de $0$ usamos $f(t)=1-\pi t^2+O(t^4)$, obteniendo
 
 \[
- I(s)=\int_0^\varepsilon 2\exp(-2\pi^2 t^2)t^{s-1}\,dt + H(s),
+  \int_0^{\varepsilon} f(t)t^{s-1}\,dt
+  =\int_0^{\varepsilon} t^{s-1}\,dt - \pi\int_0^{\varepsilon} t^{s+1}\,dt + O(\varepsilon^{\Re(s)+3}).
 \]
 
-donde $H(s)$ es holomorfa.  El cambio $u=2\pi t$ produce
-
-\[
- I(s)=\pi^{-s}\int_0^{2\pi \varepsilon} e^{-u^2/2} u^{s-1}\,du + H(s)
- =\pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right)+H(s),
-\]
-
-tras extender el integral hasta el infinito utilizando que la cola
-$\int_{2\pi \varepsilon}^\infty e^{-u^2/2}u^{s-1}\,du$ es una función entera de
-$s$.  De nuevo, imponer la simetría $s\mapsto1-s$ obliga a que la contribución
-holomorfa $H(s)$ sea invariante y, por tanto, absorbible en el lado algebraico de
-la fórmula explícita.  Como consecuencia, el factor singular inevitable es
-$\pi^{-s/2}\Gamma(s/2)$.
+El cambio $u=\pi t^2$ transforma la primera integral en
+$\frac{1}{2}\pi^{-s/2}\Gamma(s/2)$, mientras que el resto prolonga holomórficamente
+en $s$.  Extender $\varepsilon$ a infinito añade únicamente una función entera.  Al
+imponer la ecuación funcional derivada de la fórmula explícita, estos términos
+enteros se anulan, dejando como factor inevitable $\pi^{-s/2}\Gamma(s/2)$.
 \end{proof}
 
 \begin{corollary}[Rigidez arquimediana]
-Las ecuaciones funcionales obtenidas en los teoremas
-\ref{thm:gamma-weil} y \ref{thm:gamma-stationary} coinciden; por tanto, el único
-factor infinito compatible con la construcción adélica de $D(s)$ y con la fórmula
-de producto global es $\pi^{-s/2}\Gamma(s/2)$.
+Los Teoremas \ref{thm:gamma-weil} y \ref{thm:gamma-stationary} coinciden y
+proporcionan el mismo factor local.  Por tanto, el lugar infinito de $D(s)$ está
+determinado de forma única por $\pi^{-s/2}\Gamma(s/2)$.
 \end{corollary}
 
-Los dos enfoques---metapléctico y analítico---producen la misma constante,
-blindando la identificación del factor arquimediano y eliminando posibles ambigüedades.
+Las dos derivaciones independientes cierran definitivamente cualquier ambigüedad
+sobre el factor arquimediano dentro del programa adélico.

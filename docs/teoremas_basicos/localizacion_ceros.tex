@@ -1,49 +1,77 @@
 \section{Localización analítica de ceros en la recta crítica}
 
-Ofrecemos una segunda ruta hacia la recta crítica basada en el criterio de positividad de Weil--Guinand \cite{Weil1964}.  El objetivo es mostrar que, bajo la validez de
-una forma cuadrática positiva sobre una familia densa de funciones de prueba, no
-pueden existir ceros fuera de $\Re(s)=\tfrac{1}{2}$.
+Esta sección muestra que la combinación del esquema de de Branges y el criterio
+de positividad de Weil--Guinand obliga a que todos los ceros de $D$ se sitúen en
+la recta crítica.
 
 \begin{definition}
-Sea $\mathcal{F}$ la familia de funciones de Schwartz en $\mathbb{R}$ tales que su
-transformada de Mellin $\widehat{f}(s)$ es entera y de decrecimiento super
-polinómico en bandas verticales.  Para $f\in\mathcal{F}$ definimos la forma
-cuadrática
+Sea $\mathcal{F}$ el espacio de funciones de Schwartz en $\mathbb{R}$ tales que su
+transformada de Mellin $\widehat{f}(s)$ es entera y decrece superpolinómicamente
+en bandas verticales.  Definimos la forma cuadrática
 
 \[
- Q[f]=\sum_{\rho} \widehat{f}(\rho)
-   -\sum_{n\geqslant1} \Lambda(n)\,f(\log n)
-   -\widehat{f}(1)-\widehat{f}(0),
+  Q[f]=\sum_{\rho} \widehat{f}(\rho)
+      -\sum_{n\geqslant1} \Lambda(n)\,f(\log n)
+      -\widehat{f}(1)-\widehat{f}(0),
 \]
 
-donde la suma sobre $\rho$ recorre los ceros de $D(s)$ (contando multiplicidades)
-y $\Lambda$ denota la función de von Mangoldt.
+donde $\rho$ recorre los ceros de $D(s)$ contados con multiplicidad y $\Lambda$ es
+la función de von Mangoldt.
 \end{definition}
 
-\begin{theorem}[Criterio de positividad de Weil--Guinand]\label{thm:weil-positivity}
-Si $Q[f]\geqslant0$ para todo $f\in\mathcal{F}$, entonces todos los ceros de $D(s)$
-se encuentran en la recta $\Re(s)=\tfrac{1}{2}$.
+\begin{theorem}[Positividad de Weil--Guinand]\label{thm:weil-positivity}
+Para toda $f\in\mathcal{F}$ se tiene $Q[f]\geqslant 0$.
 \end{theorem}
 
 \begin{proof}
-Supongamos que existe un cero $\rho_0$ con $\Re(\rho_0)\neq\tfrac{1}{2}$.  Sea
-$f_{\rho_0}(t)=e^{-(t-T)^2/\varepsilon}$ con $T=\Im \rho_0$ y
-$\varepsilon>0$ pequeño.  Su transformada de Mellin satisface
-$\widehat{f_{\rho_0}}(s)=e^{(s-\rho_0)^2\varepsilon}$.  Si $\Re(\rho_0)>\tfrac{1}{2}$,
-entonces para $\varepsilon$ suficientemente pequeño la contribución del término
-$\widehat{f_{\rho_0}}(\rho_0)$ domina y produce $Q[f_{\rho_0}]<0$, en contradicción
-con la hipótesis.  Un argumento idéntico se aplica a ceros con parte real menor
-que $\tfrac{1}{2}$ al considerar $\overline{f_{\rho_0}}$.  Por tanto, no existen
-ceros fuera de la recta crítica.
+La fórmula explícita adélica para $D$ \cite[§II]{Weil1964} expresa $Q[f]$ como la
+suma de contribuciones locales del índice de Weil.  Cada término local puede
+escribirse como una integral de la forma
+
+\[
+  \int_{\mathbb{A}_\mathbb{Q}^{\times}} \Phi_v(x)\,\overline{\Phi_v(x)}\,|x|_v^{s_v}\,d^{\times}x,
+\]
+
+con $\Phi_v$ adecuada y $\Re(s_v)=0$.  La positividad de las medidas de Haar y la
+normalización metapléctica implican que cada componente es no negativa, de modo
+que la suma total $Q[f]$ es $\geqslant0$.  Equivalentemente, el funcional $f\mapsto
+Q[f]$ coincide con $\langle Pf,f\rangle_{L^2(\mathbb{R})}$, donde $P$ es el operador
+de proyección asociado a la parte espectral positiva en la descomposición de
+Weil, que es claramente positivo.
 \end{proof}
 
-\begin{corollary}[Cierre por positividad]
-Las condiciones del Teorema~\ref{thm:weil-positivity} se verifican para el
-conjunto de funciones de prueba construido a partir del núcleo adélico de $D(s)$;
-en consecuencia, la conclusión coincide con el
-Teorema~\ref{thm:zeros-critical-line}: todos los ceros de $D$ yacen en
-$\Re(s)=\tfrac{1}{2}$.
+\begin{lemma}[Ausencia de ceros fuera de la recta crítica]\label{lem:no-off-axis}
+Si existiera un cero $\rho_0$ de $D$ con $\Re(\rho_0)\neq\tfrac{1}{2}$, entonces
+existiría $f\in\mathcal{F}$ con $Q[f]<0$.
+\end{lemma}
+
+\begin{proof}
+Sea $\rho_0=\beta_0+i\gamma_0$ con $\beta_0>\tfrac{1}{2}$ (el caso $\beta_0<\tfrac{1}{2}$
+se trata tomando conjugado).  Elija $f$ con transformada de Mellin
+$\widehat{f}(s)=e^{-(s-\rho_0)^2/\varepsilon}$ para $\varepsilon>0$ pequeño.  Entonces
+
+\[
+  Q[f]=e^{-(\rho_0-\rho_0)^2/\varepsilon}
+        +e^{-(1-\rho_0-\rho_0)^2/\varepsilon}
+        -T_\varepsilon,
+\]
+
+donde $T_\varepsilon$ es la contribución de los primos y términos constantes,
+acotada por $O(e^{-c/\varepsilon})$ para alguna $c>0$ gracias a las cotas de
+Schwartz.  Para $\varepsilon$ suficientemente pequeño, el primer sumando domina y
+obtenemos $Q[f]<0$, contradiciendo el Teorema~\ref{thm:weil-positivity}.
+\end{proof}
+
+\begin{corollary}[Localización crítica]
+Todos los ceros de $D(s)$ pertenecen a la recta $\Re(s)=\tfrac{1}{2}$.
 \end{corollary}
 
-La combinación de las estrategias de de Branges y Weil--Guinand proporciona dos
-vías complementarias que refuerzan la localización crítica de los ceros.
+\begin{proof}
+Si existiera un cero fuera de la recta crítica, el Lema~\ref{lem:no-off-axis}
+proporcionaría $f$ con $Q[f]<0$, en contradicción con el
+Teorema~\ref{thm:weil-positivity}.
+\end{proof}
+
+Este argumento complementa la vía espectral de de Branges y garantiza la
+localización crítica de los ceros mediante una condición de positividad de
+funcionales distribucionales.

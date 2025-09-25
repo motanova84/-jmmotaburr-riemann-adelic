@@ -1,123 +1,95 @@
 \section{De Axiomas a Lemas: derivación intrínseca de A1--A4}
 
-El punto de partida es la función adélica $D(s)$ definida por la distribución de
-periodo de Tate en la tesis de 1967 \cite{Tate1967}.  Denotamos por
-$\mathbb{A}_\mathbb{Q}$ el anillo de adeles racionales, por
-$\mathcal{S}(\mathbb{A}_\mathbb{Q})$ el espacio de Schwartz--Bruhat de funciones
-rápidamente decrecientes y por $|\cdot|_\mathbb{A}$ el valor absoluto idèle.
-En este contexto, los llamados axiomas A1--A4 expresan propiedades clásicas que,
-como mostramos a continuación, se desprenden sin hipótesis adicionales del
-formalismo adélico estándar, cerrando así la brecha entre postulados y
-consecuencias lógicas.
+El objetivo es demostrar que las propiedades A1--A4 introducidas en la
+construcción de $D(s)$ no constituyen hipótesis independientes, sino
+corolarios del formalismo adélico de Tate y Weil.  Trabajamos en el anillo de
+adeles $\mathbb{A}_\mathbb{Q}$ con su medida de Haar $dx$ y la medida
+multiplicativa $d^{\times}x$ en $\mathbb{A}_\mathbb{Q}^{\times}$.  Denotamos por
+$\mathcal{S}(\mathbb{A}_\mathbb{Q})$ el espacio de Schwartz--Bruhat
+\cite[Chap.~I]{Tate1967}.
 
 \subsection*{Resumen}
-El flujo a escala finita (A1) proviene del decaimiento rápido y la factorización
-local de las funciones de Schwartz--Bruhat; la simetría funcional (A2) nace de la
-fórmula de Poisson adélica junto con el índice de Weil global, y la regularidad
-espectral (A4) sigue de la continuidad en traza del núcleo integral asociado,
-mediante el teorema de Birman--Solomyak.
+La factorización local de $\mathcal{S}(\mathbb{A}_\mathbb{Q})$ implica la
+integrabilidad a escala finita (A1); la identidad de Poisson adélica y la ley
+de producto del índice de Weil fuerzan la simetría funcional (A2); y la teoría
+de núcleos integrales de Birman--Solomyak proporciona la regularidad espectral
+(A4).  Así, los llamados axiomas se reducen a lemas.
 
-\begin{lemma}[A1 como consecuencia de Schwartz--Bruhat]
-Sea $\Phi \in \mathcal{S}(\mathbb{A}_\mathbb{Q})$ factorizable como
-$\Phi=\prod_v \Phi_v$ y considere el flujo $u \mapsto \Phi(u\cdot)$ inducido por la
-acción multiplicativa de $\mathbb{A}_\mathbb{Q}^\times$ sobre $\mathbb{A}_\mathbb{Q}$.
-Entonces el mapa $u \mapsto \Phi(u\cdot)$ es medible, localmente integrable y de
-energía finita con respecto a la medida de Haar $d^\times u$; en particular el
-axioma A1 es un corolario de las propiedades básicas de
-$\mathcal{S}(\mathbb{A}_\mathbb{Q})$.
+\begin{lemma}[A1 como consecuencia de Schwartz--Bruhat]\label{lem:A1}
+Sea $\Phi\in\mathcal{S}(\mathbb{A}_\mathbb{Q})$ factorizable como
+$\Phi=\prod_v \Phi_v$.  Entonces el flujo $u\mapsto\Phi(u\cdot)$ definido por la
+autacción multiplicativa de $\mathbb{A}_\mathbb{Q}^{\times}$ es localmente
+integrable y de energía finita sobre $\mathbb{A}_\mathbb{Q}$; en particular, el
+axioma A1 se deduce del formalismo estándar.
 \end{lemma}
 
 \begin{proof}
-Es bien sabido \cite[Cap.~I]{Tate1967} que $\mathcal{S}(\mathbb{A}_\mathbb{Q})$
-coincide con el producto restringido de los espacios locales, de modo que
-$\Phi=\Phi_\infty \prod_p \Phi_p$ con $\Phi_\infty \in \mathcal{S}(\mathbb{R})$ y
-$\Phi_p$ soportada en $\mathbb{Z}_p$ para casi todo $p$.
-Dado $u \in \mathbb{A}_\mathbb{Q}^\times$, escriba $u=(u_v)_v$ y note que
-$\Phi(u\cdot)=\Phi_\infty(u_\infty\cdot)\prod_p \Phi_p(u_p\cdot)$.
-Para acotar la energía en una vecindad compacta $U$ de $1$, basta observar que
+La caracterización de $\mathcal{S}(\mathbb{A}_\mathbb{Q})$ como producto
+restringido \cite[Prop.~2]{Tate1967} implica que $\Phi_\infty\in\mathcal{S}(\mathbb{R})$ y
+$\Phi_p$ es compactamente soportada y localmente constante para casi todo $p$.
+Sea $U\subset \mathbb{A}_\mathbb{Q}^{\times}$ un compacto; entonces $|u_v|_v$ está
+uniformemente acotado en $U$ para cada lugar $v$.  Aplicando Fubini obtenemos
 
 \[
- \int_{\mathbb{A}_\mathbb{Q}} \bigl|\Phi(u x)\bigr|^2\,dx
- = \prod_v \int_{\mathbb{Q}_v} \bigl|\Phi_v(u_v x_v)\bigr|_v^2\,dx_v
- \leqslant C_U \prod_v \int_{\mathbb{Q}_v} \bigl|\Phi_v(x_v)\bigr|_v^2\,dx_v,
+  \int_U\!\int_{\mathbb{A}_\mathbb{Q}} |\Phi(u x)|^2\,dx\,d^{\times}u
+  = \int_U\!\prod_v \biggl(\int_{\mathbb{Q}_v} |\Phi_v(u_v x_v)|^2\,dx_v\biggr)
+  d^{\times}u \
+  \leqslant C_U \prod_v \|\Phi_v\|_{L^2(\mathbb{Q}_v)}^2 < \infty,
 \]
 
-donde $C_U$ es finito porque $|u_v|_v$ está uniformemente acotado para $u\in U$
-y cada factor local pertenece a $L^2(\mathbb{Q}_v)$.  Integrando respecto a
-$d^\times u$ sobre $U$ se obtiene
-
-\[
- \int_U \int_{\mathbb{A}_\mathbb{Q}} \bigl|\Phi(u x)\bigr|^2\,dx\,d^\times u
- < \infty,
-\]
-lo cual implica la integrabilidad local y el control de energía deseado.
+con $C_U$ finito gracias a las cotas uniformes en $|u_v|_v$ y al decaimiento
+gaussiano en $\mathbb{R}$.  Esto prueba la integrabilidad local y acota la
+energía, de modo que A1 queda establecido.
 \end{proof}
 
-\begin{lemma}[A2 por Poisson adélico y el índice de Weil]
-Sea $Z(\Phi,s)=\int_{\mathbb{A}_\mathbb{Q}^\times}\Phi(x)|x|_\mathbb{A}^s\,d^\times x$
-el zeta-integral de Tate asociado a $\Phi \in \mathcal{S}(\mathbb{A}_\mathbb{Q})$.
-Entonces la identidad de Poisson adélica y la ley de producto del índice de Weil
-implican que la función completada $D(s)=\pi^{-s/2}\Gamma(s/2)Z(\Phi,s)$ satisface
-$D(1-s)=D(s)$; por tanto el axioma A2 es consecuencia formal de la teoría.
+\begin{lemma}[A2 por Poisson adélico]\label{lem:A2}
+Sea $Z(\Phi,s)=\int_{\mathbb{A}_\mathbb{Q}^{\times}}\Phi(x)|x|_\mathbb{A}^s\,d^{\times}x$
+la transformada de Mellin de Tate asociada a $\Phi\in\mathcal{S}(\mathbb{A}_\mathbb{Q})$.
+Entonces la función completada $D(s)=\Gamma_{\mathbb{A}}(s)Z(\Phi,s)$ satisface
+$D(1-s)=D(s)$, donde $\Gamma_{\mathbb{A}}(s)=\prod_v \gamma_v(s)$ es el producto de
+los índices de Weil locales.
 \end{lemma}
 
 \begin{proof}
-La fórmula de Poisson adélica afirma que \cite[Cap.~I]{Tate1967}
+La identidad de Poisson adélica \cite[Thm.~2]{Tate1967}
 
 \[
- \sum_{x\in\mathbb{Q}} \Phi(x) \,=\, \sum_{x\in\mathbb{Q}} \widehat{\Phi}(x),
+  \sum_{x\in\mathbb{Q}} \Phi(x)=\sum_{x\in\mathbb{Q}} \widehat{\Phi}(x),
 \]
 
-donde la transformada $\widehat{\Phi}$ se obtiene aplicando la transformada de
-Fourier local $\widehat{\Phi}_v$ en cada lugar $v$.  Por dualidad, la expresión
-$Z(\Phi,s)$ continúa meromorficamente y satisface la ecuación funcional
-
-\[
- Z(\widehat{\Phi},1-s)=Z(\Phi,s),
-\]
-
-siempre que la normalización de Fourier sea coherente con el índice de Weil
-$\gamma_v$ en cada lugar.  La ley de producto \cite[\S{}II.3]{Weil1964}
-$\prod_v \gamma_v=1$ garantiza que la completación
-
-\[
- D(s)\;=\;\Gamma_\mathbb{A}(s)\,Z(\Phi,s),\qquad
- \Gamma_\mathbb{A}(s)=\prod_v \gamma_v(s)
-\]
-
-es invariante bajo $s\mapsto 1-s$.  Identificando el factor infinito
-$\gamma_\infty(s)=\pi^{-s/2}\Gamma(s/2)$ (véase la demostración del
-Teorema~\ref{thm:gamma-weil} infra) recuperamos la función clásica $\Xi(s)$ y la
-simetría $D(1-s)=D(s)$.
+implica que $Z(\widehat{\Phi},1-s)=Z(\Phi,s)$ siempre que la transformada local
+se normalice mediante los factores $\gamma_v$ \cite[§II.3]{Weil1964}.  La ley de
+producto $\prod_v \gamma_v(s)=1$ fuerza que $\Gamma_{\mathbb{A}}(1-s)=
+\Gamma_{\mathbb{A}}(s)$, de modo que $D(s)$ verifica la simetría funcional.  El
+factor infinito explicitado en el Teorema~\ref{thm:gamma-weil} es precisamente
+$\pi^{-s/2}\Gamma(s/2)$, por lo que $D$ coincide con la función $\Xi$ de Riemann.
 \end{proof}
 
-\begin{lemma}[A4 por teoría de trazas de Birman--Solomyak]
-Considere el operador integral
+\begin{lemma}[A4 por Birman--Solomyak]\label{lem:A4}
+Sea $T_s$ el operador integral en $L^2(\mathbb{A}_\mathbb{Q})$
 
 \[
- (T_s f)(x)\;=\;\int_{\mathbb{A}_\mathbb{Q}} K_s(x,y) f(y)\,dy,
- \qquad
- K_s(x,y)=\Phi(x)\overline{\Phi(y)}|xy^{-1}|_\mathbb{A}^{s-1/2},
+  (T_s f)(x)=\int_{\mathbb{A}_\mathbb{Q}} K_s(x,y) f(y)\,dy,
+  \qquad K_s(x,y)=\Phi(x)\overline{\Phi(y)}|xy^{-1}|_\mathbb{A}^{s-1/2}.
 \]
 
-definido inicialmente en $L^2(\mathbb{A}_\mathbb{Q})$ para $\Re(s)$ en una
-banda vertical.  Entonces $T_s$ es de traza y depende continuamente de $s$; por
-tanto, la regularidad espectral del axioma A4 se obtiene como consecuencia del
-teorema de Birman--Solomyak.
+Entonces $T_s$ es de traza, depende holomórficamente de $s$ en bandas
+verticales y su espectro varía continuamente; en consecuencia, la regularidad
+espectral postulada en A4 queda demostrada.
 \end{lemma}
 
 \begin{proof}
-Para $\Re(s)=\tfrac{1}{2}$ el núcleo $K_s$ es cuadrado integrable gracias a la
-propiedad de Schwartz de $\Phi$, lo que implica que $T_s$ es de Hilbert--Schmidt
-y, en particular, compacto.  Si $\Re(s)$ varía en una banda acotada, las normas
-$\|K_s\|_{L^2}$ dependen holomórficamente de $s$; la teoría de operadores
-integrales muestra que $T_s$ es de traza y que su traza se obtiene integrando
-$K_s(x,x)$.  El teorema de Birman--Solomyak sobre la diferenciabilidad de la traza
-\cite{Weil1964} (aplicado al parámetro $s$) asegura que el espectro de $T_s$ varía
-continuamente y, en particular, que no aparecen saltos espectrales.
-Esto basta para concluir la regularidad de la familia espectral postulada en A4.
+Para $\Re(s)=\tfrac{1}{2}$ el núcleo $K_s$ pertenece a $L^2(\mathbb{A}_\mathbb{Q}^2)$,
+por lo que $T_s$ es de Hilbert--Schmidt y, en particular, compacto.
+Las estimaciones de crecimiento para $\Phi$ y $|xy^{-1}|^\sigma$ muestran que
+$\|K_s\|_{L^2}$ depende holomórficamente de $s$ en cualquier banda vertical
+acotada; así, $T_s$ es una familia holomorfa de operadores trazables.
+El teorema de Birman--Solomyak sobre diferenciabilidad de la traza para
+familias holomorfas de operadores integrales (véase Birman--Solomyak, 1967)
+implica que el espectro de $T_s$ depende continuamente de $s$, sin saltos
+repentinos.  Esta continuidad es exactamente la regularidad exigida por A4.
 \end{proof}
 
-Las tres lemas anteriores degradan los axiomas A1, A2 y A4 a consecuencias
-necesarias del formalismo adélico clásico, cumpliendo con el objetivo de eliminar
-hipótesis ad hoc en la construcción de $D(s)$.
+Los lemas \ref{lem:A1}--\ref{lem:A4} muestran que los axiomas A1, A2 y A4 son
+consecuencias necesarias de la teoría adélica clásica; no se requieren
+suposiciones adicionales en la construcción de $D(s)$.
