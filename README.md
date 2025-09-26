@@ -1,3 +1,21 @@
+> ⚠️ **IMPORTANTE:**
+> 
+> Para ejecutar cualquier script o test, **debes situarte SIEMPRE en la raíz del proyecto** (donde está este README). Si ejecutas desde subcarpetas como `docs/paper` o cualquier otra, los scripts y tests fallarán porque no encontrarán rutas relativas ni dependencias.
+>
+> **Ejemplo correcto:**
+> ```bash
+> cd ~/Riemann-Adelic-Test/-jmmotaburr-riemann-adelic
+> python3 validate_v5_coronacion.py --precision 30 --full
+> pytest tests/ -v
+> ```
+>
+> **Ejemplo incorrecto:**
+> ```bash
+> cd docs/paper
+> python3 validate_v5_coronacion.py  # ❌ Fallará
+> ```
+>
+> Si ves errores de "file not found" o "no such file or directory", revisa tu ruta de trabajo.
 
 # Riemann-Adelic: The Definitive Proof of the Riemann Hypothesis
 
