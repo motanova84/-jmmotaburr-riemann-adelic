@@ -1,0 +1,13 @@
+parameter,value
+arithmetic_side,2.69813180661248
+zero_side,-0.00300863747317414
+absolute_error,2.70114044408566
+relative_error,1.00111508172647
+P,25
+K,5
+T,2
+max_zeros,25
+precision_dps,15
+test_function,truncated_gaussian
+formula_type,original
+validation_status,NEEDS_IMPROVEMENT

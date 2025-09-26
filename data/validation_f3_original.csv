@@ -1,0 +1,13 @@
+parameter,value
+arithmetic_side,1.44510412093693
+zero_side,-4.02280371809245e-5
+absolute_error,1.44514434897411
+relative_error,1.00002783746624
+P,25
+K,5
+T,2
+max_zeros,25
+precision_dps,15
+test_function,f3
+formula_type,original
+validation_status,NEEDS_IMPROVEMENT
