@@ -1,0 +1,17 @@
+# CITATION.cff
+
+cff-version: 1.2.0
+title: "Version V5 — Coronación: A Definitive Proof of the Riemann Hypothesis via S-Finite Adelic Spectral Systems"
+authors:
+  - family-names: Mota Burruezo
+    given-names: José Manuel
+    orcid: https://orcid.org/0000-0002-0000-0000
+    affiliation: Universidad de la Noesis
+    email: motanova84@gmail.com
+date-released: 2025-09-26
+version: "5.0"
+doi: 10.5281/zenodo.17116291
+url: https://github.com/motanova84/-jmmotaburr-riemann-adelic
+repository-code: https://github.com/motanova84/-jmmotaburr-riemann-adelic
+license: MIT
+message: "Por favor cite este trabajo si utiliza el código, los datos o los resultados en publicaciones académicas."

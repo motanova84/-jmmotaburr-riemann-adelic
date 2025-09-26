@@ -72,16 +72,30 @@ def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
     prime_sum_val = sum(v * f(mp.log(n)) for n, v in von_mangoldt.items() if n <= max(primes)**3)
     
     # Archimedean factor (simplified as per problem statement)
-    arch_factor = mp.gamma(0.5) / mp.power(mp.pi, 0.5)
-    
+    arch_factor = archimedean_term(1)  # Usar la función corregida
     # Apply residual term only if singularity at s=1
     residual_term = 0  # Remove singularity term for better numerical stability
     right_side = prime_sum_val + arch_factor + residual_term
 
     error = abs(left_side - right_side)
     relative_error = error / abs(right_side) if abs(right_side) > 0 else float('inf')
-    
+
+    # Debug manual
+    print("🔍 Debug explicit formula")
+    print(f"Left side (zeros+arch): {left_side}")
+    print(f"Right side (primes+arch): {right_side}")
+    print(f"Absolute error: {error}")
+    print(f"Relative error: {relative_error}")
+
     return error, relative_error, left_side, right_side, simulated_imag_parts
+# --- Añadir funciones corregidas ---
+def fourier_gaussian(t, scale=1.0):
+    # Fourier transform of exp(-scale * t^2)
+    return mp.sqrt(mp.pi/scale) * mp.e**(-(mp.pi**2 / scale) * (t**2))
+
+def archimedean_term(s):
+    # Correct Archimedean factor from Γ(s/2) π^{-s/2}
+    return mp.digamma(s/2) - mp.log(mp.pi)
 
 def prime_sum(f, P, K):
     total = mp.mpf('0')
@@ -522,4 +536,13 @@ if __name__ == "__main__":
         with open("data/validation_results.csv", "w") as f:
             f.write(f"relative_error,{rel_error}\n")
             f.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
+
+# --- Bloque para garantizar salida CSV ---
+import os
+results_path = "data/validation_results.csv"
+if not os.path.exists(results_path):
+    with open(results_path, "w") as f:
+        f.write("test_function,formula_type,relative_error,validation_status\n")
+        # No se conoce args aquí, así que se deja genérico
+        f.write(f"gaussian,weil,N/A,FAILED\n")
 

@@ -164,6 +164,7 @@ def test_height_parameter_functionality():
     from utils.fetch_odlyzko import determine_precision_from_height, HEIGHT_TO_PRECISION_MAP
     import subprocess
     import os
+    import sys
     
     # Test height to precision mapping function
     assert determine_precision_from_height(1e8) == "t1e8"
@@ -176,7 +177,7 @@ def test_height_parameter_functionality():
     temp_file = "zeros/zeros_t1e8.txt"
     if os.path.exists(temp_file):
         result = subprocess.run([
-            "python", "utils/fetch_odlyzko.py", 
+            sys.executable, "utils/fetch_odlyzko.py", 
             "--height", "1e8", 
             "--validate-only"
         ], capture_output=True, text=True, cwd=".")
@@ -186,7 +187,7 @@ def test_height_parameter_functionality():
     
     # Test error case: both height and precision specified
     result = subprocess.run([
-        "python", "utils/fetch_odlyzko.py", 
+        sys.executable, "utils/fetch_odlyzko.py", 
         "--height", "1e8", 
         "--precision", "t1e10"
     ], capture_output=True, text=True, cwd=".")
