@@ -1,4 +1,4 @@
-# Riemann-Adelic
+# V5.1 incondicional
 
 ![Lean Formalization](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml/badge.svg)
 ![V5 Coronación Validation](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)
