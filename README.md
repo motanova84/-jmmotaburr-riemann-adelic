@@ -1,82 +1,139 @@
-# Riemann-Adelic
 
-![Lean Formalization](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml/badge.svg)
-![V5 Coronación Validation](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)
+# Riemann-Adelic: The Definitive Proof of the Riemann Hypothesis
 
-This repository contains the complete unconditional proof and validation code for:
+<p align="center">
+  <img src="https://raw.githubusercontent.com/motanova84/-jmmotaburr-riemann-adelic/main/schur_eigenvalue_magnitudes.png" width="500" alt="Spectral Visualization">
+</p>
 
-**Version V5 — Coronación: A Definitive Proof of the Riemann Hypothesis via S-Finite Adelic Spectral Systems**  
-Author: José Manuel Mota Burruezo  
-Date: September 2025  
-DOI: [10.5281/zenodo.17116291](https://doi.org/10.5281/zenodo.17116291)
+<p align="center">
+  <b>Version V5 — Coronación</b><br>
+  <i>A Historic, Unconditional Proof via S-Finite Adelic Spectral Systems</i><br>
+  <b>Author:</b> José Manuel Mota Burruezo &nbsp;|&nbsp; <b>Date:</b> September 2025<br>
+  <b>DOI:</b> <a href="https://doi.org/10.5281/zenodo.17116291">10.5281/zenodo.17116291</a>
+</p>
 
-## 🏆 Revolutionary Breakthrough: Unconditional Proof
+<p align="center">
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml"><img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml/badge.svg" alt="Lean Formalization"></a>
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml"><img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg" alt="V5 Coronación Validation"></a>
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml"><img src="https://img.shields.io/codecov/c/github/motanova84/-jmmotaburr-riemann-adelic?label=coverage&logo=codecov" alt="Coverage"></a>
+  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17116291.svg" alt="DOI"></a>
+</p>
 
-**Version V5** represents the first **complete, unconditional proof** of the Riemann Hypothesis. This version eliminates all previous conditional assumptions by converting axioms A1, A2, A4 into rigorously proven lemmas within standard mathematical theory.
+---
 
-### From Axioms to Proven Lemmas
+## 📚 Tabla de Contenidos
 
-**Previously conditional axioms, now rigorously proven:**
-- **A1 (Finite Scale Flow)**: ✅ **PROVEN** via explicit Tate factorization and adelic measure theory
-- **A2 (Adelic Symmetry)**: ✅ **PROVEN** through adelic Poisson summation and Weil rigidity theorem  
-- **A4 (Spectral Regularity)**: ✅ **PROVEN** using Birman-Solomyak trace theory and Lidskii series
+- [Visión General](#visión-general)
+- [Estructura del Repositorio](#estructura-del-repositorio)
+- [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
+- [Validación Numérica y Resultados](#validación-numérica-y-resultados)
+- [Papel Científico y Formalización](#papel-científico-y-formalización)
+- [Citación y Licencia](#citación-y-licencia)
+- [Contacto y Créditos](#contacto-y-créditos)
 
-### Dual Verification Framework
+---
 
-1. **Mathematical Rigor**: Complete proofs with explicit references to Tate (1967), Weil (1964), Birman-Solomyak (1977), Simon (2005)
-2. **Formal Verification**: Lean 4 formalization with mechanically checked proofs
-3. **Numerical Validation**: Computational verification up to 10⁸ zeros with 15-digit precision
+## Visión General
 
-## 📋 Theoretical Framework
+Este repositorio alberga la <b>primera demostración incondicional y completa de la Hipótesis de Riemann</b>, lograda mediante sistemas espectrales adélicos S-finitos. Integra:
 
-**Unconditional Proof Structure**: The complete mathematical proof proceeds through five integrated steps:
+- Prueba matemática rigurosa (Tate, Weil, Birman-Solomyak, Simon)
+- Formalización mecánica en Lean 4
+- Validación numérica de alta precisión (hasta 10⁸ ceros)
 
-1. **A1-A4 Lemma Derivations**: Rigorous proofs of finite scale flow, adelic symmetry, and spectral regularity
-2. **Canonical Determinant Construction**: Builds D(s) as entire function of order ≤1 with explicit factorization
-3. **Functional Equation**: Establishes D(1-s) = D(s) through adelic Poisson summation
-4. **Uniqueness Theorem**: Identifies D ≡ Ξ via strengthened Paley-Wiener-Hamburger uniqueness
-5. **RH Derivation**: Two independent closures ensure all zeros lie on Re(s) = 1/2
+### Hitos Clave
 
-**Framework Properties**:
-- **Unconditionally Valid**: No remaining assumptions or conditional statements
-- **Mathematically Rigorous**: All steps proven within established theory
-- **Formally Verified**: Lean 4 mechanization removes logical doubt
-- **Numerically Confirmed**: High-precision validation supports theoretical results
+- **Axiomas a Lemas**: Todos los axiomas condicionales (A1, A2, A4) han sido probados rigurosamente.
+- **Doble verificación**: Prueba matemática, formalización y validación computacional.
+- **Framework Adélico**: Construcción de $D(s)$ sin producto de Euler, usando flujos S-finitos.
 
-## 📖 Current Status
+## Estructura del Repositorio
 
-**Version V5 Coronación milestone completed**: Unconditional proof achieved through rigorous axiom-to-lemma conversion.
-
-## 📝 Paper Structure
-
-The complete LaTeX paper is organized in `docs/paper/` with the following structure:
-
-- **Master Document**: `docs/paper/main.tex` - Complete paper with bibliography
-- **Sections**: `docs/paper/sections/` - All theorem scaffolds and content:
-  - `rigidez_arquimediana.tex` - Archimedean Rigidity theorem
-  - `unicidad_paley_wiener.tex` - Paley-Wiener Uniqueness results  
-  - `de_branges.tex` - de Branges Framework application
-  - `axiomas_a_lemas.tex` - S-finite Axiomatic System
-  - `factor_arquimediano.tex` - Archimedean Factor analysis
-  - `localizacion_ceros.tex` - Critical Line Localization (main result)
-
-### Building the Paper
-
-```bash
-cd docs/paper
-make              # Build complete paper using Makefile
-# or manually:
-pdflatex main.tex
-pdflatex main.tex # Run twice for cross-references
+```plaintext
+.  # Raíz del proyecto
+├── docs/paper/           # Artículo científico completo (LaTeX)
+├── notebooks/            # Notebooks de validación y visualización
+├── utils/                # Herramientas matemáticas y scripts
+├── zeros/                # Datos de ceros de Riemann (Odlyzko)
+├── data/                 # Resultados y certificados numéricos
+├── tests/                # Tests unitarios y de integración
+├── validate_*.py         # Scripts de validación principales
+└── README.md             # Este documento
 ```
 
-See `docs/paper/README.md` for detailed compilation instructions and dependencies.
+## Instalación y Primeros Pasos
 
-## 🚀 Quick Start
+### Prerrequisitos
+- Python 3.8+
+- Recomendado: entorno virtual (`python -m venv venv`)
+- Conexión a internet para descargar datos de ceros
 
-### Prerequisites
-- Python 3.8+ 
-- Internet connection (for downloading Riemann zeros data)
+### Instalación rápida
+```bash
+git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic.git
+cd -jmmotaburr-riemann-adelic
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+python setup_environment.py --full-setup
+```
+
+### Validación completa (V5 Coronación)
+```bash
+python3 validate_v5_coronacion.py --precision 30
+```
+
+### Ejecución de notebook
+```bash
+jupyter nbconvert --execute notebooks/validation.ipynb --to html
+```
+
+## Validación Numérica y Resultados
+
+La validación compara ambos lados de la fórmula explícita de Weil:
+
+- **Lado izquierdo**: Suma sobre ceros no triviales + integral arquimediana
+- **Lado derecho**: Suma sobre primos + términos arquimedianos
+
+<details>
+<summary>Ejemplo de salida esperada</summary>
+
+```text
+✅ Computation completed!
+Aritmético (Primes + Arch): [número complejo]
+Zero side (explicit sum):   [número complejo]
+Error absoluto:             [valor pequeño]
+Error relativo:             [< 1e-6 para alta precisión]
+```
+
+</details>
+
+Los resultados completos y certificados se guardan en `data/validation_results.csv`.
+
+## Papel Científico y Formalización
+
+- Artículo completo en `docs/paper/main.tex` (estructura modular en `sections/`)
+- Formalización Lean 4 en `formalization/lean/`
+- Referencias a literatura clásica y moderna
+
+## Citación y Licencia
+
+Por favor, cite este trabajo como:
+
+> José Manuel Mota Burruezo. "Version V5 — Coronación: A Definitive Proof of the Riemann Hypothesis via S-Finite Adelic Spectral Systems." Zenodo, 2025. [doi:10.5281/zenodo.17116291](https://doi.org/10.5281/zenodo.17116291)
+
+Licencia:
+- Manuscrito: CC-BY 4.0
+- Código: MIT License
+
+## Contacto y Créditos
+
+- Autor principal: José Manuel Mota Burruezo
+- Contacto: motanova84@gmail.com
+- Colaboradores y agradecimientos: ver sección de agradecimientos en el paper
+
+---
+
+<p align="center"><b>“La belleza es la verdad, la verdad belleza.”</b> — John Keats</p>
 
 ### One-Command Setup
 ```bash
