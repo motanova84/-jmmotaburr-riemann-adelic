@@ -1,4 +1,9 @@
-import mpmath as mp
+try:
+    import mpmath as mp
+except ImportError:
+    import sys
+    sys.path.append('..')
+    import mpmath_mock as mp
 
 def truncated_gaussian(u, a=5.0, sigma=1.0):
     """Smooth compactly supported Gaussian function."""

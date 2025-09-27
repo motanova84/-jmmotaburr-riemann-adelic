@@ -12,7 +12,11 @@ It uses:
 Add helper utilities if missing.
 """
 
-import mpmath as mp
+try:
+    import mpmath as mp
+except ImportError:
+    print("⚠️ Warning: mpmath not available, using mock implementation")
+    import mpmath_mock as mp
 import numpy as np
 import sympy as sp
 from scipy.linalg import schur, eigh
