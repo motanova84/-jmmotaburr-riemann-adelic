@@ -15,11 +15,19 @@ by José Manuel Mota Burruezo.
 
 from .adelic_determinant import AdelicCanonicalDeterminant
 from .critical_line_checker import CriticalLineChecker
-from .performance_monitor import PerformanceMonitor, PerformanceMetrics
 
-__all__ = [
-    'AdelicCanonicalDeterminant',
-    'CriticalLineChecker', 
-    'PerformanceMonitor',
-    'PerformanceMetrics'
-]
+# Optional imports that may not be available
+try:
+    from .performance_monitor import PerformanceMonitor, PerformanceMetrics
+    __all__ = [
+        'AdelicCanonicalDeterminant',
+        'CriticalLineChecker', 
+        'PerformanceMonitor',
+        'PerformanceMetrics'
+    ]
+except ImportError:
+    print("⚠️ Warning: performance_monitor not available (missing psutil dependency)")
+    __all__ = [
+        'AdelicCanonicalDeterminant',
+        'CriticalLineChecker'
+    ]

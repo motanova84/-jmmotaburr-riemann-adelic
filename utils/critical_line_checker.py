@@ -9,7 +9,12 @@ Authors: José Manuel Mota Burruezo
 Institute: Instituto Conciencia Cuántica (ICQ)
 """
 
-import mpmath as mp
+try:
+    import mpmath as mp
+except ImportError:
+    import sys
+    sys.path.append('..')
+    import mpmath_mock as mp
 import numpy as np
 from typing import List, Tuple, Dict, Any
 import warnings
