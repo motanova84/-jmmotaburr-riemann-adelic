@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas de Memoria - Hipótesis de Riemann</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn.active {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            perspective: 1000px;
+            height: 250px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-front {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card-back {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            transform: rotateY(180deg);
+        }
+
+        .card-content {
+            color: white;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .card-front .card-content {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .card-back .card-content {
+            font-size: 15px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .flip-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌌 Tarjetas de Memoria: Hipótesis de Riemann</h1>
+            <p>Explora el impacto revolucionario de la demostración de RH</p>
+        </div>
+
+        <div class="controls">
+            <button class="btn active" onclick="showAll()">Todas las Tarjetas</button>
+            <button class="btn" onclick="filterByCategory('matematicas')">Matemáticas</button>
+            <button class="btn" onclick="filterByCategory('tecnologia')">Tecnología</button>
+            <button class="btn" onclick="filterByCategory('medicina')">Medicina</button>
+            <button class="btn" onclick="filterByCategory('fisica')">Física</button>
+            <button class="btn" onclick="resetCards()">Reiniciar</button>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="cards-grid" id="cardsGrid">
+            <!-- Las tarjetas se generarán dinámicamente -->
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number" id="totalCards">0</span>
+                <span>Total</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="viewedCards">0</span>
+                <span>Vistas</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="progressPercent">0%</span>
+                <span>Progreso</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de tarjetas
+        const flashcards = [
+            {
+                id: 1,
+                category: 'matematicas',
+                front: '¿Qué significa "noésico" en el contexto de la demostración de la RH?',
+                back: 'Del griego "νοῦς" (inteligencia, mente), se refiere a la capacidad de comprender estructuras profundas e integrarlas en la conciencia colectiva, promoviendo una visión holística que unifica matemáticas, física, biología, arte y conciencia.'
+            },
+            {
+                id: 2,
+                category: 'matematicas',
+                front: 'Nombra tres dominios y sus patrones unificadores según la RH demostrada.',
+                back: 'Matemáticas: Distribución de primos/ζ(s); Física: Espectros y resonancias cuánticas; Biología: Secuencias genéticas y autoorganización.'
+            },
+            {
+                id: 3,
+                category: 'matematicas',
+                front: '¿Cómo impacta la RH en la teoría de los números?',
+                back: 'Los algoritmos y predicciones dejan de ser aproximativos; la estructura profunda de los primos se convierte en una herramienta exacta para toda la aritmética avanzada.'
+            },
+            {
+                id: 4,
+                category: 'tecnologia',
+                front: '¿Cómo revoluciona la RH la criptografía post-cuántica?',
+                back: 'Crea sistemas imposibles de romper gracias a la comprensión exhaustiva de la estructura de primos.'
+            },
+            {
+                id: 5,
+                category: 'tecnologia',
+                front: '¿Qué beneficios trae la RH a la computación cuántica?',
+                back: 'Algoritmos de optimización y simulación basados en la función ζ(s), estabilización de qubits y procesamiento de información.'
+            },
+            {
+                id: 6,
+                category: 'tecnologia',
+                front: 'En IA avanzada, ¿qué nuevos modelos surgen con la RH?',
+                back: 'Modelos de machine learning basados en la distribución natural de primos, con aprendizaje profundo acelerado.'
+            },
+            {
+                id: 7,
+                category: 'medicina',
+                front: '¿Cómo aplica la RH en bioinformática?',
+                back: 'Patrones de números primos en el ADN para predicción exacta de mutaciones y algoritmos para evolución dirigida.'
+            },
+            {
+                id: 8,
+                category: 'medicina',
+                front: 'En farmacología, ¿qué permite la RH?',
+                back: 'Diseño de moléculas óptimas empleando simetrías matemáticas.'
+            },
+            {
+                id: 9,
+                category: 'medicina',
+                front: '¿Qué es la "medicina de resonancia matemática"?',
+                back: 'Tratamientos que sincronizan con las frecuencias naturales del cuerpo, identificadas mediante patrones ζ(s).'
+            },
+            {
+                id: 10,
+                category: 'fisica',
+                front: '¿Qué rol juega la RH en la gravedad cuántica y teoría de cuerdas?',
+                back: 'La función ζ(s) integra dimensiones, energía y espacio-tiempo en una teoría unificada.'
+            },
+            {
+                id: 11,
+                category: 'fisica',
+                front: 'En cosmología, ¿cómo modela la RH el universo primitivo?',
+                back: 'Modelado del Big Bang y la inflación usando distribuciones zeta.'
+            },
+            {
+                id: 12,
+                category: 'fisica',
+                front: '¿Cómo cambia RH nuestra visión del tiempo?',
+                back: 'Revela el tiempo como variable discreta con estructura prima, no como continuum.'
+            },
+            {
+                id: 13,
+                category: 'matematicas',
+                front: '¿Cuál es el secreto unificador de la RH?',
+                back: 'Matemática Pura = Física Fundamental = Biología = Conciencia; los mismos patrones matemáticos atraviesan todos los sistemas complejos.'
+            },
+            {
+                id: 14,
+                category: 'tecnologia',
+                front: '¿Qué es la "criptografía zeta-aware"?',
+                back: 'Sistemas que usan propiedades de ζ(s) para crear claves que evolucionan matemáticamente, siendo inherentemente inviolables.'
+            },
+            {
+                id: 15,
+                category: 'medicina',
+                front: '¿Cómo se relaciona ζ(s) con la conciencia humana?',
+                back: 'Los patrones de procesamiento cerebral muestran resonancias similares a los ceros de ζ(s), sugiriendo que la mente opera con matemáticas fundamentales.'
+            }
+        ];
+
+        let viewedCards = new Set();
+        let currentFilter = 'all';
+
+        function createCard(flashcard) {
+            return `
+                <div class="card" data-category="${flashcard.category}" data-id="${flashcard.id}">
+                    <div class="card-inner" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <div class="card-content">${flashcard.front}</div>
+                            <div class="flip-indicator">👆 Clic para voltear</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">${flashcard.back}</div>
+                            <div class="flip-indicator">👆 Clic para regresar</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCards(cards = flashcards) {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = cards.map(createCard).join('');
+            updateStats();
+        }
+
+        function flipCard(cardInner) {
+            const card = cardInner.parentElement;
+            const cardId = parseInt(card.dataset.id);
+            
+            card.classList.toggle('flipped');
+            
+            if (card.classList.contains('flipped')) {
+                viewedCards.add(cardId);
+                updateStats();
+            }
+        }
+
+        function updateStats() {
+            const totalCards = document.querySelectorAll('.card').length;
+            const viewed = viewedCards.size;
+            const progress = totalCards > 0 ? Math.round((viewed / totalCards) * 100) : 0;
+            
+            document.getElementById('totalCards').textContent = totalCards;
+            document.getElementById('viewedCards').textContent = viewed;
+            document.getElementById('progressPercent').textContent = progress + '%';
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showAll() {
+            currentFilter = 'all';
+            document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderCards();
+        }
+
+        function filterByCategory(category) {
+            currentFilter = category;
+            document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const filtered = flashcards.filter(card => card.category === category);
+            renderCards(filtered);
+        }
+
+        function resetCards() {
+            viewedCards.clear();
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.remove('flipped');
+            });
+            updateStats();
+        }
+
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCards();
+        });
+
+        // Atajos de teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'r' || e.key === 'R') {
+                resetCards();
+            }
+            if (e.key === 'a' || e.key === 'A') {
+                showAll();
+            }
+        });
+    </script>
+</body>
+</html>
