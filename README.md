@@ -19,6 +19,34 @@
 
 # Riemann-Adelic: The Definitive Proof of the Riemann Hypothesis
 
+## 🌐 **NEW: Interactive Static Web Dashboard**
+
+**Live Demo:** [https://motanova84.github.io/-jmmotaburr-riemann-adelic/](https://motanova84.github.io/-jmmotaburr-riemann-adelic/) 
+
+### ✅ **100% Static Implementation - No Server Required!**
+
+The project now includes a **completely static interactive dashboard** that runs entirely in your browser:
+
+- 📊 **Real-time Validation** - JavaScript implementation of the Riemann Hypothesis validation
+- 🧮 **Interactive Controls** - Adjust parameters and test different mathematical functions
+- 🎯 **Live Calculations** - See explicit formula validation results instantly
+- 📈 **Sample Data** - Pre-loaded with 30 Riemann zeros and 111 primes
+- 🚀 **GitHub Pages Ready** - Deployed automatically on every commit
+
+![Static Dashboard](https://github.com/user-attachments/assets/6d2274ce-e675-4908-8a31-62581ad76595)
+
+### 🔧 **Quick Start (Static Mode)**
+```bash
+# Build static site
+npm run build
+
+# Serve locally (optional)
+python3 -m http.server 8000 --directory docs
+# Open http://localhost:8000
+```
+
+---
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/motanova84/-jmmotaburr-riemann-adelic/main/schur_eigenvalue_magnitudes.png" width="500" alt="Spectral Visualization">
 </p>
