@@ -1,18 +1,18 @@
 {
   "certificate_version": "1.0.0",
-  "timestamp": "2025-09-28T20:32:59.613630+00:00",
-  "commit": "e2a29f4",
+  "timestamp": "2025-09-28T20:35:50.305917+00:00",
+  "commit": "aa733b0",
   "parameters": {
-    "precision": 20,
-    "max_primes": 100,
-    "max_zeros": 100,
-    "computation_time_seconds": 6.4
+    "precision": 15,
+    "max_primes": 50,
+    "max_zeros": 50,
+    "computation_time_seconds": 2.7
   },
   "results": {
-    "zeros_side_value": "-0.00036777204851985751405",
-    "primes_side_value": "-0.38528270934729810914",
-    "absolute_error": "0.38491493729877825163",
-    "relative_error": "0.99904544886236162831"
+    "zeros_side_value": "0.001879823044443",
+    "primes_side_value": "-0.391072116447899",
+    "absolute_error": "0.392951939492342",
+    "relative_error": "1.00480684499196"
   },
   "quality_assessment": {
     "validation_checks": {
@@ -25,7 +25,7 @@
     "confidence_level": "MEDIUM"
   },
   "verification": {
-    "hash": "5daaf5c58bc5ec5e66182f94320fe249a315457a2f7b57212c5916f795c24b5c",
+    "hash": "de4874c6a565dde17c19f8811325497f40a1986209ee101d9da4d065b5a26c85",
     "algorithm": "SHA-256",
     "reproducible": true
   },
@@ -37,5 +37,5 @@
     "mpmath_version": "1.3.0",
     "repository": "https://github.com/motanova84/-jmmotaburr-riemann-adelic"
   },
-  "signature": "RHVAL_62B8426B910C11FE"
+  "signature": "RHVAL_7E50885F32AB2334"
 }
