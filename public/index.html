@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riemann-Adelic: The Definitive Proof</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .functions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .function-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .function-card h3 {
+            margin-top: 0;
+            color: #fff;
+        }
+        .function-card p {
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        .btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .output {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        .loading {
+            color: #FFD700;
+        }
+        .success {
+            color: #90EE90;
+        }
+        .error {
+            color: #FFB6C1;
+        }
+        .info-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧮 Riemann-Adelic</h1>
+        <p class="subtitle">The Definitive Proof of the Riemann Hypothesis</p>
+        <p class="subtitle">Instituto Conciencia Cuántica (ICQ) • José Manuel Mota Burruezo</p>
+        
+        <div class="info-section">
+            <h2>📋 Enhanced Mathematical Functions</h2>
+            <p>This interface demonstrates the enhanced mathematical functions implemented for the Riemann Hypothesis validation:</p>
+            <ul>
+                <li><strong>f1 (Enhanced)</strong>: Improved smooth bump function with better numerical stability</li>
+                <li><strong>A_∞ (Enhanced)</strong>: Enhanced Archimedean contribution with improved convergence</li>
+                <li><strong>Critical Line Verification</strong>: Axiomatically verify that zeros satisfy Re(s) = 1/2</li>
+                <li><strong>Explicit Formula Validation</strong>: Compare arithmetic vs spectral sides</li>
+            </ul>
+        </div>
+
+        <div class="functions-grid">
+            <div class="function-card">
+                <h3>🔬 Enhanced f1 Function Test</h3>
+                <p>Test the enhanced f1 smooth bump function with improved numerical stability and mathematical rigor.</p>
+                <button class="btn" onclick="testF1()">Test Enhanced f1</button>
+                <div id="f1-output" class="output"></div>
+            </div>
+
+            <div class="function-card">
+                <h3>⚖️ Quick Validation</h3>
+                <p>Run a quick Riemann Hypothesis validation using the enhanced functions.</p>
+                <button class="btn" onclick="runValidation()">Run Validation</button>
+                <div id="validation-output" class="output"></div>
+            </div>
+
+            <div class="function-card">
+                <h3>🎯 Critical Line Demo</h3>
+                <p>Demonstrate critical line verification under axioms of the Riemann Hypothesis.</p>
+                <button class="btn" onclick="runDemo()">Run Demo</button>
+                <div id="demo-output" class="output"></div>
+            </div>
+
+            <div class="function-card">
+                <h3>📊 System Status</h3>
+                <p>Check the health and status of the mathematical validation system.</p>
+                <button class="btn" onclick="checkHealth()">Check Status</button>
+                <div id="health-output" class="output"></div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>🚀 Repository Changes</h2>
+            <p>Recent enhancements made to the "función X" (f1) and A_∞ functions:</p>
+            <ul>
+                <li>✅ Enhanced numerical stability and boundary conditions</li>
+                <li>✅ Improved mathematical precision for critical line verification</li>
+                <li>✅ Better error handling and convergence properties</li>
+                <li>✅ Added normalization and smoothing factors</li>
+                <li>✅ Created comprehensive test suite</li>
+                <li>✅ Added package.json for Node.js tooling</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showOutput(elementId, message, type = 'loading') {
+            const output = document.getElementById(elementId);
+            output.style.display = 'block';
+            output.className = `output ${type}`;
+            output.textContent = message;
+        }
+
+        function hideOutput(elementId) {
+            const output = document.getElementById(elementId);
+            output.style.display = 'none';
+        }
+
+        async function makeRequest(endpoint, data = null) {
+            try {
+                const options = {
+                    method: data ? 'POST' : 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                };
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(endpoint, options);
+                return await response.json();
+            } catch (error) {
+                return { error: error.message };
+            }
+        }
+
+        async function testF1() {
+            const btn = event.target;
+            btn.disabled = true;
+            showOutput('f1-output', '🧪 Testing enhanced f1 function...', 'loading');
+            
+            try {
+                const result = await makeRequest('/test-f1', {});
+                if (result.success) {
+                    showOutput('f1-output', `✅ f1 Function Test Completed!\n\n${result.output}`, 'success');
+                } else {
+                    showOutput('f1-output', `❌ Test Error:\n${result.error || result.output}`, 'error');
+                }
+            } catch (error) {
+                showOutput('f1-output', `❌ Network Error: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function runValidation() {
+            const btn = event.target;
+            btn.disabled = true;
+            showOutput('validation-output', '🔬 Running Riemann Hypothesis validation...', 'loading');
+            
+            try {
+                const result = await makeRequest('/validate', {
+                    max_primes: 50,
+                    max_zeros: 50,
+                    test_function: 'f1'
+                });
+                if (result.success) {
+                    showOutput('validation-output', `✅ Validation Completed!\n\n${result.output}`, 'success');
+                } else {
+                    showOutput('validation-output', `❌ Validation Error:\n${result.error || result.output}`, 'error');
+                }
+            } catch (error) {
+                showOutput('validation-output', `❌ Network Error: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function runDemo() {
+            const btn = event.target;
+            btn.disabled = true;
+            showOutput('demo-output', '🎯 Running critical line demonstration...', 'loading');
+            
+            try {
+                const result = await makeRequest('/demo', {});
+                if (result.success) {
+                    showOutput('demo-output', `✅ Demo Completed!\n\n${result.output}`, 'success');
+                } else {
+                    showOutput('demo-output', `❌ Demo Error:\n${result.error || result.output}`, 'error');
+                }
+            } catch (error) {
+                showOutput('demo-output', `❌ Network Error: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function checkHealth() {
+            const btn = event.target;
+            btn.disabled = true;
+            showOutput('health-output', '📊 Checking system status...', 'loading');
+            
+            try {
+                const result = await makeRequest('/health');
+                if (result.status === 'healthy') {
+                    showOutput('health-output', `✅ System Healthy!\n\nStatus: ${result.status}\nTimestamp: ${result.timestamp}\nPython Available: ${result.python_available}`, 'success');
+                } else {
+                    showOutput('health-output', `❌ System Issue:\n${JSON.stringify(result, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showOutput('health-output', `❌ Network Error: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // Load system info on page load
+        window.addEventListener('load', () => {
+            checkHealth();
+        });
+    </script>
+</body>
+</html>
