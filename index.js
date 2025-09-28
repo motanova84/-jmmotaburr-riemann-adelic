@@ -182,6 +182,92 @@ app.post('/test-f1', async (req, res) => {
     }
 });
 
+// New endpoint for live comparison
+app.post('/live-comparison', async (req, res) => {
+    try {
+        const { primes = 1000, zeros = 1000, precision = 30, height = 50 } = req.body;
+        
+        // Validate parameters
+        if (primes < 100 || primes > 10000) {
+            return res.status(400).json({ error: 'Primes count must be between 100 and 10000' });
+        }
+        if (zeros < 100 || zeros > 5000) {
+            return res.status(400).json({ error: 'Zeros count must be between 100 and 5000' });
+        }
+        if (precision < 15 || precision > 50) {
+            return res.status(400).json({ error: 'Precision must be between 15 and 50' });
+        }
+        
+        const python = spawn('python', [
+            'validate_explicit_formula.py',
+            '--max_primes', primes.toString(),
+            '--max_zeros', zeros.toString(),
+            '--precision_dps', precision.toString(),
+            '--integration_t', height.toString(),
+            '--use_weil_formula'
+        ]);
+        
+        let stdout = '';
+        let stderr = '';
+        
+        python.stdout.on('data', (data) => {
+            stdout += data.toString();
+        });
+        
+        python.stderr.on('data', (data) => {
+            stderr += data.toString();
+        });
+        
+        python.on('close', (code) => {
+            try {
+                // Parse output to extract zeros side, primes side, and error
+                const lines = stdout.split('\n');
+                let zerosResult = null;
+                let primesResult = null;
+                let relativeError = null;
+                
+                for (const line of lines) {
+                    if (line.includes('Left side (zeros+arch):')) {
+                        zerosResult = line.split(':')[1].trim();
+                    } else if (line.includes('Right side (primes+arch):')) {
+                        primesResult = line.split(':')[1].trim();
+                    } else if (line.includes('Relative error:')) {
+                        relativeError = line.split(':')[1].trim();
+                    }
+                }
+                
+                res.json({
+                    success: code === 0,
+                    parameters: { primes, zeros, precision, height },
+                    results: {
+                        zeros_side: zerosResult || 'Not computed',
+                        primes_side: primesResult || 'Not computed',
+                        relative_error: relativeError || 'Not computed'
+                    },
+                    output: stdout,
+                    error: stderr
+                });
+            } catch (parseError) {
+                res.json({
+                    success: false,
+                    error: 'Failed to parse computation results',
+                    output: stdout,
+                    stderr: stderr
+                });
+            }
+        });
+        
+        // Timeout after 60 seconds
+        setTimeout(() => {
+            python.kill();
+            res.status(408).json({ error: 'Live comparison timeout' });
+        }, 60000);
+        
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);

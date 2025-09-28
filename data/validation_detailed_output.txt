@@ -1,0 +1,19 @@
+🔬 Running Riemann Hypothesis validation...
+Parameters: P=50, K=5, T=5, max_zeros=50
+Using Weil formula: True
+Precision: 15 decimal places
+Using test function: truncated_gaussian
+🧮 Using Weil explicit formula implementation...
+Computing Weil explicit formula...
+🔍 Debug explicit formula
+Left side (zeros+arch): 0.001879823044443
+Right side (primes+arch): -0.391072116447899
+Absolute error: 0.392951939492342
+Relative error: 1.00480684499196
+✅ Weil formula computation completed!
+v-adic corrected zeros (first 5): [2.6761433452017798, 3.039747702816731, 3.717923388122212, 4.528089884900853, 5.354662503195231]
+Left side (zeros + arch):   0.001879823044443
+Right side (primes + arch): -0.391072116447899
+Absolute Error: 0.392951939492342
+Relative Error: 1.00480684499196
+📊 Results saved to data/validation_results.csv
