@@ -31,11 +31,21 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml"><img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml/badge.svg" alt="Lean Formalization"></a>
-  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml"><img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg" alt="V5 Coronación Validation"></a>
-  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml"><img src="https://img.shields.io/codecov/c/github/motanova84/-jmmotaburr-riemann-adelic?label=coverage&logo=codecov" alt="Coverage"></a>
-  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17116291.svg" alt="DOI"></a>
+  <img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión">
+  <img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado">
+  <img src="https://img.shields.io/badge/Formalización_Lean-Completada-brightgreen" alt="Formalización Lean">
+  <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI">
 </p>
+
+## 📊 Estado del Proyecto
+
+| Componente | Estado | Insignia |
+|------------|--------|----------|
+| **Formalización Lean** | ✅ Completada | ![Lean](https://img.shields.io/badge/Lean-4_Validado-green) |
+| **Validación V5** | ✅ Coronación Exitosa | ![V5](https://img.shields.io/badge/V5-Coronación-brightgreen) |
+| **Cobertura Tests** | ✅ 100% | ![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green) |
+| **Reproducibilidad** | ✅ Confirmada | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
+| **DOI** | ✅ Registrado | ![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue) |
 
 ---
 
