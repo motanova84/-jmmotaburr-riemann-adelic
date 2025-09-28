@@ -51,7 +51,7 @@ def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
     
     print("🔍 Debug explicit formula components:")
     
-    # Load actual zeros from file instead of using simulated ones
+    # Load actual zeros from file with improved error handling
     actual_zeros = []
     zeros_file = "zeros/zeros_t1e8.txt"
     try:
@@ -59,26 +59,55 @@ def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
             for i, line in enumerate(zeros_file_handle):
                 if i >= max_zeros:
                     break
-                actual_zeros.append(float(line.strip()))
+                try:
+                    zero_value = float(line.strip())
+                    if zero_value > 0:  # Only positive imaginary parts
+                        actual_zeros.append(zero_value)
+                except ValueError:
+                    print(f"Warning: Invalid zero value in line {i+1}: {line.strip()}")
+                    continue
         print(f"Loaded {len(actual_zeros)} zeros from file")
     except FileNotFoundError:
         print(f"Warning: {zeros_file} not found, using provided zeros")
         actual_zeros = zeros[:max_zeros] if zeros else []
+    except Exception as e:
+        print(f"Error reading zeros file: {e}")
+        actual_zeros = zeros[:max_zeros] if zeros else []
     
-    # LEFT SIDE: Sum over zeros using Mellin transform
+    # LEFT SIDE: Sum over zeros using Mellin transform with optimization
     zero_sum = mp.mpf('0')
+    zeros_processed = 0
+    
     for i, gamma in enumerate(actual_zeros):
         # Non-trivial zero: ρ = 1/2 + i*γ
         rho = mp.mpc(0.5, gamma) 
-        # Mellin transform: f̂(s) = ∫ f(u) u^(s-1) du, but we use e^(su) form
-        f_hat_rho = mellin_transform(f, rho - 1, 5.0)
-        zero_sum += f_hat_rho.real
-        if i < 3:  # Debug first few
-            print(f"  Zero γ={gamma}: f̂(ρ) = {f_hat_rho.real}")
-    print(f"Zero sum: {zero_sum}")
+        try:
+            # Mellin transform: f̂(s) = ∫ f(u) u^(s-1) du, but we use e^(su) form
+            f_hat_rho = mellin_transform(f, rho - 1, 5.0)
+            zero_sum += f_hat_rho.real
+            zeros_processed += 1
+            if i < 3:  # Debug first few
+                print(f"  Zero γ={gamma}: f̂(ρ) = {f_hat_rho.real}")
+        except ValueError as e:
+            print(f"Warning: Skipping zero γ={gamma} due to integration error: {e}")
+            continue
+        except Exception as e:
+            print(f"Warning: Unexpected error processing zero γ={gamma}: {e}")
+            continue
+    
+    print(f"Zero sum: {zero_sum} (processed {zeros_processed}/{len(actual_zeros)} zeros)")
     
     # LEFT SIDE: Archimedean contribution (functional equation integral)
-    def arch_integrand(t):
+    def arch_integrand(t: float) -> float:
+        """
+        Archimedean integrand for explicit formula.
+        
+        Args:
+            t: Integration variable
+            
+        Returns:
+            Real part of the integrand
+        """
         s = mp.mpc(0.5, t)
         f_hat_s = mellin_transform(f, s - 1, 5.0)
         # Archimedean factor: d/ds[log(Gamma(s/2) * pi^(-s/2))] = (1/2)[psi(s/2) - log(pi)]
@@ -93,9 +122,9 @@ def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
         
         # Based on theoretical analysis: flip the sign of the functional equation integral
         arch_integral = -arch_integral
-    except:
+    except (mp.QuadratureError, ValueError, OverflowError) as e:
         arch_integral = mp.mpf('0')  # Fallback
-        print("Warning: Archimedean integral failed, using 0")
+        print(f"Warning: Archimedean integral failed ({e}), using 0")
     
     print(f"Archimedean integral: {arch_integral}")
     
@@ -272,8 +301,9 @@ def mahler_measure(eigenvalues, places=None, precision=30):
         else:
             integral = result
         m_jensen = mp.exp(integral)
-    except:
+    except (mp.QuadratureError, ValueError, OverflowError) as e:
         m_jensen = 1.0  # Fallback if integration fails
+        print(f"Warning: Jensen formula integration failed: {e}")
     
     m_padic = 1.0
     for p in places:
@@ -295,8 +325,9 @@ def characteristic_polynomial(delta_matrix, precision=30):
             try:
                 trace_term = np.trace(np.linalg.matrix_power(delta_matrix, power_k)) / (N - k + 1)
                 coeffs[k - 1] = -trace_term
-            except:
+            except (np.linalg.LinAlgError, ValueError, OverflowError) as e:
                 coeffs[k - 1] = 0  # Fallback for numerical issues
+                print(f"Warning: Matrix power computation failed for k={k}: {e}")
         else:
             coeffs[k - 1] = 0
     
@@ -436,6 +467,23 @@ if __name__ == "__main__":
     parser.add_argument('--use_weil_formula', action='store_true', help='Use Weil explicit formula implementation')
     
     args = parser.parse_args()
+    
+    # Input validation
+    if args.max_primes <= 0:
+        print("❌ Error: max_primes must be positive")
+        sys.exit(1)
+    if args.max_zeros <= 0:
+        print("❌ Error: max_zeros must be positive")
+        sys.exit(1)
+    if args.precision_dps < 10 or args.precision_dps > 100:
+        print("❌ Error: precision_dps must be between 10 and 100")
+        sys.exit(1)
+    if args.integration_t <= 0:
+        print("❌ Error: integration_t must be positive")
+        sys.exit(1)
+    if args.timeout <= 0:
+        print("❌ Error: timeout must be positive")
+        sys.exit(1)
     
     # Set precision
     mp.mp.dps = args.precision_dps
