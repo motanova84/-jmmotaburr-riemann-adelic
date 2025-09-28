@@ -20,6 +20,11 @@ mp.mp.dps = 30
 class TestCoronacionV5:
     """Test suite for V5 Coronación proof verification"""
     
+    def __init__(self, max_zeros=1000, max_primes=1000):
+        """Initialize test suite with configurable parameters"""
+        self.max_zeros = max_zeros
+        self.max_primes = max_primes
+    
     def setup_method(self):
         """Setup test parameters"""
         # Test parameters for V5 coronation
@@ -329,6 +334,11 @@ class TestCoronacionV5:
 
 class TestV5Integration:
     """Integration tests for V5 Coronación with existing codebase"""
+    
+    def __init__(self, max_zeros=1000, max_primes=1000):
+        """Initialize integration test suite with configurable parameters"""
+        self.max_zeros = max_zeros
+        self.max_primes = max_primes
     
     def test_integration_with_explicit_formula(self):
         """Test V5 coronation integrates with existing explicit formula validation"""

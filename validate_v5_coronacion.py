@@ -39,7 +39,7 @@ def setup_precision(dps):
     mp.mp.dps = dps
     print(f"🔧 Computational precision set to {dps} decimal places")
 
-def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
+def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False, max_zeros=1000, max_primes=1000):
     """
     Main V5 Coronación validation function
     
@@ -47,6 +47,8 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
         precision: Decimal precision for computations
         verbose: Print detailed progress information
         save_certificate: Save mathematical proof certificate to file
+        max_zeros: Maximum number of zeros to use in validation
+        max_primes: Maximum number of primes to use in validation
         
     Returns:
         dict: Validation results and proof certificate
@@ -58,6 +60,8 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
     print("=" * 80)
     print(f"Timestamp: {datetime.now().isoformat()}")
     print(f"Precision: {precision} decimal places")
+    print(f"Max zeros: {max_zeros}")
+    print(f"Max primes: {max_primes}")
     print()
     
     # Import our test framework
@@ -68,10 +72,10 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
         return {"success": False, "error": str(e)}
     
     # Initialize test instance
-    test_instance = TestCoronacionV5()
+    test_instance = TestCoronacionV5(max_zeros=max_zeros, max_primes=max_primes)
     test_instance.setup_method()
     
-    integration_instance = TestV5Integration()
+    integration_instance = TestV5Integration(max_zeros=max_zeros, max_primes=max_primes)
     
     # Define the 5 steps of V5 Coronación
     validation_steps = [
@@ -321,6 +325,29 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
         except Exception as e:
             print(f"⚠️  Warning: Could not save proof certificate: {e}")
     
+    # Save validation results to CSV for comparison with notebook
+    try:
+        import csv
+        csv_file = Path('data') / 'validation_results.csv'
+        csv_file.parent.mkdir(exist_ok=True)
+        
+        with open(csv_file, 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['Test Name', 'Status', 'Execution Time (s)', 'Error'])
+            
+            for test_name, result in results.items():
+                writer.writerow([
+                    test_name,
+                    result['status'],
+                    result.get('execution_time', 0),
+                    result.get('error', '')
+                ])
+        
+        print(f"📊 Validation results saved to: {csv_file}")
+        
+    except Exception as e:
+        print(f"⚠️  Warning: Could not save CSV results: {e}")
+    
     return {
         'success': all_passed and failed_count == 0,
         'results': results,
@@ -378,6 +405,10 @@ Examples:
                         help='Print detailed progress information')
     parser.add_argument('--save-certificate', action='store_true',
                         help='Save mathematical proof certificate to data/')
+    parser.add_argument('--max_zeros', type=int, default=1000,
+                        help='Maximum number of zeros to use in validation (default: 1000)')
+    parser.add_argument('--max_primes', type=int, default=1000,
+                        help='Maximum number of primes to use in validation (default: 1000)')
     
     args = parser.parse_args()
     
@@ -386,7 +417,9 @@ Examples:
     result = validate_v5_coronacion(
         precision=args.precision,
         verbose=args.verbose,
-        save_certificate=args.save_certificate
+        save_certificate=args.save_certificate,
+        max_zeros=args.max_zeros,
+        max_primes=args.max_primes
     )
     total_time = time.time() - start_time
     
