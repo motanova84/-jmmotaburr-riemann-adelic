@@ -146,7 +146,7 @@ Licencia:
 ## Contacto y Créditos
 
 - Autor principal: José Manuel Mota Burruezo
-- Contacto: motanova84@gmail.com
+- Contacto: institutoconsciencia@proton.me
 - Colaboradores y agradecimientos: ver sección de agradecimientos en el paper
 
 ---
