@@ -35,10 +35,12 @@ jobs:
         run: |
           mkdir -p _site
           cp riemann_viewer.html _site/index.html
+          cp -r public _site/public || echo "No public directory found"
           cp -r data _site/data || echo "No data directory found"
+          cp sw.js _site/sw.js || echo "No service worker found"
           cp README.md _site/README.md
           
-          # Create a simple index for easy navigation
+          # Create a simple navigation page for easy access
           cat > _site/navigation.html << 'EOF'
           <!DOCTYPE html>
           <html>

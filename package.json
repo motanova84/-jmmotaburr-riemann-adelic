@@ -2,7 +2,7 @@
   "name": "riemann-adelic",
   "version": "1.0.0", 
   "description": "The Definitive Proof of the Riemann Hypothesis - Adelic and Critical Line Verification",
-  "main": "index.js",
+  "main": "riemann_viewer.html",
   "scripts": {
     "test": "python -m pytest tests/ -v",
     "validate": "python validate_explicit_formula.py",
@@ -10,8 +10,7 @@
     "setup": "python setup_environment.py",
     "demo": "python demo_critical_line.py",
     "build": "python validate_repository.py",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "generate-data": "python -c \"import utils.generate_static_data; utils.generate_static_data.generate_all()\"",
     "python-validate": "python validate_explicit_formula.py --max_primes 50 --max_zeros 50",
     "python-demo": "python demo_critical_line.py"
   },
@@ -40,16 +39,7 @@
   "bugs": {
     "url": "https://github.com/motanova84/-jmmotaburr-riemann-adelic/issues"
   },
-  "homepage": "https://github.com/motanova84/-jmmotaburr-riemann-adelic#readme",
-  "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "helmet": "^7.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1",
-    "concurrently": "^8.2.0"
-  },
+  "homepage": "https://motanova84.github.io/-jmmotaburr-riemann-adelic/",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0",
