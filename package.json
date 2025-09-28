@@ -10,8 +10,10 @@
     "setup": "python setup_environment.py",
     "demo": "python demo_critical_line.py",
     "build": "python validate_repository.py",
-    "start": "python validate_explicit_formula.py --max_primes 50 --max_zeros 50",
-    "dev": "python demo_critical_line.py"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "python-validate": "python validate_explicit_formula.py --max_primes 50 --max_zeros 50",
+    "python-demo": "python demo_critical_line.py"
   },
   "repository": {
     "type": "git",
