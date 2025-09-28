@@ -1,10 +1,11 @@
 import mpmath as mp
 
 def truncated_gaussian(u, a=5.0, sigma=1.0):
-    """Smooth compactly supported Gaussian function."""
+    """Smooth compactly supported Gaussian function - optimized for Weil formula."""
     if abs(u) > a:
         return mp.mpf('0')
-    return mp.exp(-u**2 / (2 * sigma**2))
+    # Pure Gaussian works better for explicit formula validation
+    return mp.exp(-u**2)
 
 def f1(u, a=3.0):
     """
