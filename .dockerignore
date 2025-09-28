@@ -1,0 +1,45 @@
+# Git and version control
+.git
+.gitignore
+.github
+
+# Documentation and markdown files (except README)
+*.md
+!README.md
+CHANGELOG.md
+*.txt
+!requirements.txt
+
+# Temporary and log files
+logs/*
+*.log
+*.tmp
+.coverage
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+
+# Jupyter notebook outputs
+notebooks/*.html
+*.ipynb_checkpoints
+
+# Large data files that should be downloaded at runtime
+zeros/zeros_t1e8.txt
+
+# Build artifacts
+dist/
+build/
+*.egg-info
+
+# OS files
+.DS_Store
+Thumbs.db

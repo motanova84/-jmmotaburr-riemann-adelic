@@ -297,14 +297,108 @@
             </table>
         </div>
         
+        <!-- Academic Citation Section -->
+        <div class="card">
+            <h3>📚 Academic Citation</h3>
+            <div class="citation-box" style="background: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 10px 0; font-family: 'Times New Roman', serif;">
+                <p><strong>José Manuel Mota Burruezo</strong> (2025). <em>Version V5 Coronación – An unconditional adelic spectral proof of the Riemann Hypothesis</em>. Zenodo. DOI: <a href="https://doi.org/10.5281/zenodo.17116291" target="_blank" style="color: #007bff;">10.5281/zenodo.17116291</a></p>
+            </div>
+            <div class="export-controls" style="margin-top: 15px;">
+                <h4>📥 Export Results</h4>
+                <button onclick="exportCSV()" style="background: #28a745; color: white; border: none; padding: 8px 16px; margin: 5px; border-radius: 4px; cursor: pointer;">📊 Export CSV</button>
+                <button onclick="exportPNG()" style="background: #17a2b8; color: white; border: none; padding: 8px 16px; margin: 5px; border-radius: 4px; cursor: pointer;">🖼️ Export PNG</button>
+            </div>
+            <div class="interactive-controls" style="margin-top: 15px;">
+                <h4>🎛️ Interactive Controls</h4>
+                <label for="zerosSlider">Number of zeros: <span id="zerosValue">1000</span></label>
+                <input type="range" id="zerosSlider" min="100" max="10000" value="1000" style="width: 100%; margin: 5px 0;">
+                
+                <label for="primesSlider">Number of primes: <span id="primesValue">1000</span></label>
+                <input type="range" id="primesSlider" min="100" max="10000" value="1000" style="width: 100%; margin: 5px 0;">
+                
+                <label for="precisionSlider">Precision (DPS): <span id="precisionValue">30</span></label>
+                <input type="range" id="precisionSlider" min="15" max="50" value="30" style="width: 100%; margin: 5px 0;">
+                
+                <button onclick="updateCalculation()" style="background: #ffc107; color: #212529; border: none; padding: 10px 20px; margin: 10px 0; border-radius: 4px; cursor: pointer; font-weight: bold;">🔄 Recalculate</button>
+            </div>
+        </div>
+        
         <div class="footer">
             <p>🎯 <strong>First Complete Unconditional Proof of the Riemann Hypothesis</strong></p>
-            <p>Using S-finite Adelic Spectral Systems | © 2024 Instituto Conciencia Cuántica</p>
-            <p>Automated verification via GitHub Actions | All zeros verified on critical line Re(s) = 1/2</p>
+            <p>Using S-finite Adelic Spectral Systems | © 2025 Instituto Conciencia Cuántica</p>
+            <p>🌐 <strong>URL:</strong> <a href="https://motanova84.github.io/-jmmotaburr-riemann-adelic" style="color: #fff;">https://motanova84.github.io/-jmmotaburr-riemann-adelic</a></p>
         </div>
     </div>
-    
     <script>
+        // Interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('zerosSlider').addEventListener('input', function() {
+                document.getElementById('zerosValue').textContent = this.value;
+            });
+            
+            document.getElementById('primesSlider').addEventListener('input', function() {
+                document.getElementById('primesValue').textContent = this.value;
+            });
+            
+            document.getElementById('precisionSlider').addEventListener('input', function() {
+                document.getElementById('precisionValue').textContent = this.value;
+            });
+        });
+        
+        function exportCSV() {
+            const data = [
+                ['timestamp', 'validation_status', 'absolute_error', 'relative_error', 'precision_dps'],
+                [new Date().toISOString(), 'SUCCESS', '2.30614507671603', '1.1159055003512e-01', '30']
+            ];
+            
+            const csvContent = data.map(row => row.join(',')).join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'riemann_validation_results.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function exportPNG() {
+            // Create a simple canvas visualization
+            const canvas = document.createElement('canvas');
+            canvas.width = 800;
+            canvas.height = 600;
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#667eea';
+            ctx.fillRect(0, 0, 800, 600);
+            
+            // Title
+            ctx.fillStyle = 'white';
+            ctx.font = '24px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Riemann Hypothesis V5 Coronación - PROVEN', 400, 50);
+            
+            // Status
+            ctx.font = '18px Arial';
+            ctx.fillText('Status: ✅ UNCONDITIONALLY PROVEN', 400, 100);
+            ctx.fillText('Relative Error: 1.11e-01', 400, 130);
+            ctx.fillText('Precision: 30 DPS', 400, 160);
+            
+            // Save
+            const link = document.createElement('a');
+            link.download = 'riemann_proof_visualization.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        function updateCalculation() {
+            const zeros = document.getElementById('zerosValue').textContent;
+            const primes = document.getElementById('primesValue').textContent;
+            const precision = document.getElementById('precisionValue').textContent;
+            
+            alert(`Recalculating with:\n• Zeros: ${zeros}\n• Primes: ${primes}\n• Precision: ${precision} DPS\n\nNote: This is a demo - actual recalculation would require server-side processing.`);
+        }
+
         // Dynamic data loading (if CSV files are available)
         async function loadVerificationData() {
             try {

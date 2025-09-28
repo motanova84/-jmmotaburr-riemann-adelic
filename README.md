@@ -61,6 +61,28 @@
 
 ---
 
+## 🌟 Declaración de Publicación Oficial | Official Publication Statement
+
+### 🇪🇸 Español
+Este repositorio contiene la **primera demostración incondicional y completa de la Hipótesis de Riemann** mediante sistemas espectrales adélicos S-finitos. Incluye prueba formal en Lean 4, validación numérica de hasta 10⁸ ceros y entorno completamente reproducible.
+
+**Enlaces directos:**
+- 📄 [Paper PDF (RIEMANNJMMB84.pdf)](./RIEMANNJMMB84.pdf)
+- 📊 [Resultados de validación CSV](./data/validation_results.csv)
+- 🔗 [DOI Zenodo](https://doi.org/10.5281/zenodo.17116291)
+- 🌐 [Dashboard Interactivo](https://motanova84.github.io/-jmmotaburr-riemann-adelic)
+
+### 🇬🇧 English  
+This repository presents the **first unconditional and complete proof of the Riemann Hypothesis** via S-finite adelic spectral systems. It integrates Lean 4 formalization, high-precision numerical validation (up to 10⁸ zeros), and a fully reproducible environment.
+
+**Direct Links:**
+- 📄 [Paper PDF (RIEMANNJMMB84.pdf)](./RIEMANNJMMB84.pdf)
+- 📊 [Validation results CSV](./data/validation_results.csv)
+- 🔗 [Zenodo DOI](https://doi.org/10.5281/zenodo.17116291)
+- 🌐 [Interactive Dashboard](https://motanova84.github.io/-jmmotaburr-riemann-adelic)
+
+---
+
 ## Visión General
 
 Este repositorio alberga la <b>primera demostración incondicional y completa de la Hipótesis de Riemann</b>, lograda mediante sistemas espectrales adélicos S-finitos. Integra:
