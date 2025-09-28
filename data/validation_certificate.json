@@ -1,0 +1,41 @@
+{
+  "certificate_version": "1.0.0",
+  "timestamp": "2025-09-28T20:32:59.613630+00:00",
+  "commit": "e2a29f4",
+  "parameters": {
+    "precision": 20,
+    "max_primes": 100,
+    "max_zeros": 100,
+    "computation_time_seconds": 6.4
+  },
+  "results": {
+    "zeros_side_value": "-0.00036777204851985751405",
+    "primes_side_value": "-0.38528270934729810914",
+    "absolute_error": "0.38491493729877825163",
+    "relative_error": "0.99904544886236162831"
+  },
+  "quality_assessment": {
+    "validation_checks": {
+      "has_zeros_side": true,
+      "has_primes_side": true,
+      "has_relative_error": true,
+      "acceptable_precision": false
+    },
+    "overall_status": "NEEDS_REVIEW",
+    "confidence_level": "MEDIUM"
+  },
+  "verification": {
+    "hash": "5daaf5c58bc5ec5e66182f94320fe249a315457a2f7b57212c5916f795c24b5c",
+    "algorithm": "SHA-256",
+    "reproducible": true
+  },
+  "verified_by": "motanova84",
+  "institution": "Instituto Conciencia Cu\u00e1ntica (ICQ)",
+  "method": "S-finite Adelic Spectral System",
+  "software_stack": {
+    "python_version": "Python 3.12.3",
+    "mpmath_version": "1.3.0",
+    "repository": "https://github.com/motanova84/-jmmotaburr-riemann-adelic"
+  },
+  "signature": "RHVAL_62B8426B910C11FE"
+}

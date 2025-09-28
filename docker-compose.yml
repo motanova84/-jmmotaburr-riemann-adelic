@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  riemann-validation:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: riemann-hypothesis-validator
+    environment:
+      - PRECISION=30
+      - MAX_PRIMES=1000
+      - MAX_ZEROS=1000
+      - VERBOSE=true
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - validation-results:/app/results
+    networks:
+      - riemann-net
+    restart: unless-stopped
+    
+  riemann-web:
+    build: .
+    container_name: riemann-web-interface
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      - ./data:/app/data:ro
+      - ./public:/app/public:ro
+    networks:
+      - riemann-net
+    depends_on:
+      - riemann-validation
+    restart: unless-stopped
+    command: ["node", "index.js"]
+    
+  riemann-jupyter:
+    build: .
+    container_name: riemann-jupyter-lab
+    ports:
+      - "8888:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    volumes:
+      - ./notebooks:/app/notebooks
+      - ./data:/app/data
+      - ./validation.ipynb:/app/validation.ipynb
+    networks:
+      - riemann-net
+    restart: unless-stopped
+    command: ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--token=riemann2024"]
+
+volumes:
+  validation-results:
+    driver: local
+
+networks:
+  riemann-net:
+    driver: bridge
