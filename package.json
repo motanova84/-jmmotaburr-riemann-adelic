@@ -1,19 +1,14 @@
 {
-  "name": "riemann-adelic",
+  "name": "riemann-static-viewer",
   "version": "1.0.0", 
-  "description": "The Definitive Proof of the Riemann Hypothesis - Adelic and Critical Line Verification",
-  "main": "index.js",
+  "description": "The Definitive Proof of the Riemann Hypothesis - Static Interactive Verification Dashboard",
+  "type": "module",
   "scripts": {
+    "build": "mkdir -p docs && cp riemann_viewer.html docs/index.html && cp -r data docs/",
+    "predeploy": "npm run build",
     "test": "python -m pytest tests/ -v",
     "validate": "python validate_explicit_formula.py",
-    "validate-full": "python validate_v5_coronacion.py",
-    "setup": "python setup_environment.py",
-    "demo": "python demo_critical_line.py",
-    "build": "python validate_repository.py",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "python-validate": "python validate_explicit_formula.py --max_primes 50 --max_zeros 50",
-    "python-demo": "python demo_critical_line.py"
+    "setup": "python setup_environment.py"
   },
   "repository": {
     "type": "git",
@@ -27,7 +22,8 @@
     "explicit-formula",
     "critical-line",
     "adelic",
-    "quantum-consciousness"
+    "static-webapp",
+    "github-pages"
   ],
   "author": "José Manuel Mota Burruezo <motanova84@gmail.com>",
   "contributors": [
@@ -40,24 +36,13 @@
   "bugs": {
     "url": "https://github.com/motanova84/-jmmotaburr-riemann-adelic/issues"
   },
-  "homepage": "https://github.com/motanova84/-jmmotaburr-riemann-adelic#readme",
-  "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "helmet": "^7.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1",
-    "concurrently": "^8.2.0"
-  },
+  "homepage": "https://motanova84.github.io/-jmmotaburr-riemann-adelic/",
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0",
     "python": ">=3.8.0"
   },
   "config": {
-    "precision": "30",
-    "max_zeros": "1000",
-    "max_primes": "1000"
+    "precision": "15",
+    "max_zeros": "100",
+    "max_primes": "100"
   }
 }

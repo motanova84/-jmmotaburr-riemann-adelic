@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Static Riemann Dashboard to GitHub Pages
 
 on:
   push:
@@ -31,73 +31,101 @@ jobs:
         with:
           enablement: true
         
-      - name: Create Pages content
+      - name: Create static site
         run: |
           mkdir -p _site
+          
+          # Copy main dashboard as index
           cp riemann_viewer.html _site/index.html
-          cp -r data _site/data || echo "No data directory found"
+          
+          # Copy data files
+          cp -r data _site/data || echo "No data directory, creating minimal structure"
+          [ ! -d "_site/data" ] && mkdir -p _site/data
+          
+          # Copy documentation
           cp README.md _site/README.md
           
-          # Create a simple index for easy navigation
+          # Create navigation page
           cat > _site/navigation.html << 'EOF'
           <!DOCTYPE html>
-          <html>
+          <html lang="en">
           <head>
-              <title>Riemann Hypothesis Verification</title>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Riemann Hypothesis Verification - Navigation</title>
               <style>
+                  * { margin: 0; padding: 0; box-sizing: border-box; }
                   body { 
-                      font-family: Arial, sans-serif; 
-                      max-width: 800px; 
-                      margin: 0 auto; 
-                      padding: 20px;
-                      background: #f5f5f5;
+                      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      min-height: 100vh; padding: 20px;
                   }
+                  .container { max-width: 800px; margin: 0 auto; }
                   .card {
-                      background: white;
-                      padding: 20px;
-                      border-radius: 10px;
-                      margin: 20px 0;
-                      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                      background: white; padding: 30px; border-radius: 15px;
+                      margin: 20px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
                   }
                   .btn {
-                      display: inline-block;
-                      padding: 10px 20px;
-                      background: #007bff;
-                      color: white;
-                      text-decoration: none;
-                      border-radius: 5px;
-                      margin: 10px 5px;
+                      display: inline-block; padding: 12px 24px; background: #007bff;
+                      color: white; text-decoration: none; border-radius: 8px;
+                      margin: 10px 10px 10px 0; transition: all 0.3s;
                   }
-                  .btn:hover { background: #0056b3; }
+                  .btn:hover { background: #0056b3; transform: translateY(-2px); }
+                  .btn.primary { background: #28a745; }
+                  .btn.primary:hover { background: #1e7e34; }
+                  h1 { color: #333; margin-bottom: 20px; }
+                  h2 { color: #555; margin: 20px 0 15px 0; }
+                  .status { color: #28a745; font-weight: bold; }
+                  ul { padding-left: 20px; margin: 10px 0; }
+                  li { margin: 5px 0; }
               </style>
           </head>
           <body>
-              <div class="card">
-                  <h1>🧮 Riemann Hypothesis Verification</h1>
-                  <p>Welcome to the interactive verification dashboard for the Riemann Hypothesis proof!</p>
-                  
-                  <h2>🚀 Quick Access</h2>
-                  <a href="index.html" class="btn">📊 Interactive Dashboard</a>
-                  <a href="data/mathematical_certificate.json" class="btn">📜 Mathematical Certificate</a>
-                  <a href="data/critical_line_verification.csv" class="btn">📈 Verification Data</a>
-                  
-                  <h2>📚 About This Proof</h2>
-                  <p>This repository contains the first complete, unconditional proof of the Riemann Hypothesis using S-finite adelic spectral systems.</p>
-                  
-                  <h2>🔬 Key Results</h2>
-                  <ul>
-                      <li>✅ All tested zeros verified on critical line Re(s) = 1/2</li>
-                      <li>✅ Mathematical validity confirmed with high precision</li>
-                      <li>✅ Axiomatic compliance: 100%</li>
-                      <li>✅ Statistical confidence: 100%</li>
-                  </ul>
-                  
-                  <p><strong>Author:</strong> José Manuel Mota Burruezo<br>
-                  <strong>Institute:</strong> Instituto Conciencia Cuántica (ICQ)</p>
+              <div class="container">
+                  <div class="card">
+                      <h1>🧮 Riemann Hypothesis Verification</h1>
+                      <p>Interactive dashboard for the first complete, unconditional proof of the Riemann Hypothesis using S-finite adelic spectral systems.</p>
+                      
+                      <h2>🚀 Quick Access</h2>
+                      <a href="index.html" class="btn primary">📊 Interactive Dashboard</a>
+                      <a href="data/mathematical_certificate.json" class="btn">📜 Mathematical Certificate</a>
+                      <a href="data/critical_line_verification.csv" class="btn">📈 Verification Data</a>
+                      <a href="README.md" class="btn">📚 Documentation</a>
+                      
+                      <h2>🔬 Key Features</h2>
+                      <ul>
+                          <li>✅ <strong>100% Static Application</strong> - Runs entirely in your browser</li>
+                          <li>✅ <strong>Real-time Validation</strong> - Client-side mathematical calculations</li>
+                          <li>✅ <strong>Interactive Controls</strong> - Adjust parameters and test functions</li>
+                          <li>✅ <strong>Multiple Test Functions</strong> - f1, f2, f3, and truncated Gaussian</li>
+                          <li>✅ <strong>GitHub Pages Ready</strong> - No server dependencies</li>
+                      </ul>
+                      
+                      <h2>📊 Validation Status</h2>
+                      <ul>
+                          <li><span class="status">✅ Mathematical Validity:</span> Confirmed</li>
+                          <li><span class="status">✅ Critical Line Verification:</span> All tested zeros on Re(s) = 1/2</li>
+                          <li><span class="status">✅ Axiomatic Compliance:</span> 100%</li>
+                          <li><span class="status">✅ Static Deployment:</span> Ready</li>
+                      </ul>
+                      
+                      <h2>👨‍🔬 About</h2>
+                      <p><strong>Author:</strong> José Manuel Mota Burruezo<br>
+                      <strong>Institute:</strong> Instituto Conciencia Cuántica (ICQ)<br>
+                      <strong>Approach:</strong> S-finite Adelic Spectral Systems<br>
+                      <strong>Implementation:</strong> Pure JavaScript mathematical engine</p>
+                  </div>
               </div>
           </body>
           </html>
           EOF
+          
+          # Ensure data files exist or create minimal versions
+          [ ! -f "_site/data/zeros_sample.json" ] && echo "[]" > _site/data/zeros_sample.json
+          [ ! -f "_site/data/primes_sample.json" ] && echo "[]" > _site/data/primes_sample.json
+          
+          echo "📁 Static site structure created:"
+          find _site -type f | head -20
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
