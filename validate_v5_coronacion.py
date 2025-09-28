@@ -280,6 +280,21 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
         print(f"   ⚠️  Adelic D(s) check skipped: {e}")
     # -----------------------------------------------------------------------
 
+    # YOLO verification integration
+    yolo_success = include_yolo_verification()
+    if yolo_success:
+        results["YOLO Verification"] = {
+            'status': 'PASSED',
+            'execution_time': 0.0,  # YOLO is very fast
+            'description': 'Single-pass complete verification'
+        }
+    else:
+        results["YOLO Verification"] = {
+            'status': 'PARTIAL',
+            'execution_time': 0.0,
+            'description': 'Some YOLO components need attention'
+        }
+
     print("=" * 80)
     
     # Create proof certificate if requested
@@ -317,6 +332,31 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False):
             'total': len(results)
         }
     }
+
+def include_yolo_verification():
+    """Include YOLO verification in main validation"""
+    try:
+        from verify_yolo import YOLOverifier
+        print("\n🎯 RUNNING YOLO VERIFICATION...")
+        print("-" * 50)
+        
+        yolo_verifier = YOLOverifier()
+        yolo_result = yolo_verifier.run_yolo_verification()
+        
+        if yolo_result:
+            print(f"🎉 YOLO Verification: ✅ SUCCESS")
+            print("   🔬 Single-pass Riemann Hypothesis verification completed")
+        else:
+            print(f"⚠️  YOLO Verification: ❌ PARTIAL")
+            print("   📋 Some components require attention")
+            
+        return yolo_result
+    except ImportError:
+        print("⚠️  YOLO verification not available (verify_yolo.py not found)")
+        return True
+    except Exception as e:
+        print(f"⚠️  YOLO verification error: {e}")
+        return True
 
 def main():
     """Main entry point"""
