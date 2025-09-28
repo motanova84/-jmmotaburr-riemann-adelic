@@ -18,6 +18,9 @@ import sympy as sp
 from scipy.linalg import schur, eigh
 from sympy import bernoulli, S, integrate, exp
 import matplotlib.pyplot as plt
+import os
+import sys
+import argparse
 from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3, A_infty
 
 # Reduce precision for faster computation
@@ -32,62 +35,104 @@ lim_u = 5.0
 
 def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
     """
-    Implementation of the Weil explicit formula integrated with Delta_S simulation.
+    Fixed implementation of the Weil explicit formula.
     
-    Formula: sum over zeros + archimedean integral = sum over primes + archimedean terms
+    Formula: sum over zeros f̂(ρ) + archimedean integral = sum over primes Λ(n)f(log n) + residue terms
     
     Args:
-        zeros: list of non-trivial zeros
-        primes: list of prime numbers
+        zeros: list of non-trivial zeros (will be loaded from file instead)
+        primes: list of prime numbers  
         f: test function (e.g., truncated_gaussian)
-        max_zeros: maximum number of zeros for Delta_S simulation
+        max_zeros: maximum number of zeros to use
         t_max: integration limit for archimedean integral
         precision: mpmath precision in decimal places
     
     Returns:
-        (error, relative_error, left_side, right_side, simulated_imag_parts)
+        (error, relative_error, left_side, right_side, actual_zeros_used)
     """
     mp.mp.dps = precision
     
-    # Simulate Delta_S with p-adic corrections
-    eigenvalues, simulated_imag_parts, _ = simulate_delta_s(max_zeros, precision, places=[2, 3, 5])
+    print("🔍 Debug explicit formula components:")
     
-    # Use simulated zeros instead of input zeros for better accuracy
-    # Take minimum to avoid index errors
-    num_zeros = min(len(zeros), len(simulated_imag_parts))
-    zero_sum = sum(f(mp.mpc(0, rho)) for rho in simulated_imag_parts[:num_zeros])
+    # Load actual zeros from file instead of using simulated ones
+    actual_zeros = []
+    zeros_file = "zeros/zeros_t1e8.txt"
+    try:
+        with open(zeros_file, 'r') as zeros_file_handle:
+            for i, line in enumerate(zeros_file_handle):
+                if i >= max_zeros:
+                    break
+                actual_zeros.append(float(line.strip()))
+        print(f"Loaded {len(actual_zeros)} zeros from file")
+    except FileNotFoundError:
+        print(f"Warning: {zeros_file} not found, using provided zeros")
+        actual_zeros = zeros[:max_zeros] if zeros else []
     
-    # Apply scaling factor only for larger problems
-    if max_zeros >= 50:
-        k = 22.3
-        scale_factor = k * (max_zeros / mp.log(max_zeros + mp.e))
-        zero_sum *= scale_factor
+    # LEFT SIDE: Sum over zeros using Mellin transform
+    zero_sum = mp.mpf('0')
+    for i, gamma in enumerate(actual_zeros):
+        # Non-trivial zero: ρ = 1/2 + i*γ
+        rho = mp.mpc(0.5, gamma) 
+        # Mellin transform: f̂(s) = ∫ f(u) u^(s-1) du, but we use e^(su) form
+        f_hat_rho = mellin_transform(f, rho - 1, 5.0)
+        zero_sum += f_hat_rho.real
+        if i < 3:  # Debug first few
+            print(f"  Zero γ={gamma}: f̂(ρ) = {f_hat_rho.real}")
+    print(f"Zero sum: {zero_sum}")
     
-    # Archimedean integral (approximation)
-    arch_sum = mp.quad(lambda t: f(mp.mpc(0, t)), [-t_max, t_max])
-    left_side = zero_sum + arch_sum
+    # LEFT SIDE: Archimedean contribution (much smaller integration range)
+    def arch_integrand(t):
+        s = mp.mpc(0.5, t)
+        f_hat_s = mellin_transform(f, s - 1, 5.0)
+        # Archimedean factor: d/ds[log(Gamma(s/2) * pi^(-s/2))] = (1/2)[psi(s/2) - log(pi)]
+        arch_kernel = 0.5 * (mp.digamma(s/2) - mp.log(mp.pi))
+        return (f_hat_s * arch_kernel).real
     
-    # Right side: suma sobre primos (using von Mangoldt)
-    von_mangoldt = {p**k: mp.log(p) for p in primes for k in range(1, 4)}  # Reduced range
-    prime_sum_val = sum(v * f(mp.log(n)) for n, v in von_mangoldt.items() if n <= max(primes)**3)
+    # Use much smaller integration range to prevent divergence
+    T_limit = min(10.0, t_max/5)  # Much more conservative
+    try:
+        arch_integral = mp.quad(arch_integrand, [-T_limit, T_limit], maxdegree=4)
+        arch_integral = arch_integral / (2 * mp.pi)  # Proper normalization
+    except:
+        arch_integral = mp.mpf('0')  # Fallback
+        print("Warning: Archimedean integral failed, using 0")
     
-    # Archimedean factor (simplified as per problem statement)
-    arch_factor = archimedean_term(1)  # Usar la función corregida
-    # Apply residual term only if singularity at s=1
-    residual_term = 0  # Remove singularity term for better numerical stability
-    right_side = prime_sum_val + arch_factor + residual_term
+    print(f"Archimedean integral: {arch_integral}")
+    left_side = zero_sum + arch_integral
+    
+    # RIGHT SIDE: Von Mangoldt sum over primes
+    prime_sum_val = mp.mpf('0')
+    prime_count = 0
+    for p in primes:
+        if prime_count >= 100:  # Limit for efficiency
+            break
+        log_p = mp.log(p)
+        # Include prime powers: Λ(p^k) = log(p) for prime powers
+        for k in range(1, min(4, int(50/p) + 1)):  # Adaptive limit
+            n = p**k 
+            if n > 1000:  # Don't go too high
+                break
+            contrib = log_p * f(k * log_p)
+            prime_sum_val += contrib
+            prime_count += 1
+            
+    print(f"Prime sum: {prime_sum_val}")
+    
+    # RIGHT SIDE: Residue term at s=1 pole
+    residue_term = f(0)  # f(log(1)) = f(0)
+    print(f"Residue term: {residue_term}")
+    
+    right_side = prime_sum_val + residue_term
 
     error = abs(left_side - right_side)
     relative_error = error / abs(right_side) if abs(right_side) > 0 else float('inf')
 
-    # Debug manual
-    print("🔍 Debug explicit formula")
     print(f"Left side (zeros+arch): {left_side}")
-    print(f"Right side (primes+arch): {right_side}")
+    print(f"Right side (primes+residue): {right_side}")
     print(f"Absolute error: {error}")
     print(f"Relative error: {relative_error}")
 
-    return error, relative_error, left_side, right_side, simulated_imag_parts
+    return error, relative_error, left_side, right_side, actual_zeros
 # --- Añadir funciones corregidas ---
 def fourier_gaussian(t, scale=1.0):
     # Fourier transform of exp(-scale * t^2)
@@ -452,20 +497,20 @@ if __name__ == "__main__":
             
             # Save results to CSV
             os.makedirs('data', exist_ok=True)
-            with open('data/validation_results.csv', 'w') as f:
-                f.write("parameter,value\n")
-                f.write(f"left_side,{str(left_side)}\n")
-                f.write(f"right_side,{str(right_side)}\n")
-                f.write(f"absolute_error,{str(error)}\n")
-                f.write(f"relative_error,{str(relative_error)}\n")
-                f.write(f"P,{P}\n")
-                f.write(f"K,{K}\n")
-                f.write(f"T,{T}\n")
-                f.write(f"max_zeros,{args.max_zeros}\n")
-                f.write(f"precision_dps,{args.precision_dps}\n")
-                f.write(f"test_function,{function_name}\n")
-                f.write(f"formula_type,weil\n")
-                f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
+            with open('data/validation_results.csv', 'w') as csv_file:
+                csv_file.write("parameter,value\n")
+                csv_file.write(f"left_side,{str(left_side)}\n")
+                csv_file.write(f"right_side,{str(right_side)}\n")
+                csv_file.write(f"absolute_error,{str(error)}\n")
+                csv_file.write(f"relative_error,{str(relative_error)}\n")
+                csv_file.write(f"P,{P}\n")
+                csv_file.write(f"K,{K}\n")
+                csv_file.write(f"T,{T}\n")
+                csv_file.write(f"max_zeros,{args.max_zeros}\n")
+                csv_file.write(f"precision_dps,{args.precision_dps}\n")
+                csv_file.write(f"test_function,{function_name}\n")
+                csv_file.write(f"formula_type,weil\n")
+                csv_file.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
         
         else:
             # Use original implementation
@@ -489,25 +534,28 @@ if __name__ == "__main__":
             
             # Save results to CSV
             os.makedirs('data', exist_ok=True)
-            with open('data/validation_results.csv', 'w') as f:
-                f.write("parameter,value\n")
-                f.write(f"arithmetic_side,{str(A)}\n")
-                f.write(f"zero_side,{str(Z)}\n")
-                f.write(f"absolute_error,{str(error)}\n")
-                f.write(f"relative_error,{str(relative_error)}\n")
-                f.write(f"P,{P}\n")
-                f.write(f"K,{K}\n")
-                f.write(f"T,{T}\n")
-                f.write(f"max_zeros,{args.max_zeros}\n")
-                f.write(f"precision_dps,{args.precision_dps}\n")
-                f.write(f"test_function,{function_name}\n")
-                f.write(f"formula_type,original\n")
-                f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
+            with open('data/validation_results.csv', 'w') as csv_file:
+                csv_file.write("parameter,value\n")
+                csv_file.write(f"arithmetic_side,{str(A)}\n")
+                csv_file.write(f"zero_side,{str(Z)}\n")
+                csv_file.write(f"absolute_error,{str(error)}\n")
+                csv_file.write(f"relative_error,{str(relative_error)}\n")
+                csv_file.write(f"P,{P}\n")
+                csv_file.write(f"K,{K}\n")
+                csv_file.write(f"T,{T}\n")
+                csv_file.write(f"max_zeros,{args.max_zeros}\n")
+                csv_file.write(f"precision_dps,{args.precision_dps}\n")
+                csv_file.write(f"test_function,{function_name}\n")
+                csv_file.write(f"formula_type,original\n")
+                csv_file.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
         
         print("📊 Results saved to data/validation_results.csv")
         
     except Exception as e:
+        import traceback
         print(f"❌ Error during computation: {e}")
+        print("Full traceback:")
+        traceback.print_exc()
         sys.exit(1)
 
 
@@ -517,8 +565,8 @@ if __name__ == "__main__":
         print("🧮 Running p-adic zeta function example...")
         
         # Load zeros
-        with open("zeros/zeros_t1e8.txt", "r") as f:
-            zeros = [float(line.strip()) for line in f][:200]
+        with open("zeros/zeros_t1e8.txt", "r") as zeros_file:
+            zeros = [float(line.strip()) for line in zeros_file][:200]
         
         primes = np.array([2, 3, 5, 7, 11, 13, 17][:100])
         f = lambda u: mp.exp(-u**2)
@@ -533,16 +581,16 @@ if __name__ == "__main__":
         
         # Save results
         os.makedirs("data", exist_ok=True)
-        with open("data/validation_results.csv", "w") as f:
-            f.write(f"relative_error,{rel_error}\n")
-            f.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
+        with open("data/validation_results.csv", "w") as csv_file:
+            csv_file.write(f"relative_error,{rel_error}\n")
+            csv_file.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
 
 # --- Bloque para garantizar salida CSV ---
 import os
 results_path = "data/validation_results.csv"
 if not os.path.exists(results_path):
-    with open(results_path, "w") as f:
-        f.write("test_function,formula_type,relative_error,validation_status\n")
+    with open(results_path, "w") as csv_file:
+        csv_file.write("test_function,formula_type,relative_error,validation_status\n")
         # No se conoce args aquí, así que se deja genérico
-        f.write(f"gaussian,weil,N/A,FAILED\n")
+        csv_file.write(f"gaussian,weil,N/A,FAILED\n")
 
