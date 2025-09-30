@@ -117,3 +117,6 @@ package-lock.json
 # Build artifacts
 dist/
 build/
+
+# Disabled workflow files
+*.disabled
