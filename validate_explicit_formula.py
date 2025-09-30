@@ -18,6 +18,9 @@ import sympy as sp
 from scipy.linalg import schur, eigh
 from sympy import bernoulli, S, integrate, exp
 import matplotlib.pyplot as plt
+import os
+import sys
+import argparse
 from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3, A_infty
 
 # Reduce precision for faster computation
@@ -502,20 +505,20 @@ if __name__ == "__main__":
             
             # Save results to CSV
             os.makedirs('data', exist_ok=True)
-            with open('data/validation_results.csv', 'w') as f:
-                f.write("parameter,value\n")
-                f.write(f"left_side,{str(left_side)}\n")
-                f.write(f"right_side,{str(right_side)}\n")
-                f.write(f"absolute_error,{str(error)}\n")
-                f.write(f"relative_error,{str(relative_error)}\n")
-                f.write(f"P,{P}\n")
-                f.write(f"K,{K}\n")
-                f.write(f"T,{T}\n")
-                f.write(f"max_zeros,{args.max_zeros}\n")
-                f.write(f"precision_dps,{args.precision_dps}\n")
-                f.write(f"test_function,{function_name}\n")
-                f.write(f"formula_type,weil\n")
-                f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
+            with open('data/validation_results.csv', 'w') as csv_file:
+                csv_file.write("parameter,value\n")
+                csv_file.write(f"left_side,{str(left_side)}\n")
+                csv_file.write(f"right_side,{str(right_side)}\n")
+                csv_file.write(f"absolute_error,{str(error)}\n")
+                csv_file.write(f"relative_error,{str(relative_error)}\n")
+                csv_file.write(f"P,{P}\n")
+                csv_file.write(f"K,{K}\n")
+                csv_file.write(f"T,{T}\n")
+                csv_file.write(f"max_zeros,{args.max_zeros}\n")
+                csv_file.write(f"precision_dps,{args.precision_dps}\n")
+                csv_file.write(f"test_function,{function_name}\n")
+                csv_file.write(f"formula_type,weil\n")
+                csv_file.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
         
         else:
             # Use original implementation
@@ -539,25 +542,28 @@ if __name__ == "__main__":
             
             # Save results to CSV
             os.makedirs('data', exist_ok=True)
-            with open('data/validation_results.csv', 'w') as f:
-                f.write("parameter,value\n")
-                f.write(f"arithmetic_side,{str(A)}\n")
-                f.write(f"zero_side,{str(Z)}\n")
-                f.write(f"absolute_error,{str(error)}\n")
-                f.write(f"relative_error,{str(relative_error)}\n")
-                f.write(f"P,{P}\n")
-                f.write(f"K,{K}\n")
-                f.write(f"T,{T}\n")
-                f.write(f"max_zeros,{args.max_zeros}\n")
-                f.write(f"precision_dps,{args.precision_dps}\n")
-                f.write(f"test_function,{function_name}\n")
-                f.write(f"formula_type,original\n")
-                f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
+            with open('data/validation_results.csv', 'w') as csv_file:
+                csv_file.write("parameter,value\n")
+                csv_file.write(f"arithmetic_side,{str(A)}\n")
+                csv_file.write(f"zero_side,{str(Z)}\n")
+                csv_file.write(f"absolute_error,{str(error)}\n")
+                csv_file.write(f"relative_error,{str(relative_error)}\n")
+                csv_file.write(f"P,{P}\n")
+                csv_file.write(f"K,{K}\n")
+                csv_file.write(f"T,{T}\n")
+                csv_file.write(f"max_zeros,{args.max_zeros}\n")
+                csv_file.write(f"precision_dps,{args.precision_dps}\n")
+                csv_file.write(f"test_function,{function_name}\n")
+                csv_file.write(f"formula_type,original\n")
+                csv_file.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
         
         print("📊 Results saved to data/validation_results.csv")
         
     except Exception as e:
+        import traceback
         print(f"❌ Error during computation: {e}")
+        print("Full traceback:")
+        traceback.print_exc()
         sys.exit(1)
 
 
@@ -567,8 +573,8 @@ if __name__ == "__main__":
         print("🧮 Running p-adic zeta function example...")
         
         # Load zeros
-        with open("zeros/zeros_t1e8.txt", "r") as f:
-            zeros = [float(line.strip()) for line in f][:200]
+        with open("zeros/zeros_t1e8.txt", "r") as zeros_file:
+            zeros = [float(line.strip()) for line in zeros_file][:200]
         
         primes = np.array([2, 3, 5, 7, 11, 13, 17][:100])
         f = lambda u: mp.exp(-u**2)
@@ -583,16 +589,16 @@ if __name__ == "__main__":
         
         # Save results
         os.makedirs("data", exist_ok=True)
-        with open("data/validation_results.csv", "w") as f:
-            f.write(f"relative_error,{rel_error}\n")
-            f.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
+        with open("data/validation_results.csv", "w") as csv_file:
+            csv_file.write(f"relative_error,{rel_error}\n")
+            csv_file.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
 
 # --- Bloque para garantizar salida CSV ---
 import os
 results_path = "data/validation_results.csv"
 if not os.path.exists(results_path):
-    with open(results_path, "w") as f:
-        f.write("test_function,formula_type,relative_error,validation_status\n")
+    with open(results_path, "w") as csv_file:
+        csv_file.write("test_function,formula_type,relative_error,validation_status\n")
         # No se conoce args aquí, así que se deja genérico
-        f.write(f"gaussian,weil,N/A,FAILED\n")
+        csv_file.write(f"gaussian,weil,N/A,FAILED\n")
 
