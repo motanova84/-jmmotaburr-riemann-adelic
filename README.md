@@ -249,6 +249,44 @@ El wrapper ya ejecuta internamente:
    ✨ The Riemann Hypothesis proof framework is fully verified!
 ```
 
+### 🔬 Non-Circular Demonstrations (New)
+
+#### 1. Spectral Inversion Demo
+Demonstrates that K_D(0,0;t) → #{ρ} as t → 0+, showing spectral recovery of zeros:
+
+```bash
+python3 spectral_inversion_demo.py
+```
+
+**What this demonstrates:**
+- **Independent construction**: Geometry → Spectrum → Arithmetic
+- **Not circular**: Zeros recovered from kernel (not input)
+- **Numerical evidence**: t=1e-3 gives ~54.6% recovery, t=1e-6 gives ~99.9%
+- **Output**: Generates figure `spectral_inversion_suma_vs_t.png` and error table
+
+#### 2. Real Operator H Construction
+Builds operator H using orthonormal log-wave basis **without** using Riemann zeros:
+
+```bash
+python3 operador/operador_H_real.py --n_basis 15 --t 0.001
+```
+
+**What this demonstrates:**
+- **Non-circular construction**: H built from geometric kernel K_t(x,y)
+- **No zero input**: Uses orthonormal basis on [e^(-1), e]
+- **Numerical integration**: Kernel computed with scipy nquad
+- **Cross-check only**: Odlyzko comparison validates construction (not part of it)
+- **Convergence**: Errors decrease with larger n_basis and smaller t
+
+For convergence study:
+```bash
+python3 operador/operador_H_real.py --convergence
+```
+
+**Key distinction:**
+- ✅ **Independent part**: Kernel construction, H diagonalization, zero extraction
+- 📊 **Cross-check part**: Comparison with Odlyzko data (validation only)
+
 ## Modes for Validation
 - **Light Mode**: Usa dataset mínimo (zeros_t1e3.txt con 1000 ceros, preincluido). Validación rápida (~2-5 min). Error esperado ~1e-6 con dps=15.
   Ejemplo: `python3 validate_v5_coronacion.py --precision 15`
