@@ -11,6 +11,7 @@ print("EXAMPLE 1: Using the diagnostic function as requested")
 print("=" * 70)
 print()
 
+# Import the diagnostic function for testing H operator positive definiteness
 from diagnostic_H_coercivity import test_H_positive_definite
 import numpy as np
 
