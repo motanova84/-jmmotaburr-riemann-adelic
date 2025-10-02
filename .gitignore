@@ -120,3 +120,6 @@ build/
 
 # Disabled workflow files
 *.disabled
+
+# Spectral framework demo images
+*_demo.png
