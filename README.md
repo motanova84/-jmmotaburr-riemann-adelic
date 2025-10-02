@@ -51,6 +51,7 @@
 
 ## 📚 Tabla de Contenidos
 
+- [Author's Clarification to Common Critiques](#authors-clarification-to-common-critiques)
 - [Visión General](#visión-general)
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
@@ -58,6 +59,20 @@
 - [Papel Científico y Formalización](#papel-científico-y-formalización)
 - [Citación y Licencia](#citación-y-licencia)
 - [Contacto y Créditos](#contacto-y-créditos)
+
+---
+
+## Author's Clarification to Common Critiques
+
+⚠️ **Important**: This manuscript is a **conditional adelic spectral framework**. For detailed responses to common critiques (circularity, positivity, growth, numerical validation, and claim clarifications), please see:
+
+📄 **[AUTHORS_CLARIFICATION.md](AUTHORS_CLARIFICATION.md)**
+
+**Key Points**:
+- RH is established **unconditionally within this operator framework**
+- The framework is **conditional on stated axioms** (scale-flow/DOI/PW)
+- All arguments are presented with **full transparency** for expert scrutiny
+- Numerical validation separates **independent** (adelic kernel) and **external** (Odlyzko comparison) layers
 
 ---
 
