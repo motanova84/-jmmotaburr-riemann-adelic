@@ -82,12 +82,25 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 ├── paper_standalone.tex   # 📄 Artículo principal completo y autocontenido
 ├── paper/                 # Versión modular del artículo (LaTeX)
 ├── docs/paper/            # Artículo científico completo alternativo (LaTeX)
+│   └── sections/
+│       └── resolucion_universal.tex  # 🆕 Resolución universal de RH
 ├── notebooks/             # Notebooks de validación y visualización
+├── spectral_RH/           # 🆕 Implementación del operador H
+│   ├── operador/
+│   │   └── operador_H_real.py  # Operador universal H en base log-wave
+│   └── README.md          # Documentación del operador H
+├── formalization/lean/    # Formalización Lean 4
+│   └── RiemannAdelic/
+│       ├── poisson_radon_symmetry.lean  # 🆕 Simetría Poisson-Radón
+│       ├── pw_two_lines.lean            # 🆕 Determinancia Paley-Wiener
+│       └── doi_positivity.lean          # 🆕 Positividad y línea crítica
 ├── utils/                 # Herramientas matemáticas y scripts
 ├── zeros/                 # Datos de ceros de Riemann (Odlyzko)
 ├── data/                  # Resultados y certificados numéricos
 ├── tests/                 # Tests unitarios y de integración
+│   └── test_cierre_minimo.py  # 🆕 Tests para cierre mínimo
 ├── validate_*.py          # Scripts de validación principales
+├── verify_cierre_minimo.py    # 🆕 Verificación del cierre mínimo
 └── README.md              # Este documento
 ```
 
@@ -98,6 +111,22 @@ El archivo **`paper_standalone.tex`** contiene la versión completa y autoconten
 - 5 apéndices (A: Derivación de A4, B: Schatten Bounds, C: Fórmula de Guinand, D: Scripts Lean4, E: Logs de Validación)
 - Referencias completas y estructura modular
 - Puede compilarse independientemente con: `pdflatex paper_standalone.tex`
+
+### 🆕 Cierre Mínimo: Resolución Universal
+
+La nueva implementación `spectral_RH/` demuestra la **construcción no circular** del operador H:
+
+1. **Geometría primero**: Operador universal A₀ = ½ + iZ sin referencia a ζ(s)
+2. **Simetría geométrica**: D(1-s) = D(s) por dualidad Poisson-Radón
+3. **Unicidad espectral**: D(s) ≡ Ξ(s) por determinancia Paley-Wiener
+4. **Aritmética al final**: Los primos emergen por inversión espectral
+
+**Verificación rápida**:
+```bash
+python verify_cierre_minimo.py
+```
+
+Ver [`spectral_RH/README.md`](spectral_RH/README.md) para detalles técnicos y [`docs/paper/sections/resolucion_universal.tex`](docs/paper/sections/resolucion_universal.tex) para el marco teórico completo.
 
 ## Instalación y Primeros Pasos
 
