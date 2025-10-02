@@ -120,3 +120,7 @@ build/
 
 # Disabled workflow files
 *.disabled
+
+# Generated visualization files (thermal kernel demo)
+eigenvalue_dist.png
+zero_comparison.png
