@@ -79,15 +79,25 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 
 ```plaintext
 .  # Raíz del proyecto
-├── docs/paper/           # Artículo científico completo (LaTeX)
-├── notebooks/            # Notebooks de validación y visualización
-├── utils/                # Herramientas matemáticas y scripts
-├── zeros/                # Datos de ceros de Riemann (Odlyzko)
-├── data/                 # Resultados y certificados numéricos
-├── tests/                # Tests unitarios y de integración
-├── validate_*.py         # Scripts de validación principales
-└── README.md             # Este documento
+├── paper_standalone.tex   # 📄 Artículo principal completo y autocontenido
+├── paper/                 # Versión modular del artículo (LaTeX)
+├── docs/paper/            # Artículo científico completo alternativo (LaTeX)
+├── notebooks/             # Notebooks de validación y visualización
+├── utils/                 # Herramientas matemáticas y scripts
+├── zeros/                 # Datos de ceros de Riemann (Odlyzko)
+├── data/                  # Resultados y certificados numéricos
+├── tests/                 # Tests unitarios y de integración
+├── validate_*.py          # Scripts de validación principales
+└── README.md              # Este documento
 ```
+
+### 📄 Documento Principal
+
+El archivo **`paper_standalone.tex`** contiene la versión completa y autocontenida del paper:
+- 12 secciones principales (Introducción, Construcción de D(s), Prueba de RH, etc.)
+- 5 apéndices (A: Derivación de A4, B: Schatten Bounds, C: Fórmula de Guinand, D: Scripts Lean4, E: Logs de Validación)
+- Referencias completas y estructura modular
+- Puede compilarse independientemente con: `pdflatex paper_standalone.tex`
 
 ## Instalación y Primeros Pasos
 
@@ -151,7 +161,9 @@ Los resultados completos y certificados se guardan en `data/validation_results.c
 
 ## Papel Científico y Formalización
 
-- Artículo completo en `docs/paper/main.tex` (estructura modular en `sections/`)
+- **Artículo principal (standalone)**: `paper_standalone.tex` - Versión completa y autocontenida del paper
+- Artículo completo modular en `paper/main.tex` (estructura modular en `sections/`)
+- Versión alternativa en `docs/paper/main.tex`
 - Formalización Lean 4 en `formalization/lean/`
 - Referencias a literatura clásica y moderna
 
