@@ -1,7 +1,26 @@
 #!/usr/bin/env python3
 """
-YOLO Verification Script for Riemann Hypothesis
-You Only Look Once - Single-Pass Verification Framework
+YOLO Verification Script for Riemann Hypothesis Framework
+You Only Look Once - Single-Pass Internal Consistency Check
+
+⚠️ CRITICAL DISCLAIMER:
+This is a YOLO (You Only Look Once) style verification that checks
+internal consistency of the framework in a single pass. However:
+
+1. TAUTOLOGICAL: Compares framework outputs with known zeta zeros
+2. CIRCULAR: Uses Odlyzko data which assumes RH for high zeros
+3. CONDITIONAL: Framework depends on prime structure (q_v = p^f)
+4. NOT A PROOF: Demonstrates consistency, not unconditional correctness
+
+This script is useful for:
+- Quick consistency checks during development
+- Verifying framework hasn't broken after code changes
+- Integration testing of components
+
+This script is NOT:
+- An independent proof of RH
+- A validation independent of arithmetic structure
+- A replacement for rigorous mathematical verification
 """
 import os
 import sys
