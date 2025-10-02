@@ -20,7 +20,7 @@ Referencias:
 """
 
 import mpmath as mp
-from typing import List, Tuple, Union, Optional
+from typing import List, Tuple, Union, Optional, Dict
 import numpy as np
 from scipy.linalg import eigh
 
@@ -321,6 +321,3 @@ def operator_H_demo(riemann_zeros: List[float],
         'comparison': comparison
     }
 
-
-# Importar Dict para el tipo de retorno
-from typing import Dict
