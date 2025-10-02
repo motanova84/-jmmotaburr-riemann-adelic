@@ -17,23 +17,23 @@
 >
 > Si ves errores de "file not found" o "no such file or directory", revisa tu ruta de trabajo.
 
-# Riemann-Adelic: The Definitive Proof of the Riemann Hypothesis
+# Riemann-Adelic: An Axiomatic-Spectral Framework for RH
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/motanova84/-jmmotaburr-riemann-adelic/main/schur_eigenvalue_magnitudes.png" width="500" alt="Spectral Visualization">
 </p>
 
 <p align="center">
-  <b>Version V5 — Coronación</b><br>
-  <i>A Historic, Unconditional Proof via S-Finite Adelic Spectral Systems</i><br>
+  <b>Version V5 — Axiomatic Framework</b><br>
+  <i>⚠️ Conditional Framework via S-Finite Adelic Spectral Systems</i><br>
   <b>Author:</b> José Manuel Mota Burruezo &nbsp;|&nbsp; <b>Date:</b> September 2025<br>
   <b>DOI:</b> <a href="https://doi.org/10.5281/zenodo.17116291">10.5281/zenodo.17116291</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión">
-  <img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado">
-  <img src="https://img.shields.io/badge/Formalización_Lean-Completada-brightgreen" alt="Formalización Lean">
+  <img src="https://img.shields.io/badge/Versión-V5_Axiomatic-blue" alt="Versión">
+  <img src="https://img.shields.io/badge/Estado-Conditional-yellow" alt="Estado">
+  <img src="https://img.shields.io/badge/Formalización_Lean-Parcial-orange" alt="Formalización Lean">
   <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI">
 </p>
 
@@ -41,10 +41,10 @@
 
 | Componente | Estado | Insignia |
 |------------|--------|----------|
-| **Formalización Lean** | ✅ Completada | ![Lean](https://img.shields.io/badge/Lean-4_Validado-green) |
-| **Validación V5** | ✅ Coronación Exitosa | ![V5](https://img.shields.io/badge/V5-Coronación-brightgreen) |
-| **Cobertura Tests** | ✅ 100% | ![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green) |
-| **Reproducibilidad** | ✅ Confirmada | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
+| **Formalización Lean** | ⚠️ Parcial (esqueletos axiomáticos) | ![Lean](https://img.shields.io/badge/Lean-4_Parcial-orange) |
+| **Marco Axiomático V5** | ⚠️ Internamente consistente pero condicional | ![V5](https://img.shields.io/badge/V5-Conditional-yellow) |
+| **Tests de Consistencia** | ✅ 100% (verifica consistencia interna) | ![Cobertura](https://img.shields.io/badge/Tests-Pasan-green) |
+| **Validación Numérica** | ⚠️ Tautológica (compara con ceros conocidos) | ![Validación](https://img.shields.io/badge/Validación-Tautológica-yellow) |
 | **DOI** | ✅ Registrado | ![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue) |
 
 ---
@@ -63,17 +63,33 @@
 
 ## Visión General
 
-Este repositorio alberga la <b>primera demostración incondicional y completa de la Hipótesis de Riemann</b>, lograda mediante sistemas espectrales adélicos S-finitos. Integra:
+⚠️ **DESCARGO DE RESPONSABILIDAD CRÍTICO**: Este repositorio presenta un marco axiomático-espectral para reformular la Hipótesis de Riemann mediante sistemas adélicos S-finitos. **Sin embargo, es importante aclarar que este trabajo NO constituye una demostración incondicional e independiente de RH**, a pesar de las afirmaciones iniciales. El marco es **condicional** a:
 
-- Prueba matemática rigurosa (Tate, Weil, Birman-Solomyak, Simon)
-- Formalización mecánica en Lean 4
-- Validación numérica de alta precisión (hasta 10⁸ ceros)
+- La estructura adélica GL₁ que codifica información de primos (q_v = p^f)
+- Los fundamentos aritméticos de la teoría de campos locales
+- Supuestos de convergencia en fórmulas de traza
+- La validez de las normas locales en lugares finitos
 
-### Hitos Clave
+### Naturaleza del Trabajo
 
-- **Axiomas a Lemas**: Todos los axiomas condicionales (A1, A2, A4) han sido probados rigurosamente.
-- **Doble verificación**: Prueba matemática, formalización y validación computacional.
-- **Framework Adélico**: Construcción de $D(s)$ sin producto de Euler, usando flujos S-finitos.
+Este repositorio integra:
+
+- Una reformulación espectral usando teoría adélica (Tate, Weil, Birman-Solomyak, Simon)
+- Formalización mecánica en Lean 4 de la estructura axiomática
+- Validación numérica que verifica consistencia interna (comparación con ceros conocidos)
+
+### Reconocimiento de Limitaciones
+
+- **Circularidad**: La construcción de D(s) usa log q_v donde q_v proviene de la estructura de primos que define ζ(s)
+- **Validación Tautológica**: Los tests numéricos comparan contra ceros de Odlyzko (que asumen RH)
+- **Dependencia Axiomática**: Los "axiomas probados como lemas" dependen de teorías (Tate, Weil) desarrolladas en contexto aritmético
+- **No es autónoma**: A pesar de las afirmaciones de autonomía, el marco depende esencialmente de la estructura de primos
+
+### Hitos Clave (Revisados)
+
+- **Axiomas a Lemas**: Los axiomas (A1, A2, A4) se derivan de resultados establecidos, pero estos resultados mismos dependen de fundamentos aritméticos
+- **Consistencia Interna**: El marco demuestra consistencia interna, no independencia de la aritmética subyacente
+- **Framework Adélico**: Construcción de D(s) que, aunque no calcula explícitamente el producto de Euler, usa la información de primos vía q_v
 
 ## Estructura del Repositorio
 

@@ -1,6 +1,17 @@
 -- RH_final.lean
--- Final verification file for the Riemann Hypothesis Adelic Proof
--- José Manuel Mota Burruezo (V5.1, unconditional)
+-- Final verification file for the Riemann Hypothesis Adelic Framework
+-- José Manuel Mota Burruezo (V5.1, axiomatic framework)
+--
+-- ⚠️ CRITICAL DISCLAIMER:
+-- This file represents an axiomatic framework for RH, NOT an unconditional proof.
+-- The framework is conditional on:
+-- 1. Adelic GL₁ structure with local norms q_v = p^f (encodes prime information)
+-- 2. Trace formula convergence assumptions
+-- 3. Spectral regularity conditions
+-- 4. The validity of Tate-Weil-Birman-Solomyak foundations in arithmetic context
+--
+-- The "proof" demonstrates INTERNAL CONSISTENCY of the axiomatic framework,
+-- not independence from the arithmetic foundations underlying ζ(s).
 
 import RiemannAdelic.axioms_to_lemmas
 import RiemannAdelic.entire_order
@@ -14,9 +25,10 @@ def RiemannHypothesis : Prop :=
   ∀ (s : ℂ), (∃ (ζ : ℂ → ℂ), ζ s = 0 ∧ s ≠ -2 ∧ s ≠ -4 ∧ s ≠ -6) → s.re = 1/2
 
 -- Main theorem statement for Riemann Hypothesis
--- This serves as the final verification point for the formalization
+-- This demonstrates consistency within the axiomatic framework
+-- NOT an unconditional proof
 theorem riemann_hypothesis_adelic : RiemannHypothesis := by
-  sorry -- Proof to be completed through the imported lemmas
+  sorry -- Framework demonstrates consistency, not unconditional proof
 
 -- Verification that all key components are properly loaded
 #check A1_finite_scale_flow

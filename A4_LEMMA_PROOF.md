@@ -1,14 +1,31 @@
 # A4 Lemma: Complete Proof via Tate, Weil, and Birman-Solomyak
 
+## ⚠️ Critical Disclaimer
+
+**Note on Circularity**: While this document claims that ℓ_v = log q_v derives "without requiring input from ζ(s)", it is important to acknowledge that:
+
+1. **Prime Dependence**: The values q_v are intrinsically tied to prime structure and local field norms, which are fundamental inputs to the Euler product representation of ζ(s).
+
+2. **Tate's Thesis Context**: Tate's thesis (1967), which provides the factorization lemma used here, was developed in the context of Hecke's zeta functions and explicitly uses local L-functions and their analytic properties.
+
+3. **Geometric vs Arithmetic**: While Weil's theory provides a "geometric" interpretation of orbit lengths, this geometry is itself defined over number fields where the local norms q_v = p^f are arithmetic invariants derived from the prime structure.
+
+4. **Conditional Nature**: This construction is conditional on:
+   - The validity of adelic GL₁ structures (which encode prime information)
+   - The existence of well-defined local norms at finite places
+   - The convergence properties assumed in the trace formulas
+
+**Interpretation**: The identification D ≡ Ξ relies on an axiomatic framework where the prime structure (encoded in q_v values) is a foundational input, not an emergent output. This should be understood as a **reformulation** rather than an **unconditional proof** independent of the arithmetic structure underlying ζ(s).
+
 ## Overview
 
-This document provides a complete proof of Axiom A4 (spectral regularity) as a proven lemma, combining three fundamental results from the theory of adelic systems, representation theory, and functional analysis.
+This document provides a proof of Axiom A4 (spectral regularity) as a lemma, combining three fundamental results from the theory of adelic systems, representation theory, and functional analysis.
 
-## Theorem A4 (Proven as Lemma)
+## Theorem A4 (Proven as Lemma - with Caveats)
 
-**Statement**: In the S-finite adelic system, the orbit length ℓ_v = log q_v derives geometrically from closed orbits, without requiring input from ζ(s).
+**Statement**: In the S-finite adelic system, the orbit length ℓ_v = log q_v derives geometrically from closed orbits within the adelic framework.
 
-**Significance**: This proof closes the gap in the identification D ≡ Ξ, making it non-tautological and unconditional.
+**Significance**: This proof demonstrates that within the adelic spectral framework, the identification D ≡ Ξ can be made consistently, though it relies on the underlying prime structure encoded in the q_v values.
 
 ## The Three Fundamental Lemmas
 
@@ -150,17 +167,20 @@ LaTeX documentation is available in:
 - `docs/teoremas_basicos/axiomas_a_lemas.tex`: Basic formulation
 - `docs/teoremas_basicos/coronacion_v5.tex`: Full proof in context of V5 coronation
 
-## Implications
+## Implications and Limitations
 
-This proof has several important implications:
+This proof demonstrates the internal consistency of the adelic spectral framework, but has important limitations:
 
-1. **Non-tautological**: The identification D ≡ Ξ no longer depends circularly on properties of ζ(s)
+1. **Axiomatic Framework**: The identification D ≡ Ξ is consistent within an axiomatic framework that includes:
+   - The adelic structure with local norms q_v at finite places
+   - The prime factorization structure (p, f) defining local fields
+   - Trace formula convergence assumptions
 
-2. **Unconditional**: The proof relies only on established results (Tate, Weil, Birman-Solomyak)
+2. **Conditional on Prime Structure**: While the proof uses established results (Tate, Weil, Birman-Solomyak), these results themselves are developed within arithmetic number theory where prime structure is fundamental.
 
-3. **Geometric**: The orbit lengths arise from geometry, not from analytic number theory
+3. **Geometric Interpretation**: The orbit lengths have a geometric interpretation via Weil's theory, but this geometry is defined over number fields where q_v = p^f encodes prime-theoretic information.
 
-4. **Complete**: This closes the gap in Step 1 of the V5 coronation proof
+4. **Consistency Check**: This provides a consistency check for the V5 framework, showing that the axioms are mutually compatible, rather than proving RH unconditionally from first principles.
 
 ## References
 
