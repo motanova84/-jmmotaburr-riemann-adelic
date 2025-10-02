@@ -34,7 +34,7 @@ jobs:
       - name: Create Pages content
         run: |
           mkdir -p _site
-          cp riemann_viewer.html _site/index.html
+          cp public/index.html _site/index.html
           cp -r data _site/data || echo "No data directory found"
           cp README.md _site/README.md
           
