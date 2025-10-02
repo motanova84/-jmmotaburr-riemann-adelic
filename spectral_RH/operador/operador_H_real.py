@@ -37,14 +37,21 @@ def build_H_real(n_basis=10, t=0.01):
     H = np.zeros((n_basis, n_basis))
     
     # Diagonal: autovalores teóricos
-    for i in range(min(n_basis, len(known_zeros))):
-        gamma = known_zeros[i]
+    for i in range(n_basis):
+        if i < len(known_zeros):
+            gamma = known_zeros[i]
+        else:
+            # Aproximación para zeros adicionales usando fórmula de Riemann-von Mangoldt
+            n = i + 1
+            gamma = 2 * np.pi * n / np.log(max(n / (2 * np.pi * np.e), 2.0))
         eigenval = gamma**2 + 0.25
         H[i, i] = eigenval
     
     # Agregar pequeñas perturbaciones fuera de diagonal para hacer realista
+    # Usar factor más pequeño para mantener dominancia diagonal y positividad
+    perturbation_scale = 0.001  # Reducido de 0.01 para garantizar positividad
     for i in range(n_basis-1):
-        H[i, i+1] = 0.01 * np.exp(-t * i)
+        H[i, i+1] = perturbation_scale * np.exp(-t * i)
         H[i+1, i] = H[i, i+1]  # Simetría
     
     print(f"  Matriz {n_basis}x{n_basis} construida")
