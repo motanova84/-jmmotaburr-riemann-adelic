@@ -282,7 +282,11 @@ def compare_with_odlyzko(extracted_gammas, max_compare=10):
     print()
     
     # Load Odlyzko zeros
-    odlyzko_file = "../zeros/zeros_t1e8.txt"
+    odlyzko_file = "zeros/zeros_t1e8.txt"  # Relative path from repository root
+    
+    # Try both relative and absolute paths
+    if not os.path.exists(odlyzko_file):
+        odlyzko_file = "../zeros/zeros_t1e8.txt"  # From operador/ subdirectory
     
     try:
         with open(odlyzko_file, 'r') as f:

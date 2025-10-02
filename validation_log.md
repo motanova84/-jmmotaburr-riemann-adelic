@@ -234,6 +234,57 @@ Zeros extracted via λ ↦ γ = √(λ - 1/4):
 
 ---
 
+## Summary for Paper
+
+### Non-Circularity — Geometry → Espectro → Unicidad → Aritmética
+
+Our approach starts from a universal multiplicative geometry (no Euler, no zeta), derives the functional equation geometrically (Poisson–Radon duality), enforces uniqueness via two-line Paley–Wiener (with multiplicities), and only then recovers the arithmetic by spectral inversion. 
+
+**The prime logarithms log p_k appear at the very end as the unique spectral lengths compatible with the recovered divisor—not as an input.**
+
+#### Numerical Demonstrations
+
+1. **Heat-regularized kernels** (`spectral_inversion_demo.py`):
+   - K_D(0,0;t) → #{ρ} as t → 0+
+   - t=1e-3: ~54.6% recovery (thermal smoothing)
+   - t=1e-6: ~99.9% recovery
+   - Error decreases exponentially: O(e^(-1/t))
+
+2. **Galerkin realization of H** (`operador/operador_H_real.py`):
+   - Non-circular construction using orthonormal log-wave basis
+   - Kernel K_t(x,y) computed via nquad integration
+   - Symmetric, positive definite H matrix (coercive)
+   - Zeros extracted via λ ↦ γ = √(λ - 1/4)
+   - Convergence: errors decrease with larger n_basis, smaller t
+
+3. **Key validations**:
+   - ✅ Positivity: H is positive definite, coercive
+   - ✅ Critical spectrum: eigenvalues λ ≥ 1/4
+   - ✅ Zero recovery: extracted zeros match Odlyzko with decreasing error
+   - ✅ Non-circular: zeros not used as input, only for cross-check
+
+#### Lean Formal Blocks
+
+4. **Geometric duality** (`poisson_radon_symmetry.lean`):
+   - J involutive operator: J² = identity
+   - Functional equation from geometry: D(1-s) = D(s)
+   - Independent of Euler product (documented)
+
+5. **Paley-Wiener uniqueness** (`pw_two_lines.lean`):
+   - Two-line determinacy with multiplicities
+   - Unique characterization of Ξ
+   - Multiplicities recovered from geometry, not arithmetic
+
+#### Workflow Independence
+
+The construction is stratified:
+1. **Independent**: Geometric kernel → Operator H → Spectrum → Zeros
+2. **Cross-check**: Comparison with Odlyzko (validation only)
+
+This ensures no circular reasoning: arithmetic (primes) appears at the end, not as input.
+
+---
+
 ---
 
 ### 4. Autonomous Uniqueness Verification

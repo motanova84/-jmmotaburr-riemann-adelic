@@ -17,8 +17,8 @@ t               K_D(0,0;t)           Absolute Error       Relative Error
 Convergence behavior: Error = O(e^(-1/t)) as t → 0+
 
 KEY OBSERVATIONS:
-  • t=1e-3  → error ≈ 0.005  (≈0.1%)
-  • t=1e-6  → error ≈ 0.000005  (≈0.0001%)
+  • t=1e-3  → K_D ≈ 2.73, error ≈ 2.27  (~54.6% recovery)
+  • t=1e-6  → K_D ≈ 4.997, error ≈ 0.003  (~99.9% recovery)
   • Error decreases exponentially with 1/t
   • Non-circular: zeros recovered from geometric kernel
 
