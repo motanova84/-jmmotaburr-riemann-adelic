@@ -367,13 +367,9 @@ This validation implements the construction from Section 2 of the paper:
 **Comparison on Critical Line**:
 | t | \|D(1/2+it)\| | \|Ξ(1/2+it)\| | Relative Error |
 |---|--------------|--------------|----------------|
-| 14.13 | 1.234567e-01 | 1.234560e-01 | 5.67e-06 |
-| 21.02 | 2.345678e-01 | 2.345670e-01 | 3.41e-06 |
-| 25.01 | 3.456789e-01 | 3.456780e-01 | 2.60e-06 |
-| 30.42 | 4.567890e-01 | 4.567880e-01 | 2.19e-06 |
-| 32.94 | 5.678901e-01 | 5.678890e-01 | 1.94e-06 |
+| (pending) | (pending) | (pending) | (pending) |
 
-**Note**: These are placeholder values. Run `python3 direct_D_computation.py` to generate actual results.
+**Note**: Results will appear here after running `python3 direct_D_computation.py`.
 
 #### Interpretation
 
