@@ -66,7 +66,7 @@ Q_5 (p=5, f=1)      1.609437912434100     1.609437912434100     0.00e+00
 Q_2^(2) (p=2, f=2)  1.386294361119891     1.386294361119891     0.00e+00
 ```
 
-**Conclusion**: A4 is proven as lemma, unconditional and zeta-free.
+**Conclusion**: A4 is proven as lemma from established adelic theory results, without circular dependence on global ζ properties.
 
 ---
 
@@ -335,7 +335,7 @@ jobs:
 
 ### Key Achievements
 
-1. **Unconditional A4**: Proven via Tate + Weil + Birman-Solomyak
+1. **A4 from Established Theory**: Proven via Tate + Weil + Birman-Solomyak
 2. **Rigorous Extension**: KSS estimates ensure S-finite → infinite
 3. **Zeta-Free**: Complete autonomy from ζ(s) and Ξ(s)
 4. **Numerically Verified**: Up to 10^8 zeros with < 1e-6 error

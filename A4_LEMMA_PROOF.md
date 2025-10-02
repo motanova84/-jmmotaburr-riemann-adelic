@@ -156,7 +156,7 @@ This proof has several important implications:
 
 1. **Non-tautological**: The identification D ≡ Ξ no longer depends circularly on properties of ζ(s)
 
-2. **Unconditional**: The proof relies only on established results (Tate, Weil, Birman-Solomyak)
+2. **Based on Established Results**: The proof relies only on established results (Tate, Weil, Birman-Solomyak) from adelic theory
 
 3. **Geometric**: The orbit lengths arise from geometry, not from analytic number theory
 

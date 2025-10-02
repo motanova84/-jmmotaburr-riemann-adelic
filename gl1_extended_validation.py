@@ -227,7 +227,7 @@ class GL1ExplicitKernel:
             'computation_method': 'Local field theory (Weil 1964)',
             'uses_zeta': False,
             'uses_euler_product': False,
-            'unconditional': True
+            'unconditional': True  # Note: This refers to A4 derivation from established theory
         }
 
 def run_comprehensive_validation(max_prime=10000):
@@ -311,7 +311,7 @@ def run_comprehensive_validation(max_prime=10000):
         print(f"✓ p={p}: ℓ_v = {result['ell_v']:.15e}")
         print(f"  Method: {result['computation_method']}")
         print(f"  Uses ζ(s): {result['uses_zeta']}")
-        print(f"  Unconditional: {result['unconditional']}")
+        print(f"  Based on established theory: {result['unconditional']}")
         
         if result['uses_zeta']:
             independence_verified = False
@@ -330,7 +330,7 @@ def run_comprehensive_validation(max_prime=10000):
         print("  • Independence from ζ(s) established")
         print("  • A4 is PROVEN as lemma (Tate + Weil + Birman-Solomyak)")
         print()
-        print("The identification D ≡ Ξ is unconditional and zeta-free.")
+        print("The identification D ≡ Ξ is non-tautological (no circular dependence on global ζ).")
         return 0
     else:
         print("❌ SOME VERIFICATIONS FAILED")
