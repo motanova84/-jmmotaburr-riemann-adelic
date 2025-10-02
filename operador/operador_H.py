@@ -181,43 +181,12 @@ def fourier_eigs_H(n_modes=5, h=1e-3, L=1.0):
 
 
 if __name__ == "__main__":
-    # Demonstration run
     h = 1e-3
     L = 1.0
-    
-    print("=" * 70)
-    print("GAUSSIAN KERNEL OPERATOR DEMONSTRATION")
-    print("=" * 70)
-    print(f"Parameters: h={h}, L={L}")
-    print()
-    
-    # Build R matrix via cosine basis quadrature
-    print("Building R_h matrix via cosine basis...")
-    R = build_R_matrix(n_basis=5, h=h, L=L, Nq=160)
-    print(f"  R shape: {R.shape}")
-    print(f"  R symmetric: {np.allclose(R, R.T)}")
-    print(f"  R eigenvalues: {np.linalg.eigvalsh(R)}")
-    print()
-    
-    # Extract H spectrum
-    print("Extracting H spectrum from R...")
-    lam_H, gammas = spectrum_from_R(R, h)
-    print(f"  Eigenvalues of H: {lam_H}")
-    print(f"  Estimated gammas: {gammas}")
-    print()
-    
-    # Compare with exact Fourier
-    print("Computing exact Fourier spectrum...")
-    lam_H_F, gammas_F = fourier_eigs_H(n_modes=5, h=h, L=L)
-    print(f"  Eigenvalues of H (Fourier): {lam_H_F}")
-    print(f"  Exact gammas (Fourier): {gammas_F}")
-    print()
-    
-    # Compute difference
-    diff = lam_H - lam_H_F
-    print("Difference (cosine - Fourier):")
-    print(f"  {diff}")
-    print(f"  Norm: {np.linalg.norm(diff):.3e}")
-    print()
-    print("=" * 70)
-    print("✓ Demonstration complete!")
+    n_modes = 10
+
+    eig_H, gammas = fourier_eigs_H(n_modes=n_modes, h=h, L=L)
+
+    print("=== Espectro del operador H en base Fourier ===")
+    for i, (lam, gamma) in enumerate(zip(eig_H, gammas)):
+        print(f"Modo {i}: λ = {lam:.6f}, γ = {gamma:.6f}")
