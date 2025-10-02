@@ -81,9 +81,12 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 .  # Raíz del proyecto
 ├── paper_standalone.tex   # 📄 Artículo principal completo y autocontenido
 ├── paper/                 # Versión modular del artículo (LaTeX)
-├── docs/paper/            # Artículo científico completo alternativo (LaTeX)
-│   └── sections/
-│       └── resolucion_universal.tex  # 🆕 Resolución universal de RH
+├── docs/
+│   ├── paper/            # Artículo científico completo alternativo (LaTeX)
+│   │   └── sections/
+│   │       └── resolucion_universal.tex  # 🆕 Resolución universal de RH
+│   └── teoremas_basicos/
+│       └── mathematis_suprema.tex  # 🆕 MATHEMATIS SUPREMA (Latin proof)
 ├── notebooks/             # Notebooks de validación y visualización
 ├── spectral_RH/           # 🆕 Implementación del operador H
 │   ├── operador/
@@ -111,6 +114,17 @@ El archivo **`paper_standalone.tex`** contiene la versión completa y autoconten
 - 5 apéndices (A: Derivación de A4, B: Schatten Bounds, C: Fórmula de Guinand, D: Scripts Lean4, E: Logs de Validación)
 - Referencias completas y estructura modular
 - Puede compilarse independientemente con: `pdflatex paper_standalone.tex`
+
+### 🆕 MATHEMATIS SUPREMA (Latin Proof)
+
+Nuevo documento **`docs/teoremas_basicos/mathematis_suprema.tex`** con la demostración completa en latín:
+- **Título**: LEX WEYL: δ-ε ABSOLUTUS EXPLICITUS - DEMONSTRATIO COMPLETA HYPOTHESIS RIEMANN
+- **8 Teoremas Fundamentales** con pruebas completas paso a paso
+- **Constantes explícitas** y cotas de error rigurosas
+- **Validación numérica** con datos de Odlyzko
+- **Sin circularidad**: prueba geométrica pura sin asumir propiedades de ζ(s)
+
+Ver [`docs/teoremas_basicos/MATHEMATIS_SUPREMA_README.md`](docs/teoremas_basicos/MATHEMATIS_SUPREMA_README.md) para detalles completos.
 
 ### 🆕 Cierre Mínimo: Resolución Universal
 
