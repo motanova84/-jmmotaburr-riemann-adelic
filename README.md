@@ -110,6 +110,18 @@ python setup_environment.py --full-setup
 python3 validate_v5_coronacion.py --precision 30
 ```
 
+### Verificación del Lema A4
+```bash
+python3 verify_a4_lemma.py
+```
+
+Este script verifica la demostración completa de A4 como lema, combinando:
+- **Lemma 1 (Tate)**: Conmutatividad y invarianza Haar
+- **Lemma 2 (Weil)**: Identificación de órbitas cerradas (ℓ_v = log q_v)
+- **Lemma 3 (Birman-Solomyak)**: Ligaduras para trazas y convergencia
+
+📖 Para detalles completos, ver: [`A4_LEMMA_PROOF.md`](A4_LEMMA_PROOF.md)
+
 ### Ejecución de notebook
 ```bash
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
