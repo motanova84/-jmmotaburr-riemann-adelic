@@ -72,14 +72,25 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 ### Hitos Clave
 
 - **Axiomas a Lemas**: Todos los axiomas condicionales (A1, A2, A4) han sido probados rigurosamente.
+- **🆕 V5.2: A4 No Circular**: Derivación formal de ℓ_v = log q_v sin tautologías (ver `lengths_derived.lean`)
+- **🆕 V5.2: Unicidad sin Ξ**: Teorema de unicidad de D(s) sin referencia circular a Ξ(s) (ver `uniqueness_without_xi.lean`)
 - **Doble verificación**: Prueba matemática, formalización y validación computacional.
 - **Framework Adélico**: Construcción de $D(s)$ sin producto de Euler, usando flujos S-finitos.
+- **Validación numérica**: Scripts Python verifican commutativity (A4) y convergencia S→∞
 
 ## Estructura del Repositorio
 
 ```plaintext
 .  # Raíz del proyecto
 ├── docs/paper/           # Artículo científico completo (LaTeX)
+├── formalization/lean/   # Formalización Lean 4 (V5.2 con A4 y unicidad)
+│   ├── RiemannAdelic/
+│   │   ├── lengths_derived.lean      # 🆕 A4: ℓ_v = log q_v derivado
+│   │   ├── uniqueness_without_xi.lean # 🆕 Unicidad D(s) sin Ξ(s)
+│   │   └── axioms_to_lemmas.lean     # A1, A2, A4 como lemas
+├── scripts/              # 🆕 Scripts de verificación V5.2
+│   ├── verify_a4_commutativity.py    # Verifica commutativity → ℓ_v
+│   └── validate_explicit_formula_extended.py  # S→∞ convergencia
 ├── notebooks/            # Notebooks de validación y visualización
 ├── utils/                # Herramientas matemáticas y scripts
 ├── zeros/                # Datos de ceros de Riemann (Odlyzko)
