@@ -41,7 +41,7 @@ def build_H_real(n_basis=10, t=0.01):
         if i < len(known_zeros):
             gamma = known_zeros[i]
         else:
-            # Aproximación para zeros adicionales usando fórmula de Riemann-von Mangoldt
+            # Aproximación para ceros adicionales usando fórmula de Riemann-von Mangoldt
             n = i + 1
             gamma = 2 * np.pi * n / np.log(max(n / (2 * np.pi * np.e), 2.0))
         eigenval = gamma**2 + 0.25
