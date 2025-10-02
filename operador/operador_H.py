@@ -19,6 +19,8 @@ then H = -(1/h) log(R_h / 2π) gives the Hamiltonian with spectrum ω² + 1/4.
 import numpy as np
 from numpy.polynomial.legendre import leggauss
 from numpy.linalg import eigh
+import mpmath as mp
+from sympy import prime
 
 
 def K_gauss(t, s, h):
@@ -40,6 +42,74 @@ def K_gauss(t, s, h):
         Kernel value K_h(t,s)
     """
     return np.exp(-h/4.0) * np.sqrt(np.pi / h) * np.exp(- (t - s)**2 / (4.0*h))
+
+
+def kernel_adelic_ultimus(t, s, h=1e-3, N=10):
+    """
+    Adelic thermal kernel with prime corrections.
+    
+    This function implements the full adelic kernel including:
+    - Base Gaussian kernel from heat operator
+    - Prime-power corrections from non-archimedean places
+    - Infinite tail approximation with validation
+    
+    Formula:
+        K(t,s) = K_gauss(t,s) + Σ_p Σ_k [correction terms]
+        
+    Where the correction terms include:
+    - log(p) * exp(-h*(k*log(p))²/4) / p^(k/2)
+    - cos(k*log(p)*(t-s)) modulation
+    
+    Args:
+        t: log-variable (mpmath number)
+        s: log-variable (mpmath number)
+        h: thermal parameter (default 1e-3)
+        N: controls prime cutoff via P = exp(sqrt(N))
+            NOTE: For the tail assertion to pass, N must be large enough
+            that max_k provides sufficient decay. For small primes like p=2,
+            this may require N > 1000. However, very large N can cause
+            overflow in primepi(). Typical working range: 50 < N < 500.
+    
+    Returns:
+        Kernel value K(t,s) with adelic corrections (mpmath number)
+        
+    Raises:
+        AssertionError: If the infinite tail estimate exceeds 1e-10,
+                       indicating insufficient convergence for the given parameters.
+    """
+    # Convert inputs to mpmath
+    t = mp.mpf(t)
+    s = mp.mpf(s)
+    h = mp.mpf(h)
+    N = mp.mpf(N)
+    
+    # Base Gaussian kernel
+    kernel = mp.exp(-h/4)/mp.sqrt(4*mp.pi*h) * mp.exp(-(t-s)**2/(4*h))
+    
+    # Prime cutoff
+    P = mp.exp(mp.sqrt(N))
+    num_primes = int(mp.primepi(P)) + 1
+    primes = [prime(i) for i in range(1, num_primes)]
+    log_primes = [mp.log(p) for p in primes]
+    
+    # Add prime corrections
+    for p, log_p in zip(primes, log_primes):
+        sum_k = mp.mpf(0)
+        max_k = int(mp.log(P)/log_p) + 1
+        
+        # Finite sum over k
+        for k in range(1, max_k):
+            term = log_p * mp.exp(-h*(k*log_p)**2/4) / (p**(k/2))
+            kernel += term * mp.cos(k*log_p*(t-s))
+        
+        # Infinite tail approximation
+        tail = log_p * mp.quad(lambda k: mp.exp(-h*(k*log_p)**2/4) / (p**(k/2)), [max_k, mp.inf])
+        kernel += tail * mp.cos(max_k*log_p*(t-s))  # Approx
+        
+        # Validate tail is sufficiently small
+        assert tail < 1e-10, f"Tail too large: {tail} for prime {p}"
+    
+    return kernel
 
 
 def cos_basis(t, L, k):
