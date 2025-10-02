@@ -79,16 +79,18 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 
 ```plaintext
 .  # Raíz del proyecto
-├── paper_standalone.tex   # 📄 Artículo principal completo y autocontenido
-├── paper/                 # Versión modular del artículo (LaTeX)
-├── docs/paper/            # Artículo científico completo alternativo (LaTeX)
-├── notebooks/             # Notebooks de validación y visualización
-├── utils/                 # Herramientas matemáticas y scripts
-├── zeros/                 # Datos de ceros de Riemann (Odlyzko)
-├── data/                  # Resultados y certificados numéricos
-├── tests/                 # Tests unitarios y de integración
-├── validate_*.py          # Scripts de validación principales
-└── README.md              # Este documento
+├── paper_standalone.tex          # 📄 Artículo principal completo y autocontenido
+├── thermal_kernel_spectral.py    # 🔬 Operador espectral con kernel gaussiano analítico
+├── paper/                        # Versión modular del artículo (LaTeX)
+├── docs/paper/                   # Artículo científico completo alternativo (LaTeX)
+├── notebooks/                    # Notebooks de validación y visualización
+├── utils/                        # Herramientas matemáticas y scripts
+├── zeros/                        # Datos de ceros de Riemann (Odlyzko)
+├── data/                         # Resultados y certificados numéricos
+├── tests/                        # Tests unitarios y de integración
+│   └── test_thermal_kernel.py   # Tests del operador térmico (21 tests)
+├── validate_*.py                 # Scripts de validación principales
+└── README.md                     # Este documento
 ```
 
 ### 📄 Documento Principal
@@ -98,6 +100,30 @@ El archivo **`paper_standalone.tex`** contiene la versión completa y autoconten
 - 5 apéndices (A: Derivación de A4, B: Schatten Bounds, C: Fórmula de Guinand, D: Scripts Lean4, E: Logs de Validación)
 - Referencias completas y estructura modular
 - Puede compilarse independientemente con: `pdflatex paper_standalone.tex`
+
+### 🔬 Thermal Kernel Spectral Operator (New Implementation)
+
+El archivo **`thermal_kernel_spectral.py`** implementa un enfoque analítico para el operador hamiltoniano H:
+- ✅ **Kernel gaussiano analítico**: `K_h(t,s) = e^(-h/4) * sqrt(π/h) * exp(-(t-s)²/(4h))`
+- ✅ **Sin integración oscilatoria**: fórmula cerrada en lugar de integrales numéricas complejas
+- ✅ **Construcción estable**: operador R_h simétrico y definido positivo
+- ✅ **Mapeo espectral**: `H = -(1/h)log(R_h/2π)` garantiza coercitividad
+- ✅ **Base de cosenos y Fourier**: implementaciones numéricas y exactas
+- ✅ **21 tests completamente validados**
+
+📖 Ver documentación completa: [`THERMAL_KERNEL_IMPLEMENTATION.md`](THERMAL_KERNEL_IMPLEMENTATION.md)
+
+**Uso rápido:**
+```python
+from thermal_kernel_spectral import build_H_operator, validate_spectral_construction
+
+# Construir operador H
+H, basis_info = build_H_operator(n_basis=10, t=0.001)
+print(f"Autovalores: {basis_info['eigenvalues']}")
+
+# Validación completa
+results = validate_spectral_construction(n_basis=10, t=0.001, verbose=True)
+```
 
 ## Instalación y Primeros Pasos
 
