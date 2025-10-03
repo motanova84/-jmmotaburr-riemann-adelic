@@ -1,6 +1,18 @@
 -- uniqueness_without_xi.lean
 -- Autonomous uniqueness derivation for D(s) without reference to Ξ(s)
 -- Using Paley-Wiener theory and internal conditions only
+--
+-- ⚠️ CRITICAL DISCLAIMER:
+-- This file explores uniqueness conditions for D(s) using internal properties.
+-- However, the construction of D(s) itself relies on:
+-- 1. Adelic structure with local norms q_v = p^f (encoding prime information)
+-- 2. Orbit lengths ℓ_v = log q_v (derived from prime structure)
+-- 3. Trace formula convergence (assuming arithmetic properties)
+--
+-- Therefore, while D(s) can be characterized by internal conditions,
+-- its definition is NOT independent of the arithmetic structure underlying ζ(s).
+-- This should be understood as exploring consistency within an axiomatic framework
+-- rather than proving RH unconditionally.
 
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Analysis.Fourier.FourierTransform
@@ -102,13 +114,17 @@ axiom D_spectral_self_consistency :
   spectral_measure_D {z : ℂ | D z = 0} = 
   spectral_measure_D {z : ℂ | z.re = 1/2}
 
-/-- D(s) satisfies its own trace formula (without ζ) -/
+/-- D(s) satisfies its own trace formula -/
+-- ⚠️ NOTE: While this trace formula doesn't explicitly compute ζ(s),
+-- the orbit lengths L(n) = log q_v encode prime structure that defines ζ(s).
+-- This is NOT independent of ζ(s) arithmetic foundations.
 theorem D_autonomous_trace_formula :
-  ∃ (L : ℕ → ℝ),  -- Orbit lengths
+  ∃ (L : ℕ → ℝ),  -- Orbit lengths (derived from q_v = p^f)
   ∀ s : ℂ, s.re > 1 →
   Complex.log (D s) = -∑' n, Real.exp (-L n * s.re) / (L n) := by
-  -- This trace formula is derived purely from D's spectral structure
-  -- No reference to ζ(s) needed
+  -- This trace formula uses orbit lengths from adelic structure
+  -- But L(n) = log q_v where q_v encodes prime information
+  -- Therefore this is conditional on prime structure, not autonomous
   sorry
 
 -- ============================================================================

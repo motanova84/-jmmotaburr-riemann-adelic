@@ -138,34 +138,43 @@ RESULTADO FINAL: ✓ TODAS LAS VERIFICACIONES PASARON
 - `formalization/lean/axiomas_a_lemas.lean` - Enhanced proof outline
 - `README.md` - Added verification section
 
-## Key Features
+## Key Features and Limitations
 
-1. **Unconditional Proof**: A4 is now proven without circular dependencies
-2. **Non-tautological**: ℓ_v = log q_v derived geometrically, not from ζ(s)
-3. **Numerically Verified**: Multiple test cases with 30-digit precision
+1. **Axiomatic Framework**: A4 is proven within an axiomatic framework that includes prime structure
+2. **Consistency Check**: ℓ_v = log q_v is shown to be internally consistent, with q_v depending on primes
+3. **Numerically Verified**: Multiple test cases with 30-digit precision confirm internal consistency
 4. **Well-Documented**: Comprehensive documentation in multiple formats
 5. **Formally Verified**: Lean 4 proof sketches with detailed outlines
 6. **Test Coverage**: 7 comprehensive tests, all passing
 
-## Mathematical Significance
+**Important Caveat**: The claim of being "non-tautological" requires qualification - while the construction doesn't explicitly compute ζ(s) zeros, it does rely on the prime structure (q_v = p^f) which is fundamental to ζ(s) via the Euler product.
 
-This implementation closes a critical gap in the V5 coronation proof:
+## Mathematical Significance and Limitations
 
-1. **Tate's Lemma** provides the correct factorization of the adelic structure
-2. **Weil's Lemma** identifies orbit lengths geometrically as ℓ_v = log q_v
-3. **Birman-Solomyak's Lemma** guarantees spectral regularity
+This implementation demonstrates internal consistency of the V5 framework:
 
-Combined, these three established results prove A4 unconditionally, allowing the identification D ≡ Ξ without tautology.
+1. **Tate's Lemma** provides the correct factorization of the adelic structure (developed in context of local L-functions)
+2. **Weil's Lemma** identifies orbit lengths geometrically as ℓ_v = log q_v (where q_v encodes prime structure)
+3. **Birman-Solomyak's Lemma** guarantees spectral regularity (under trace convergence assumptions)
+
+**Critical Note**: These results are established within arithmetic number theory where prime structure is fundamental. The identification D ≡ Ξ demonstrates consistency within this framework rather than proving RH independently of arithmetic foundations.
 
 ## Conclusion
 
-The implementation successfully addresses all requirements from the problem statement:
-- ✓ Combines the three fundamental lemmas
-- ✓ Proves A4 as an unconditional lemma
-- ✓ Demonstrates ℓ_v = log q_v geometrically
-- ✓ Shows independence from ζ(s)
-- ✓ Provides numerical verification
-- ✓ Includes comprehensive documentation
-- ✓ Updates formal verification files
+The implementation demonstrates internal consistency of the axiomatic framework:
+- ✓ Combines the three fundamental lemmas (Tate, Weil, Birman-Solomyak)
+- ✓ Shows A4 follows from these established results
+- ✓ Demonstrates ℓ_v = log q_v within the adelic structure
+- ✓ Verifies numerical consistency with the framework
+- ✓ Provides comprehensive documentation
+- ✓ Includes formal verification outlines
 
-The identification D ≡ Ξ is now non-tautological and the V5 coronation proof is strengthened.
+**Critical Assessment**: While the construction is internally consistent, it is **conditional on**:
+- The adelic GL₁ structure (encoding prime information via q_v)
+- The validity of local field theory and norms
+- Trace formula convergence assumptions
+- The arithmetic foundations where primes are fundamental
+
+The identification D ≡ Ξ should be understood as demonstrating **consistency within an axiomatic framework** rather than an **unconditional proof** independent of the arithmetic structure underlying the Riemann zeta function.
+
+This represents progress in reformulating RH within a spectral-theoretic framework, but does not constitute a closed, unconditional proof as initially claimed.

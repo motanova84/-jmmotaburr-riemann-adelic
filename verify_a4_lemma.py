@@ -7,15 +7,24 @@ Combinando los lemas:
 - De Weil: Identificación de órbitas cerradas
 - De Birman-Solomyak: Ligaduras para trazas y convergencia
 
-Por lo tanto, A4 se reduce a estos resultados establecidos, haciendo la propuesta incondicional.
+Por lo tanto, A4 se reduce a estos resultados establecidos, haciendo la propuesta 
+consistente dentro del marco axiomático.
 
 Teorema A4 (Lema Probado): En el sistema S-finito, ℓ_v = log q_v deriva geométricamente 
-de órbitas cerradas, sin input de ζ(s).
+de órbitas cerradas dentro del marco adélico.
+
+⚠️ DISCLAIMER CRÍTICO:
+Este script verifica la consistencia interna del marco, pero no constituye una 
+demostración incondicional e independiente de la estructura aritmética:
+
+1. Los valores q_v = p^f dependen intrínsecamente de la estructura de primos
+2. La teoría de Tate se desarrolló en el contexto de funciones L locales  
+3. La "independencia" de ζ(s) es relativa - no se calcula ζ(s) directamente,
+   pero sí se usa la estructura de primos que define ζ(s) via producto de Euler
+4. Esto demuestra CONSISTENCIA AXIOMÁTICA, no independencia de fundamentos aritméticos
 
 Prueba: Por Lemma 1 (conmutatividad), Lemma 2 (identificación), y Lemma 3 (estabilidad), 
-la longitud es exactamente log q_v.
-
-Esto cierra la brecha, permitiendo la identificación D ≡ Ξ sin tautología.
+la longitud es exactamente log q_v dentro del marco adélico.
 """
 
 from mpmath import mp, log
@@ -113,21 +122,32 @@ def verify_a4_theorem():
     Teorema A4: Combinando los tres lemas
     
     Por Lemma 1 (Tate), Lemma 2 (Weil), y Lemma 3 (Birman-Solomyak),
-    la longitud de órbita ℓ_v es exactamente log q_v, sin depender de ζ(s).
+    la longitud de órbita ℓ_v es exactamente log q_v dentro del marco adélico.
+    
+    IMPORTANTE: Esto demuestra consistencia axiomática, no independencia 
+    de la estructura aritmética subyacente.
     """
     print("\n" + "="*70)
-    print("Teorema A4 (Lema Probado)")
+    print("Teorema A4 (Lema Probado - Con Advertencias)")
     print("="*70)
     print("En el sistema S-finito, ℓ_v = log q_v deriva geométricamente")
-    print("de órbitas cerradas, sin input de ζ(s).")
+    print("de órbitas cerradas dentro del marco adélico.")
     print("")
     print("Prueba:")
     print("  • Por Lemma 1 (Tate): La estructura adélica factoriza correctamente")
+    print("    (desarrollado en contexto de funciones L locales)")
     print("  • Por Lemma 2 (Weil): Las órbitas se identifican con longitudes log q_v")
+    print("    (donde q_v = p^f codifica estructura de primos)")
     print("  • Por Lemma 3 (Birman-Solomyak): La regularidad espectral está garantizada")
+    print("    (bajo supuestos de convergencia)")
     print("")
-    print("Por lo tanto, ℓ_v = log q_v está demostrado incondicionalmente.")
-    print("Esto cierra la brecha, permitiendo la identificación D ≡ Ξ sin tautología.")
+    print("ADVERTENCIA: Esta demostración es CONDICIONAL a:")
+    print("  • La estructura adélica GL₁ (que codifica información de primos)")
+    print("  • La validez de normas locales en lugares finitos (q_v = p^f)")
+    print("  • Supuestos de convergencia en fórmulas de traza")
+    print("")
+    print("Por lo tanto, ℓ_v = log q_v está demostrado dentro del marco axiomático.")
+    print("Esto demuestra CONSISTENCIA INTERNA, no independencia de la aritmética.")
     print("="*70)
 
 
@@ -206,12 +226,19 @@ def main():
     print("="*70)
     
     if all_passed and son_iguales:
-        print("✓ TODAS LAS VERIFICACIONES PASARON")
-        print("\nA4 está COMPLETAMENTE DEMOSTRADO como lema, combinando:")
+        print("✓ TODAS LAS VERIFICACIONES DE CONSISTENCIA PASARON")
+        print("\nA4 está demostrado como consistente dentro del marco axiomático:")
         print("  • Lemma 1 (Tate): Conmutatividad y invarianza Haar")
         print("  • Lemma 2 (Weil): Identificación de órbitas cerradas")
         print("  • Lemma 3 (Birman-Solomyak): Ligaduras para trazas")
-        print("\nLa identificación D ≡ Ξ es ahora incondicional y sin tautología.")
+        print("")
+        print("⚠️ IMPORTANTE: Este resultado es CONDICIONAL a:")
+        print("  • La estructura adélica que codifica información de primos (q_v)")
+        print("  • Los fundamentos aritméticos de la teoría de campos locales")
+        print("  • Los supuestos de convergencia en las fórmulas de traza")
+        print("")
+        print("La identificación D ≡ Ξ es internamente consistente dentro de este marco,")
+        print("pero NO constituye una demostración incondicional e independiente de RH.")
         return 0
     else:
         print("✗ ALGUNAS VERIFICACIONES FALLARON")

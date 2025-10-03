@@ -1,24 +1,40 @@
 #!/usr/bin/env python3
 """
-V5 Coronación Validation Script
+V5 "Coronación" Validation Script
 
-This script validates the complete V5 "Coronación" proof of the Riemann Hypothesis
-by running the comprehensive 5-step verification framework.
+⚠️ CRITICAL DISCLAIMER - TAUTOLOGICAL VALIDATION:
+This script validates internal consistency of the V5 framework, but it is
+important to acknowledge the tautological nature of the validation:
 
-Usage:
-    python validate_v5_coronacion.py [--precision DPS] [--verbose] [--save-certificate]
-    
-The script performs:
-1. Step 1: Axioms → Lemmas verification  
+1. CIRCULAR VALIDATION: The script compares computed zeros against known 
+   zeta zeros (Odlyzko data), which means we're checking that our framework
+   reproduces known ζ(s) zeros. This validates CONSISTENCY, not correctness.
+
+2. ASSUMES WHAT IT PROVES: For high zeros, Odlyzko's computations assume RH
+   for computational efficiency. Using this data to "validate" RH is circular.
+
+3. CONDITIONAL FRAMEWORK: The entire framework depends on:
+   - Adelic GL₁ structure (encoding prime information via q_v)
+   - Orbit lengths ℓ_v = log q_v (prime-dependent)
+   - Trace formula convergence assumptions
+   
+4. NOT A PROOF: This validation demonstrates internal consistency within the
+   axiomatic framework, NOT an independent proof of RH.
+
+This script performs:
+1. Step 1: Axioms → Lemmas verification (conditional on arithmetic structure)
 2. Step 2: Archimedean rigidity double derivation
 3. Step 3: Paley-Wiener uniqueness identification
 4. Step 4: Zero localization (de Branges + Weil-Guinand)
-5. Step 5: Complete coronación integration
+5. Step 5: Complete framework integration check
+
+Usage:
+    python validate_v5_coronacion.py [--precision DPS] [--verbose] [--save-certificate]
 
 Outputs:
-- Comprehensive validation report
-- Mathematical proof certificate (if --save-certificate)
-- Integration with existing explicit formula validation
+- Internal consistency validation report
+- Framework consistency certificate (if --save-certificate)
+- Comparison with known zeta zeros (tautological check)
 """
 
 import argparse
@@ -41,27 +57,34 @@ def setup_precision(dps):
 
 def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False, max_zeros=1000, max_primes=1000):
     """
-    Main V5 Coronación validation function
+    V5 Framework Internal Consistency Validation
+    
+    ⚠️ IMPORTANT: This validates INTERNAL CONSISTENCY, not unconditional correctness.
     
     Args:
         precision: Decimal precision for computations
         verbose: Print detailed progress information
-        save_certificate: Save mathematical proof certificate to file
+        save_certificate: Save consistency certificate to file
         max_zeros: Maximum number of zeros to use in validation
         max_primes: Maximum number of primes to use in validation
         
     Returns:
-        dict: Validation results and proof certificate
+        dict: Validation results and consistency certificate
     """
     setup_precision(precision)
     
     print("=" * 80)
-    print("🏆 V5 CORONACIÓN: COMPLETE RIEMANN HYPOTHESIS PROOF VALIDATION")
+    print("🔍 V5 FRAMEWORK: INTERNAL CONSISTENCY VALIDATION")
+    print("⚠️  NOT AN UNCONDITIONAL PROOF - CHECKING FRAMEWORK CONSISTENCY")
     print("=" * 80)
     print(f"Timestamp: {datetime.now().isoformat()}")
     print(f"Precision: {precision} decimal places")
-    print(f"Max zeros: {max_zeros}")
-    print(f"Max primes: {max_primes}")
+    print(f"Max zeros: {max_zeros} (compared with known zeta zeros - tautological)")
+    print(f"Max primes: {max_primes} (q_v = p^f encodes prime structure)")
+    print()
+    print("⚠️  This validation checks that the framework is internally consistent,")
+    print("    NOT that it provides an unconditional proof of RH independent of")
+    print("    the arithmetic structure underlying ζ(s).")
     print()
     
     # Import our test framework
