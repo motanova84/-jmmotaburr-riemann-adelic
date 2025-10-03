@@ -7,6 +7,7 @@ the closed-form Gaussian kernel instead of oscillatory integration.
 
 from .operador_H import (
     K_gauss,
+    kernel_adelic_ultimus,
     cos_basis,
     build_R_matrix,
     spectrum_from_R,
@@ -15,6 +16,7 @@ from .operador_H import (
 
 __all__ = [
     'K_gauss',
+    'kernel_adelic_ultimus',
     'cos_basis',
     'build_R_matrix',
     'spectrum_from_R',
