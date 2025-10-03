@@ -8,7 +8,7 @@ This document provides a complete proof of Axiom A4 (spectral regularity) as a p
 
 **Statement**: In the S-finite adelic system, the orbit length ℓ_v = log q_v derives geometrically from closed orbits, without requiring input from ζ(s).
 
-**Significance**: This proof closes the gap in the identification D ≡ Ξ, making it non-tautological and unconditional.
+**Significance**: This proof closes the gap in the identification D ≡ Ξ, making the derivation of ℓ_v = log q_v non-tautological (i.e., it does not depend on global ζ properties).
 
 ## The Three Fundamental Lemmas
 
@@ -82,7 +82,7 @@ where q_v is the local norm.
 - Geometric identification of orbit lengths (Weil)
 - Spectral regularity (Birman-Solomyak)
 
-Therefore, A4 is proven unconditionally. The identification D ≡ Ξ can now be made without tautology.
+Therefore, A4 is proven from established results in adelic theory. The identification D ≡ Ξ can now be made without circular dependence on global ζ properties.
 
 ∎
 
@@ -156,7 +156,7 @@ This proof has several important implications:
 
 1. **Non-tautological**: The identification D ≡ Ξ no longer depends circularly on properties of ζ(s)
 
-2. **Unconditional**: The proof relies only on established results (Tate, Weil, Birman-Solomyak)
+2. **Based on Established Results**: The proof relies only on established results (Tate, Weil, Birman-Solomyak) from adelic theory
 
 3. **Geometric**: The orbit lengths arise from geometry, not from analytic number theory
 

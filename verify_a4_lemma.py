@@ -7,7 +7,8 @@ Combinando los lemas:
 - De Weil: Identificación de órbitas cerradas
 - De Birman-Solomyak: Ligaduras para trazas y convergencia
 
-Por lo tanto, A4 se reduce a estos resultados establecidos, haciendo la propuesta incondicional.
+Por lo tanto, A4 se reduce a estos resultados establecidos, haciendo la derivación de ℓ_v = log q_v 
+basada en teoría adélica establecida, sin depender circularmente de propiedades globales de ζ(s).
 
 Teorema A4 (Lema Probado): En el sistema S-finito, ℓ_v = log q_v deriva geométricamente 
 de órbitas cerradas, sin input de ζ(s).
@@ -126,7 +127,8 @@ def verify_a4_theorem():
     print("  • Por Lemma 2 (Weil): Las órbitas se identifican con longitudes log q_v")
     print("  • Por Lemma 3 (Birman-Solomyak): La regularidad espectral está garantizada")
     print("")
-    print("Por lo tanto, ℓ_v = log q_v está demostrado incondicionalmente.")
+    print("Por lo tanto, ℓ_v = log q_v está demostrado desde resultados establecidos")
+    print("en teoría adélica, sin depender circularmente de propiedades globales de ζ(s).")
     print("Esto cierra la brecha, permitiendo la identificación D ≡ Ξ sin tautología.")
     print("="*70)
 
@@ -211,7 +213,8 @@ def main():
         print("  • Lemma 1 (Tate): Conmutatividad y invarianza Haar")
         print("  • Lemma 2 (Weil): Identificación de órbitas cerradas")
         print("  • Lemma 3 (Birman-Solomyak): Ligaduras para trazas")
-        print("\nLa identificación D ≡ Ξ es ahora incondicional y sin tautología.")
+        print("\nLa identificación D ≡ Ξ es ahora no-tautológica (no depende circularmente")
+        print("de propiedades globales de ζ) y está lista para verificación experta.")
         return 0
     else:
         print("✗ ALGUNAS VERIFICACIONES FALLARON")
