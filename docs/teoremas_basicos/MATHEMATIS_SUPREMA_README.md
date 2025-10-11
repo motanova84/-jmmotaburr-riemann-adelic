@@ -113,7 +113,7 @@ N_D(T) = (T/2π) log(T/2π) - T/2π + 7/8 + 1/(πT) + ζ(3)/(2π²T²) + O(1/T³
 
 ### Convergence Bound
 ```
-|γ_n^(N) - γ_n| ≤ (e^(-h/4))/(2γ_n√(4πh)) · e^(-π√(N/log N)/2)
+|γ_n^(N) - γ_n| ≤ (e^(-h/4))/(2γ_n√(4πh)) · e^{-πN/(2 \log N)}
 ```
 
 ### Critical Line Localization
