@@ -117,7 +117,7 @@ N_D(T) = (T/2π) log(T/2π) - T/2π + 7/8 + 1/(πT) + ζ(3)/(2π²T²) + O(1/T³
 ```
 
 ### Critical Line Localization
-All zeros satisfy: **Re(s) = 1/2**
+All non-trivial zeros satisfy: **Re(s) = 1/2**
 
 ## Validation Status
 
