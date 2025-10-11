@@ -101,7 +101,7 @@ pdflatex mathematis_suprema_standalone.tex  # Second pass for references
 The main content file can be included in other LaTeX documents:
 
 ```latex
-\input{mathematis_suprema}
+\input{docs/teoremas_basicos/mathematis_suprema}
 ```
 
 ## Key Mathematical Results
