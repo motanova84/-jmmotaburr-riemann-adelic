@@ -86,7 +86,8 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 │   │   └── sections/
 │   │       └── resolucion_universal.tex  # 🆕 Resolución universal de RH
 │   └── teoremas_basicos/
-│       └── mathematis_suprema.tex  # 🆕 MATHEMATIS SUPREMA (Latin proof)
+│       ├── mathematis_suprema.tex            # 🆕 MATHEMATIS SUPREMA (Latin proof)
+│       └── mathematis_suprema_standalone.tex # standalone build wrapper
 ├── notebooks/             # Notebooks de validación y visualización
 ├── spectral_RH/           # 🆕 Implementación del operador H
 │   ├── operador/
