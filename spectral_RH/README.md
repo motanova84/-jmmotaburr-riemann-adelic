@@ -1,6 +1,32 @@
 # Spectral RH Implementation
 
-This directory contains the implementation of the spectral operator H for the Riemann Hypothesis framework.
+## 🔄 El Cambio de Paradigma
+
+Este directorio contiene la implementación del **enfoque revolucionario no circular** de la Hipótesis de Riemann.
+
+### Paradigma Tradicional (Circular) ❌
+```
+ζ(s) → Producto de Euler → Ceros → RH
+  ↑                               ↓
+  └──────── Números Primos ────────┘
+```
+**Problema**: Circularidad - los primos definen ζ(s), pero queremos estudiar primos desde ζ(s).
+
+### Paradigma Burruezo (No Circular) ✅
+```
+A₀ = ½ + iZ (geometría pura)
+      ↓
+Operador H (construcción geométrica)
+      ↓
+D(s) ≡ Ξ(s) (identificación espectral)
+      ↓
+Ceros ρ = 1/2 + iγ
+      ↓
+Números Primos (emergencia espectral)
+```
+**Clave Revolucionaria**: Los primos emergen de la geometría, no al revés.
+
+---
 
 ## Structure
 
@@ -71,8 +97,17 @@ where:
 
 The eigenvalues λ of H correspond to zeros ρ = 1/2 + i√(λ - 1/4) of the determinant D(s).
 
+## The Four Steps of the Non-Circular Approach
+
+1. **Geometría Primero**: Operador universal A₀ = ½ + iZ sin referencia a ζ(s)
+2. **Simetría Geométrica**: D(1-s) = D(s) por dualidad Poisson-Radón
+3. **Unicidad Espectral**: D(s) ≡ Ξ(s) por determinancia Paley-Wiener
+4. **Aritmética al Final**: Los primos emergen por inversión espectral
+
 ## References
 
+- **Paradigm Shift Documentation**: `PARADIGM_SHIFT.md`
+- **Interactive Demo**: Run `python demo_paradigm_shift.py`
 - Main paper: `docs/paper/sections/resolucion_universal.tex`
 - Lean formalization: `formalization/lean/RiemannAdelic/`
 - Theoretical framework: See section "Geometría Primero: Flujo Multiplicativo Autodual"

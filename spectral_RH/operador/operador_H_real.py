@@ -4,6 +4,28 @@ Implementación REAL del operador H en base log-wave
 Construcción genuinamente no circular del operador universal
 Sin referencia a ζ(s) o números primos
 
+CAMBIO DE PARADIGMA:
+===================
+
+Enfoque Tradicional (Circular):
+    ζ(s) → Producto Euler → Ceros → RH
+    ↑                               ↓
+    └──────── Números Primos ────────┘
+    
+Enfoque Burruezo (No Circular):
+    A₀ = ½ + iZ (geometría pura)
+          ↓
+    Operador H (construcción geométrica)
+          ↓
+    D(s) ≡ Ξ(s) (identificación espectral)
+          ↓
+    Ceros ρ = 1/2 + iγ
+          ↓
+    Números Primos (emergencia espectral)
+
+La clave revolucionaria: Los números primos emergen de la estructura
+geométrica, no al revés. Esto invierte completamente el enfoque tradicional.
+
 NOTA: Esta es una versión simplificada que demuestra el concepto.
 Una implementación completa requeriría integración numérica costosa del núcleo térmico.
 """

@@ -114,7 +114,25 @@ El archivo **`paper_standalone.tex`** contiene la versión completa y autoconten
 
 ### 🆕 Cierre Mínimo: Resolución Universal
 
-La nueva implementación `spectral_RH/` demuestra la **construcción no circular** del operador H:
+La nueva implementación `spectral_RH/` demuestra el **cambio revolucionario de paradigma** - construcción no circular del operador H:
+
+#### 🔄 Paradigma Tradicional vs. Burruezo
+
+**❌ Tradicional (Circular)**:
+```
+ζ(s) → Producto Euler → Ceros → RH
+  ↑                             ↓
+  └──────── Primos ──────────────┘
+```
+
+**✅ Burruezo (No Circular)**:
+```
+A₀ = ½ + iZ (geometría) → Operador H → D(s) ≡ Ξ(s) → Ceros → Primos
+```
+
+**Clave Revolucionaria**: Los números primos emergen de la estructura geométrica, no al revés.
+
+#### Las Cuatro Etapas
 
 1. **Geometría primero**: Operador universal A₀ = ½ + iZ sin referencia a ζ(s)
 2. **Simetría geométrica**: D(1-s) = D(s) por dualidad Poisson-Radón
@@ -126,7 +144,15 @@ La nueva implementación `spectral_RH/` demuestra la **construcción no circular
 python verify_cierre_minimo.py
 ```
 
-Ver [`spectral_RH/README.md`](spectral_RH/README.md) para detalles técnicos y [`docs/paper/sections/resolucion_universal.tex`](docs/paper/sections/resolucion_universal.tex) para el marco teórico completo.
+**Demostración interactiva del cambio de paradigma**:
+```bash
+python demo_paradigm_shift.py
+```
+
+Ver:
+- [`PARADIGM_SHIFT.md`](PARADIGM_SHIFT.md) para explicación completa del cambio de paradigma
+- [`spectral_RH/README.md`](spectral_RH/README.md) para detalles técnicos
+- [`docs/paper/sections/resolucion_universal.tex`](docs/paper/sections/resolucion_universal.tex) para el marco teórico
 
 ## Instalación y Primeros Pasos
 
