@@ -61,7 +61,7 @@ def consummatio_spectralis(N, h, max_primes=100):
                     
                     # Add prime contributions
                     for p, log_p in zip(primes, log_primes):
-                        for k in range(1, 4):  # k=1,2,3 sufficit
+                        for k in range(1, 4):  # k=1,2,3 is sufficient
                             term = log_p * mp.exp(-h*(k*log_p)**2/4) / (p**(k/2))
                             kernel += term * mp.cos(k*log_p*(t-s))
                     
