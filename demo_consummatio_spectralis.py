@@ -85,7 +85,7 @@ def demo_consummatio_spectralis():
                     
                     # Add adelic corrections from primes
                     for p, log_p in zip(primes, log_primes):
-                        for k in range(1, 4):  # Powers k=1,2,3
+                        for k in range(1, 4):  # Powers k = 1, 2, 3
                             term = log_p * mp.exp(-h*(k*log_p)**2/4) / (p**(k/2))
                             kernel += term * mp.cos(k*log_p*(t-s))
                     
