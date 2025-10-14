@@ -108,7 +108,7 @@ def validatio_consummatio():
     
     print("\nComparatio cum targets:")
     for i, (z, target) in enumerate(zip(zeros, targets)):
-        error = float(abs(z.imag - target))
+        error = float(z.imag - target)
         bound = float(mp.exp(-h/4)/(2*target*mp.sqrt(4*mp.pi*h)) * 
                      mp.exp(-mp.pi/2 * mp.sqrt(N/mp.log(N))))
         
