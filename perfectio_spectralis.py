@@ -227,8 +227,9 @@ def validatio_perfectio():
     print(f"Mean error:    {error_medius:.12e}")
     print(f"Max error:     {max_error:.12e}")
     print(f"H symmetric:   {np.allclose(H, H.T)}")
-    print(f"H positive:    {np.all(np.linalg.eigvalsh(H) > 0)}")
-    print(f"Min eigenval:  {np.min(np.linalg.eigvalsh(H)):.6f}")
+    evals = np.linalg.eigvalsh(H)
+    print(f"H positive:    {np.all(evals > 0)}")
+    print(f"Min eigenval:  {np.min(evals):.6f}")
     print("="*70)
     
     # Verificatio final
