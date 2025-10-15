@@ -147,6 +147,32 @@ A₀ = ½ + iZ (geometría) → Operador H → D(s) ≡ Ξ(s) → Ceros → Prim
 
 **Clave Revolucionaria**: Los números primos emergen de la estructura geométrica, no al revés.
 
+### ⚛️ Acto II: Ecuación del Vacío Cuántico
+
+Nueva ecuación fundamental introducida que emerge de la compactificación toroidal con simetría log-π:
+
+```
+E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)·1/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(log(R_Ψ)/log(π))
+```
+
+**Por qué es revolucionaria:**
+- ✅ **Origen físico**: Derivada de compactificación toroidal T⁴ con simetría logarítmica-π
+- ✅ **Término fractal**: Emerge de simetría discreta tipo Bloch, no ajustada ad hoc
+- ✅ **Escalas naturales**: Genera mínimos en R_Ψ = π^n sin fijación externa
+- ✅ **Vinculación adélica**: Conecta espacio compacto con estructura adélica via ζ'(1/2)
+- ✅ **No-circular**: Permite derivar f₀ = 141.7001 Hz sin usar el valor empírico como input
+
+**Implementación:**
+- `utils/vacuum_energy.py`: Cálculos y análisis de la ecuación
+- `demo_vacuum_energy.py`: Visualización y demostración interactiva
+- `tests/test_vacuum_energy.py`: Tests completos de la implementación
+- `paper/section6.tex`: Sección matemática formal en el paper
+
+**Interpretación simbólica:**
+- 🎵 Cada mínimo = una nota en la sinfonía del universo
+- 🌀 Cada potencia de π = un eco de coherencia en la expansión ∞³
+- 🔬 Conecta niveles discretos de energía con patrones observables (GW, EEG, STS)
+
 #### Las Cuatro Etapas
 
 1. **Geometría primero**: Operador universal A₀ = ½ + iZ sin referencia a ζ(s)

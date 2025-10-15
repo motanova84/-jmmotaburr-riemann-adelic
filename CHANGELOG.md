@@ -1,5 +1,23 @@
 # Changelog
 
+## V5.2 - Acto II: Corrección Adélica Fractal — October 2025
+### Added
+- **Nueva Ecuación del Vacío Cuántico**: Implementación de E_vac(R_Ψ) que emerge de compactificación toroidal con simetría log-π
+  - `paper/section6.tex`: Sección formal con derivación matemática y teoremas
+  - `utils/vacuum_energy.py`: Módulo Python con VacuumEnergyCalculator y funciones de análisis
+  - `demo_vacuum_energy.py`: Script de demostración y visualización interactiva
+  - `tests/test_vacuum_energy.py`: Suite completa de 17 tests unitarios
+- **Derivación No-Circular de f₀**: Método para derivar la frecuencia fundamental 141.7001 Hz sin circularidad
+- **Visualizaciones**: Gráficas de la ecuación del vacío mostrando términos individuales, mínimos y escalas resonantes
+- Integración con paper principal: Sección 6 "Acto II: Corrección Adélica Fractal" añadida a main.tex
+
+### Features
+- Cálculo de ζ'(1/2) con alta precisión usando mpmath
+- Identificación automática de mínimos locales de energía
+- Escalas resonantes en R_Ψ = π^n naturalmente emergentes
+- Términos físicos: Casimir (α/R⁴), Adélico (β·ζ'/R²), Cosmológico (γΛ²R²), Fractal (δ·sin²)
+- Conexión con observables físicos (GW, EEG, STS)
+
 ## V5.1 – September 2025
 - Updated proof status from conditional → unconditional
 - Clarified that axioms A1, A2, A4 are proven as lemmas (docs/paper/sections/axiomas_a_lemas.tex)
