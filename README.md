@@ -46,6 +46,7 @@
 | **Cobertura Tests** | ✅ 100% | ![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green) |
 | **Reproducibilidad** | ✅ Confirmada | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
 | **DOI** | ✅ Registrado | ![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue) |
+| **Bibliotecas Avanzadas** | 🚀 Integradas | ![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange) |
 
 ---
 
@@ -54,6 +55,7 @@
 - [Visión General](#visión-general)
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
+- [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
 - [Papel Científico y Formalización](#papel-científico-y-formalización)
 - [Citación y Licencia](#citación-y-licencia)
@@ -206,6 +208,70 @@ Este script verifica la demostración completa de A4 como lema, combinando:
 ```bash
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
 ```
+
+## 🚀 Bibliotecas Matemáticas Avanzadas
+
+El framework ha sido ampliado con bibliotecas matemáticas avanzadas para acelerar cálculos y expandir capacidades analíticas:
+
+### 🔥 Aceleración de Rendimiento
+- **Numba**: Compilación JIT para bucles numéricos (10-100x más rápido)
+- **Numexpr**: Evaluación rápida de expresiones complejas (2-10x más rápido)
+- **JAX**: Diferenciación automática y aceleración GPU/TPU (100-1000x con GPU)
+
+### 🤖 Aprendizaje Automático
+- **Scikit-learn**: Clustering, PCA, clasificación para análisis de patrones
+- **XGBoost**: Optimización con gradient boosting
+- **Statsmodels**: Modelado estadístico y pruebas de hipótesis
+
+### 🕸️ Teoría de Grafos
+- **NetworkX**: Análisis de redes de números primos
+- **Python-igraph**: Algoritmos de grafos de alto rendimiento
+
+### 📊 Operaciones Tensoriales
+- **TensorLy**: Descomposiciones tensoriales (CP, Tucker)
+- **Opt-einsum**: Contracciones tensoriales optimizadas
+
+### 📖 Documentación y Demos
+
+Ver [`ADVANCED_LIBRARIES_README.md`](ADVANCED_LIBRARIES_README.md) para documentación completa con:
+- Guías de instalación detalladas
+- Ejemplos de uso con código
+- Benchmarks de rendimiento
+- Casos de uso específicos para RH
+
+### 🎯 Demo Rápido
+
+```bash
+# Instalar bibliotecas avanzadas
+pip install -r requirements.txt
+
+# Ejecutar demo de bibliotecas avanzadas
+python demo_advanced_math_libraries.py
+```
+
+Salida esperada:
+```
+✅ Numba JIT: 10x speedup en computaciones espectrales
+✅ NetworkX: Análisis de redes de números primos
+✅ Scikit-learn: Clustering de distribuciones de ceros
+✅ TensorLy: Descomposición tensorial de datos espectrales
+✅ Numexpr: Evaluación rápida de kernels complejos
+```
+
+### 🔬 Workflows de CI/CD
+
+Nuevos workflows de GitHub Actions para validación avanzada:
+
+- **Performance Benchmarking** (`.github/workflows/performance-benchmark.yml`)
+  - Benchmarks de rendimiento core
+  - Comparación de aceleración con JIT
+  - Análisis de operaciones espectrales
+
+- **Advanced Validation** (`.github/workflows/advanced-validation.yml`)
+  - Validación con aceleración (numba, numexpr)
+  - Análisis ML de patrones de ceros
+  - Análisis de redes de números primos
+  - Análisis espectral basado en tensores
 
 ## Validación Numérica y Resultados
 
