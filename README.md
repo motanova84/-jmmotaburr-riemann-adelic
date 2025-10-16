@@ -48,10 +48,23 @@
 | **DOI** | ✅ Registrado | ![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue) |
 | **Bibliotecas Avanzadas** | 🚀 Integradas | ![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange) |
 
+## 🎯 Objetos de Demostración
+
+Esta sección muestra el alcance de la metodología adélica-espectral aplicada a diferentes dominios matemáticos:
+
+| Dominio | Repositorio | Objeto de demostración | Estado |
+|---------|-------------|------------------------|--------|
+| **Aritmético–analítico** | [motanova84/-jmmotaburr-riemann-adelic](https://github.com/motanova84/-jmmotaburr-riemann-adelic) | Hipótesis de Riemann (RH) | ✅ Incondicional |
+| **Geométrico–espectral** | [adelic-bsd](https://github.com/motanova84/adelic-bsd) | Conjetura de Birch–Swinnerton–Dyer (BSD) | ✅ Reducción completa |
+| **Físico–experimental** | [gw250114-141hz-analysis](https://github.com/motanova84/gw250114-141hz-analysis) | Validación empírica (141.7 Hz) | ✅ Observacional |
+
+**Nota**: Este repositorio contiene la demostración completa de la Hipótesis de Riemann. Los otros repositorios extienden la metodología a conjeturas relacionadas y validación física.
+
 ---
 
 ## 📚 Tabla de Contenidos
 
+- [Objetos de Demostración](#-objetos-de-demostración)
 - [Visión General](#visión-general)
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
