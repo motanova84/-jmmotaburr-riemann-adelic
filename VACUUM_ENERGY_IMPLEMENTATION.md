@@ -9,7 +9,7 @@ This document summarizes the implementation of the new vacuum energy equation in
 ### The Equation
 
 ```
-E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)·1/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(log(R_Ψ)/log(π))
+E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(log(R_Ψ)/log(π))
 ```
 
 Where:

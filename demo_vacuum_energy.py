@@ -3,7 +3,7 @@
 Demo: Vacuum Energy Equation Visualization
 
 Visualizes the vacuum energy equation from Acto II:
-E_vac(R_Ψ) = α/R_Ψ^4 + β·ζ'(1/2)·1/R_Ψ^2 + γ·Λ^2·R_Ψ^2 + δ·sin²(log(R_Ψ)/log(π))
+E_vac(R_Ψ) = α/R_Ψ^4 + β·ζ'(1/2)/R_Ψ^2 + γ·Λ^2·R_Ψ^2 + δ·sin²(log(R_Ψ)/log(π))
 
 Author: José Manuel Mota Burruezo
 Date: October 2025
@@ -39,7 +39,7 @@ def demonstrate_equation():
     """Demonstrate the vacuum energy equation and its properties."""
     print_header("ACTO II: CORRECCIÓN ADÉLICA FRACTAL")
     print("\nEcuación del Vacío Cuántico:")
-    print("E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)·1/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(log(R_Ψ)/log(π))")
+    print("E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(log(R_Ψ)/log(π))")
     
     # Initialize calculator
     calc = VacuumEnergyCalculator(
