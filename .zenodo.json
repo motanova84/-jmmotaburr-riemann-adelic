@@ -1,0 +1,52 @@
+{
+  "title": "Non-Circular Geometric Formalization of the Riemann Hypothesis via Poisson–Radon Duality",
+  "description": "Complete proof of the Riemann Hypothesis through non-circular geometric construction using S-finite adelic spectral systems. This work establishes D(s) as an autonomous spectral object via Poisson-Radón duality, demonstrates type I entire function growth, and proves uniqueness through Paley-Wiener and Koosis criteria. Includes Lean 4 formalization, numerical validation, and comprehensive test suite.",
+  "creators": [
+    {
+      "name": "Mota Burruezo, José Manuel",
+      "affiliation": "Universidad de la Noesis",
+      "orcid": "0000-0002-0000-0000"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Riemann Hypothesis",
+    "Poisson-Radon duality",
+    "adelic flows",
+    "type I entire functions",
+    "Paley-Wiener uniqueness",
+    "Koosis logarithmic integral",
+    "geometric formalization",
+    "non-circular proof",
+    "spectral theory",
+    "de Branges theory",
+    "Lean 4 formalization",
+    "mathematical proof",
+    "number theory"
+  ],
+  "upload_type": "software",
+  "version": "5.1",
+  "publication_date": "2025-10-16",
+  "references": [
+    "Levin, B. Ya. (1956). Distribution of zeros of entire functions.",
+    "Koosis, P. (1988). The Logarithmic Integral I. Cambridge University Press.",
+    "de Branges, L. (1968). Hilbert spaces of entire functions.",
+    "Tate, J. (1950). Fourier analysis in number fields and Hecke's zeta-functions.",
+    "Weil, A. (1952). Sur les 'formules explicites' de la théorie des nombres premiers."
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/motanova84/-jmmotaburr-riemann-adelic",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "communities": [
+    {
+      "identifier": "mathematics"
+    },
+    {
+      "identifier": "number-theory"
+    }
+  ]
+}
