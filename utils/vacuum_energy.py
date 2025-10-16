@@ -5,7 +5,7 @@ Vacuum Energy Equation Implementation (Acto II)
 This module implements the vacuum energy equation derived from 
 toroidal compactification with log-π symmetry:
 
-E_vac(R_Ψ) = α/R_Ψ^4 + β·ζ'(1/2)·1/R_Ψ^2 + γ·Λ^2·R_Ψ^2 + δ·sin²(log(R_Ψ)/log(π))
+E_vac(R_Ψ) = α/R_Ψ^4 + β·ζ'(1/2)/R_Ψ^2 + γ·Λ^2·R_Ψ^2 + δ·sin²(log(R_Ψ)/log(π))
 
 Author: José Manuel Mota Burruezo
 Date: October 2025

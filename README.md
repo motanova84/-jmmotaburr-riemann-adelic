@@ -167,7 +167,7 @@ A₀ = ½ + iZ (geometría) → Operador H → D(s) ≡ Ξ(s) → Ceros → Prim
 Nueva ecuación fundamental introducida que emerge de la compactificación toroidal con simetría log-π:
 
 ```
-E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)·1/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(log(R_Ψ)/log(π))
+E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(log(R_Ψ)/log(π))
 ```
 
 **Por qué es revolucionaria:**
