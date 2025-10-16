@@ -5,6 +5,8 @@ import RiemannAdelic.functional_eq
 import RiemannAdelic.arch_factor
 import RiemannAdelic.de_branges
 import RiemannAdelic.positivity
+import RiemannAdelic.poisson_radon_symmetry
+import RiemannAdelic.pw_two_lines
 
 def main : IO Unit := do
   IO.println "Riemann Hypothesis Adelic Proof - Lean 4 Formalization"
