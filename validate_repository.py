@@ -12,6 +12,16 @@ import time
 import json
 from pathlib import Path
 
+# Import path utilities
+try:
+    from utils.path_utils import get_project_path, ensure_project_in_path
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from utils.path_utils import get_project_path, ensure_project_in_path
+
+# Ensure project is in path
+ensure_project_in_path()
+
 def run_command(cmd, description, timeout=60, check_returncode=True):
     """Run a command and report results."""
     print(f"🔧 {description}...")
@@ -119,7 +129,7 @@ def main():
     print("\n📊 DATA VALIDATION")
     print("-" * 30)
     
-    zeros_file = "zeros/zeros_t1e8.txt"
+    zeros_file = get_project_path("zeros", "zeros_t1e8.txt")
     if os.path.exists(zeros_file):
         line_count = sum(1 for _ in open(zeros_file))
         print(f"✅ Zeros data: {line_count:,} lines")
