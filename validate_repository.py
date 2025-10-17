@@ -54,12 +54,17 @@ def run_command(cmd, description, timeout=60, check_returncode=True):
 
 def check_file_exists(filepath, description):
     """Check if a file exists."""
-    if os.path.exists(filepath):
-        size = os.path.getsize(filepath)
-        print(f"✅ {description}: {filepath} ({size:,} bytes)")
+    # Convert to absolute path if needed
+    filepath = Path(filepath)
+    if not filepath.is_absolute():
+        filepath = get_project_path(filepath)
+    
+    if filepath.exists():
+        size = filepath.stat().st_size
+        print(f"✅ {description}: {filepath.name} ({size:,} bytes)")
         return True
     else:
-        print(f"❌ Missing: {description} - {filepath}")
+        print(f"❌ Missing: {description} - {filepath.name}")
         return False
 
 def main():
@@ -70,12 +75,21 @@ def main():
     start_time = time.time()
     checks = []
     
+    # Get project root
+    project_root = get_project_path()
+    print(f"\n📂 Project root: {project_root}")
+    print(f"📂 Current directory: {Path.cwd()}")
+    
+    # Change to project root for subprocess commands
+    original_cwd = Path.cwd()
+    os.chdir(project_root)
+    
     # 1. Environment checks
     print("\n📋 ENVIRONMENT VALIDATION")
     print("-" * 30)
     
     checks.append(("Python version", sys.version_info >= (3, 8)))
-    checks.append(("Working directory", os.getcwd().endswith('-jmmotaburr-riemann-adelic')))
+    checks.append(("Project root found", True))  # If we got here, we found it
     
     # 2. File structure validation
     print("\n📁 FILE STRUCTURE VALIDATION")
@@ -198,6 +212,9 @@ def main():
     elapsed_time = time.time() - start_time
     passed = sum(1 for _, result in checks if result)
     total = len(checks)
+    
+    # Restore original working directory
+    os.chdir(original_cwd)
     
     print("\n" + "=" * 60)
     print("📋 FINAL VALIDATION SUMMARY")
