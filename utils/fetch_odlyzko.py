@@ -12,6 +12,13 @@ import time
 from typing import Dict, List, Optional, Tuple
 import logging
 
+# Import path utilities
+try:
+    from .path_utils import get_project_path
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from utils.path_utils import get_project_path
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -35,7 +42,7 @@ def fetch_odlyzko(precision='t1e8', min_zeros=False):
         if response.status_code == 200:
             zeros = response.text.strip().splitlines()[:1000]  # Toma primeros 1000 (o ajusta si file tiene menos).
             content = '\n'.join(zeros)
-            save_path = Path('zeros') / file_name
+            save_path = get_project_path('zeros') / file_name
             save_path.parent.mkdir(exist_ok=True)
             save_path.write_text(content)
             print(f"✅ Saved minimum dataset to {save_path}")
@@ -48,7 +55,7 @@ def fetch_odlyzko(precision='t1e8', min_zeros=False):
         response = requests.get(url)
         if response.status_code == 200:
             content = response.text
-            save_path = Path('zeros') / f'zeros_{precision}.txt'
+            save_path = get_project_path('zeros') / f'zeros_{precision}.txt'
             save_path.parent.mkdir(exist_ok=True)
             save_path.write_text(content)
             print(f"✅ Saved full dataset to {save_path}")
@@ -368,7 +375,7 @@ Examples:
         target_precision = "t1e8"  # Default
     
     if args.validate_only:
-        target_file = f"zeros/zeros_{target_precision}.txt"
+        target_file = get_project_path("zeros", f"zeros_{target_precision}.txt")
         if os.path.exists(target_file):
             is_valid, message = validate_zeros_format(target_file)
             print(f"Validation result: {message}")

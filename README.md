@@ -1,21 +1,24 @@
-> ⚠️ **IMPORTANTE:**
+> ✅ **IMPROVED: Path Independence**
 > 
-> Para ejecutar cualquier script o test, **debes situarte SIEMPRE en la raíz del proyecto** (donde está este README). Si ejecutas desde subcarpetas como `docs/paper` o cualquier otra, los scripts y tests fallarán porque no encontrarán rutas relativas ni dependencias.
+> This repository now supports execution from **any directory**! Scripts automatically detect the project root and resolve paths correctly, whether you run them from the project root or any subdirectory.
 >
-> **Ejemplo correcto:**
+> **Examples - All work correctly:**
 > ```bash
+> # From project root (traditional approach)
 > cd ~/Riemann-Adelic-Test/-jmmotaburr-riemann-adelic
 > python3 validate_v5_coronacion.py --precision 30 --full
 > pytest tests/ -v
+> 
+> # From subdirectory (now supported!)
+> cd ~/Riemann-Adelic-Test/-jmmotaburr-riemann-adelic/docs
+> python3 ../validate_v5_coronacion.py --precision 30
+> 
+> # From tests directory
+> cd ~/Riemann-Adelic-Test/-jmmotaburr-riemann-adelic/tests
+> pytest . -v
 > ```
 >
-> **Ejemplo incorrecto:**
-> ```bash
-> cd docs/paper
-> python3 validate_v5_coronacion.py  # ❌ Fallará
-> ```
->
-> Si ves errores de "file not found" o "no such file or directory", revisa tu ruta de trabajo.
+> **Technical details:** Scripts use `utils/path_utils.py` to automatically locate the project root (identified by `README.md` and `utils/` directory) and resolve all paths relative to it. Test the functionality with `python3 test_path_resolution.py` from any directory.
 
 # Riemann-Adelic: The Definitive Proof of the Riemann Hypothesis
 
@@ -224,6 +227,18 @@ cd -jmmotaburr-riemann-adelic
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 python setup_environment.py --full-setup
+```
+
+### Verificar la configuración del repositorio
+```bash
+# Test path resolution and verify repository setup
+python3 test_path_resolution.py
+
+# This test can be run from any directory and verifies:
+# - Path resolution works correctly
+# - Files can be accessed from any location
+# - Module imports function properly
+# - Subdirectory execution is supported
 ```
 
 ### Validación completa (V5 Coronación)
