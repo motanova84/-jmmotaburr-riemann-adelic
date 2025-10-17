@@ -13,13 +13,27 @@ The utilities support the numerical validation of the paper:
 by José Manuel Mota Burruezo.
 """
 
-from .adelic_determinant import AdelicCanonicalDeterminant
-from .critical_line_checker import CriticalLineChecker
-from .performance_monitor import PerformanceMonitor, PerformanceMetrics
+# Use lazy imports to avoid import errors when dependencies are not installed
+# Import only what's needed when it's needed
+def __getattr__(name):
+    if name == 'AdelicCanonicalDeterminant':
+        from .adelic_determinant import AdelicCanonicalDeterminant
+        return AdelicCanonicalDeterminant
+    elif name == 'CriticalLineChecker':
+        from .critical_line_checker import CriticalLineChecker
+        return CriticalLineChecker
+    elif name == 'PerformanceMonitor':
+        from .performance_monitor import PerformanceMonitor
+        return PerformanceMonitor
+    elif name == 'PerformanceMetrics':
+        from .performance_monitor import PerformanceMetrics
+        return PerformanceMetrics
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 __all__ = [
     'AdelicCanonicalDeterminant',
     'CriticalLineChecker', 
     'PerformanceMonitor',
-    'PerformanceMetrics'
+    'PerformanceMetrics',
+    'path_utils'
 ]

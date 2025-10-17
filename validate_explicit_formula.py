@@ -18,6 +18,19 @@ import sympy as sp
 from scipy.linalg import schur, eigh
 from sympy import bernoulli, S, integrate, exp
 import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Import path utilities
+try:
+    from utils.path_utils import get_project_path, ensure_project_in_path
+except ImportError:
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from utils.path_utils import get_project_path, ensure_project_in_path
+
+# Ensure project is in path for imports
+ensure_project_in_path()
+
 from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3, A_infty
 
 # Reduce precision for faster computation
@@ -53,7 +66,7 @@ def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
     
     # Load actual zeros from file with improved error handling
     actual_zeros = []
-    zeros_file = "zeros/zeros_t1e8.txt"
+    zeros_file = get_project_path("zeros", "zeros_t1e8.txt")
     try:
         with open(zeros_file, 'r') as zeros_file_handle:
             for i, line in enumerate(zeros_file_handle):
@@ -516,7 +529,7 @@ if __name__ == "__main__":
         print(f"Using test function: {function_name}")
         
         # Check if zeros file exists
-        zeros_file = 'zeros/zeros_t1e8.txt'
+        zeros_file = get_project_path('zeros', 'zeros_t1e8.txt')
         if not os.path.exists(zeros_file):
             print(f"❌ Zeros file not found: {zeros_file}")
             sys.exit(1)
@@ -549,8 +562,10 @@ if __name__ == "__main__":
             print(f"Relative Error: {relative_error}")
             
             # Save results to CSV
-            os.makedirs('data', exist_ok=True)
-            with open('data/validation_results.csv', 'w') as f:
+            data_dir = get_project_path('data')
+            os.makedirs(data_dir, exist_ok=True)
+            results_file = data_dir / 'validation_results.csv'
+            with open(results_file, 'w') as f:
                 f.write("parameter,value\n")
                 f.write(f"left_side,{str(left_side)}\n")
                 f.write(f"right_side,{str(right_side)}\n")
@@ -586,8 +601,10 @@ if __name__ == "__main__":
             print(f"Error relativo:             {relative_error}")
             
             # Save results to CSV
-            os.makedirs('data', exist_ok=True)
-            with open('data/validation_results.csv', 'w') as f:
+            data_dir = get_project_path('data')
+            os.makedirs(data_dir, exist_ok=True)
+            results_file = data_dir / 'validation_results.csv'
+            with open(results_file, 'w') as f:
                 f.write("parameter,value\n")
                 f.write(f"arithmetic_side,{str(A)}\n")
                 f.write(f"zero_side,{str(Z)}\n")
@@ -602,7 +619,7 @@ if __name__ == "__main__":
                 f.write(f"formula_type,original\n")
                 f.write(f"validation_status,{'PASSED' if relative_error <= 1e-6 else 'NEEDS_IMPROVEMENT'}\n")
         
-        print("📊 Results saved to data/validation_results.csv")
+        print(f"📊 Results saved to {results_file}")
         
     except Exception as e:
         print(f"❌ Error during computation: {e}")
@@ -615,7 +632,8 @@ if __name__ == "__main__":
         print("🧮 Running p-adic zeta function example...")
         
         # Load zeros
-        with open("zeros/zeros_t1e8.txt", "r") as f:
+        zeros_file = get_project_path("zeros", "zeros_t1e8.txt")
+        with open(zeros_file, "r") as f:
             zeros = [float(line.strip()) for line in f][:200]
         
         primes = np.array([2, 3, 5, 7, 11, 13, 17][:100])
@@ -630,15 +648,19 @@ if __name__ == "__main__":
         print(f"Absolute Error: {error}, Relative Error: {rel_error}")
         
         # Save results
-        os.makedirs("data", exist_ok=True)
-        with open("data/validation_results.csv", "w") as f:
+        data_dir = get_project_path("data")
+        os.makedirs(data_dir, exist_ok=True)
+        results_file = data_dir / "validation_results.csv"
+        with open(results_file, "w") as f:
             f.write(f"relative_error,{rel_error}\n")
             f.write(f"validation_status,{'PASSED' if rel_error <= 1e-6 else 'FAILED'}\n")
 
 # --- Bloque para garantizar salida CSV ---
 import os
-results_path = "data/validation_results.csv"
+results_path = get_project_path("data", "validation_results.csv")
 if not os.path.exists(results_path):
+    data_dir = get_project_path("data")
+    os.makedirs(data_dir, exist_ok=True)
     with open(results_path, "w") as f:
         f.write("test_function,formula_type,relative_error,validation_status\n")
         # No se conoce args aquí, así que se deja genérico

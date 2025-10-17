@@ -13,6 +13,15 @@ import mpmath as mp
 import numpy as np
 from typing import List, Tuple, Dict, Any
 import warnings
+from pathlib import Path
+
+# Import path utilities
+try:
+    from .path_utils import get_project_path
+except ImportError:
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from utils.path_utils import get_project_path
 
 class CriticalLineChecker:
     """
@@ -290,8 +299,13 @@ def validate_critical_line_from_file(
     checker = CriticalLineChecker(precision=precision)
     
     # Load zeros from file
+    # Convert to absolute path if needed
+    zeros_path = Path(zeros_file)
+    if not zeros_path.is_absolute():
+        zeros_path = get_project_path(zeros_file)
+    
     imaginary_parts = []
-    with open(zeros_file, 'r') as f:
+    with open(zeros_path, 'r') as f:
         for i, line in enumerate(f):
             if i >= max_zeros:
                 break
@@ -306,7 +320,7 @@ def validate_critical_line_from_file(
     
     # Add file-specific information
     certificate['data_source'] = {
-        'zeros_file': zeros_file,
+        'zeros_file': str(zeros_path),
         'zeros_loaded': len(imaginary_parts),
         'max_zeros_requested': max_zeros
     }

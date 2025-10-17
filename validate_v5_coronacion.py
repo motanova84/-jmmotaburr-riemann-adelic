@@ -31,8 +31,15 @@ from pathlib import Path
 import mpmath as mp
 import numpy as np
 
-# Add the current directory to Python path for imports
-sys.path.append('.')
+# Import path utilities
+try:
+    from utils.path_utils import ensure_project_in_path
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from utils.path_utils import ensure_project_in_path
+
+# Ensure project is in path for imports
+ensure_project_in_path()
 
 def setup_precision(dps):
     """Setup computational precision"""

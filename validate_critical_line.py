@@ -26,6 +26,16 @@ from pathlib import Path
 import mpmath as mp
 import numpy as np
 
+# Import path utilities
+try:
+    from utils.path_utils import ensure_project_in_path, get_project_path
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from utils.path_utils import ensure_project_in_path, get_project_path
+
+# Ensure project is in path for imports
+ensure_project_in_path()
+
 # Import our critical line verification module
 from utils.critical_line_checker import CriticalLineChecker, validate_critical_line_from_file
 from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3

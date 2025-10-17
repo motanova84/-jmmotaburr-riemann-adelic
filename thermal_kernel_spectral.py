@@ -20,6 +20,16 @@ import numpy as np
 from scipy.linalg import eigh
 import mpmath as mp
 import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Import path utilities
+try:
+    from utils.path_utils import get_project_path
+except ImportError:
+    # Fallback for direct execution
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from utils.path_utils import get_project_path
 
 
 def thermal_kernel(x, y, t=0.01, integration_limit=10.0):
@@ -74,8 +84,9 @@ def build_H_operator(n_basis=20, t=0.001):
     N = n_basis
     
     # Load actual Odlyzko zeros to use as initial estimates
+    zeros_file = get_project_path("zeros", "zeros_t1e8.txt")
     try:
-        with open("zeros/zeros_t1e8.txt", 'r') as f:
+        with open(zeros_file, 'r') as f:
             gamma_estimates = []
             for i, line in enumerate(f):
                 if i >= N:
