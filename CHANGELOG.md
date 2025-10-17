@@ -8,6 +8,11 @@
   - `demo_vacuum_energy.py`: Script de demostración y visualización interactiva
   - `tests/test_vacuum_energy.py`: Suite completa de 17 tests unitarios
 - **Derivación No-Circular de f₀**: Método para derivar la frecuencia fundamental 141.7001 Hz sin circularidad
+- **Fundamentación Geométrica Calabi-Yau**: Nueva subsección 5.7 explicando la base geométrica del factor RΨ
+  - `paper/section6.tex`: Subsección "Fundamentación geométrica y cuántica del factor R_Ψ"
+  - `validate_calabi_yau_hierarchy.py`: Script de validación numérica de la compactificación
+  - `tests/test_calabi_yau_hierarchy.py`: Suite de 13 tests para geometría y jerarquía
+  - `CALABI_YAU_FOUNDATION.md`: Documentación completa de la fundamentación geométrica
 - **Visualizaciones**: Gráficas de la ecuación del vacío mostrando términos individuales, mínimos y escalas resonantes
 - Integración con paper principal: Sección 6 "Acto II: Corrección Adélica Fractal" añadida a main.tex
 
@@ -17,6 +22,9 @@
 - Escalas resonantes en R_Ψ = π^n naturalmente emergentes
 - Términos físicos: Casimir (α/R⁴), Adélico (β·ζ'/R²), Cosmológico (γΛ²R²), Fractal (δ·sin²)
 - Conexión con observables físicos (GW, EEG, STS)
+- **Compactificación Calabi-Yau**: Derivación de la jerarquía RΨ ≈ 10^47 desde la quíntica en CP^4
+- **Propiedades Geométricas**: Números de Hodge h^(1,1)=1, h^(2,1)=101, característica de Euler χ=-200
+- **Escalas Físicas**: Conexión rigurosa entre volumen de Calabi-Yau y frecuencia observable f₀
 
 ## V5.1 – September 2025
 - Updated proof status from conditional → unconditional
