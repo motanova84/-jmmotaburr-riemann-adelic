@@ -80,16 +80,16 @@ This ensures consistent behavior of package installation across runs.
 
 ## Dependency Caching
 
-Workflows use GitHub Actions cache to speed up builds while maintaining reproducibility:
+To speed up builds while maintaining reproducibility, this repository uses dependency caching in CI workflows. There are two main approaches:
 
-```yaml
-- name: Cache dependencies
-  uses: actions/cache@v4
-  with:
-    path: ~/.local
-    key: ${{ runner.os }}-python-3.11-${{ hashFiles('**/requirements-lock.txt') }}
-```
+1. **Built-in pip cache via `setup-python`** (predominant pattern):
 
+   ```yaml
+   - name: Set up Python
+     uses: actions/setup-python@v5
+     with:
+       python-version: '3.11'
+       cache: 'pip'
 The cache key includes:
 - Operating system
 - Python version
