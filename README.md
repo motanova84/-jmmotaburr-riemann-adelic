@@ -35,7 +35,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión">
   <img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado">
-  <img src="https://img.shields.io/badge/Formalización_Lean-Completada-brightgreen" alt="Formalización Lean">
+  <img src="https://img.shields.io/badge/Formalización_Lean-En_Progreso-yellow" alt="Formalización Lean">
   <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI">
 </p>
 
@@ -43,7 +43,7 @@
 
 | Componente | Estado | Insignia |
 |------------|--------|----------|
-| **Formalización Lean** | ✅ Completada | ![Lean](https://img.shields.io/badge/Lean-4_Validado-green) |
+| **Formalización Lean** | 🔄 En Progreso (Skeletons) | ![Lean](https://img.shields.io/badge/Lean-4_Skeletons-yellow) |
 | **Validación V5** | ✅ Coronación Exitosa | ![V5](https://img.shields.io/badge/V5-Coronación-brightgreen) |
 | **Cobertura Tests** | ✅ 100% | ![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green) |
 | **Reproducibilidad** | ✅ Confirmada | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
@@ -341,8 +341,18 @@ Los resultados completos y certificados se guardan en `data/validation_results.c
 - **Artículo principal (standalone)**: `paper_standalone.tex` - Versión completa y autocontenida del paper
 - Artículo completo modular en `paper/main.tex` (estructura modular en `sections/`)
 - Versión alternativa en `docs/paper/main.tex`
-- Formalización Lean 4 en `formalization/lean/`
+- **Formalización Lean 4**: En progreso en `formalization/lean/` (skeletons con `axiom` y `sorry`, pendiente de compilación completa)
 - Referencias a literatura clásica y moderna
+
+### Estado de la Formalización Lean
+
+La formalización en Lean 4 está actualmente en **fase de desarrollo**:
+- ✅ Estructura de archivos creada con definiciones tipo
+- ✅ Skeletons de lemas principales (A1, A2, A4)
+- 🔄 Pruebas formales en progreso (usando `axiom` y `sorry`)
+- ⏳ Compilación completa pendiente de verificación
+
+Ver [`formalization/lean/README.md`](formalization/lean/README.md) para detalles técnicos completos.
 
 ## Citación y Licencia
 
