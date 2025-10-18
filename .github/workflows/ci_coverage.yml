@@ -1,8 +1,8 @@
-name: CI - Coverage
-
+# Coverage: ejecuta tests con coverage y sube a Codecov
+name: Coverage
 on:
   push:
-    branches: [ main, copilot/* ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -10,21 +10,29 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Install Python dependencies
+
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest pytest-cov
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest pytest-cov codecov
+
       - name: Run tests with coverage
-        run: pytest --cov=. --cov-report=xml --cov-report=term
+        run: |
+          pytest --cov=./ --cov-report=xml
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
-          files: ./coverage.xml
+          files: coverage.xml
           fail_ci_if_error: true
+        env:
+          # Si tu repo es privado, añade CODECOV_TOKEN en Settings > Secrets
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
