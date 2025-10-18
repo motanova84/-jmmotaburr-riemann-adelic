@@ -92,8 +92,8 @@ The resolution has been validated to ensure:
 ## Related Files
 
 - `requirements.txt` - Main dependencies file (correctly resolved)
-- `paper/requirements.txt` - Paper-specific dependencies (separate)
-- `setup_environment.py` - Environment setup and validation script
+- `paper/requirements.txt` - Paper-specific dependencies (optional, may not exist)
+- `setup_environment.py` - Environment setup and validation script (optional, may not exist)
 
 ## Validation Script
 
