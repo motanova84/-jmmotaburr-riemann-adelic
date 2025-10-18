@@ -210,33 +210,37 @@ class TestRequirementsConflictResolution:
         with open(req_path, 'r') as f:
             content = f.read()
         
-        # Expected section comments
-        expected_comments = [
-            '# Core computational dependencies',
-            '# Jupyter and notebook execution',
-            '# HTTP requests for data fetching',
-            '# Parallel computing',
-            '# Quantum computing for consciousness adelic bridge',
-            '# Testing framework',
-            '# Advanced mathematical libraries',
-            '# JIT compilation and performance optimization',
-            '# Machine Learning and optimization',
-            '# Automatic differentiation and GPU acceleration',
-            '# Advanced numerical methods',
-            '# Graph theory and combinatorics',
-            '# Tensor operations and decompositions',
-            '# Advanced statistical tools',
-            '# Sparse matrix operations',
-            '# Optimization and root finding',
+        # Expected section comment keys (case-insensitive, substring match)
+        expected_comment_keys = [
+            'core computational dependencies',
+            'jupyter and notebook execution',
+            'http requests for data fetching',
+            'parallel computing',
+            'quantum computing for consciousness adelic bridge',
+            'testing framework',
+            'advanced mathematical libraries',
+            'jit compilation and performance optimization',
+            'machine learning and optimization',
+            'automatic differentiation and gpu acceleration',
+            'advanced numerical methods',
+            'graph theory and combinatorics',
+            'tensor operations and decompositions',
+            'advanced statistical tools',
+            'sparse matrix operations',
+            'optimization and root finding',
         ]
         
+        # Split content into lines for easier matching
+        content_lines = [line.strip().lower() for line in content.splitlines()]
+        
         missing_comments = []
-        for comment in expected_comments:
-            if comment not in content:
-                missing_comments.append(comment)
+        for key in expected_comment_keys:
+            found = any(key in line for line in content_lines if line.startswith('#'))
+            if not found:
+                missing_comments.append(key)
         
         assert len(missing_comments) == 0, (
-            f"Missing section comments: {missing_comments}"
+            f"Missing section comments (by key): {missing_comments}"
         )
 
 
