@@ -1,12 +1,17 @@
 name: 🚀 Quick Validation CI
 
+# Uses quick_test parameters (aligned with utils/performance_monitor.py)
+# For development and rapid iteration
+# Parameters: max_primes=50, max_zeros=50, precision_dps=15, integration_t=5
+
 on: [push, pull_request]
 
 env:
-  # Light mode parameters for quick validation
-  MAX_ZEROS: 1000
-  MAX_PRIMES: 100
+  # quick_test parameters for rapid iteration
+  MAX_ZEROS: 50
+  MAX_PRIMES: 50
   PRECISION_DPS: 15
+  INTEGRATION_T: 5
 
 jobs:
   validate:
@@ -24,7 +29,7 @@ jobs:
       - name: Fetch minimum zeros
         run: python utils/fetch_odlyzko.py --min_zeros
       - name: Run light validation
-        run: python validate_explicit_formula.py --max_zeros $MAX_ZEROS --max_primes $MAX_PRIMES --precision_dps $PRECISION_DPS
+        run: python validate_explicit_formula.py --max_zeros $MAX_ZEROS --max_primes $MAX_PRIMES --precision_dps $PRECISION_DPS --integration_t $INTEGRATION_T
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
