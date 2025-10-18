@@ -68,8 +68,10 @@ def ultima_spectral_computation(N, h, max_primes=1000):
                     phi_i = hermite_basis(i, t)
                     phi_j = hermite_basis(j, s)
                     integral += wt * ws * kernel_val * phi_i * phi_j
-            H[i,j] = integral
-            if i != j:
+            if i == j:
+                H[i,j] = mp.re(integral)
+            else:
+                H[i,j] = integral
                 # Hermitian symmetry for complex matrices
                 H[j,i] = mp.conj(integral)
         
