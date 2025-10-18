@@ -45,7 +45,7 @@ def ultima_spectral_computation(N, h, max_primes=1000):
         kernel = mp.exp(-h/4)/mp.sqrt(4*mp.pi*h) * mp.exp(-(t-s)**2/(4*h))
         
         # Terminus adelic cum primes usque ad P ~ N/log N
-        P = int(2 * N / mp.log(N))  # Ex PNT
+        P = int(2 * N / mp.log(N))  # From Prime Number Theorem (PNT)
         for i in range(1, min(max_primes, primepi(P) + 1)):
             p = prime(i)
             log_p = mp.log(p)
