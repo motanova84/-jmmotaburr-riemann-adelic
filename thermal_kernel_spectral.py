@@ -440,7 +440,7 @@ def perfect_spectral_computation(N, h, precision=500):
         where H_k is the k-th Hermite polynomial.
         """
         Hk = mp.hermite(k, t)
-        norm = mp.sqrt(mp.power(2, k) * mp.factorial(k) * mp.sqrt(mp.pi))
+        norm = mp.sqrt(2**k * mp.factorial(k) * mp.sqrt(mp.pi))
         return Hk * mp.exp(-t**2 / 2) / norm
     
     # Construction H perfecta
