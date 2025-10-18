@@ -133,16 +133,16 @@ class TestRequirementsConflictResolution:
         with open(req_path, 'r') as f:
             lines = f.readlines()
         
-        import re
+        from packaging.requirements import Requirement, InvalidRequirement
         
-        # Pattern for valid requirement line
-        pattern = r'^[a-zA-Z0-9\-_.]+\s*(==|>=|<=|~=|>|<)\s*[0-9.]+(\s*,\s*(==|>=|<=|~=|>|<)\s*[0-9.]+)*(\s*#.*)?$'
-        
+        # Validate each requirement line using packaging.requirements.Requirement
         invalid_lines = []
         for i, line in enumerate(lines, 1):
             line = line.strip()
             if line and not line.startswith('#'):
-                if not re.match(pattern, line):
+                try:
+                    Requirement(line)
+                except InvalidRequirement:
                     invalid_lines.append(f"Line {i}: {line}")
         
         assert len(invalid_lines) == 0, (
