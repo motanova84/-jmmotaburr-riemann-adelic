@@ -177,7 +177,7 @@ class TestAbsolutaMathematicalProperties:
         
         # Should be real symmetric
         assert np.allclose(H, H.T, atol=1e-10)
-        assert np.allclose(H.imag, 0, atol=1e-10)
+        assert np.allclose(np.imag(H), 0, atol=1e-10)
     
     def test_coercivity(self):
         """Test that H satisfies coercivity: λ_min > c > 0."""
