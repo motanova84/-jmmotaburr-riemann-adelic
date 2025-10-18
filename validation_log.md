@@ -123,7 +123,7 @@ Ratio constancy: 0.000000e+00
 ✓ Uniqueness verified (up to constant)
 ```
 
-**Note**: Partial results for functional equation and log decay are due to simplified Hadamard product truncation. The theoretical framework in `uniqueness_without_xi.lean` provides the complete proof.
+**Note**: Partial results for functional equation and log decay are due to simplified Hadamard product truncation. The theoretical framework in `uniqueness_without_xi.lean` provides a skeleton outline (uses axioms, not a verified proof).
 
 **Conclusion**: D(s) is uniquely determined by internal conditions, without reference to Ξ(s) or ζ(s).
 
