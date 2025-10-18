@@ -364,7 +364,14 @@ La formalización en Lean 4 ha alcanzado hitos importantes:
 
 **Documentación Completa:**
 - Ver `formalization/lean/FORMALIZATION_STATUS.md` para detalles completos
+- Ver `formalization/lean/REAL_VS_SIMULATED.md` para verificación de contenido real vs. simulado
 - Ver `formalization/lean/README.md` para instrucciones de compilación
+
+**Verificación Independiente:**
+```bash
+# Ejecutar script de validación
+python3 formalization/lean/validate_formalization.py
+```
 
 ## Citación y Licencia
 
