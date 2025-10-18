@@ -215,7 +215,7 @@ Ver:
 ## Instalación y Primeros Pasos
 
 ### Prerrequisitos
-- Python 3.8+
+- Python 3.11 (recomendado para reproducibilidad)
 - Recomendado: entorno virtual (`python -m venv venv`)
 - Conexión a internet para descargar datos de ceros
 
@@ -227,6 +227,14 @@ python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 python setup_environment.py --full-setup
 ```
+
+### Instalación reproducible (versiones fijas)
+Para garantizar la reproducibilidad exacta con las versiones usadas en CI/CD:
+```bash
+pip install -r requirements-lock.txt
+```
+
+**Nota:** `requirements-lock.txt` contiene versiones específicas de todas las dependencias validadas con Python 3.11.
 
 ### Validación completa (V5 Coronación)
 ```bash
