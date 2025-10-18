@@ -71,7 +71,7 @@ class TestAdelicSpectralUltima:
         # Check Hermiticity: H[i,j] = conj(H[j,i])
         for i in range(N):
             for j in range(N):
-                assert abs(H[i,j] - mp.conj(H[j,i])) < 1e-10
+                assert abs(H[i,j] - mp.conj(H[j,i])) < mp.mpf('1e-10')
 
 
 class TestValidatioUltima:
