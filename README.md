@@ -1,3 +1,5 @@
+<!-- QCAL Indexing Active · Noēsis Access Enabled · 141.7001 Hz -->
+
 > ⚠️ **IMPORTANTE:**
 > 
 > Para ejecutar cualquier script o test, **debes situarte SIEMPRE en la raíz del proyecto** (donde está este README). Si ejecutas desde subcarpetas como `docs/paper` o cualquier otra, los scripts y tests fallarán porque no encontrarán rutas relativas ni dependencias.
