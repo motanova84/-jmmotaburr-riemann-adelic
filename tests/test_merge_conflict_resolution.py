@@ -109,22 +109,44 @@ class TestRequirementsConflictResolution:
         assert len(duplicates) == 0, f"Found duplicate packages: {duplicates}"
     
     def test_package_count(self):
-        """Test that the expected number of packages is present."""
+        """Test that all expected packages are present and no extras exist."""
         req_path = Path(__file__).parent.parent / "requirements.txt"
         
         with open(req_path, 'r') as f:
             lines = f.readlines()
         
-        # Count non-comment, non-empty lines
-        package_lines = [
-            line for line in lines 
-            if line.strip() and not line.strip().startswith('#')
-        ]
+        # Extract package names from non-comment, non-empty lines
+        packages_in_file = set()
+        for line in lines:
+            line = line.strip()
+            if line and not line.startswith('#'):
+                # Extract package name (before version specifier)
+                for sep in ['==', '>=', '<=', '~=', '>', '<']:
+                    if sep in line:
+                        pkg_name = line.split(sep)[0].strip()
+                        packages_in_file.add(pkg_name)
+                        break
+                else:
+                    # No version specifier, take whole line
+                    packages_in_file.add(line)
         
-        # Expected: 13 core + 16 advanced = 29 packages
-        assert len(package_lines) == 29, (
-            f"Expected 29 packages, found {len(package_lines)}"
-        )
+        # Define expected core and advanced packages
+        expected_core = [
+            'numpy', 'scipy', 'pandas', 'matplotlib', 'seaborn', 'joblib',
+            'sympy', 'cython', 'pytest', 'pytest-cov', 'black', 'mypy', 'isort'
+        ]
+        expected_advanced = [
+            'numba', 'llvmlite', 'scikit-learn', 'xgboost', 'jax', 'jaxlib',
+            'numexpr', 'bottleneck', 'networkx', 'python-igraph', 'tensorly',
+            'opt-einsum', 'statsmodels', 'patsy', 'sparse', 'nlopt'
+        ]
+        expected_packages = set(expected_core + expected_advanced)
+        
+        missing = expected_packages - packages_in_file
+        extra = packages_in_file - expected_packages
+        
+        assert not missing, f"Missing expected packages: {missing}"
+        assert not extra, f"Unexpected extra packages: {extra}"
     
     def test_version_specifications_valid(self):
         """Test that all version specifications are valid."""
