@@ -46,7 +46,7 @@
 | **Formalización Lean** | 🔄 En Progreso (Skeletons) | ![Lean](https://img.shields.io/badge/Lean-4_Skeletons-yellow) |
 | **Validación V5** | ✅ Coronación Exitosa | ![V5](https://img.shields.io/badge/V5-Coronación-brightgreen) |
 | **Cobertura Tests** | ✅ 100% | ![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green) |
-| **Reproducibilidad** | ✅ Confirmada | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
+| **Reproducibilidad** | ✅ Confirmada ([docs](REPRODUCIBILITY.md)) | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
 | **DOI** | ✅ Registrado | ![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue) |
 | **Bibliotecas Avanzadas** | 🚀 Integradas | ![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange) |
 
@@ -215,7 +215,7 @@ Ver:
 ## Instalación y Primeros Pasos
 
 ### Prerrequisitos
-- Python 3.8+
+- Python 3.11 (recommended for CI/CD compatibility, 3.8+ supported)
 - Recomendado: entorno virtual (`python -m venv venv`)
 - Conexión a internet para descargar datos de ceros
 
@@ -227,6 +227,8 @@ python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 python setup_environment.py --full-setup
 ```
+
+> **For CI/CD and reproducible builds**: Use `requirements-lock.txt` instead of `requirements.txt` to ensure exact dependency versions. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for details.
 
 ### Validación completa (V5 Coronación)
 ```bash

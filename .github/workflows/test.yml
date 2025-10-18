@@ -20,7 +20,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install numpy scipy pytest
+          python -m pip install --upgrade pip==24.3.1
+          pip install -r requirements-lock.txt
 
       - name: Run basic operator tests
         run: |
