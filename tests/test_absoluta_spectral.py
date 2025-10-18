@@ -39,7 +39,8 @@ class TestAbsolutaSpectral:
         assert H.shape == (N, N)
         
         # H should be symmetric
-        assert np.allclose(H, H.T, atol=1e-10)
+        H_np = np.asarray(H)
+        assert np.allclose(H_np, H_np.T, atol=1e-10)
     
     def test_absoluta_spectral_no_adelic(self):
         """Test computation without adelic corrections."""
