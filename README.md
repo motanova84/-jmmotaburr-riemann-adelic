@@ -39,6 +39,21 @@
   <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI">
 </p>
 
+<p align="center">
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci.yml">
+    <img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci.yml/badge.svg" alt="CI Status">
+  </a>
+  <a href="https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic">
+    <img src="https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic/branch/main/graph/badge.svg" alt="Coverage">
+  </a>
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/proof-check.yml">
+    <img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/proof-check.yml/badge.svg" alt="Proof Check">
+  </a>
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/security/dependabot">
+    <img src="https://img.shields.io/badge/Dependency_Review-Active-brightgreen" alt="Dependency Review">
+  </a>
+</p>
+
 ## 📊 Estado del Proyecto
 
 | Componente | Estado | Insignia |
