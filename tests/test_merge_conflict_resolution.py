@@ -132,8 +132,9 @@ class TestRequirementsConflictResolution:
         
         # Define expected core and advanced packages
         expected_core = [
-            'numpy', 'scipy', 'pandas', 'matplotlib', 'seaborn', 'joblib',
-            'sympy', 'cython', 'pytest', 'pytest-cov', 'black', 'mypy', 'isort'
+            'mpmath', 'numpy', 'scipy', 'pandas', 'matplotlib', 'seaborn', 'joblib',
+            'sympy', 'cython', 'pytest', 'pytest-cov', 'black', 'mypy', 'isort',
+            'jupyter', 'nbconvert', 'mistune', 'requests', 'qiskit'
         ]
         expected_advanced = [
             'numba', 'llvmlite', 'scikit-learn', 'xgboost', 'jax', 'jaxlib',
