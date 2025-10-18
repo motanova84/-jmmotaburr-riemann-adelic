@@ -164,7 +164,7 @@ Run this checklist to verify everything works:
 **A**: Quick tests (~2 minutes), extended tests (~5-10 minutes), full validation (hours to days for T=10^10).
 
 ### Q: Are the Lean proofs complete?
-**A**: Yes, all main theorems are formalized. Some rely on 'sorry' for classical results (Tate, Weil) with proper references.
+**A**: No. The Lean formalization is skeleton code that uses `axiom` declarations and `sorry` placeholders throughout. It is NOT a complete, verified proof. The files provide a structural framework for future formalization work, but currently contain no verified proofs checked by the Lean kernel.
 
 ### Q: Can I run this on my own computer?
 **A**: Yes! Just Python 3.8+ and the dependencies listed above.

@@ -123,7 +123,7 @@ Ratio constancy: 0.000000e+00
 ✓ Uniqueness verified (up to constant)
 ```
 
-**Note**: Partial results for functional equation and log decay are due to simplified Hadamard product truncation. The theoretical framework in `uniqueness_without_xi.lean` provides the complete proof.
+**Note**: Partial results for functional equation and log decay are due to simplified Hadamard product truncation. The theoretical framework in `uniqueness_without_xi.lean` provides a skeleton outline (uses axioms, not a verified proof).
 
 **Conclusion**: D(s) is uniquely determined by internal conditions, without reference to Ξ(s) or ζ(s).
 
@@ -155,13 +155,13 @@ Ratio constancy: 0.000000e+00
 
 | Module | Status | Description |
 |--------|--------|-------------|
-| `lengths_derived.lean` | ✅ COMPLETE | Exhaustive ℓ_v = log q_v derivation |
-| `uniqueness_without_xi.lean` | ✅ COMPLETE | Autonomous uniqueness framework |
-| `zero_localization.lean` | ✅ COMPLETE | Theorem 4.3 with de Branges + Weil-Guinand |
-| `axioms_to_lemmas.lean` | ✅ UPDATED | A4 proof sketch enhanced |
+| `lengths_derived.lean` | 🚧 SKELETON | Uses axioms and sorry - NOT complete proof |
+| `uniqueness_without_xi.lean` | 🚧 SKELETON | Framework only - NOT verified |
+| `zero_localization.lean` | 🚧 SKELETON | Outline only - NOT complete proof |
+| `axioms_to_lemmas.lean` | 🚧 SKELETON | Uses axiom declarations - NOT proven theorems |
 
-**Total Lines**: ~1,500 lines of formal Lean 4 code
-**Sorry Count**: Minimal (only for classical results with external references)
+**Total Lines**: ~1,500 lines of Lean 4 skeleton code
+**Sorry Count**: HIGH - Uses axioms and sorry throughout (NOT verified proofs)
 
 ### LaTeX Documentation
 
@@ -292,7 +292,7 @@ jobs:
 | S-Finite to Infinite | ✅ COMPLETE | Proves universality |
 | Autonomous Uniqueness | ✅ COMPLETE | Epistemological closure |
 | Numerical Validation | ✅ VERIFIED | High-precision confirmation |
-| Formal Proofs (Lean) | ✅ COMPLETE | Machine-verifiable |
+| Formal Proofs (Lean) | 🚧 SKELETON ONLY | NOT machine-verified - uses axioms/sorry |
 
 ### Key Achievements
 

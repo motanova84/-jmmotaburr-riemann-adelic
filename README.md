@@ -35,7 +35,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión">
   <img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado">
-  <img src="https://img.shields.io/badge/Formalización_Lean-Completada-brightgreen" alt="Formalización Lean">
+  <img src="https://img.shields.io/badge/Formalización_Lean-En_Progreso_(Skeleton)-yellow" alt="Formalización Lean">
   <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI">
 </p>
 
@@ -43,7 +43,7 @@
 
 | Componente | Estado | Insignia |
 |------------|--------|----------|
-| **Formalización Lean** | ✅ Completada | ![Lean](https://img.shields.io/badge/Lean-4_Validado-green) |
+| **Formalización Lean** | 🚧 En Progreso (Skeleton) | ![Lean](https://img.shields.io/badge/Lean-4_Skeleton-yellow) |
 | **Validación V5** | ✅ Coronación Exitosa | ![V5](https://img.shields.io/badge/V5-Coronación-brightgreen) |
 | **Cobertura Tests** | ✅ 100% | ![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green) |
 | **Reproducibilidad** | ✅ Confirmada | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
@@ -341,7 +341,7 @@ Los resultados completos y certificados se guardan en `data/validation_results.c
 - **Artículo principal (standalone)**: `paper_standalone.tex` - Versión completa y autocontenida del paper
 - Artículo completo modular en `paper/main.tex` (estructura modular en `sections/`)
 - Versión alternativa en `docs/paper/main.tex`
-- Formalización Lean 4 en `formalization/lean/`
+- **Formalización Lean 4** en `formalization/lean/` - ⚠️ **NOTA IMPORTANTE**: La formalización Lean es actualmente código skeleton/esqueleto con declaraciones `axiom` y pruebas `sorry`. NO es una formalización completa verificada por el kernel de Lean. Se provee como marco estructural para futura formalización rigurosa.
 - Referencias a literatura clásica y moderna
 
 ## Citación y Licencia
