@@ -1,5 +1,10 @@
 name: 🧮 Comprehensive Riemann-Adelic CI/CD
 
+# Parameter presets (aligned with utils/performance_monitor.py):
+# - quick_test: max_primes=50, max_zeros=50, precision_dps=15, integration_t=5 (for development/rapid iteration)
+# - standard_ci: max_primes=100, max_zeros=100, precision_dps=25, integration_t=10 (for CI/CD - good balance)
+# - high_accuracy: max_primes=500, max_zeros=500, precision_dps=40, integration_t=50 (for research/publication)
+
 on:
   push:
     branches: [main, develop]
@@ -14,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       run_full_validation:
-        description: 'Run full validation with high precision'
+        description: 'Run full validation with high_accuracy parameters (for research/publication)'
         required: false
         default: 'false'
         type: boolean
@@ -33,12 +38,14 @@ permissions:
   actions: read
 
 env:
-  # Optimized parameters for CI performance
-  PRIME_COUNT: ${{ github.event.inputs.run_full_validation == 'true' && '1000' || '100' }}
+  # Parameter presets for different use cases (aligned with utils/performance_monitor.py)
+  # - standard_ci: Good balance for CI/CD (default)
+  # - high_accuracy: Publication-quality results (when run_full_validation=true)
+  PRIME_COUNT: ${{ github.event.inputs.run_full_validation == 'true' && '500' || '100' }}
   PRIME_POWERS: 5
-  ZERO_COUNT: ${{ github.event.inputs.run_full_validation == 'true' && '1000' || '100' }}
+  ZERO_COUNT: ${{ github.event.inputs.run_full_validation == 'true' && '500' || '100' }}
   INTEGRATION_T: ${{ github.event.inputs.run_full_validation == 'true' && '50' || '10' }}
-  PRECISION_DPS: ${{ github.event.inputs.run_full_validation == 'true' && '50' || '25' }}
+  PRECISION_DPS: ${{ github.event.inputs.run_full_validation == 'true' && '40' || '25' }}
   PRECISION_LEVEL: ${{ github.event.inputs.precision_level || 't1e8' }}
 
 jobs:

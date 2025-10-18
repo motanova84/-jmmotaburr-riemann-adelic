@@ -131,6 +131,48 @@ Updated **README.md** to:
 ## Implementation Date
 2025-10-18
 
+## Parameter Standardization (2025-10-18)
+
+### Problem
+CI/CD workflows were using inconsistent computational parameters that didn't align with the standard presets defined in `utils/performance_monitor.py`:
+- `quick.yml` used MAX_ZEROS=1000 instead of 50 for quick_test
+- `full.yml` used MAX_ZEROS=1000000, exceeding even high_accuracy parameters
+- Parameter presets were not documented in workflow files
+
+### Solution
+Standardized all CI/CD workflows to use consistent parameter presets:
+
+#### Parameter Presets (from utils/performance_monitor.py)
+1. **quick_test** - For development/rapid iteration
+   - max_primes: 50
+   - max_zeros: 50
+   - precision_dps: 15
+   - integration_t: 5
+
+2. **standard_ci** - For CI/CD (good balance of speed vs accuracy)
+   - max_primes: 100
+   - max_zeros: 100
+   - precision_dps: 25
+   - integration_t: 10
+
+3. **high_accuracy** - For research/publication-quality results
+   - max_primes: 500
+   - max_zeros: 500
+   - precision_dps: 40
+   - integration_t: 50
+
+#### Updated Workflows
+- ✅ `quick.yml` - Now uses quick_test parameters (50/50/15/5)
+- ✅ `full.yml` - Now uses high_accuracy parameters (500/500/40/50)
+- ✅ `comprehensive-ci.yml` - Uses standard_ci by default, high_accuracy when run_full_validation=true
+
+#### Benefits
+- Consistent parameters across all validation workflows
+- Clear documentation of parameter usage
+- Aligned with performance monitoring benchmarks
+- Faster CI/CD execution with quick_test parameters
+- Reliable results with standard_ci parameters
+
 ## References
 - Issue: [WIP] Corregir la implementación de CI/CD para garantizar la reproducibilidad
 - Pull Request: copilot/fix-ci-cd-implementation

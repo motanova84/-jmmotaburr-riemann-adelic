@@ -1,12 +1,16 @@
 name: 🔬 Full Validation CI
 
+# Uses high_accuracy parameters (aligned with utils/performance_monitor.py)
+# For research and publication-quality results
+# Parameters: max_primes=500, max_zeros=500, precision_dps=40, integration_t=50
+
 on: [workflow_dispatch]  # Solo manual o en release
 
 env:
-  # Full mode parameters for comprehensive validation  
-  MAX_ZEROS: 1000000
-  MAX_PRIMES: 1000
-  PRECISION_DPS: 30
+  # high_accuracy parameters for publication-quality results
+  MAX_ZEROS: 500
+  MAX_PRIMES: 500
+  PRECISION_DPS: 40
   INTEGRATION_T: 50
 
 jobs:
