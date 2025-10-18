@@ -8,9 +8,15 @@ on:
     - cron: '0 2 * * *'
   workflow_dispatch:  # Permite ejecución manual
 
+permissions:
+  contents: read
+  issues: write  # Para crear issues en caso de fallo
+
 jobs:
   nightly-tests:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
@@ -44,6 +50,8 @@ jobs:
 
   nightly-integration:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout repository
@@ -71,6 +79,9 @@ jobs:
 
   notify-on-failure:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
     needs: [nightly-tests, nightly-integration]
     if: failure()
     

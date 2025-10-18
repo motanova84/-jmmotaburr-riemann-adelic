@@ -14,6 +14,9 @@ on:
       - 'formalization/lean/**'
       - '.github/workflows/proof-check.yml'
 
+permissions:
+  contents: read
+
 jobs:
   lean-build:
     runs-on: ubuntu-latest
