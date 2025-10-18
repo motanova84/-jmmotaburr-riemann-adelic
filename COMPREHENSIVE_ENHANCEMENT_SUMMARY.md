@@ -147,7 +147,7 @@ Constancy error: 0.000000e+00
 ✓ Uniqueness verified (up to constant)
 ```
 
-**Note**: Partial results for conditions 2-3 are due to Hadamard product truncation in numerical implementation. The theoretical Lean formalization provides complete proofs.
+**Note**: Partial results for conditions 2-3 are due to Hadamard product truncation in numerical implementation. The Lean formalization is skeleton code with axioms and sorry placeholders, NOT complete verified proofs.
 
 #### Mathematical Impact
 
@@ -263,10 +263,10 @@ storage = ~80 GB
 
 ### Formal Verification
 
-- [x] Lean 4 formalization complete
-- [x] ~1,500 total lines of formal code
-- [x] Minimal 'sorry' usage (only for classical results)
-- [x] All main theorems structured
+- [ ] Lean 4 formalization complete (currently skeleton only)
+- [x] ~1,500 total lines of skeleton code
+- [ ] Uses axioms and sorry throughout (NOT verified proofs)
+- [x] All main theorems outlined structurally
 
 ### Documentation
 
@@ -319,7 +319,7 @@ storage = ~80 GB
 
 All four gaps identified in the problem statement have been comprehensively addressed:
 
-1. ✅ **A4 Exhaustive Derivation**: Complete LaTeX proof, Lean formalization, and numerical validation for p up to 10^4
+1. ✅ **A4 Exhaustive Derivation**: Complete LaTeX proof, Lean skeleton framework (not verified), and numerical validation for p up to 10^4
 2. ✅ **S-Finite to Infinite**: Rigorous KSS estimates, pole analysis, and stability verification
 3. ✅ **Autonomous Uniqueness**: Paley-Wiener framework in Lean and numerical verification
 4. ✅ **Complete Validation**: Theorem 4.3 formalized, comprehensive validation log, CI/CD framework

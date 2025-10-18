@@ -7,7 +7,7 @@ This document describes the implementation of non-circular proofs for the Rieman
 
 ### What Was Implemented
 
-The file `formalization/lean/RiemannAdelic/poisson_radon_symmetry.lean` has been enhanced with a complete non-circular proof structure that derives the functional equation from geometric symmetry rather than from properties of the Euler product.
+The file `formalization/lean/RiemannAdelic/poisson_radon_symmetry.lean` has been enhanced with a skeleton framework outlining a non-circular proof structure. Note: This uses `axiom` declarations and is NOT a complete verified proof.
 
 ### Sections Added
 
@@ -65,5 +65,5 @@ The proof follows this outline:
 ⏳ Lean compilation pending (requires Lean 4 environment)
 
 ## Files Modified
-- `formalization/lean/RiemannAdelic/poisson_radon_symmetry.lean` - Enhanced with complete non-circular proof structure
+- `formalization/lean/RiemannAdelic/poisson_radon_symmetry.lean` - Skeleton framework for non-circular proof (uses axioms, not verified)
 - `formalization/lean/Main.lean` - Added imports for new modules

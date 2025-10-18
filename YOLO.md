@@ -25,7 +25,7 @@ def yolo_verification():
 | Adelic Spectral Systems | ✅ Pass | Single construction |
 | Critical Line Zeros | ✅ Pass | Direct verification |
 | Weil Explicit Formula | ✅ Pass | One-time validation |
-| Lean Formalization | ✅ Pass | Complete proof |
+| Lean Formalization | 🚧 Skeleton | Framework only (uses axioms/sorry) |
 | Numerical Correlation | ✅ Pass | High-precision match |
 
 ## 🔬 Mathematical Foundation
