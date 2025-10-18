@@ -69,6 +69,7 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 - [Objetos de Demostración](#-objetos-de-demostración)
 - [Visión General](#visión-general)
 - [Estructura del Repositorio](#estructura-del-repositorio)
+- [Trabajos PDF Organizados](#-trabajos-pdf-organizados)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
 - [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
@@ -141,6 +142,8 @@ La carpeta **`trabajos/`** contiene los documentos PDF que representan los traba
 - **`discrete_symmetry_gl1_dsgld.pdf`**: Simetrías discretas y energía de vacío cuántico
 
 **Flujo de lectura recomendado**: Ver [`trabajos/README.md`](trabajos/README.md) para una guía completa de los trabajos, orden de lectura recomendado, y cómo contribuir nuevos documentos.
+
+**Flujo de trabajo para PDFs**: Ver [`WORKFLOW_PDFS.md`](WORKFLOW_PDFS.md) para una guía completa del proceso de integración de nuevos trabajos en PDF al repositorio.
 
 ### 📄 Documento Principal
 
