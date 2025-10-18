@@ -1,7 +1,13 @@
--- Axioms to Lemmas: A1, A2, A4 (formerly axioms, now proven as lemmas)
+-- ⚠️ WARNING: This file contains AXIOM declarations, NOT proven theorems
+-- ⚠️ The "proof sketches" below use 'axiom' keyword and are NOT verified by Lean
+-- ⚠️ This is SKELETON CODE for future formalization work
+--
+-- Axioms to Lemmas: A1, A2, A4 (declared as axioms, NOT proven as lemmas yet)
 -- A1: Finite scale flow
 -- A2: Poisson adelic symmetry  
 -- A4: Spectral regularity
+--
+-- TODO: Replace ALL 'axiom' declarations with 'theorem' and constructive proofs
 
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.NumberTheory.ZetaFunction
@@ -29,11 +35,11 @@ axiom A4_spectral_regularity : ∀ (spectrum : Set ℂ) (measure : Set ℂ → �
   ∃ (regularity_bound : ℝ), regularity_bound > 0 ∧
     ∀ s ∈ spectrum, |s.im| ≤ regularity_bound * (1 + |s.re|)
 
--- Combined axioms form the foundation
+-- ⚠️ These ARE axioms, NOT proven lemmas - the foundation is NOT verified
 def adelic_foundation : Prop := 
   A1_finite_scale_flow ∧ A2_poisson_adelic_symmetry ∧ A4_spectral_regularity
 
--- TODO: Replace axioms with constructive theorems
+-- CRITICAL TODO: Replace ALL axioms with constructive theorems and real proofs
 -- Reference works: 
 -- - Tate (1967): Fourier analysis in number fields  
 -- - Weil (1964): Sur certains groupes d'opérateurs unitaires

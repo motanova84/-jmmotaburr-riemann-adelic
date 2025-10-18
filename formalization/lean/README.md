@@ -1,8 +1,16 @@
 # Lean 4 Formalization of the Adelic Proof of RH
 
-This directory contains **Lean 4 skeletons** for the formalization of the Riemann Hypothesis framework developed by José Manuel Mota Burruezo (V5.1, unconditional).
+⚠️ **ESTADO ACTUAL: SKELETON/ESQUELETO - NO FORMALIZACIÓN COMPLETA** ⚠️
 
-The goal is to gradually **mechanize the proof** in Lean, ensuring that every lemma and theorem can be verified by the Lean kernel, eliminating human error.
+Este directorio contiene **esqueletos/skeletons en Lean 4** para la formalización de la Hipótesis de Riemann desarrollada por José Manuel Mota Burruezo (V5.1).
+
+**IMPORTANTE**: 
+- ❌ Esta NO es una formalización completa verificada por el kernel de Lean
+- ❌ Los archivos usan declaraciones `axiom` en lugar de teoremas probados
+- ❌ Las pruebas usan `sorry` como placeholders
+- ✅ Esto es código estructural/esqueleto para guiar futuras formalizaciones
+
+El objetivo es gradualmente **mecanizar la prueba** en Lean, asegurando que cada lema y teorema pueda ser verificado por el kernel de Lean, eliminando errores humanos.
 
 ## 📂 Structure
 
@@ -178,40 +186,48 @@ lake exe cache get
    code RiemannAdelic/axioms_to_lemmas.lean
    ```
 
-## ✅ Current Status - V5.1 Coronación Update
+## 🚧 Current Status - V5.1 Skeleton Framework
 
-**MAJOR BREAKTHROUGH**: A1, A2, A4 are **no longer axioms** but **proven lemmas** in `axioms_to_lemmas.lean`!
+**ESTADO REAL**: A1, A2, A4 están declarados como **`axiom`** en `axioms_to_lemmas.lean`, NO como teoremas probados.
 
-### ✅ Completed in V5.1
-* **A1, A2, A4 formalized** as proper lemmas with proof outlines
-* **Non-circularity property** encoded: construction independent of ζ(s) 
-* **V5.1 milestone marker** included in the Lean code
-* **Enhanced type system**: Proper adelic spaces and factorizable functions
-* **Mathematical rigor**: Based on Tate (1967), Weil (1964), Birman-Solomyak, Simon
+### ⚠️ Lo que realmente existe en V5.1
+* **A1, A2, A4 declarados** como `axiom` (no son teoremas verificados)
+* **Proof sketches** con comentarios de intención, pero usando `sorry` 
+* **Estructura de tipos** definida pero sin pruebas constructivas
+* **Framework conceptual**: Basado en Tate (1967), Weil (1964), Birman-Solomyak, Simon
+* **NO VERIFICADO**: El kernel de Lean NO ha verificado estas pruebas
 
-### 📝 Proof Outlines Included
-- **A1**: Uses Tate factorization + Gaussian decay + compact support convergence
-- **A2**: Applies Weil's adelic Poisson + metaplectic normalization + archimedean rigidity  
-- **A4**: Birman-Solomyak trace-class theory + holomorphic determinant bounds
+### 📝 Contiene Esquemas de Prueba (NO Pruebas Reales)
+- **A1**: Comentarios sobre Tate factorization pero usa `axiom`
+- **A2**: Comentarios sobre Weil's adelic Poisson pero usa `axiom`
+- **A4**: Comentarios sobre Birman-Solomyak pero usa `axiom`
+- **RH_final.lean**: Usa `sorry` en lugar de prueba real
 
-### 🔧 Next Steps
-* [ ] ~~Formalize Hadamard factorization~~ → Enhanced in V5.1
-* [ ] ~~Prove functional equation symmetry~~ → Enhanced in V5.1  
-* [ ] Construct de Branges spaces and prove critical line localization (`de_branges.lean`)
-* [ ] Show trace-class convergence rigorously (`positivity.lean`)
-* [ ] **NEW**: Full compilation with Lean 4.5.0+ and mathlib4 integration
+### 🔧 Pasos Necesarios para Formalización Real
+* [ ] Reemplazar `axiom A1_finite_scale_flow` con `theorem` y prueba constructiva
+* [ ] Reemplazar `axiom A2_poisson_adelic_symmetry` con `theorem` y prueba constructiva
+* [ ] Reemplazar `axiom A4_spectral_regularity` con `theorem` y prueba constructiva
+* [ ] Completar pruebas en `entire_order.lean` (actualmente solo definiciones)
+* [ ] Completar pruebas en `functional_eq.lean` (actualmente solo definiciones)
+* [ ] Construir espacios de Branges y probar localización línea crítica en `de_branges.lean`
+* [ ] Mostrar convergencia trace-class rigurosamente en `positivity.lean`
+* [ ] Reemplazar `sorry` en `RH_final.lean` con prueba real
+* [ ] Compilación completa con Lean 4.5.0+ y mathlib4 sin errores
+* [ ] **OBJETIVO FINAL**: Verificación completa por el kernel de Lean
 
-## 🔮 Roadmap - V5.1+ 
+## 🔮 Roadmap - Hacia Formalización Real
 
-**V5.1 COMPLETED**: Axioms → Lemmas transformation ✅
+**V5.1 ESTADO ACTUAL**: Skeleton/esqueleto con `axiom` y `sorry` ⚠️
 
-### V5.2 Targets
-* [ ] Complete Lean 4 compilation and mathlib4 integration
-* [ ] Formalize Hadamard factorization with convergent series (`entire_order.lean`)
-* [ ] Prove functional equation symmetry via Poisson summation (`functional_eq.lean`)
-* [ ] Construct de Branges spaces and prove critical line localization (`de_branges.lean`)
-* [ ] Show trace-class convergence rigorously (`positivity.lean`)
-* [ ] **Ultimate Goal**: Full Lean-verified proof certificate for RH
+### Próximas Etapas para Formalización Real
+* [ ] **Fase 1**: Configurar entorno Lean 4 + mathlib4 compilable
+* [ ] **Fase 2**: Convertir axiomas A1, A2, A4 en teoremas con pruebas constructivas
+* [ ] **Fase 3**: Formalizar factorización Hadamard con series convergentes (`entire_order.lean`)
+* [ ] **Fase 4**: Probar ecuación funcional vía sumación Poisson (`functional_eq.lean`)
+* [ ] **Fase 5**: Construir espacios de Branges y probar localización línea crítica (`de_branges.lean`)
+* [ ] **Fase 6**: Mostrar convergencia trace-class rigurosamente (`positivity.lean`)
+* [ ] **Fase 7**: Completar prueba en `RH_final.lean` sin `sorry`
+* [ ] **OBJETIVO FINAL**: Certificado de prueba completamente verificado por Lean
 
 ## References
 

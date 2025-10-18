@@ -1,6 +1,10 @@
 -- RH_final.lean
--- Final verification file for the Riemann Hypothesis Adelic Proof
--- José Manuel Mota Burruezo (V5.1, unconditional)
+-- ⚠️ WARNING: This is SKELETON CODE, NOT a verified proof
+-- ⚠️ The main theorem uses 'sorry' which means NO PROOF EXISTS
+-- ⚠️ This file does NOT provide formal verification of RH
+--
+-- Final verification file structure for the Riemann Hypothesis Adelic Proof
+-- José Manuel Mota Burruezo (V5.1, skeleton framework)
 
 import RiemannAdelic.axioms_to_lemmas
 import RiemannAdelic.entire_order
@@ -14,9 +18,10 @@ def RiemannHypothesis : Prop :=
   ∀ (s : ℂ), (∃ (ζ : ℂ → ℂ), ζ s = 0 ∧ s ≠ -2 ∧ s ≠ -4 ∧ s ≠ -6) → s.re = 1/2
 
 -- Main theorem statement for Riemann Hypothesis
--- This serves as the final verification point for the formalization
+-- ⚠️ This is NOT a verified proof - it uses 'sorry' placeholder
+-- ⚠️ The imported modules contain 'axiom' declarations, not proven theorems
 theorem riemann_hypothesis_adelic : RiemannHypothesis := by
-  sorry -- Proof to be completed through the imported lemmas
+  sorry -- TODO: Replace with actual constructive proof using verified lemmas
 
 -- Verification that all key components are properly loaded
 #check A1_finite_scale_flow
@@ -25,4 +30,4 @@ theorem riemann_hypothesis_adelic : RiemannHypothesis := by
 #check adelic_foundation
 
 -- Print status message when file loads successfully
-#eval IO.println "✅ RH_final.lean loaded successfully - all components verified"
+#eval IO.println "⚠️ RH_final.lean loaded - SKELETON ONLY, not verified proof"
