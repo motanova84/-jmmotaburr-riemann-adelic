@@ -76,9 +76,10 @@ Tests run: 8
 - `MERGE_CONFLICT_RESOLUTION_GUIDE.md` - Detailed resolution documentation
 - `MERGE_CONFLICT_RESOLUTION_SUMMARY.md` - This summary document
 - `tests/test_merge_conflict_resolution.py` - Comprehensive test suite
-- `/tmp/validate_merge_resolution.py` - Validation script
-- `/tmp/validate_requirements.py` - Requirements validation script
 
+### Ephemeral Validation Scripts (not in repository)
+- `/tmp/validate_merge_resolution.py` - Temporary validation script (not checked into repo)
+- `/tmp/validate_requirements.py` - Temporary requirements validation script (not checked into repo)
 ## Technical Details
 
 ### Final Package Structure
