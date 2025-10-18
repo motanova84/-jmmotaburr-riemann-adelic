@@ -13,7 +13,7 @@ The CI/CD pipeline was failing due to dependency version conflicts and Python ve
 ### 1. Created requirements-lock.txt
 - Added `requirements-lock.txt` with pinned, Python 3.11-compatible versions
 - Fixed qiskit version to 1.3.3 (the actual latest 1.3.x release)
-- Pinned all dependencies to specific versions for reproducibility:
+- Pinned top-level dependencies to specific versions for reproducibility:
   - mpmath==1.3.0
   - numpy==1.26.4
   - scipy==1.16.2
