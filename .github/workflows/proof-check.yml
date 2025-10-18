@@ -14,6 +14,9 @@ on:
       - 'formalization/**'
   workflow_dispatch:  # Permite ejecución manual desde la UI de GitHub
 
+permissions:
+  contents: read
+
 jobs:
   proof-check:
     name: Formal Verification

@@ -10,6 +10,9 @@ on:
     # Ejecutar diariamente a las 2 AM UTC para detectar fallos aleatorios
     - cron: '0 2 * * *'
 
+permissions:
+  contents: read
+
 jobs:
   property-tests:
     name: Property-Based Testing
