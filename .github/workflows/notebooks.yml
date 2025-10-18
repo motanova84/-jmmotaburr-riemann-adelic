@@ -1,0 +1,28 @@
+name: Jupyter Validation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"  # lunes a las 6 am UTC
+
+jobs:
+  notebook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install requirements
+        run: pip install -r requirements.txt jupyter nbconvert
+
+      - name: Execute validation notebook
+        run: |
+          jupyter nbconvert --execute notebooks/validation.ipynb --to html
+
+      - name: Upload notebook results
+        uses: actions/upload-artifact@v4
+        with:
+          name: notebook-validation-results
+          path: notebooks/validation.html

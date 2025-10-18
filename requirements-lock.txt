@@ -37,7 +37,7 @@ qiskit-ibm-runtime==0.34.0
 rustworkx==0.17.1
 
 # Testing framework
-pytest==8.2.0
+pytest==8.3.3
 pytest-cov==6.0.0
 coverage==7.11.0
 pluggy==1.6.0

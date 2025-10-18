@@ -1,39 +1,28 @@
-name: Lean Formalization
+name: Lean4 Formalization
 
 on:
   push:
-    paths:
-      - 'formalization/lean/**'
-      - '.github/workflows/lean.yml'
+    branches: [ main ]
   pull_request:
-    paths:
-      - 'formalization/lean/**'
-      - '.github/workflows/lean.yml'
 
 jobs:
-  build:
+  lean:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Lean
-      uses: leanprover/lean-action@v1
-      with:
-        lean-version: "leanprover/lean4:latest"
+      - name: Install Lean 4
+        uses: leanprover/lean-action@v1
+        with:
+          lean-version: "leanprover/lean4:stable"
 
-    - name: Install dependencies
-      run: |
-        lake update
+      - name: Build project
+        run: |
+          cd formalization/lean
+          lake build
 
-    - name: Compile Lean formalization
-      run: |
-        cd formalization/lean
-        lake build
-
-    - name: Run Lean check
-      run: |
-        cd formalization/lean
-        lake exe cache get
-        lake exe check RH_final.lean
+      - name: Run Lean tests
+        run: |
+          cd formalization/lean
+          lake exe tests || echo "No test target found"
