@@ -32,7 +32,7 @@ Docker provides complete environment isolation with pinned versions.
 #### Option A: One-line verification
 
 ```bash
-docker run --rm -v "$PWD":/work -w /work leanprover/lean4:v4.5.0 /bin/bash -lc "make proof"
+docker run --rm -v "$PWD":/work -w /work leanprovercommunity/lean:4.5.0 /bin/bash -lc "make proof"
 ```
 
 #### Option B: Build custom image
@@ -187,7 +187,7 @@ leanprover/lean4:v4.5.0
 
 ### Docker Image
 
-Using official image: `leanprover/lean4:v4.5.0`
+Using official image: `leanprovercommunity/lean:4.5.0`
 
 ### Nix Inputs
 
@@ -222,7 +222,7 @@ lake build
 
 **Solution:** Use mathlib cache:
 ```bash
-docker run --rm -v "$PWD":/work -w /work leanprover/lean4:v4.5.0 /bin/bash -lc "cd formalization/lean && lake exe cache get && cd ../.. && make proof"
+docker run --rm -v "$PWD":/work -w /work leanprovercommunity/lean:4.5.0 /bin/bash -lc "cd formalization/lean && lake exe cache get && cd ../.. && make proof"
 ```
 
 ### Issue: Nix flake evaluation fails
@@ -263,7 +263,7 @@ lake build -j 4
 - [Lean 4 Documentation](https://leanprover.github.io/lean4/doc/)
 - [Lake Build System](https://github.com/leanprover/lake)
 - [Mathlib4](https://github.com/leanprover-community/mathlib4)
-- [Docker Official Images](https://hub.docker.com/r/leanprover/lean4)
+- [Docker Official Images](https://hub.docker.com/r/leanprovercommunity/lean)
 - [Nix Flakes](https://nixos.wiki/wiki/Flakes)
 
 ## Support

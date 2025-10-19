@@ -387,7 +387,7 @@ make proof
 
 **Verificación reproducible con Docker:**
 ```bash
-docker run --rm -v "$PWD":/work -w /work leanprover/lean4:v4.5.0 /bin/bash -lc "make proof"
+docker run --rm -v "$PWD":/work -w /work leanprovercommunity/lean:4.5.0 /bin/bash -lc "make proof"
 ```
 
 **Verificación con Nix (declarativa):**

@@ -175,12 +175,12 @@ docker build -t riemann-adelic-proof .
 docker run --rm riemann-adelic-proof
 
 # Or mount source for development
-docker run --rm -v "$PWD":/work -w /work leanprover/lean4:v4.5.0 /bin/bash -lc "make proof"
+docker run --rm -v "$PWD":/work -w /work leanprovercommunity/lean:4.5.0 /bin/bash -lc "make proof"
 ```
 
 **Pinned Versions:**
 - Lean 4: `v4.5.0` (specified in `formalization/lean/lean-toolchain`)
-- Base Image: `leanprover/lean4:v4.5.0`
+- Base Image: `leanprovercommunity/lean:4.5.0`
 
 ### Nix Flake for Reproducible Environments
 

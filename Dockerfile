@@ -1,7 +1,7 @@
 # Dockerfile for reproducible Lean 4 formal verification
-# Based on official Lean 4 image with pinned version
+# Based on official Lean 4 community image with pinned version
 
-FROM leanprover/lean4:v4.5.0
+FROM leanprovercommunity/lean:4.5.0
 
 # Set working directory
 WORKDIR /work

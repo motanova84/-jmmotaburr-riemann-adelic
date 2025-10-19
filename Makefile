@@ -26,7 +26,7 @@ help:
 	@echo "  help      - Show this help message"
 	@echo ""
 	@echo "Docker usage (reproducible build):"
-	@echo "  docker run --rm -v \"\$$PWD\":/work -w /work leanprover/lean4:v4.5.0 /bin/bash -lc \"make proof\""
+	@echo "  docker run --rm -v \"\$$PWD\":/work -w /work leanprovercommunity/lean:4.5.0 /bin/bash -lc \"make proof\""
 	@echo ""
 	@echo "Nix usage (reproducible build):"
 	@echo "  nix develop --command make proof"
