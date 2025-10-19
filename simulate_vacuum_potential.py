@@ -93,10 +93,9 @@ class VacuumPotentialSimulator:
         # Término 2: β·ζ'(1/2)/R_Ψ^2 (acoplamiento adélico)
         term2 = self.beta * self.zeta_prime * R**(-2)
         
-        # Término 3: γ·Λ²·R_Ψ² (término cosmológico IR)
-        # Nota: En el problema original, esto es γ·Λ²·(R_Ψ·ℓ_P)² pero con
-        # Λ efectiva ya incluye los factores de escala apropiados
-        term3 = self.gamma * (self.Lambda**2) * R**2
+        # Término 3: γ·Λ²·(R_Ψ·ℓ_P)² (término cosmológico IR)
+        # Convertimos R (en unidades de ℓ_P) a metros multiplicando por ℓ_P
+        term3 = self.gamma * (self.Lambda**2) * (R * self.lP)**2
         
         # Término 4: δ·sin²(log(R_Ψ)/log(b)) (oscilaciones fractales)
         term4 = self.delta * np.sin(np.log(R) / np.log(self.b))**2
@@ -399,34 +398,17 @@ def main():
     print(f"  c (Velocidad de la luz):      {c_light:.8e} m/s")
     print(f"  b (Base adélica):             π = {np.pi:.10f}")
     
-    # Coeficientes de acoplamiento (ajustables O(1))
-    # Para obtener f0 ≈ 141.7001 Hz con la fórmula f0 = c/(2πR_Ψ*ℓ_P),
-    # calculamos el R_Ψ* necesario:
-    target_f0 = 141.7001  # Hz
-    target_R_meters = c_light / (2 * np.pi * target_f0)
-    target_R = target_R_meters / lP  # Convertir a unidades de Planck
-    
-    print(f"\n🎯 CALIBRACIÓN PARA f₀ = {target_f0} Hz:")
-    print("-" * 80)
-    print(f"  R_Ψ* necesario: {target_R:.6e} ℓ_P")
-    print(f"  R_Ψ* (metros):  {target_R_meters:.6e} m")
-    
-    alpha, beta, delta = 1.0, 1.0, 0.5
-    # Calcular gamma para que el mínimo esté en target_R
-    # En el mínimo: dE/dR = 0 => -4α/R^5 - 2β·ζ'/R^3 + 2γ·Λ²·R + (término fractal)' ≈ 0
-    # Aproximación inicial sin término fractal:
-    gamma_initial = (2 * alpha / target_R**4 + beta * abs(zeta_p) / target_R**2) / (Lambda**2 * target_R)
-    # Ajuste empírico para compensar el efecto del término fractal (factor ~2)
-    gamma = gamma_initial * 4
+    # Coeficientes de acoplamiento (todos O(1) como especifica el problema)
+    alpha, beta, gamma, delta = 1.0, 1.0, 1.0, 0.5
     
     print("\n🔧 COEFICIENTES DE ACOPLAMIENTO:")
     print("-" * 80)
     print(f"  α (UV Casimir):               {alpha}")
     print(f"  β (Acoplamiento adélico):     {beta}")
-    print(f"  γ (Término cosmológico):      {gamma:.6e}")
+    print(f"  γ (Término cosmológico):      {gamma}")
     print(f"  δ (Amplitud fractal):         {delta}")
-    print(f"\nNota: γ ha sido calibrado para que el mínimo aparezca en")
-    print(f"      R_Ψ* ≈ {target_R:.2e} ℓ_P, dando f0 ≈ {target_f0} Hz")
+    print(f"\nNota: Los coeficientes son O(1) y se pueden ajustar para")
+    print(f"      calibrar el sistema a diferentes escalas físicas.")
     
     # Inicializar simulador
     simulator = VacuumPotentialSimulator(alpha, beta, gamma, delta, b=np.pi)
@@ -439,13 +421,12 @@ def main():
     print("\n🔍 BUSCANDO MÍNIMO DEL POTENCIAL...")
     print("-" * 80)
     
-    # Buscar en un rango más restringido alrededor del target
-    search_range = (target_R * 0.1, target_R * 10)
-    R_vals = np.logspace(np.log10(search_range[0]), np.log10(search_range[1]), num_points)
+    # Buscar en todo el rango como especifica el problema
+    R_vals = np.logspace(np.log10(R_range[0]), np.log10(R_range[1]), num_points)
     E_vals = simulator.Evac(R_vals)
     
-    # Encontrar mínimo en el rango de búsqueda
-    R_star, E_min, idx_min = simulator.find_minimum(search_range, num_points)
+    # Encontrar mínimo global
+    R_star, E_min, idx_min = simulator.find_minimum(R_range, num_points)
     
     print(f"\n✅ MÍNIMO ENCONTRADO:")
     print(f"  R_Ψ* = {R_star:.6e} ℓ_P")
@@ -456,9 +437,9 @@ def main():
     print(f"\n🎵 FRECUENCIA FUNDAMENTAL:")
     print("-" * 80)
     print(f"  f₀ = c / (2π·R_Ψ*·ℓ_P) = {f0:.6f} Hz")
-    print(f"  Objetivo: f₀ = 141.7001 Hz")
-    print(f"  Desviación: {abs(f0 - 141.7001):.6f} Hz")
-    print(f"  Desviación relativa: {abs(f0 - 141.7001) / 141.7001 * 100:.4f}%")
+    print(f"\n  Nota: Para obtener f₀ ≈ 141.7001 Hz, se requeriría ajustar")
+    print(f"        los parámetros γ o Λ, ya que con valores CODATA estándar")
+    print(f"        el mínimo aparece en una escala diferente.")
     
     # Verificar estabilidad
     print(f"\n🔬 ESTABILIDAD NUMÉRICA:")
