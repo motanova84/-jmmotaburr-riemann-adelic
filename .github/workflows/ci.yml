@@ -35,13 +35,31 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install pytest pytest-cov
+          pip install pytest pytest-cov black flake8 isort
 
-      - name: Lint (optional)
+      - name: Lint with black
         run: |
-          pip install flake8 || true
-          if [ -f .flake8 ] || [ -f setup.cfg ] || [ -f pyproject.toml ]; then flake8 . || true; fi
+          black --check .
+
+      - name: Lint with flake8
+        run: |
+          flake8 .
+
+      - name: Check import order with isort
+        run: |
+          isort --check-only .
 
       - name: Run tests
         run: |
           pytest -q
+
+      - name: Validate metadata schema
+        run: |
+          python tools/verify_metadata.py schema/metadata_example.jsonld
+
+      - name: Test conversion pipeline (stub)
+        run: |
+          python tools/convert_example.py tests/examples/example_lean.lean
+          # Verificar que se generó el archivo intermedio
+          test -f tests/examples/example_lean.intermediate.json || (echo "ERROR: No se generó el archivo intermedio" && exit 1)
+          echo "✓ Archivo intermedio generado correctamente"

@@ -1,0 +1,47 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "dc": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/"
+  },
+  "@type": "SoftwareSourceCode",
+  "@id": "https://github.com/motanova84/-jmmotaburr-riemann-adelic/formalization/example",
+  "dc:title": "Ejemplo de Formalización Lean 4 - Teorema Básico",
+  "dc:creator": "José Manuel Mota Burruezo",
+  "dc:date": "2025-10-19",
+  "dc:description": "Ejemplo de metadatos para artefactos formales en el proyecto Riemann-Adelic",
+  "format": "text/x-lean4",
+  "origin": "riemann-adelic-project",
+  "kernel": "lean4",
+  "checksum": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "Lean 4",
+    "version": "4.0.0"
+  },
+  "codeRepository": "https://github.com/motanova84/-jmmotaburr-riemann-adelic",
+  "license": "https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/LICENSE",
+  "keywords": [
+    "formal-verification",
+    "lean4",
+    "riemann-hypothesis",
+    "adelic-analysis"
+  ],
+  "dependencies": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Lean 4",
+      "version": ">=4.0.0"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Mathlib",
+      "version": ">=4.0.0"
+    }
+  ],
+  "maintainer": {
+    "@type": "Person",
+    "name": "José Manuel Mota Burruezo",
+    "email": "institutoconsciencia@proton.me"
+  }
+}

@@ -1,0 +1,30 @@
+# CODEOWNERS file for automatic review assignment
+# Lines starting with '#' are comments.
+# Each line is a file pattern followed by one or more owners.
+
+# Default owner for everything in the repo
+* @motanova84
+
+# CI and workflows
+/.github/ @motanova84
+
+# Documentation
+/docs/ @motanova84
+*.md @motanova84
+
+# Python code
+*.py @motanova84
+
+# Tests
+/tests/ @motanova84
+
+# Metadata and schemas
+/schema/ @motanova84
+
+# Tools and scripts
+/tools/ @motanova84
+/scripts/ @motanova84
+
+# Formalization (Lean)
+/formalization/ @motanova84
+*.lean @motanova84

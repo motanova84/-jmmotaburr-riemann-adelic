@@ -96,6 +96,9 @@ paper/*.vrb
 *.temp
 .tmp/
 
+# Generated intermediate conversion files
+*.intermediate.json
+
 # Large data files (but keep sample/test data)
 zeros/*_t1e10.txt
 zeros/*_t1e12.txt
