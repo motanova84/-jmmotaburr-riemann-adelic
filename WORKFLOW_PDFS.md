@@ -152,7 +152,7 @@ ls -lh my_paper.pdf
 ```bash
 # Clonar o actualizar el repositorio
 git clone https://github.com/motanova84/-jmmotaburr-riemann-adelic.git
-cd -jmmotaburr-riemann-adelic
+cd -- -jmmotaburr-riemann-adelic
 git pull origin main
 
 # Crear rama para el nuevo trabajo
