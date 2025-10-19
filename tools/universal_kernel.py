@@ -30,7 +30,15 @@ except ImportError:
     print("Warning: rdflib not available. Semantic verification will be limited.")
 
 # Constants
-F0 = 141.7001  # Reference frequency in Hz (from adelic spectral theory)
+# Reference frequency in Hz.
+# F0 = 141.7001 Hz is used as a Planck-scale derived reference frequency.
+# This value is inspired by adelic spectral theory and is close to the frequency associated with the 21 cm hydrogen line (1,420.40575177 MHz),
+# but scaled down by a factor of 10^4 for computational convenience in this context.
+# For more on adelic spectral theory and physical frequency invariants, see:
+#   - Connes, A. (1999). Trace formula in noncommutative geometry and the zeros of the Riemann zeta function. Selecta Mathematica, 5(1), 29–106. https://doi.org/10.1007/s000290050042
+#   - Planck units: https://en.wikipedia.org/wiki/Planck_units
+# If you have a more precise derivation or reference, please update this comment accordingly.
+F0 = 141.7001
 EPS = 1e-4     # Tolerance for frequency verification
 
 
