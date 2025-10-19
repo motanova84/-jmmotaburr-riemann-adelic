@@ -127,3 +127,6 @@ monitoring/evidence/
 monitoring/alerts/*.json
 !monitoring/alerts/.gitkeep
 examples/__pycache__/
+
+# QCAL auto-generated state files
+tools/qcal_state.json
