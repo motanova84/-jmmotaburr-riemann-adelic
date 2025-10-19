@@ -3,7 +3,7 @@ Utilities module for Riemann Hypothesis validation and adelic analysis.
 
 This package contains various utility functions and classes for:
 - Critical line verification
-- Adelic determinant calculations  
+- Adelic determinant calculations
 - Data fetching and validation
 - Performance monitoring
 - Mathematical tools for Riemann zeta function analysis
@@ -15,11 +15,6 @@ by José Manuel Mota Burruezo.
 
 from .adelic_determinant import AdelicCanonicalDeterminant
 from .critical_line_checker import CriticalLineChecker
-from .performance_monitor import PerformanceMonitor, PerformanceMetrics
+from .performance_monitor import PerformanceMetrics, PerformanceMonitor
 
-__all__ = [
-    'AdelicCanonicalDeterminant',
-    'CriticalLineChecker', 
-    'PerformanceMonitor',
-    'PerformanceMetrics'
-]
+__all__ = ["AdelicCanonicalDeterminant", "CriticalLineChecker", "PerformanceMonitor", "PerformanceMetrics"]

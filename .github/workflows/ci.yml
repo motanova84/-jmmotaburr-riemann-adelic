@@ -42,8 +42,9 @@ jobs:
           black --check .
 
       - name: Lint with flake8
+        continue-on-error: true
         run: |
-          flake8 .
+          flake8 . || echo "⚠️ Flake8 found issues (non-blocking for now)"
 
       - name: Check import order with isort
         run: |

@@ -1,8 +1,9 @@
 """
 Pytest configuration file to set up the test environment.
 """
-import sys
+
 import os
+import sys
 
 # Add the project root directory to Python path so we can import from utils
 project_root = os.path.dirname(os.path.abspath(__file__))

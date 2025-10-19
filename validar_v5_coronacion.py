@@ -11,9 +11,9 @@ y esto reenvía la ejecución al script real:
     validate_v5_coronacion.py
 """
 
+import os
 import subprocess
 import sys
-import os
 
 # Ruta al script real
 target = os.path.join(os.path.dirname(__file__), "validate_v5_coronacion.py")

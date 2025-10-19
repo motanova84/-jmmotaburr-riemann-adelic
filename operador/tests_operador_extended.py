@@ -7,7 +7,8 @@ as the number of quadrature points (Nq) increases.
 """
 
 import numpy as np
-from operador.operador_H import build_R_matrix, spectrum_from_R, fourier_eigs_H
+
+from operador.operador_H import build_R_matrix, fourier_eigs_H, spectrum_from_R
 
 
 def test_print_convergence_table():
@@ -48,4 +49,5 @@ def test_print_convergence_table():
 
 if __name__ == "__main__":
     import pytest
+
     pytest.main([__file__, "-s", "-v"])

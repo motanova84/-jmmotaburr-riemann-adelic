@@ -20,7 +20,7 @@ def sha256_of_file(path):
 
 def sha256_of_text(text):
     """Compute SHA256 hash of text content."""
-    return hashlib.sha256(text.encode('utf-8')).hexdigest()
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def extract_key_latex_snippets():
@@ -38,7 +38,7 @@ def extract_key_latex_snippets():
 def create_fingerprints():
     """Generate all fingerprints and save to JSON."""
     repo_root = Path(__file__).resolve().parents[1]
-    
+
     fingerprints = {
         "version": "1.0",
         "timestamp": "",  # Will be filled by monitoring script
@@ -46,9 +46,9 @@ def create_fingerprints():
         "repository": "https://github.com/motanova84/-jmmotaburr-riemann-adelic",
         "files": {},
         "latex_snippets": {},
-        "metadata": {}
+        "metadata": {},
     }
-    
+
     # Hash main paper files
     paper_files = [
         "paper/main.pdf",
@@ -56,47 +56,44 @@ def create_fingerprints():
         "paper_standalone.tex",
         "trabajos/riemann_adelic_approach_jmmb84.pdf",
     ]
-    
+
     for file_path in paper_files:
         full_path = repo_root / file_path
         if full_path.exists():
             try:
                 fingerprints["files"][file_path] = {
                     "sha256": sha256_of_file(full_path),
-                    "size": full_path.stat().st_size
+                    "size": full_path.stat().st_size,
                 }
                 print(f"✓ Fingerprinted: {file_path}")
             except Exception as e:
                 print(f"✗ Error fingerprinting {file_path}: {e}", file=sys.stderr)
-    
+
     # Hash key LaTeX snippets
     snippets = extract_key_latex_snippets()
     for name, content in snippets.items():
-        fingerprints["latex_snippets"][name] = {
-            "content": content,
-            "sha256": sha256_of_text(content)
-        }
-    
+        fingerprints["latex_snippets"][name] = {"content": content, "sha256": sha256_of_text(content)}
+
     # Add metadata fingerprints
     try:
         citation_file = repo_root / "CITATION.cff"
         if citation_file.exists():
-            citation_content = citation_file.read_text(encoding='utf-8')
+            citation_content = citation_file.read_text(encoding="utf-8")
             fingerprints["metadata"]["citation_cff"] = sha256_of_text(citation_content)
-        
+
         readme_file = repo_root / "README.md"
         if readme_file.exists():
-            readme_content = readme_file.read_text(encoding='utf-8')
+            readme_content = readme_file.read_text(encoding="utf-8")
             # Hash first 1000 chars to detect substantial changes
             fingerprints["metadata"]["readme_header"] = sha256_of_text(readme_content[:1000])
     except Exception as e:
         print(f"Warning: Could not fingerprint metadata: {e}", file=sys.stderr)
-    
+
     # Save fingerprints
     output_path = repo_root / "monitoring" / "fingerprints.json"
     output_path.write_text(json.dumps(fingerprints, indent=2))
     print(f"\n✓ Saved fingerprints to {output_path}")
-    
+
     return fingerprints
 
 

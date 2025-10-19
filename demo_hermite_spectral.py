@@ -17,9 +17,9 @@ def demo_basic():
     print()
     print("Computing with N=10, h=0.1 (fast computation)...")
     print()
-    
+
     zeros, H = purissima_spectral_computation(N=10, h=0.1)
-    
+
     print(f"✓ Computed {len(zeros)} zeros")
     print(f"✓ Matrix dimension: {H.rows}×{H.cols}")
     print()
@@ -35,14 +35,14 @@ def demo_convergence():
     print("DEMO 2: Parameter Sensitivity")
     print("=" * 70)
     print()
-    
+
     # Test different h values
     print("Testing different thermal parameters h...")
     print()
-    
+
     h_values = [0.1, 0.05, 0.01]
     N = 10
-    
+
     for h in h_values:
         print(f"h = {h}:")
         zeros, _ = purissima_spectral_computation(N, h)
@@ -61,9 +61,9 @@ def demo_full_validation():
     print("This runs validatio_ultima() with N=50, h=0.01")
     print("(This may take 1-2 minutes...)")
     print()
-    
+
     zeros = validatio_ultima()
-    
+
     return zeros
 
 
@@ -74,33 +74,34 @@ def demo_verification():
     print("DEMO 4: Verification of Key Properties")
     print("=" * 70)
     print()
-    
+
     N = 10
     h = 0.1
     zeros, H = purissima_spectral_computation(N, h)
-    
+
     # Check critical line
     print("Checking zeros are on critical line (Re(ρ) = 1/2):")
     on_critical_line = all(abs(z.real - 0.5) < 1e-10 for z in zeros)
     print(f"  ✓ All zeros on critical line: {on_critical_line}")
     print()
-    
+
     # Check positive imaginary parts
     print("Checking imaginary parts are positive:")
     positive_imag = all(z.imag >= 0 for z in zeros)
     print(f"  ✓ All imaginary parts ≥ 0: {positive_imag}")
     print()
-    
+
     # Check operator properties
     print("Checking operator H properties:")
     import numpy as np
+
     n = H.rows
-    H_np = np.array([[float(H[i,j]) for j in range(n)] for i in range(n)])
-    
+    H_np = np.array([[float(H[i, j]) for j in range(n)] for i in range(n)])
+
     # Symmetry
     is_symmetric = np.allclose(H_np, H_np.T, rtol=1e-8)
     print(f"  ✓ H is symmetric: {is_symmetric}")
-    
+
     # Positive definiteness
     eigvals = np.linalg.eigvalsh(H_np)
     is_pos_def = np.all(eigvals > 0)
@@ -118,13 +119,13 @@ if __name__ == "__main__":
     print("║" + " " * 68 + "║")
     print("╚" + "═" * 68 + "╝")
     print()
-    
+
     # Run demos
     demo_basic()
     demo_convergence()
     demo_verification()
     demo_full_validation()
-    
+
     # Summary
     print()
     print("=" * 70)

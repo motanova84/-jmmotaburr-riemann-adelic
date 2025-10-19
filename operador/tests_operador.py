@@ -9,7 +9,8 @@ This module validates:
 
 import numpy as np
 import pytest
-from operador.operador_H import build_R_matrix, spectrum_from_R, fourier_eigs_H
+
+from operador.operador_H import build_R_matrix, fourier_eigs_H, spectrum_from_R
 
 
 def test_symmetry_R():
@@ -32,21 +33,21 @@ def test_cosine_vs_fourier_convergence():
     """Test that cosine quadrature is stable as Nq increases."""
     h = 1e-3
     L = 1.0
-    
+
     # Cosine with increasing quadrature
     R1 = build_R_matrix(n_basis=5, h=h, L=L, Nq=60)
     lam_H1, _ = spectrum_from_R(R1, h)
 
     R2 = build_R_matrix(n_basis=5, h=h, L=L, Nq=160)
     lam_H2, _ = spectrum_from_R(R2, h)
-    
+
     R3 = build_R_matrix(n_basis=5, h=h, L=L, Nq=240)
     lam_H3, _ = spectrum_from_R(R3, h)
 
     # Check stability: results should be similar as Nq increases
     diff_12 = np.linalg.norm(lam_H2 - lam_H1)
     diff_23 = np.linalg.norm(lam_H3 - lam_H2)
-    
+
     # As Nq increases, changes should become smaller (converging to something)
     assert diff_23 <= diff_12 * 1.5, "Results should stabilize as Nq increases"
 
