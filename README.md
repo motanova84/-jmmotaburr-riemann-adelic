@@ -100,13 +100,13 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 Para elevar la verificación al nivel semántico-cuántico descrito en la visión QCAL, el repositorio incorpora una nueva capa de
 herramientas automatizadas:
 
-- `tools/universal_kernel.py`: núcleo híbrido que valida cada descriptor JSON-LD triple (prueba formal, semántica y frecuencia
-  resonante). Puede ejecutarse en modo auditoría o actualización (`--update`) y se integra con los teoremas formales de Lean al
-  verificar la ruta del artefacto.
-- `tools/build_graph.py`: genera un grafo RDF/Turtle compacto a partir de los descriptores, habilitando consultas semánticas
-  sobre dependencias, kernels y bandas de frecuencia.
-- `schema/riemann_zeta.jsonld`: plantilla inicial de descriptor universal para la formalización principal (`RH_final.lean`), con
-  identificador QCAL, ecuación asociada y frecuencia derivada del hash.
+- `tools/universal_kernel.py`: kernel híbrido que formaliza la triple estructura \(U=(L,S,F)\). Comprueba tipado lógico (Lean/
+  Dedukti), coherencia semántica acíclica del grafo `sem:dependsOn` y estabilidad físico-informacional (`hash:sha256` ↦ `freq:Hz`).
+  Puede ejecutarse en modo auditoría o actualización (`--update`), manteniendo sincronizados hash y frecuencia derivados.
+- `tools/build_graph.py`: genera un grafo RDF/Turtle compacto a partir de los descriptores, proyectando axiomas, dependencias y
+  resonancias en un formato apto para GraphDB/SPARQL.
+- `schema/riemann_zeta.jsonld`: descriptor universal para la formalización principal (`RH_final.lean`), con `formal:axioms`,
+  `sem:dependsOn`, `hash:sha256` y `freq:Hz` calculados automáticamente por el kernel.
 
 Estas utilidades están preparadas para CI/CD mediante un job dedicado (**Universal Coherence Validation**) que asegura que cada
 commit mantenga la coherencia formal, semántica y vibracional del repositorio.

@@ -29,7 +29,7 @@ jobs:
           pip install -r requirements-lock.txt
       - name: Universal Coherence Validation
         run: |
-          python tools/universal_kernel.py schema/*.jsonld --allow-kernel Lean4
+          python tools/universal_kernel.py schema/*.jsonld --allow-kernel Lean4 --allow-kernel Dedukti
       - name: Build semantic graph
         run: |
           python tools/build_graph.py schema/*.jsonld --output graph.ttl

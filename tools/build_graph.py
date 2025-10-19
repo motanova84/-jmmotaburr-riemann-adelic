@@ -10,13 +10,25 @@ PREFIXES = {
     "@base": None,
     "dc": "http://purl.org/dc/elements/1.1/",
     "formal": "https://qcal.example/formal#",
+    "sem": "https://qcal.example/semantic#",
+    "hash": "https://qcal.example/hash#",
+    "freq": "https://qcal.example/frequency#",
     "prov": "http://www.w3.org/ns/prov#",
     "qcal": "urn:qcal:",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 }
 
-REQUIRED_FIELDS = ["@id", "dc:title", "formal:kernel", "dependencies", "equation", "frequency", "proofhash"]
+REQUIRED_FIELDS = [
+    "@id",
+    "dc:title",
+    "formal:kernel",
+    "formal:proof",
+    "formal:axioms",
+    "sem:dependsOn",
+    "hash:sha256",
+    "freq:Hz",
+]
 
 
 def load_entries(paths: Sequence[Path]) -> Iterator[Tuple[Path, MutableMapping[str, object]]]:
@@ -59,19 +71,26 @@ def write_turtle(paths: Sequence[Path], output: Path) -> None:
         ensure_fields(entry, path)
         subject = entry["@id"]
         lines.append(f"<{subject}> a formal:MathematicalStatement ;")
+        axioms = entry.get("formal:axioms", [])
+        if isinstance(axioms, list):
+            axioms_literal = ", ".join(str(item) for item in axioms)
+        else:
+            axioms_literal = str(axioms)
+
         triples = [
             ("dc:title", entry["dc:title"]),
             ("formal:kernel", entry["formal:kernel"]),
-            ("formal:proofhash", entry.get("proofhash")),
-            ("formal:equation", entry.get("equation")),
-            ("formal:frequency", entry.get("frequency")),
+            ("formal:proof", entry.get("formal:proof")),
+            ("formal:axioms", axioms_literal),
+            ("hash:sha256", entry.get("hash:sha256")),
+            ("freq:Hz", entry.get("freq:Hz")),
         ]
         for predicate, value in triples:
             if value is None:
                 continue
             lines.append(f"    {predicate} {literal(value)} ;")
 
-        dependencies = entry.get("dependencies", [])
+        dependencies = entry.get("sem:dependsOn", [])
         if isinstance(dependencies, Iterable):
             for dep in dependencies:
                 lines.append(f"    prov:wasDerivedFrom <{dep}> ;")
