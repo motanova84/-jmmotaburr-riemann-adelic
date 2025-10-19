@@ -50,8 +50,7 @@ jobs:
 
       - name: Run Bandit (security linter)
         run: |
-          bandit -r . -f json -o bandit-report.json || true
-          bandit -r . --skip B101 || true
+          bandit -r . --skip B101 -f json -o bandit-report.json
         continue-on-error: true
 
       - name: Upload security reports
