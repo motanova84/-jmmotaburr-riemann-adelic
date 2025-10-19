@@ -3,7 +3,7 @@ name: Jupyter Validation
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * 1"  # lunes a las 6 am UTC
+    - cron: "0 6 * * 1"  # Monday at 6 am UTC
 
 permissions:
   contents: read
