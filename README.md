@@ -69,6 +69,7 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 - [Objetos de Demostración](#-objetos-de-demostración)
 - [Visión General](#visión-general)
 - [Estructura del Repositorio](#estructura-del-repositorio)
+- [Trabajos PDF Organizados](#trabajos-pdf-organizados)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
 - [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
@@ -98,6 +99,12 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 .  # Raíz del proyecto
 ├── paper_standalone.tex   # 📄 Artículo principal completo y autocontenido
 ├── paper/                 # Versión modular del artículo (LaTeX)
+├── trabajos/              # 📚 Trabajos y documentos PDF organizados
+│   ├── README.md         # Guía de los trabajos y flujo de lectura
+│   ├── riemann_hypothesis_proof_jmmb84.pdf         # Demostración principal
+│   ├── riemann_adelic_approach_jmmb84.pdf          # Enfoque adélico
+│   ├── weyl_delta_epsilon_theorem_proof.pdf        # Teorema de Weyl
+│   └── discrete_symmetry_gl1_dsgld.pdf             # Simetrías discretas
 ├── docs/
 │   ├── paper/            # Artículo científico completo alternativo (LaTeX)
 │   │   └── sections/
@@ -124,6 +131,19 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 ├── verify_cierre_minimo.py    # 🆕 Verificación del cierre mínimo
 └── README.md              # Este documento
 ```
+
+### 📚 Trabajos PDF Organizados
+
+La carpeta **`trabajos/`** contiene los documentos PDF que representan los trabajos científicos del proyecto:
+
+- **`riemann_hypothesis_proof_jmmb84.pdf`**: Demostración principal de la Hipótesis de Riemann
+- **`riemann_adelic_approach_jmmb84.pdf`**: Enfoque adélico y construcción de D(s)
+- **`weyl_delta_epsilon_theorem_proof.pdf`**: Teorema δ-ε de Weyl con cotas explícitas
+- **`discrete_symmetry_gl1_dsgld.pdf`**: Simetrías discretas y energía de vacío cuántico
+
+**Flujo de lectura recomendado**: Ver [`trabajos/README.md`](trabajos/README.md) para una guía completa de los trabajos, orden de lectura recomendado, y cómo contribuir nuevos documentos.
+
+**Flujo de trabajo para PDFs**: Ver [`WORKFLOW_PDFS.md`](WORKFLOW_PDFS.md) para una guía completa del proceso de integración de nuevos trabajos en PDF al repositorio.
 
 ### 📄 Documento Principal
 
