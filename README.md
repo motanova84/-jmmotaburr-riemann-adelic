@@ -39,16 +39,25 @@
   <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI">
 </p>
 
+<p align="center">
+  <img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI">
+  <img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/proof-check.yml/badge.svg?branch=main" alt="Proof Check">
+  <img src="https://img.shields.io/codecov/c/github/motanova84/-jmmotaburr-riemann-adelic/main?logo=codecov&logoColor=white" alt="Coverage">
+  <img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/nightly.yml/badge.svg" alt="Nightly">
+</p>
+
 ## 📊 Estado del Proyecto
 
 | Componente | Estado | Insignia |
 |------------|--------|----------|
-| **Formalización Lean** | 🔄 En Progreso (Skeletons) | ![Lean](https://img.shields.io/badge/Lean-4_Skeletons-yellow) |
+| **CI/CD** | ✅ Completo | ![CI](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci.yml/badge.svg?branch=main) |
+| **Formalización Lean** | 🔄 En Progreso (Skeletons) | ![Proof Check](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/proof-check.yml/badge.svg?branch=main) |
 | **Validación V5** | ✅ Coronación Exitosa | ![V5](https://img.shields.io/badge/V5-Coronación-brightgreen) |
 | **Cobertura Tests** | ✅ 100% | ![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green) |
 | **Reproducibilidad** | ✅ Confirmada ([docs](REPRODUCIBILITY.md)) | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
 | **DOI** | ✅ Registrado | ![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue) |
 | **Bibliotecas Avanzadas** | 🚀 Integradas | ![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange) |
+| **Nightly Tests** | 🌙 Activo | ![Nightly](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/nightly.yml/badge.svg) |
 
 ## 🎯 Objetos de Demostración
 
@@ -69,7 +78,10 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 - [Objetos de Demostración](#-objetos-de-demostración)
 - [Visión General](#visión-general)
 - [Estructura del Repositorio](#estructura-del-repositorio)
+<<<<<<< HEAD
 - [Trabajos PDF Organizados](#trabajos-pdf-organizados)
+=======
+>>>>>>> copilot/add-workflows-for-ci-and-more
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
 - [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
@@ -99,12 +111,15 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 .  # Raíz del proyecto
 ├── paper_standalone.tex   # 📄 Artículo principal completo y autocontenido
 ├── paper/                 # Versión modular del artículo (LaTeX)
+<<<<<<< HEAD
 ├── trabajos/              # 📚 Trabajos y documentos PDF organizados
 │   ├── README.md         # Guía de los trabajos y flujo de lectura
 │   ├── riemann_hypothesis_proof_jmmb84.pdf         # Demostración principal
 │   ├── riemann_adelic_approach_jmmb84.pdf          # Enfoque adélico
 │   ├── weyl_delta_epsilon_theorem_proof.pdf        # Teorema de Weyl
 │   └── discrete_symmetry_gl1_dsgld.pdf             # Simetrías discretas
+=======
+>>>>>>> copilot/add-workflows-for-ci-and-more
 ├── docs/
 │   ├── paper/            # Artículo científico completo alternativo (LaTeX)
 │   │   └── sections/
@@ -132,6 +147,7 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 └── README.md              # Este documento
 ```
 
+<<<<<<< HEAD
 ### 📚 Trabajos PDF Organizados
 
 La carpeta **`trabajos/`** contiene los documentos PDF que representan los trabajos científicos del proyecto:
@@ -145,6 +161,8 @@ La carpeta **`trabajos/`** contiene los documentos PDF que representan los traba
 
 **Flujo de trabajo para PDFs**: Ver [`WORKFLOW_PDFS.md`](WORKFLOW_PDFS.md) para una guía completa del proceso de integración de nuevos trabajos en PDF al repositorio.
 
+=======
+>>>>>>> copilot/add-workflows-for-ci-and-more
 ### 📄 Documento Principal
 
 El archivo **`paper_standalone.tex`** contiene la versión completa y autocontenida del paper:
@@ -235,7 +253,11 @@ Ver:
 ## Instalación y Primeros Pasos
 
 ### Prerrequisitos
+<<<<<<< HEAD
 - Python 3.11 (recommended for CI/CD compatibility, 3.8+ supported)
+=======
+- Python 3.8+
+>>>>>>> copilot/add-workflows-for-ci-and-more
 - Recomendado: entorno virtual (`python -m venv venv`)
 - Conexión a internet para descargar datos de ceros
 
@@ -248,8 +270,11 @@ pip install -r requirements.txt
 python setup_environment.py --full-setup
 ```
 
+<<<<<<< HEAD
 > **For CI/CD and reproducible builds**: Use `requirements-lock.txt` instead of `requirements.txt` to ensure exact dependency versions. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for details.
 
+=======
+>>>>>>> copilot/add-workflows-for-ci-and-more
 ### Validación completa (V5 Coronación)
 ```bash
 python3 validate_v5_coronacion.py --precision 30
@@ -323,7 +348,52 @@ Salida esperada:
 
 ### 🔬 Workflows de CI/CD
 
+<<<<<<< HEAD
 Nuevos workflows de GitHub Actions para validación avanzada:
+=======
+El repositorio incluye workflows completos de GitHub Actions para garantizar calidad, seguridad y reproducibilidad:
+
+#### Workflows Principales
+
+- **CI** (`.github/workflows/ci.yml`)
+  - Tests automáticos en Python 3.10, 3.11, 3.12
+  - Linting con flake8, black, isort
+  - Ejecución en cada push y pull request
+  - Cache de dependencias para velocidad
+
+- **Coverage** (`.github/workflows/coverage.yml`)
+  - Medición de cobertura de tests
+  - Integración con Codecov
+  - Reportes detallados de cobertura
+
+- **Proof Check** (`.github/workflows/proof-check.yml`)
+  - Verificación formal en Lean 4
+  - Compilación de formalizaciones
+  - Cache de builds de Lean
+
+- **Property Tests** (`.github/workflows/property-tests.yml`)
+  - Tests basados en propiedades con Hypothesis
+  - Búsqueda automática de casos límite
+  - Validación de invariantes matemáticas
+
+- **Dependency Review** (`.github/workflows/dependency-review.yml`)
+  - Análisis de seguridad de dependencias
+  - Detección de vulnerabilidades con Safety y Bandit
+  - Revisión automática en pull requests
+
+- **Release** (`.github/workflows/release.yml`)
+  - Creación automática de releases en tags v*.*.*
+  - Empaquetado de distribuciones
+  - Extracción de notas de CHANGELOG.md
+
+- **Nightly** (`.github/workflows/nightly.yml`)
+  - Ejecución diaria a las 02:00 UTC
+  - Tests con últimas versiones de dependencias
+  - Detección temprana de incompatibilidades
+  - Notificación automática de fallos
+
+#### Workflows Especializados
+>>>>>>> copilot/add-workflows-for-ci-and-more
 
 - **Performance Benchmarking** (`.github/workflows/performance-benchmark.yml`)
   - Benchmarks de rendimiento core
@@ -336,6 +406,21 @@ Nuevos workflows de GitHub Actions para validación avanzada:
   - Análisis de redes de números primos
   - Análisis espectral basado en tensores
 
+<<<<<<< HEAD
+=======
+#### Configuración Requerida
+
+Para aprovechar todos los workflows, configura estos secretos en GitHub:
+
+- `CODECOV_TOKEN` - Solo si el repositorio es privado (opcional para públicos)
+- `PYPI_TOKEN` - Para publicación automática en PyPI (opcional)
+
+Todos los workflows están optimizados con:
+- Cache de dependencias para ejecución rápida
+- Timeouts apropiados para operaciones largas
+- Continue-on-error para checks no críticos
+
+>>>>>>> copilot/add-workflows-for-ci-and-more
 ## Validación Numérica y Resultados
 
 La validación compara ambos lados de la fórmula explícita de Weil:
