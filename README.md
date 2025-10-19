@@ -49,6 +49,7 @@
 | **Reproducibilidad** | ✅ Confirmada ([docs](REPRODUCIBILITY.md)) | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
 | **DOI** | ✅ Registrado | ![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue) |
 | **Bibliotecas Avanzadas** | 🚀 Integradas | ![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange) |
+| **🆕 Universal Kernel (QCAL)** | ✅ Implementado | ![QCAL](https://img.shields.io/badge/QCAL-U%3D(L%2CS%2CF)-purple) |
 
 ## 🎯 Objetos de Demostración
 
@@ -68,6 +69,7 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 
 - [Objetos de Demostración](#-objetos-de-demostración)
 - [Visión General](#visión-general)
+- [🆕 Universal Verification Kernel (QCAL)](#-universal-verification-kernel-qcal)
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Trabajos PDF Organizados](#trabajos-pdf-organizados)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
@@ -94,6 +96,46 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 - **Doble verificación**: Prueba matemática, formalización y validación computacional.
 - **Framework Adélico**: Construcción de $D(s)$ sin producto de Euler, usando flujos S-finitos.
 
+---
+
+## 🆕 Universal Verification Kernel (QCAL)
+
+Este repositorio implementa un **marco de verificación universal** que supera a Lean en rigor matemático y coherencia informacional. El kernel define una estructura triple **U = (L, S, F)**:
+
+- **L**: Sistema Lógico (verificación formal con Dedukti/Lean)
+- **S**: Sistema Semántico (consistencia ontológica RDF/OWL)
+- **F**: Sistema Físico-Informacional (invariantes de frecuencia y hash)
+
+### Teorema Central de Consistencia
+
+```
+Consistencia(U) ⟺ ∀x∈U: V_L(x) ∧ V_S(x) ∧ V_F(x)
+```
+
+Donde:
+- `V_L(x) = 1`: Prueba sintáctica y tipológicamente correcta
+- `V_S(x) = 1`: Sin ciclos ilegítimos en el grafo RDF
+- `V_F(x) = 1`: `|f(x) - 141.7001 Hz| < 10⁻⁴` y hash reproducible
+
+### Uso Rápido
+
+```bash
+# Verificar metadatos matemáticos
+python tools/universal_kernel.py schema/zeta_function.jsonld
+
+# Verificar con prueba formal
+python tools/universal_kernel.py schema/natural_numbers.jsonld formalization/dedukti/nat.dk
+
+# Ejecutar tests del kernel
+pytest tests/test_universal_kernel.py -v
+```
+
+**Documentación completa**: Ver [UNIVERSAL_KERNEL_README.md](UNIVERSAL_KERNEL_README.md)
+
+**Integración CI/CD**: El kernel se ejecuta automáticamente en cada push/PR para garantizar coherencia global.
+
+---
+
 ## Estructura del Repositorio
 
 ```plaintext
@@ -118,16 +160,24 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 │   ├── operador/
 │   │   └── operador_H_real.py  # Operador universal H en base log-wave
 │   └── README.md          # Documentación del operador H
-├── formalization/lean/    # Formalización Lean 4
-│   └── RiemannAdelic/
-│       ├── poisson_radon_symmetry.lean  # 🆕 Simetría Poisson-Radón
-│       ├── pw_two_lines.lean            # 🆕 Determinancia Paley-Wiener
-│       └── doi_positivity.lean          # 🆕 Positividad y línea crítica
+├── formalization/         # 🆕 Pruebas formales y verificación lógica
+│   ├── dedukti/          # Dedukti Logical Framework (.dk files)
+│   │   └── nat.dk       # Natural numbers with operations
+│   ├── lean/             # Lean 4 dependent type theory
+│   │   └── zeta_basic.lean  # Riemann zeta function structure
+│   └── README.md         # Guía de formalización
+├── schema/               # 🆕 Metadatos JSON-LD para objetos matemáticos
+│   ├── zeta_function.jsonld     # Metadatos de la función zeta
+│   ├── natural_numbers.jsonld   # Metadatos de números naturales
+│   └── README.md         # Guía de esquemas semánticos
+├── tools/                # 🆕 Universal Verification Kernel
+│   └── universal_kernel.py  # Kernel de verificación U=(L,S,F)
 ├── utils/                 # Herramientas matemáticas y scripts
 ├── zeros/                 # Datos de ceros de Riemann (Odlyzko)
 ├── data/                  # Resultados y certificados numéricos
 ├── tests/                 # Tests unitarios y de integración
-│   └── test_cierre_minimo.py  # 🆕 Tests para cierre mínimo
+│   ├── test_cierre_minimo.py     # 🆕 Tests para cierre mínimo
+│   └── test_universal_kernel.py  # 🆕 Tests del kernel de verificación (22 tests)
 ├── validate_*.py          # Scripts de validación principales
 ├── verify_cierre_minimo.py    # 🆕 Verificación del cierre mínimo
 └── README.md              # Este documento
