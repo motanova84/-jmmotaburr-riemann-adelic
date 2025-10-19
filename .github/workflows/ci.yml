@@ -49,12 +49,12 @@ jobs:
 
       - name: Check code formatting (black)
         run: |
-          black --check --line-length=120 . || true
+          black --check --line-length=120 .
         continue-on-error: true
 
       - name: Check import sorting (isort)
         run: |
-          isort --check-only --profile black --line-length 120 . || true
+          isort --check-only --profile black --line-length 120 .
         continue-on-error: true
 
       - name: Run tests with pytest
