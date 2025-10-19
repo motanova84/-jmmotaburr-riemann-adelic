@@ -210,10 +210,10 @@ git push origin add-new-work-[nombre]
 
 | Documento | Páginas | Tamaño | Última Actualización |
 |-----------|---------|--------|---------------------|
-| riemann_hypothesis_proof_jmmb84.pdf | - | 154 KB | 2025-09 |
-| riemann_adelic_approach_jmmb84.pdf | - | 147 KB | 2025-09 |
-| weyl_delta_epsilon_theorem_proof.pdf | - | 314 KB | 2025-09 |
-| discrete_symmetry_gl1_dsgld.pdf | - | 114 KB | 2025-09 |
+riemann_hypothesis_proof_jmmb84.pdf | - | 154 KB | 2025-09 |
+riemann_adelic_approach_jmmb84.pdf | - | 147 KB | 2025-09 |
+weyl_delta_epsilon_theorem_proof.pdf | - | 314 KB | 2025-09 |
+discrete_symmetry_gl1_dsgld.pdf | - | 114 KB | 2025-09 |
 
 ## 🔗 Enlaces Útiles / Useful Links
 
