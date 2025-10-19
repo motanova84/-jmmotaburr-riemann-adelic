@@ -26,8 +26,8 @@ axiom functional_equation : ∀ s : ℂ, s ≠ 1 → s ≠ 0 →
   zeta s = sorry  -- Full equation omitted for brevity
 
 /-- Non-trivial zeros lie in the critical strip 0 < Re(s) < 1 -/
-axiom critical_strip : ∀ s : ℂ, zeta s = 0 → s.re ∉ Set.Ioi 1 ∪ Set.Iio 0 ∨ s.re = 0 → 
-  0 < s.re ∧ s.re < 1
+axiom critical_strip : ∀ s : ℂ, zeta s = 0 → ((s.re ∉ Set.Ioi 1 ∪ Set.Iio 0) ∧ s.re ≠ 0 → 
+  0 < s.re ∧ s.re < 1)
 
 /-- Riemann Hypothesis: All non-trivial zeros have Re(s) = 1/2 -/
 axiom riemann_hypothesis : ∀ s : ℂ, zeta s = 0 → 
