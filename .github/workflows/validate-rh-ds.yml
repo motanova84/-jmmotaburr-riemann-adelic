@@ -1,0 +1,39 @@
+name: Validate RH and D≡Ξ
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  validate-rh-ds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install mpmath numpy scipy
+
+      - name: Run RH & D≡Ξ validation
+        run: |
+          python validate_rh_ds_equivalence.py --full --precision 25
+
+      - name: Upload validation results
+        uses: actions/upload-artifact@v4
+        with:
+          name: rh-ds-validation-results
+          path: data/validation/
+
+      - name: Generate validation report
+        run: |
+          python scripts/generate_validation_report.py
