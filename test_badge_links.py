@@ -117,13 +117,15 @@ def main():
     print("=" * 80)
     external_urls = check_external_urls(markdown_links, html_links)
     
-    # Categorize URLs
+    # Categorize URLs for display purposes only (not security-sensitive)
+    # Note: These substring checks are for categorization, not sanitization
     github_urls = []
     doi_urls = []
     codecov_urls = []
     other_urls = []
     
     for text, url in external_urls:
+        # Categorization logic - not used for security decisions
         if 'github.com' in url:
             github_urls.append((text, url))
         elif 'doi.org' in url or 'zenodo' in url:

@@ -64,6 +64,8 @@
 
 ### 🔍 Información de las Insignias
 
+**📖 Documentación completa:** Ver [BADGE_SYSTEM_DOCUMENTATION.md](BADGE_SYSTEM_DOCUMENTATION.md) y [BADGE_EXAMPLES.md](BADGE_EXAMPLES.md)
+
 Todas las insignias son **funcionales y clickables**. Al hacer clic, proporcionan información detallada:
 
 - **Insignias de Estado en Tiempo Real** (GitHub Actions): Muestran el estado actual de los workflows de CI/CD. Al hacer clic, accedes a:
