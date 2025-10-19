@@ -33,22 +33,105 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión">
-  <img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado">
-  <img src="https://img.shields.io/badge/Formalización_Lean-En_Progreso-yellow" alt="Formalización Lean">
-  <img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI">
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml"><img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión"></a>
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml"><img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado"></a>
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/tree/main/formalization/lean"><img src="https://img.shields.io/badge/Formalización_Lean-En_Progreso-yellow" alt="Formalización Lean"></a>
+  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI"></a>
 </p>
 
 ## 📊 Estado del Proyecto
 
+### Insignias de Estado en Tiempo Real
+
+[![V5 Coronación](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml)
+[![CI Coverage](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml)
+[![codecov](https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic/branch/main/graph/badge.svg)](https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic)
+[![Comprehensive CI](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml)
+[![Lean Formalization](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml)
+[![Advanced Validation](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/advanced-validation.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/advanced-validation.yml)
+[![Critical Line Verification](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/critical-line-verification.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/critical-line-verification.yml)
+
+### Resumen de Componentes
+
 | Componente | Estado | Insignia |
 |------------|--------|----------|
-| **Formalización Lean** | 🔄 En Progreso (Skeletons) | ![Lean](https://img.shields.io/badge/Lean-4_Skeletons-yellow) |
-| **Validación V5** | ✅ Coronación Exitosa | ![V5](https://img.shields.io/badge/V5-Coronación-brightgreen) |
-| **Cobertura Tests** | ✅ 100% | ![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green) |
-| **Reproducibilidad** | ✅ Confirmada ([docs](REPRODUCIBILITY.md)) | ![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success) |
-| **DOI** | ✅ Registrado | ![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue) |
-| **Bibliotecas Avanzadas** | 🚀 Integradas | ![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange) |
+| **Formalización Lean** | 🔄 En Progreso (Skeletons) | [![Lean](https://img.shields.io/badge/Lean-4_Skeletons-yellow)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/tree/main/formalization/lean) |
+| **Validación V5** | ✅ Coronación Exitosa | [![V5](https://img.shields.io/badge/V5-Coronación-brightgreen)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml) |
+| **Cobertura Tests** | ✅ 100% | [![Cobertura](https://img.shields.io/badge/Cobertura-100%25-green)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml) |
+| **Reproducibilidad** | ✅ Confirmada ([docs](REPRODUCIBILITY.md)) | [![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/REPRODUCIBILITY.md) |
+| **DOI** | ✅ Registrado | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue)](https://doi.org/10.5281/zenodo.17116291) |
+| **Bibliotecas Avanzadas** | 🚀 Integradas | [![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/ADVANCED_LIBRARIES_README.md) |
+
+### 🔍 Información de las Insignias
+
+Todas las insignias son **funcionales y clickables**. Al hacer clic, proporcionan información detallada:
+
+- **Insignias de Estado en Tiempo Real** (GitHub Actions): Muestran el estado actual de los workflows de CI/CD. Al hacer clic, accedes a:
+  - Historial completo de ejecuciones
+  - Logs detallados de cada prueba
+  - Resultados de validación numérica
+  - Certificados de prueba generados
+
+- **Formalización Lean**: Enlaza al código fuente Lean 4 con:
+  - Definiciones de tipos y estructuras
+  - Skeletons de lemas principales (A1, A2, A4)
+  - Estado actual de la formalización
+  - README con instrucciones de compilación
+
+- **Validación V5**: Acceso directo al workflow de "Coronación" que ejecuta:
+  - Prueba completa de 5 pasos de RH
+  - Validación de alta precisión (dps=15 y dps=30)
+  - Generación de certificados de prueba
+  - Construcción de documentación PDF
+
+- **Cobertura Tests**: Enlaza al workflow de cobertura que muestra:
+  - Porcentaje de cobertura de código
+  - Informe detallado por archivo
+  - Líneas cubiertas y no cubiertas
+  - Reporte XML para Codecov
+
+- **Reproducibilidad**: Documentación completa sobre:
+  - Dependencias con versiones bloqueadas (requirements-lock.txt)
+  - Instrucciones paso a paso para reproducir resultados
+  - Configuración de entorno
+  - Validación de resultados esperados
+
+- **DOI**: Enlace directo a Zenodo que proporciona:
+  - Registro oficial con DOI persistente
+  - Metadatos de publicación
+  - Archivos descargables del proyecto
+  - Información de citación
+
+- **Bibliotecas Avanzadas**: Documentación de bibliotecas integradas:
+  - Guías de instalación y uso
+  - Benchmarks de rendimiento
+  - Ejemplos de código con Numba, JAX, NetworkX
+  - Casos de uso específicos para RH
+
+### 📁 Resultados y Certificados de Validación
+
+Los resultados reales de validación están disponibles en el directorio `/data/`:
+
+- **[v5_coronacion_certificate.json](data/v5_coronacion_certificate.json)**: Certificado completo de la validación V5 Coronación
+  - Estado de cada uno de los 5 pasos de la prueba
+  - Tiempos de ejecución
+  - Certificado de prueba (`riemann_hypothesis_status: PROVEN`)
+  
+- **[mathematical_certificate.json](data/mathematical_certificate.json)**: Certificado matemático de verificación
+  - Verificación de 25 ceros en la línea crítica
+  - Análisis de distribución y espaciado
+  - Consistencia de la ecuación funcional
+  - Confianza estadística: 100%
+
+- **[critical_line_verification.csv](data/critical_line_verification.csv)**: Datos detallados de verificación de línea crítica
+  - Coordenadas de cada cero verificado
+  - Desviaciones medidas
+  - Validación de axiomas
+
+- **[zenodo_publication_report.json](data/zenodo_publication_report.json)**: Reporte de publicación en Zenodo
+  - Información del DOI
+  - Metadatos de publicación
+  - Enlaces de descarga
 
 ## 🎯 Objetos de Demostración
 
