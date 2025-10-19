@@ -300,7 +300,7 @@ Si necesitas actualizar un PDF existente:
 git checkout -b update-work-[nombre]
 
 # 2. Reemplazar el PDF
-cp ~/nuevo_version.pdf trabajos/existing_work.pdf
+cp ~/nueva_version.pdf trabajos/existing_work.pdf
 
 # 3. Actualizar README si es necesario
 nano trabajos/README.md
