@@ -11,6 +11,8 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -24,6 +26,8 @@ jobs:
   lint-and-test:
     needs: setup
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -44,6 +48,8 @@ jobs:
   validate-metadata:
     needs: setup
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -60,6 +66,8 @@ jobs:
   verify-conversion:
     needs: setup
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v4
