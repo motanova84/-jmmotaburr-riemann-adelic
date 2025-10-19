@@ -71,6 +71,7 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Trabajos PDF Organizados](#trabajos-pdf-organizados)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
+- [Infraestructura de Coherencia Universal](#infraestructura-de-coherencia-universal)
 - [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
 - [GitHub REST API](#github-rest-api)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
@@ -93,6 +94,22 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 - **Axiomas a Lemas**: Todos los axiomas condicionales (A1, A2, A4) han sido probados rigurosamente.
 - **Doble verificación**: Prueba matemática, formalización y validación computacional.
 - **Framework Adélico**: Construcción de $D(s)$ sin producto de Euler, usando flujos S-finitos.
+
+## Infraestructura de Coherencia Universal
+
+Para elevar la verificación al nivel semántico-cuántico descrito en la visión QCAL, el repositorio incorpora una nueva capa de
+herramientas automatizadas:
+
+- `tools/universal_kernel.py`: kernel híbrido que formaliza la triple estructura \(U=(L,S,F)\). Comprueba tipado lógico (Lean/
+  Dedukti), coherencia semántica acíclica del grafo `sem:dependsOn` y estabilidad físico-informacional (`hash:sha256` ↦ `freq:Hz`).
+  Puede ejecutarse en modo auditoría o actualización (`--update`), manteniendo sincronizados hash y frecuencia derivados.
+- `tools/build_graph.py`: genera un grafo RDF/Turtle compacto a partir de los descriptores, proyectando axiomas, dependencias y
+  resonancias en un formato apto para GraphDB/SPARQL.
+- `schema/riemann_zeta.jsonld`: descriptor universal para la formalización principal (`RH_final.lean`), con `formal:axioms`,
+  `sem:dependsOn`, `hash:sha256` y `freq:Hz` calculados automáticamente por el kernel.
+
+Estas utilidades están preparadas para CI/CD mediante un job dedicado (**Universal Coherence Validation**) que asegura que cada
+commit mantenga la coherencia formal, semántica y vibracional del repositorio.
 
 ## Estructura del Repositorio
 
