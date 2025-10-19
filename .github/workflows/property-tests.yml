@@ -47,6 +47,6 @@ jobs:
       - name: Run Hypothesis with extended examples
         run: |
           # Si existen tests con Hypothesis, ejecutarlos con más ejemplos
-          HYPOTHESIS_PROFILE=ci pytest tests/ -v --tb=short || echo "Property tests completed or not found"
+          pytest tests/ -v --tb=short -k "property or hypothesis" || echo "Property tests completed or not found"
         env:
           HYPOTHESIS_PROFILE: ci
