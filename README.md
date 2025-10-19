@@ -78,10 +78,7 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 - [Objetos de Demostración](#-objetos-de-demostración)
 - [Visión General](#visión-general)
 - [Estructura del Repositorio](#estructura-del-repositorio)
-<<<<<<< HEAD
 - [Trabajos PDF Organizados](#trabajos-pdf-organizados)
-=======
->>>>>>> copilot/add-workflows-for-ci-and-more
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
 - [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
@@ -111,15 +108,12 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 .  # Raíz del proyecto
 ├── paper_standalone.tex   # 📄 Artículo principal completo y autocontenido
 ├── paper/                 # Versión modular del artículo (LaTeX)
-<<<<<<< HEAD
 ├── trabajos/              # 📚 Trabajos y documentos PDF organizados
 │   ├── README.md         # Guía de los trabajos y flujo de lectura
 │   ├── riemann_hypothesis_proof_jmmb84.pdf         # Demostración principal
 │   ├── riemann_adelic_approach_jmmb84.pdf          # Enfoque adélico
 │   ├── weyl_delta_epsilon_theorem_proof.pdf        # Teorema de Weyl
 │   └── discrete_symmetry_gl1_dsgld.pdf             # Simetrías discretas
-=======
->>>>>>> copilot/add-workflows-for-ci-and-more
 ├── docs/
 │   ├── paper/            # Artículo científico completo alternativo (LaTeX)
 │   │   └── sections/
@@ -147,7 +141,6 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 └── README.md              # Este documento
 ```
 
-<<<<<<< HEAD
 ### 📚 Trabajos PDF Organizados
 
 La carpeta **`trabajos/`** contiene los documentos PDF que representan los trabajos científicos del proyecto:
@@ -161,8 +154,6 @@ La carpeta **`trabajos/`** contiene los documentos PDF que representan los traba
 
 **Flujo de trabajo para PDFs**: Ver [`WORKFLOW_PDFS.md`](WORKFLOW_PDFS.md) para una guía completa del proceso de integración de nuevos trabajos en PDF al repositorio.
 
-=======
->>>>>>> copilot/add-workflows-for-ci-and-more
 ### 📄 Documento Principal
 
 El archivo **`paper_standalone.tex`** contiene la versión completa y autocontenida del paper:
@@ -253,11 +244,7 @@ Ver:
 ## Instalación y Primeros Pasos
 
 ### Prerrequisitos
-<<<<<<< HEAD
 - Python 3.11 (recommended for CI/CD compatibility, 3.8+ supported)
-=======
-- Python 3.8+
->>>>>>> copilot/add-workflows-for-ci-and-more
 - Recomendado: entorno virtual (`python -m venv venv`)
 - Conexión a internet para descargar datos de ceros
 
@@ -270,11 +257,8 @@ pip install -r requirements.txt
 python setup_environment.py --full-setup
 ```
 
-<<<<<<< HEAD
 > **For CI/CD and reproducible builds**: Use `requirements-lock.txt` instead of `requirements.txt` to ensure exact dependency versions. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for details.
 
-=======
->>>>>>> copilot/add-workflows-for-ci-and-more
 ### Validación completa (V5 Coronación)
 ```bash
 python3 validate_v5_coronacion.py --precision 30
@@ -348,9 +332,6 @@ Salida esperada:
 
 ### 🔬 Workflows de CI/CD
 
-<<<<<<< HEAD
-Nuevos workflows de GitHub Actions para validación avanzada:
-=======
 El repositorio incluye workflows completos de GitHub Actions para garantizar calidad, seguridad y reproducibilidad:
 
 #### Workflows Principales
@@ -393,7 +374,6 @@ El repositorio incluye workflows completos de GitHub Actions para garantizar cal
   - Notificación automática de fallos
 
 #### Workflows Especializados
->>>>>>> copilot/add-workflows-for-ci-and-more
 
 - **Performance Benchmarking** (`.github/workflows/performance-benchmark.yml`)
   - Benchmarks de rendimiento core
@@ -406,8 +386,6 @@ El repositorio incluye workflows completos de GitHub Actions para garantizar cal
   - Análisis de redes de números primos
   - Análisis espectral basado en tensores
 
-<<<<<<< HEAD
-=======
 #### Configuración Requerida
 
 Para aprovechar todos los workflows, configura estos secretos en GitHub:
@@ -419,8 +397,6 @@ Todos los workflows están optimizados con:
 - Cache de dependencias para ejecución rápida
 - Timeouts apropiados para operaciones largas
 - Continue-on-error para checks no críticos
-
->>>>>>> copilot/add-workflows-for-ci-and-more
 ## Validación Numérica y Resultados
 
 La validación compara ambos lados de la fórmula explícita de Weil:
