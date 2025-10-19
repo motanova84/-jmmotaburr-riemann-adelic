@@ -72,6 +72,7 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 - [Trabajos PDF Organizados](#trabajos-pdf-organizados)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
 - [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
+- [GitHub REST API](#github-rest-api)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
 - [Papel Científico y Formalización](#papel-científico-y-formalización)
 - [Citación y Licencia](#citación-y-licencia)
@@ -335,6 +336,60 @@ Nuevos workflows de GitHub Actions para validación avanzada:
   - Análisis ML de patrones de ceros
   - Análisis de redes de números primos
   - Análisis espectral basado en tensores
+
+## GitHub REST API
+
+Este repositorio proporciona acceso completo a través de la **GitHub REST API** para automatización, monitoreo y integración con sistemas externos.
+
+### 📖 Guía de Inicio Rápido
+
+Ver [**GITHUB_API_QUICKSTART.md**](GITHUB_API_QUICKSTART.md) para una guía completa que incluye:
+
+- **GitHub CLI** (`gh`): La forma más fácil de usar la API desde la línea de comandos
+- **curl**: Peticiones HTTP directas a la API
+- **Python**: Scripts para integración programática
+- Autenticación con tokens de acceso
+- Monitoreo de workflows de validación
+- Casos de uso comunes específicos del repositorio
+
+### 🚀 Inicio Rápido
+
+```bash
+# Instalar GitHub CLI
+brew install gh  # macOS
+# o seguir las instrucciones en https://cli.github.com
+
+# Autenticarse
+gh auth login
+
+# Obtener información del repositorio
+gh api /repos/motanova84/-jmmotaburr-riemann-adelic
+
+# Ver estado de workflows de validación
+gh api /repos/motanova84/-jmmotaburr-riemann-adelic/actions/runs \
+  --jq '.workflow_runs[] | select(.name | contains("validation")) | {name: .name, status: .status, conclusion: .conclusion}'
+```
+
+### 🐍 Ejemplos en Python
+
+Scripts de ejemplo incluidos en el directorio `examples/`:
+
+- **`github_api_example.py`**: Ejemplos básicos de uso de la API
+  ```bash
+  python3 examples/github_api_example.py
+  ```
+
+- **`monitor_validations.py`**: Monitoreo de workflows de validación
+  ```bash
+  python3 examples/monitor_validations.py
+  ```
+
+### 📊 Casos de Uso
+
+- **Monitoreo automatizado**: Verificar el estado de validaciones en CI/CD
+- **Integración**: Conectar con sistemas de alertas y notificaciones
+- **Análisis**: Descargar artefactos y resultados de workflows
+- **Automatización**: Crear scripts personalizados para gestión del repositorio
 
 ## Validación Numérica y Resultados
 

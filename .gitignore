@@ -126,3 +126,4 @@ build/
 monitoring/evidence/
 monitoring/alerts/*.json
 !monitoring/alerts/.gitkeep
+examples/__pycache__/
