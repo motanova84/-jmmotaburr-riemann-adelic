@@ -139,6 +139,11 @@ Cada cero no trivial de $\zeta(s)$ es simple porque corresponde a un único auto
 \section{Validación Numérica Completa}
 
 El siguiente script ilustra la verificación numérica de los primeros ceros mediante diagonalización discreta del operador de dilatación truncado.
+Para que el código sea ejecutable es imprescindible suministrar implementaciones concretas de
+\texttt{build\_dilation\_operator} y \texttt{build\_prime\_potential} (por ejemplo, las rutinas de discretización
+por diferencias finitas disponibles en los módulos numéricos del repositorio). Sin esas definiciones Python
+emitirá un error \texttt{NameError}, de modo que el fragmento debe entenderse como una plantilla que el lector
+debe completar antes de lanzar la validación.
 
 \begin{verbatim}
 import mpmath
