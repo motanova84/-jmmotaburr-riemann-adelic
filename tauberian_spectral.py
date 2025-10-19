@@ -100,9 +100,9 @@ def tauberian_spectral_computation(N, h, num_jobs=8):
     
     # Parallel computation optimized
     H = mp.matrix(N, N)
-    print("Computing TAUberian matrix elements...")
+    print("Computing Tauberian matrix elements...")
     
-    results = Parallel(n_jobs=num_jobs, verbose=10)(
+    results = Parallel(n_jobs=num_jobs, verbose=10, backend='threading')(
         delayed(compute_matrix_element)(i, j)
         for i in range(N) for j in range(i, N)
     )

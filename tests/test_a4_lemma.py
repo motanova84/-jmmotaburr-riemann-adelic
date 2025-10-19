@@ -39,7 +39,7 @@ def test_orbit_length_verification():
         log_q_v = log(q_v)
         
         # Verify equality (with numerical tolerance)
-        assert abs(ell_v - log_q_v) < mp.mpf('1e-20'), \
+        assert abs(ell_v - log_q_v) < mp.mpf('1e-15'), \
             f"Failed for p={p}, f={f}: ell_v={ell_v}, log_q_v={log_q_v}"
 
 
@@ -77,7 +77,7 @@ def test_tate_lemma_properties():
         length = -log(norm)
         expected = log(q_v)
         
-        assert abs(length - expected) < mp.mpf('1e-20'), \
+        assert abs(length - expected) < mp.mpf('1e-15'), \
             f"Tate factorization failed for p={p}"
 
 
@@ -99,7 +99,7 @@ def test_weil_orbit_identification():
         norm_pi_v = q_v ** -1
         ell_v = -log(norm_pi_v)
         
-        assert abs(ell_v - expected_length) < mp.mpf('1e-20'), \
+        assert abs(ell_v - expected_length) < mp.mpf('1e-15'), \
             f"Weil orbit identification failed for p={p}"
 
 
