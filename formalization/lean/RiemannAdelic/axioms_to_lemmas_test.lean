@@ -3,9 +3,11 @@
 
 import RiemannAdelic.axioms_to_lemmas
 
+open RiemannAdelic
+
 -- Test that axioms are properly declared
 #check A1_finite_scale_flow
-#check A2_poisson_adelic_symmetry  
+#check A2_poisson_adelic_symmetry
 #check A4_spectral_regularity
 
 -- Test that foundation definition compiles
