@@ -1,0 +1,32 @@
+(; Natural Numbers in Dedukti ;)
+(; Logical Framework for QCAL Universal Verification ;)
+
+(; Base types ;)
+Type : Type.
+
+(; Natural numbers type ;)
+Nat : Type.
+
+(; Constructors ;)
+zero : Nat.
+succ : Nat -> Nat.
+
+(; Addition ;)
+def add : Nat -> Nat -> Nat.
+[n] add zero n --> n.
+[m,n] add (succ m) n --> succ (add m n).
+
+(; Axiom: Adding zero on the right ;)
+(; In a complete formalization, this would be proven by induction ;)
+def add_zero_r : n : Nat -> Nat.
+[n] add_zero_r n --> n.
+
+(; Multiplication ;)
+def mul : Nat -> Nat -> Nat.
+[n] mul zero n --> zero.
+[m,n] mul (succ m) n --> add n (mul m n).
+
+(; Proof sketch: commutativity of addition ;)
+(; This demonstrates the structure without full proof ;)
+def add_comm_sketch : m : Nat -> n : Nat -> Nat.
+[m,n] add_comm_sketch m n --> add m n.

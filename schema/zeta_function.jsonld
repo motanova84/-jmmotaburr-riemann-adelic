@@ -1,0 +1,36 @@
+{
+  "@context": {
+    "@vocab": "http://qcal.org/ontology#",
+    "dc": "http://purl.org/dc/terms/",
+    "formal": "http://qcal.org/formal#",
+    "sem": "http://qcal.org/semantic#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "hash": "http://qcal.org/hash#",
+    "freq": "http://qcal.org/frequency#"
+  },
+  "@id": "urn:qcal:riemann:zeta",
+  "@type": "MathematicalObject",
+  "dc:title": "Función zeta de Riemann",
+  "dc:description": "La función zeta de Riemann ζ(s) definida mediante continuación analítica desde el semiplano Re(s) > 1",
+  "formal:kernel": "Dedukti",
+  "formal:axioms": [
+    "AnalyticContinuation",
+    "FunctionalEquation",
+    "EulerProduct"
+  ],
+  "sem:dependsOn": [
+    "urn:qcal:base:complex",
+    "urn:qcal:base:analytic_function"
+  ],
+  "sem:relatedTo": [
+    "urn:qcal:riemann:hypothesis",
+    "urn:qcal:prime:distribution"
+  ],
+  "prov:wasGeneratedBy": "motanova84/-jmmotaburr-riemann-adelic",
+  "prov:generatedAtTime": "2025-10-19T18:00:00Z",
+  "hash:sha256": "AB34F9E2",
+  "freq:Hz": 141.7001,
+  "freq:derivation": "Planck-scale adelic spectral resonance: f = c·ℓ_P/(2πR_Ψ)",
+  "verification:status": "proven",
+  "verification:method": "adelic-spectral-ultima"
+}

@@ -45,3 +45,9 @@ jobs:
       - name: Run tests
         run: |
           pytest -q
+
+      - name: Universal Coherence Check
+        run: |
+          echo "Running Universal Verification Kernel (QCAL Framework)"
+          python tools/universal_kernel.py schema/zeta_function.jsonld
+          python tools/universal_kernel.py schema/natural_numbers.jsonld formalization/dedukti/nat.dk

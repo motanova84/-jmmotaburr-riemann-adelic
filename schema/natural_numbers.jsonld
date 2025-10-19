@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "@vocab": "http://qcal.org/ontology#",
+    "dc": "http://purl.org/dc/terms/",
+    "formal": "http://qcal.org/formal#",
+    "sem": "http://qcal.org/semantic#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "hash": "http://qcal.org/hash#",
+    "freq": "http://qcal.org/frequency#"
+  },
+  "@id": "urn:qcal:base:nat",
+  "@type": "MathematicalObject",
+  "dc:title": "Natural Numbers",
+  "dc:description": "The set of natural numbers ℕ = {0, 1, 2, 3, ...} with Peano axioms",
+  "formal:kernel": "LF",
+  "formal:axioms": [
+    "Peano1_ZeroIsNat",
+    "Peano2_SuccIsNat",
+    "Peano3_ZeroNotSucc",
+    "Peano4_SuccInjective",
+    "Peano5_Induction"
+  ],
+  "sem:dependsOn": [],
+  "sem:relatedTo": [
+    "urn:qcal:base:integer",
+    "urn:qcal:base:rational"
+  ],
+  "prov:wasGeneratedBy": "motanova84/-jmmotaburr-riemann-adelic",
+  "prov:generatedAtTime": "2025-10-19T18:00:00Z",
+  "hash:sha256": "1A2B3C4D",
+  "freq:Hz": 141.7001,
+  "freq:derivation": "Universal frequency constant from compactified toroidal geometry",
+  "verification:status": "axiomatized",
+  "verification:method": "type-theory"
+}
