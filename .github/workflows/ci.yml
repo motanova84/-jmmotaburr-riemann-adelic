@@ -42,6 +42,14 @@ jobs:
           pip install flake8 || true
           if [ -f .flake8 ] || [ -f setup.cfg ] || [ -f pyproject.toml ]; then flake8 . || true; fi
 
+      - name: Validate metadata
+        run: |
+          python tools/verify_metadata.py schema/metadata_example.jsonld
+
+      - name: Test converter
+        run: |
+          python tools/convert_example.py tests/examples/example_lean.lean
+
       - name: Run tests
         run: |
           pytest -q
