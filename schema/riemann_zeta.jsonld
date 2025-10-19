@@ -1,0 +1,18 @@
+{
+  "@context": {
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "formal": "https://qcal.example/formal#",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@id": "urn:qcal:riemann:thm:001",
+  "dc:title": "Riemann Hypothesis Spectral Trace Formalization",
+  "formal:kernel": "Lean4",
+  "formal:proof": "formalization/lean/RH_final.lean",
+  "proofhash": "sha256-6bbe64000277d78e80c4ad7a70258f6a20136fb558415c8a891a65e5fa22a601",
+  "dependencies": [
+    "urn:qcal:base:nat:axioms",
+    "urn:qcal:riemann:definition:zeta"
+  ],
+  "equation": "Ψ = I × A_eff²",
+  "frequency": 141.7038706
+}

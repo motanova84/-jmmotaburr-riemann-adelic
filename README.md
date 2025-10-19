@@ -71,6 +71,7 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Trabajos PDF Organizados](#trabajos-pdf-organizados)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
+- [Infraestructura de Coherencia Universal](#infraestructura-de-coherencia-universal)
 - [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
 - [GitHub REST API](#github-rest-api)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
@@ -93,6 +94,22 @@ Este repositorio alberga la <b>primera demostración incondicional y completa de
 - **Axiomas a Lemas**: Todos los axiomas condicionales (A1, A2, A4) han sido probados rigurosamente.
 - **Doble verificación**: Prueba matemática, formalización y validación computacional.
 - **Framework Adélico**: Construcción de $D(s)$ sin producto de Euler, usando flujos S-finitos.
+
+## Infraestructura de Coherencia Universal
+
+Para elevar la verificación al nivel semántico-cuántico descrito en la visión QCAL, el repositorio incorpora una nueva capa de
+herramientas automatizadas:
+
+- `tools/universal_kernel.py`: núcleo híbrido que valida cada descriptor JSON-LD triple (prueba formal, semántica y frecuencia
+  resonante). Puede ejecutarse en modo auditoría o actualización (`--update`) y se integra con los teoremas formales de Lean al
+  verificar la ruta del artefacto.
+- `tools/build_graph.py`: genera un grafo RDF/Turtle compacto a partir de los descriptores, habilitando consultas semánticas
+  sobre dependencias, kernels y bandas de frecuencia.
+- `schema/riemann_zeta.jsonld`: plantilla inicial de descriptor universal para la formalización principal (`RH_final.lean`), con
+  identificador QCAL, ecuación asociada y frecuencia derivada del hash.
+
+Estas utilidades están preparadas para CI/CD mediante un job dedicado (**Universal Coherence Validation**) que asegura que cada
+commit mantenga la coherencia formal, semántica y vibracional del repositorio.
 
 ## Estructura del Repositorio
 
