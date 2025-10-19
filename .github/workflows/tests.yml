@@ -25,7 +25,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run unit tests
-        run: pytest -v || true
+        run: pytest -v
 
       - name: Run V5 Coronación validation
         run: |
