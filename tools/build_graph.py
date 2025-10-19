@@ -91,7 +91,7 @@ def write_turtle(paths: Sequence[Path], output: Path) -> None:
             lines.append(f"    {predicate} {literal(value)} ;")
 
         dependencies = entry.get("sem:dependsOn", [])
-        if isinstance(dependencies, Iterable):
+        if isinstance(dependencies, Iterable) and not isinstance(dependencies, (str, bytes)):
             for dep in dependencies:
                 lines.append(f"    prov:wasDerivedFrom <{dep}> ;")
 
