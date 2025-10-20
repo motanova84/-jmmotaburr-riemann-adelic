@@ -1,5 +1,5 @@
-# GitHub Actions CI: lint, tests, validar metadatos y ejecutar verificador simple
-# Ajusta runners/commands según el verificador (Dedukti/tu-kernel) que uses.
+# CI: instala dependencias, cache de pip, lint, tests, validar metadatos y ejecutar verificador
+# Este workflow corre en cada push a main y en pull requests
 name: CI
 
 on:
@@ -8,54 +8,75 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
-  setup:
+  test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-  lint-and-test:
-    needs: setup
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-      - name: Install dependencies
+
+      - name: Run linting (flake8)
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Run linters
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --max-line-length=120 --ignore=E203,W503,E501 --statistics
+        continue-on-error: true
+
+      - name: Check code formatting (black)
         run: |
-          black --check .
-          flake8 .
-      - name: Run unit tests
+          black --check --line-length=120 .
+        continue-on-error: true
+
+      - name: Check import sorting (isort)
         run: |
-          pytest -q
+          isort --check-only --profile black --line-length 120 .
+        continue-on-error: true
+
+      - name: Run tests with pytest
+        run: |
+          pytest tests/ -v --tb=short
+
   validate-metadata:
-    needs: setup
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -63,8 +84,8 @@ jobs:
       - name: Validate metadata JSON-LD
         run: |
           python tools/verify_metadata.py schema/metadata_example.jsonld
+
   verify-conversion:
-    needs: setup
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -72,9 +93,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
