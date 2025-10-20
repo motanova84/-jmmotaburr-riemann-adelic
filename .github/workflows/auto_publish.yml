@@ -19,6 +19,8 @@ jobs:
   publish-datasets:
     runs-on: ubuntu-latest
     if: github.repository == 'motanova84/-jmmotaburr-riemann-adelic'
+    permissions:
+      contents: read
     
     steps:
       - uses: actions/checkout@v4
