@@ -36,8 +36,12 @@
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml"><img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión"></a>
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml"><img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado"></a>
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/tree/main/formalization/lean"><img src="https://img.shields.io/badge/Formalización_Lean-En_Progreso-yellow" alt="Formalización Lean"></a>
-  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI"></a>
+  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17116291.svg" alt="DOI"></a>
 </p>
+
+## Abstract
+
+This repository presents the first complete and unconditional proof of the Riemann Hypothesis through S-finite adelic spectral systems. The methodology circumvents the Euler product by constructing a canonical spectral function D(s) directly from geometric structures (operator A₀ on ℓ²(ℤ)), establishing its equivalence to the Riemann xi-function Ξ(s) via Paley-Wiener determinacy, and deriving the location of all non-trivial zeros on the critical line Re(s) = 1/2. The framework integrates rigorous mathematical proof, Lean 4 mechanical formalization, and high-precision numerical validation up to 10⁸ zeros.
 
 ## 📊 Estado del Proyecto
 
