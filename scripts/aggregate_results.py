@@ -12,7 +12,7 @@ Usage:
 import argparse
 import json
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Any
 
@@ -96,7 +96,7 @@ def aggregate_statistics(results: List[Dict[str, Any]]) -> Dict[str, Any]:
         "success_rate": (successful / total * 100) if total > 0 else 0.0,
         "avg_precision": avg_precision,
         "latest_run": latest,
-        "aggregation_timestamp": datetime.utcnow().isoformat() + "Z",
+        "aggregation_timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
 
