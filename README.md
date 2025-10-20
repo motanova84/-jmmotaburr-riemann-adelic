@@ -533,6 +533,33 @@ La formalización en Lean 4 está actualmente en **fase de desarrollo**:
 
 Ver [`formalization/lean/README.md`](formalization/lean/README.md) para detalles técnicos completos.
 
+### 🔧 Verificación Reproducible de Pruebas Formales
+
+El proyecto incluye herramientas para verificar la formalización de manera reproducible:
+
+**Verificación rápida con Make:**
+```bash
+make proof
+```
+
+**Verificación reproducible con Docker:**
+```bash
+docker run --rm -v "$PWD":/work -w /work leanprovercommunity/lean:4.5.0 /bin/bash -lc "make proof"
+```
+
+**Verificación con Nix (declarativa):**
+```bash
+nix develop --command make proof
+```
+
+**Recursos:**
+- 📖 [`PROOF_VERIFICATION.md`](PROOF_VERIFICATION.md) - Guía completa de verificación
+- 📦 [`Dockerfile`](Dockerfile) - Imagen Docker reproducible con Lean 4.5.0
+- ❄️ [`flake.nix`](flake.nix) - Entorno Nix declarativo
+- 🔨 [`Makefile`](Makefile) - Target `proof` para construcción/verificación
+
+Estos recursos garantizan la **reproducibilidad total** de la verificación formal, con versiones fijadas de Lean 4 y todas las dependencias.
+
 ## Citación y Licencia
 
 Por favor, cite este trabajo como:
