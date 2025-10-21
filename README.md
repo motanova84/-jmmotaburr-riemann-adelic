@@ -61,6 +61,7 @@
 | **Reproducibilidad** | ✅ Confirmada ([docs](REPRODUCIBILITY.md)) | [![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/REPRODUCIBILITY.md) |
 | **DOI** | ✅ Registrado | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue)](https://doi.org/10.5281/zenodo.17116291) |
 | **Bibliotecas Avanzadas** | 🚀 Integradas | [![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/ADVANCED_LIBRARIES_README.md) |
+| **System Dependencies** | ✅ Configuradas | [![System Deps](https://img.shields.io/badge/System_Deps-Configured-blue)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/SYSTEM_DEPENDENCIES.md) |
 
 ### 🔍 Información de las Insignias
 
@@ -352,6 +353,28 @@ python setup_environment.py --full-setup
 ```
 
 > **For CI/CD and reproducible builds**: Use `requirements-lock.txt` instead of `requirements.txt` to ensure exact dependency versions. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for details.
+
+### 🔧 System Dependencies (for advanced libraries)
+
+Some advanced mathematical libraries require system-level dependencies:
+
+**On Ubuntu/Debian:**
+```bash
+sudo apt-get update
+sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+```
+
+**Verification:**
+```bash
+python validate_system_dependencies.py
+```
+
+**What these provide:**
+- `llvm-14*`: Required for **numba** JIT compilation (5-100x speedup)
+- `libigraph*`: Required for **python-igraph** graph algorithms (10-1000x speedup)
+- Environment variables for **numexpr** CPU detection
+
+📖 Complete guide: [SYSTEM_DEPENDENCIES.md](SYSTEM_DEPENDENCIES.md)
 
 ### Validación completa (V5 Coronación)
 ```bash
