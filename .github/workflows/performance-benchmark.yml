@@ -29,8 +29,16 @@ jobs:
         python-version: '3.11'
         cache: 'pip'
         cache-dependency-path: 'requirements-lock.txt'
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
         
     - name: Install core dependencies
+      env:
+        NUMEXPR_MAX_THREADS: 4
+        NUMEXPR_NUM_THREADS: 2
       run: |
         python -m pip install --upgrade pip==24.3.1
         pip install -r requirements-lock.txt
@@ -115,8 +123,16 @@ jobs:
         python-version: '3.11'
         cache: 'pip'
         cache-dependency-path: 'requirements-lock.txt'
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
         
     - name: Install dependencies
+      env:
+        NUMEXPR_MAX_THREADS: 4
+        NUMEXPR_NUM_THREADS: 2
       run: |
         python -m pip install --upgrade pip==24.3.1
         pip install -r requirements-lock.txt
@@ -164,9 +180,17 @@ jobs:
         python-version: '3.11'
         cache: 'pip'
         cache-dependency-path: 'requirements-lock.txt'
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
         
     - name: Install all dependencies
       continue-on-error: true
+      env:
+        NUMEXPR_MAX_THREADS: 4
+        NUMEXPR_NUM_THREADS: 2
       run: |
         python -m pip install --upgrade pip==24.3.1
         pip install -r requirements-lock.txt
