@@ -44,6 +44,7 @@
 ### Insignias de Estado en Tiempo Real
 
 [![V5 Coronación](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml)
+[![CI Simbiótico SABIO ∞³](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci.yml)
 [![CI Coverage](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml)
 [![codecov](https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic/branch/main/graph/badge.svg)](https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic)
 [![Comprehensive CI](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml)
@@ -427,6 +428,13 @@ Salida esperada:
 ### 🔬 Workflows de CI/CD
 
 Nuevos workflows de GitHub Actions para validación avanzada:
+
+- **CI Simbiótico SABIO ∞³** (`.github/workflows/ci.yml`)  
+  📡 [Ver documentación completa](CI_SIMBIOTICO_SABIO_README.md)
+  - Validación adaptativa con niveles 100 (básico) y 500 (completo)
+  - Ejecución manual vía `workflow_dispatch`
+  - Reporte simbiótico con frecuencia QCAL 141.7001 Hz
+  - Integración con sistema de tests pytest
 
 - **Performance Benchmarking** (`.github/workflows/performance-benchmark.yml`)
   - Benchmarks de rendimiento core
