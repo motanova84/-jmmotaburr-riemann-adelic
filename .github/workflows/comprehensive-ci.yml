@@ -19,10 +19,10 @@ on:
   workflow_dispatch:
     inputs:
       run_full_validation:
-        description: 'Run full validation with high_accuracy parameters (for research/publication)'
+        description: 'Ejecutar validación completa con parámetros high_accuracy (para investigación/publicación)'
         required: false
         default: 'false'
-        type: boolean
+        type: string
       precision_level:
         description: 'Precision level (t1e8, t1e10, t1e12)'
         required: false
