@@ -67,16 +67,28 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
+      - name: 📦 Install system dependencies
+        run: |
+          sudo apt-get update
+          # Install LLVM tools for numba/llvmlite
+          sudo apt-get install -y llvm-14 llvm-14-dev
+          # Install libigraph for python-igraph
+          sudo apt-get install -y libigraph-dev libigraph3t64
           
       - name: 💾 Cache dependencies
         id: cache-deps
         uses: actions/cache@v4
         with:
           path: ~/.local
-          key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}
+          key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}-v2
           
       - name: 📦 Install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
+        env:
+          # Configure numexpr for virtual runners
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
         run: |
           python -m pip install --upgrade pip==24.3.1
           pip install --user -r requirements-lock.txt
@@ -128,12 +140,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
+      - name: 📦 Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
           
       - name: 💾 Restore dependencies cache
         uses: actions/cache@v4
         with:
           path: ~/.local
-          key: ${{ runner.os }}-python-${{ needs.setup-and-validate.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}
+          key: ${{ runner.os }}-python-${{ needs.setup-and-validate.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}-v2
           
       - name: 📊 Fetch and validate zeros data
         run: |
@@ -182,12 +199,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
+      - name: 📦 Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
           
       - name: 💾 Restore dependencies cache
         uses: actions/cache@v4
         with:
           path: ~/.local
-          key: ${{ runner.os }}-python-${{ needs.setup-and-validate.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}
+          key: ${{ runner.os }}-python-${{ needs.setup-and-validate.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}-v2
           
       - name: 📥 Download zeros data
         uses: actions/download-artifact@v4
@@ -196,6 +218,10 @@ jobs:
           path: zeros/
           
       - name: 🧪 Run pytest with coverage
+        env:
+          # Configure numexpr for virtual runners
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
         run: |
           mkdir -p logs
           pytest tests/ -v --tb=short --cov=. --cov-report=term-missing --cov-report=xml | tee logs/test_results.log
@@ -228,12 +254,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
+      - name: 📦 Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
           
       - name: 💾 Restore dependencies cache
         uses: actions/cache@v4
         with:
           path: ~/.local
-          key: ${{ runner.os }}-python-${{ needs.setup-and-validate.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}
+          key: ${{ runner.os }}-python-${{ needs.setup-and-validate.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}-v2
           
       - name: 📥 Download zeros data
         uses: actions/download-artifact@v4
@@ -317,12 +348,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
+      - name: 📦 Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
           
       - name: 💾 Restore dependencies cache
         uses: actions/cache@v4
         with:
           path: ~/.local
-          key: ${{ runner.os }}-python-${{ needs.setup-and-validate.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}
+          key: ${{ runner.os }}-python-${{ needs.setup-and-validate.outputs.python-version }}-${{ hashFiles('**/requirements-lock.txt') }}-v2
           
       - name: 📥 Download zeros data
         uses: actions/download-artifact@v4
