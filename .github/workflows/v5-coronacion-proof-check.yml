@@ -2,18 +2,9 @@ name: V5 Coronación Proof Check & PDF Build
 
 on:
   push:
-    branches: [ main, develop ]
-    paths:
-      - 'docs/teoremas_basicos/**'
-      - 'paper/**'
-      - 'tests/test_coronacion_v5.py'
-      - '.github/workflows/v5-coronacion-proof-check.yml'
+    branches: [ main, develop, copilot/** ]
   pull_request:
     branches: [ main ]
-    paths:
-      - 'docs/teoremas_basicos/**'
-      - 'paper/**'
-      - 'tests/test_coronacion_v5.py'
   workflow_dispatch:
 
 jobs:
