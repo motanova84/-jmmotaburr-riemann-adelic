@@ -161,7 +161,7 @@ When suggesting workflow changes:
 2. **Update README.md** if new workflows affect user workflows
 3. **Document new secrets** required for workflows
 4. **Include usage examples** for workflow_dispatch inputs
-5. **Maintain CHANGELOG.md** with workflow improvements
+5. **Document workflow improvements** in project documentation
 
 ## 🎯 Specific Use Cases
 
