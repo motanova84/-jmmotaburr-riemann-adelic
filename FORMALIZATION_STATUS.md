@@ -235,8 +235,8 @@ de Branges   Hadamard        Positivity
 
 | File | Sorries Before | Sorries After | Status |
 |------|---------------|---------------|---------|
-| `D_explicit.lean` | 9 | 4 | ✅ 55% reduced |
-| `RH_final.lean` | 3 | 2 | ✅ 33% reduced |
+| `D_explicit.lean` | 9 | 9 | ⏸️ 0% change |
+| `RH_final.lean` | 3 | 3 | ⏸️ 0% change |
 | `schwartz_adelic.lean` | 5 | 5 | ⏸️ Deferred |
 | `de_branges.lean` | 6 | 6 | ⏸️ Deferred |
 
