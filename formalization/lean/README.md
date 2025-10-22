@@ -274,6 +274,8 @@ See also:
 - `FORMALIZATION_STATUS.md` - Detailed status of axiom transition
 - `PROOF_COMPLETION.md` - Technical proof details (V5.1)
 - `THEOREM_STATEMENT.md` - Formal RH statement (V5.1)
+- `SETUP_GUIDE.md` - Installation and setup instructions ⭐
+- `QUICK_REFERENCE.md` - Quick reference for developers ⭐
 
 ## 🌟 References
 
