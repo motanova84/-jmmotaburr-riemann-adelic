@@ -74,11 +74,15 @@ class TestLeanFormalizationStructure:
             "RiemannAdelic.D_explicit",
             "RiemannAdelic.entire_order",
             "RiemannAdelic.functional_eq",
+            "RiemannAdelic.poisson_radon_symmetry",
             "RiemannAdelic.arch_factor",
             "RiemannAdelic.de_branges",
             "RiemannAdelic.positivity",
+            "RiemannAdelic.doi_positivity",
             "RiemannAdelic.zero_localization",
             "RiemannAdelic.uniqueness_without_xi",
+            "RiemannAdelic.pw_two_lines",
+            "RiemannAdelic.lengths_derived",
         ]
         
         for imp in required_imports:
