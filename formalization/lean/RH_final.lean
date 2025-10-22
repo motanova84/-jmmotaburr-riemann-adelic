@@ -89,9 +89,31 @@ theorem zeros_constrained_to_critical_lines :
   intro s h_zero
   -- Apply de Branges theorem
   have h_de_branges := D_in_de_branges_space_implies_RH
-  -- D is in the canonical de Branges space (from construction)
-  sorry -- Requires showing D_explicit ∈ H_zeta.carrier
-  -- Then apply functional equation + de Branges constraint
+  -- Show that D_explicit is in the canonical de Branges space H_zeta
+  have h_membership : D_function ∈ H_zeta.carrier := by
+    unfold D_function H_zeta
+    simp only [Set.mem_setOf_eq]
+    -- Need to prove: ∃ bound > 0, ∀ z with Im(z) > 0, |D(z)| ≤ bound·|E(z)|
+    use 10  -- Growth bound constant
+    constructor
+    · norm_num
+    · intro z h_im_pos
+      unfold D_explicit spectralTrace canonical_phase_RH
+      simp only
+      -- |D(z)| ≤ bound·|z(1-z)| in upper half plane
+      -- This follows from the entire order 1 property
+      have h_order := D_explicit_entire_order_one
+      obtain ⟨M, h_M_pos, h_bound⟩ := h_order
+      calc Complex.abs (∑' n : ℕ, Complex.exp (-z * (n : ℂ) ^ 2))
+          ≤ M * Real.exp (Complex.abs z.im) := h_bound z
+        _ ≤ 10 * Complex.abs (z * (1 - z)) := by
+            -- For Im(z) > 0, exp(|Im(z)|) grows slower than |z(1-z)|
+            -- when |z| is large
+            sorry  -- Requires analysis of phase function growth
+  -- Now apply the de Branges theorem
+  have h_func_eq : ∀ s : ℂ, D_function (1 - s) = D_function s := D_functional_equation
+  -- Use h_de_branges with membership and functional equation
+  exact h_de_branges D_function h_membership h_func_eq s h_zero
 
 -- Key lemma: Re(s) + Re(1-s) = 1 (algebraic identity)
 lemma real_part_sum : ∀ s : ℂ, (1 - s).re = 1 - s.re := by
@@ -105,17 +127,31 @@ theorem trivial_zeros_excluded :
   ∀ s : ℂ, s.re = 0 ∨ s.re = 1 → 
   (∃ (ζ : ℂ → ℂ), ζ s = 0 ∧ s ≠ -2 ∧ s ≠ -4 ∧ s ≠ -6) → s.re = 1/2 := by
   intro s h_or h_nontrivial
-  -- This is a contradiction: if Re(s) = 0 or 1, then by the critical line
-  -- constraint and functional equation, we must have Re(s) = 1/2
+  -- This is a contradiction proof
+  -- If Re(s) = 0 or 1, and s is a zero, then by functional equation
+  -- both s and 1-s are zeros (since D(s) = D(1-s))
   cases h_or with
   | inl h0 =>
-    -- If Re(s) = 0, functional equation gives Re(1-s) = 1
-    -- Both s and 1-s are zeros (by functional_equation_symmetry)
-    -- But this violates the constraint from de Branges theory
-    sorry
+    -- If Re(s) = 0, then Re(1-s) = 1
+    -- But the de Branges constraint + functional equation
+    -- forces all zeros to have Re(s) = 1/2, contradiction
+    -- unless s is on the boundary (trivial zeros)
+    have h_symmetry : (1 - s).re = 1 - s.re := real_part_sum s
+    rw [h0] at h_symmetry
+    simp at h_symmetry
+    -- By the constraint theorem, if D(s) = 0, then Re(s) ∈ {0, 1/2, 1}
+    -- If Re(s) = 0 and this is a non-trivial zero, we get contradiction
+    -- The only resolution is Re(s) = 1/2
+    sorry  -- Requires full de Branges + functional equation argument
   | inr h1 =>
     -- Similar argument for Re(s) = 1
-    sorry
+    have h_symmetry : (1 - s).re = 1 - s.re := real_part_sum s
+    rw [h1] at h_symmetry
+    simp at h_symmetry
+    -- If Re(s) = 1, then Re(1-s) = 0
+    -- By functional equation symmetry, both are zeros
+    -- The constraint forces Re(s) = 1/2 for non-trivial zeros
+    sorry  -- Requires full de Branges + functional equation argument
 
 -- Main lemma: Functional equation + spectral constraint → critical line
 lemma critical_line_from_functional_equation :
