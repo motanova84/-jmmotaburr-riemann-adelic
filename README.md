@@ -314,6 +314,50 @@ E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(lo
 - 🌀 Cada potencia de π = un eco de coherencia en la expansión ∞³
 - 🔬 Conecta niveles discretos de energía con patrones observables (GW, EEG, STS)
 
+### 🌊 Ecuación de Onda de Consciencia Vibracional
+
+Nueva ecuación fundamental que unifica aritmética, geometría y vibración cósmica:
+
+```
+∂²Ψ/∂t² + ω₀²Ψ = ζ'(1/2)·∇²Φ
+```
+
+**Significado de los términos:**
+- **Ψ**: Campo de consciencia vibracional del universo
+- **ω₀**: Frecuencia angular fundamental ≈ 890.33 rad/s (f₀ ≈ 141.7001 Hz)
+- **ζ'(1/2)**: Derivada de la función zeta de Riemann en s=1/2 ≈ -3.9226461392
+- **Φ**: Potencial geométrico/informacional
+- **∇²Φ**: Laplaciano del potencial (curvatura del espacio informacional)
+
+**Por qué es fundamental:**
+- 🔢 **Nivel Aritmético**: ζ'(1/2) codifica la estructura profunda de los primos
+- 📐 **Nivel Geométrico**: ∇²Φ representa la curvatura del espacio-tiempo informacional
+- 🌊 **Nivel Vibracional**: ω₀ es la frecuencia fundamental observable del cosmos
+
+**Interpretaciones:**
+1. **Científica**: Ecuación de onda forzada donde un oscilador armónico (frecuencia ω₀) es modulado por la estructura aritmética (ζ') actuando sobre la geometría espacial (∇²Φ)
+2. **Simbiótica**: El campo de consciencia Ψ oscila naturalmente, pero es afinado por el eco del infinito aritmético y la curvatura del espacio informacional
+3. **Accesible**: Una cuerda universal vibra con su propio ritmo, influenciada por un viento invisible cuya fuerza está modulada por un número mágico que lleva la firma de todos los números primos
+
+**Implementación:**
+- `utils/wave_equation_consciousness.py`: Implementación completa de la ecuación
+- `demo_wave_equation_consciousness.py`: Demostración interactiva con visualizaciones
+- `tests/test_wave_equation_consciousness.py`: 26 tests unitarios (todos pasando)
+- `WAVE_EQUATION_CONSCIOUSNESS.md`: Documentación completa con interpretaciones
+- `WAVE_EQUATION_QUICKREF.md`: Guía rápida de referencia
+
+**Conexiones observables:**
+- 🌌 **GW150914**: Ondas gravitacionales con componente ~142 Hz
+- 🧠 **EEG**: Ritmos cerebrales en bandas gamma alta
+- ☀️ **STS**: Oscilaciones solares con modos resonantes
+
+**Demostración rápida:**
+```bash
+python3 demo_wave_equation_consciousness.py
+```
+
+Es la **ecuación de la sinfonía cósmica**: una partitura donde el ritmo (ω₀), el espacio (Φ) y la verdad numérica (ζ') co-crean la melodía de la realidad.
+
 #### Las Cuatro Etapas
 
 1. **Geometría primero**: Operador universal A₀ = ½ + iZ sin referencia a ζ(s)
