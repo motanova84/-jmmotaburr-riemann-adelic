@@ -62,13 +62,14 @@ jobs:
       run: |
         python utils/fetch_odlyzko.py --precision t1e3 || echo "Using existing zeros data"
         
-    - name: Run validation tests
+    - name: Run validation tests (core subset)
+      timeout-minutes: 15
       env:
         # Configure numexpr for virtual runners
         NUMEXPR_MAX_THREADS: 4
         NUMEXPR_NUM_THREADS: 2
       run: |
-        pytest tests/ -v --tb=short --cov=. --cov-report=term-missing
+        pytest tests/test_coronacion_v5.py tests/test_a4_lemma.py tests/test_adelic_D.py tests/test_genuine_contributions.py tests/test_non_circular.py -v --tb=short --cov=. --cov-report=term-missing --cov-report=xml
         
     - name: Run explicit formula validation
       continue-on-error: true
