@@ -28,6 +28,7 @@ import RiemannAdelic.doi_positivity
 -- Zero localization and uniqueness
 import RiemannAdelic.zero_localization
 import RiemannAdelic.uniqueness_without_xi
+import RiemannAdelic.critical_line_proof
 
 -- Paley-Wiener and derived lengths
 import RiemannAdelic.pw_two_lines
@@ -51,6 +52,7 @@ def main : IO Unit := do
   IO.println "  • Weil-Guinand positivity theory"
   IO.println "  • Zero localization and uniqueness"
   IO.println "  • Paley-Wiener theory"
+  IO.println "  • Critical line proof via spectral operators"
   IO.println ""
   IO.println "Status: Constructive formalization in progress"
   IO.println "DOI: 10.5281/zenodo.17116291"
