@@ -119,6 +119,13 @@ dmypy.json
 # Node.js dependencies
 node_modules/
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts
 
 # Build artifacts
 dist/
