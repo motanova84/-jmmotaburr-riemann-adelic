@@ -7,13 +7,7 @@ name: 🧮 Comprehensive Riemann-Adelic CI/CD
 
 on:
   push:
-    branches: [main, develop]
-    paths:
-      - '**/*.py'
-      - 'notebooks/**/*.ipynb'
-      - 'requirements.txt'
-      - 'requirements-lock.txt'
-      - '.github/workflows/**'
+    branches: [main, develop, copilot/**]
   pull_request:
     branches: [main]
   workflow_dispatch:
