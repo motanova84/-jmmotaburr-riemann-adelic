@@ -156,3 +156,7 @@ lake-packages/
 # SageMath build artifacts
 *.sage.py
 .sage/
+
+# Demo H_epsilon generated plots
+demo_H_epsilon*.png
+operador_H_epsilon_comparison.png
