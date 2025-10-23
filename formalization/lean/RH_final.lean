@@ -18,6 +18,7 @@ import RiemannAdelic.functional_eq
 import RiemannAdelic.arch_factor
 import RiemannAdelic.de_branges
 import RiemannAdelic.positivity
+import RiemannAdelic.spectral_RH_operator
 
 namespace RiemannAdelic
 
