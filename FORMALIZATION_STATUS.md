@@ -240,6 +240,7 @@ formalization/lean/
     ├── axioms_to_lemmas.lean        # Toy model proofs (A1, A2, A4)
     ├── schwartz_adelic.lean         # NEW: Schwartz functions on adeles
     ├── D_explicit.lean              # NEW: Explicit D(s) construction
+    ├── spectral_RH_operator.lean    # NEW: Spectral operator H_ε with Yukawa potential
     ├── de_branges.lean              # ENHANCED: Full de Branges theory
     ├── entire_order.lean            # ENHANCED: Hadamard factorization
     ├── positivity.lean              # ENHANCED: Explicit positive kernels
@@ -260,6 +261,8 @@ formalization/lean/
 | A4 (Spectral Regularity) | ✅ Proven | `A4_spectral_regularity_proved` |
 | Schwartz on Adeles | ✅ Defined | `SchwartzAdelic` structure |
 | D(s) Explicit Construction | ✅ Defined | `D_explicit` via spectral trace |
+| Spectral Operator H_ε | ✅ Defined | `H_eps_operator` with Yukawa potential |
+| Yukawa Potential Ω_{ε,R} | ✅ Defined | `Omega_eps_R` with prime modulation |
 | D Functional Equation | ✅ Theorem | `D_explicit_functional_equation` |
 | D Order 1 Property | ✅ Theorem | `D_explicit_entire_order_one` |
 | de Branges Spaces | ✅ Defined | `DeBrangesSpace`, `H_zeta` |
