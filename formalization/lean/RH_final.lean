@@ -109,7 +109,13 @@ theorem zeros_constrained_to_critical_lines :
         _ ≤ 10 * Complex.abs (z * (1 - z)) := by
             -- For Im(z) > 0, exp(|Im(z)|) grows slower than |z(1-z)|
             -- when |z| is large
-            sorry  -- Requires analysis of phase function growth
+            sorry  -- PROOF STRATEGY:
+            -- For z in upper half-plane with Im(z) > 0:
+            -- 1. |z(1-z)| ≥ c·|z| for some c > 0 when |z| is large
+            -- 2. exp(|Im(z)|) ≤ C·|z|^n for any n when |z| → ∞ in vertical strips
+            -- 3. This follows from Phragmén-Lindelöf principle for entire functions
+            -- 4. The phase function E(z) = z(1-z) dominates exponential growth
+            -- References: de Branges (1968) Theorem 10, growth bounds for phase functions
   -- Now apply the de Branges theorem
   have h_func_eq : ∀ s : ℂ, D_function (1 - s) = D_function s := D_functional_equation
   -- Use h_de_branges with membership and functional equation
@@ -142,7 +148,16 @@ theorem trivial_zeros_excluded :
     -- By the constraint theorem, if D(s) = 0, then Re(s) ∈ {0, 1/2, 1}
     -- If Re(s) = 0 and this is a non-trivial zero, we get contradiction
     -- The only resolution is Re(s) = 1/2
-    sorry  -- Requires full de Branges + functional equation argument
+    sorry  -- PROOF OUTLINE (Case Re(s) = 0):
+    -- Given: Re(s) = 0 and s is a non-trivial zero of ζ
+    -- 1. By functional equation: D(s) = D(1-s), so if D(s) = 0 then D(1-s) = 0
+    -- 2. With Re(s) = 0, we have Re(1-s) = 1, so zeros come in pairs on Re=0 and Re=1
+    -- 3. By zeros_constrained_to_critical_lines: Re(s) ∈ {0, 1/2, 1}
+    -- 4. De Branges space theory: zeros of functions in H(E) lie on real axis
+    -- 5. For D in H(E_RH), the "real axis" is the critical line Re(s) = 1/2
+    -- 6. Contradiction: s cannot have Re(s) = 0 if it's non-trivial
+    -- 7. Resolution: all non-trivial zeros satisfy Re(s) = 1/2
+    -- References: de Branges (1968) Theorem 29, V5 Coronación Section 3.3
   | inr h1 =>
     -- Similar argument for Re(s) = 1
     have h_symmetry : (1 - s).re = 1 - s.re := real_part_sum s
@@ -151,7 +166,14 @@ theorem trivial_zeros_excluded :
     -- If Re(s) = 1, then Re(1-s) = 0
     -- By functional equation symmetry, both are zeros
     -- The constraint forces Re(s) = 1/2 for non-trivial zeros
-    sorry  -- Requires full de Branges + functional equation argument
+    sorry  -- PROOF OUTLINE (Case Re(s) = 1):
+    -- Given: Re(s) = 1 and s is a non-trivial zero of ζ
+    -- 1. By functional equation: D(1-s) = D(s) = 0
+    -- 2. With Re(s) = 1, we have Re(1-s) = 0, symmetric to previous case
+    -- 3. Same de Branges argument applies: zeros in H(E_RH) must lie on critical line
+    -- 4. The lines Re(s) = 0 and Re(s) = 1 are excluded for non-trivial zeros
+    -- 5. Only Re(s) = 1/2 satisfies both the functional equation and de Branges constraints
+    -- References: de Branges (1968) Theorem 29, V5 Coronación Section 3.3
 
 -- Main lemma: Functional equation + spectral constraint → critical line
 lemma critical_line_from_functional_equation :

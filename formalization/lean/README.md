@@ -276,6 +276,7 @@ See also:
 - `THEOREM_STATEMENT.md` - Formal RH statement (V5.1)
 - `SETUP_GUIDE.md` - Installation and setup instructions ⭐
 - `QUICK_REFERENCE.md` - Quick reference for developers ⭐
+- `PROOF_COMPLETION_GUIDE.md` - Comprehensive guide for completing sorry placeholders 🆕
 
 ## 🌟 References
 
