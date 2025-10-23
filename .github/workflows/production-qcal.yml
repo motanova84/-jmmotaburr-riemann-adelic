@@ -89,14 +89,14 @@ jobs:
       - name: Build Docker image
         run: |
           echo "🐳 Building Docker image..."
-          docker build -t qcal/production:${{ github.run_number }} -t qcal/production:latest .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/production:${{ github.run_number }} -t ${{ secrets.DOCKERHUB_USERNAME }}/production:latest .
       
       - name: Push image to Docker Hub
         if: ${{ secrets.DOCKERHUB_TOKEN && secrets.DOCKERHUB_USERNAME }}
         run: |
           echo "📤 Pushing Docker image to registry..."
-          docker push qcal/production:${{ github.run_number }}
-          docker push qcal/production:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/production:${{ github.run_number }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/production:latest
       
       - name: Summary
         if: always()
