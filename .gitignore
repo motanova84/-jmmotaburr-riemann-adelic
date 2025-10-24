@@ -74,6 +74,8 @@ zeros/*.gz
 logs/*.log
 logs/temp_*
 logs/validation/*
+logs/performance/benchmark_results_*.json
+logs/performance/benchmark_results_*_report.md
 !logs/validation/.gitkeep
 
 # CI/CD artifacts
