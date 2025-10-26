@@ -437,7 +437,15 @@ should be applied during full compilation.
 
 ---
 
-### Next Steps for Full Verification (Updated)
+### Next Steps for Full Verification (Updated October 2025)
+
+#### ✅ Completed
+- [x] **Proof strategies added** to all 87 sorry placeholders
+- [x] **Comprehensive completion guide** created (`PROOF_COMPLETION_GUIDE.md`)
+- [x] **Mathematical references** added to each proof outline
+- [x] **Tactical hints** provided for Lean proof tactics
+
+#### 🔄 In Progress
 
 1. **Install Lean toolchain** and verify compilation:
    ```bash
@@ -445,11 +453,13 @@ should be applied during full compilation.
    lake build
    ```
 
-2. **Fill in `sorry` placeholders** with complete proofs:
-   - Spectral trace computation in `D_explicit.lean`
-   - Membership `D_explicit ∈ H_zeta.carrier`
-   - Complete positivity proofs in `positivity.lean`
-   - Hadamard factorization details in `entire_order.lean`
+2. **Fill in `sorry` placeholders** with complete proofs (87 remaining):
+   - **Priority 1**: D_explicit.lean (9 sorries) - Spectral trace, functional equation
+   - **Priority 2**: positivity.lean (8 sorries) - Trace class operators
+   - **Priority 3**: de_branges.lean (7 sorries) - Hilbert space structure
+   - **Priority 4**: schwartz_adelic.lean (6 sorries) - Fourier transform theory
+   - **Priority 5**: RH_final.lean (3 sorries) - Main theorem critical line argument
+   - See `PROOF_COMPLETION_GUIDE.md` for detailed strategies
 
 3. **Convert remaining axioms** to theorems:
    - `zeros_constrained_to_critical_lines` (requires connecting spectral trace to de Branges)
@@ -460,9 +470,10 @@ should be applied during full compilation.
    - Connect to complex analysis integration theorems
 
 5. **Documentation**:
-   - Add detailed comments explaining each construction
-   - Link to V5 paper sections
-   - Provide examples and usage
+   - ✅ Detailed proof strategies in comments
+   - ✅ References to V5 paper sections
+   - ✅ Mathematical dependencies documented
+   - [ ] Examples and usage tutorials
 
 ## References
 
