@@ -85,7 +85,7 @@ validate_sabio_file() {
         # Comparación de frecuencia (tolerancia de 0.001 Hz)
         if [[ -n "$freq" ]]; then
             # Usar bc para comparación de flotantes
-            delta=$(echo "$freq - $expected_freq" | bc | sed 's/-//')
+            delta=$(echo "scale=10; if ($freq - $expected_freq < 0) $expected_freq - $freq else $freq - $expected_freq" | bc)
             if (( $(echo "$delta < 0.001" | bc -l) )); then
                 echo -e "${GREEN}✅ Frecuencia validada: ${freq} Hz${NC}"
             else
