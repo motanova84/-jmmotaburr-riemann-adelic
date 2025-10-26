@@ -201,10 +201,11 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
       
       - name: 🧪 Test operadores espectrales
+        continue-on-error: true
         run: |
           cd formalization/lean
           echo "🧪 Verificando test_lean4_operator.lean"
-          lake env lean test_lean4_operator.lean || echo "⚠️ Tests con 'sorry' esperados (formalización en progreso)"
+          lake env lean test_lean4_operator.lean
 
   # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   # JOB: Integración con V5 Coronación
