@@ -179,5 +179,5 @@ Edita el step `Append validation summary to README` en el job `update-badge`.
 ---
 
 **Creado:** 2025-10-26  
-**Autor:** GitHub Copilot  
+**Mantenedor:** motanova84  
 **Versión:** 1.0
