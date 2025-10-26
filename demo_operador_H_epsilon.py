@@ -228,8 +228,14 @@ def demonstrate_comparison(eigenvalues, n_points=50):
     mu_eps = eigenvalues[:n_compare]
     nu_zeros = zeta_zeros[:n_compare]
     
-    # Compute correlation
-    correlation = np.corrcoef(mu_eps, nu_zeros)[0, 1]
+    # Compute correlation with validation for zero variance
+    if np.allclose(mu_eps, mu_eps[0]):
+        correlation = np.nan
+        print("⚠️  Warning: All eigenvalues are identical, correlation undefined")
+    else:
+        correlation = np.corrcoef(mu_eps, nu_zeros)[0, 1]
+        if np.isnan(correlation):
+            print("⚠️  Warning: Correlation computation failed, data may be degenerate")
     
     # Compute normalized differences
     diffs = np.abs(mu_eps - nu_zeros) / (0.5 * (mu_eps + nu_zeros))
