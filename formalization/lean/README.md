@@ -133,9 +133,9 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
    cd -jmmotaburr-riemann-adelic/formalization/lean
    ```
 
-2. Get mathlib cache:
+2. Update dependencies (first time or after changes):
    ```bash
-   lake exe cache get
+   lake update
    ```
 
 3. Build the Lean project:
@@ -148,9 +148,29 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
    code RH_final.lean
    ```
 
-## ✅ Current Status - V5.2 Constructive Update + V5.3 Activation
+**Note**: The project now includes `lakefile.toml` (V5.3) with pinned dependencies:
+- Lean 4.5.0
+- Mathlib4 @ 07a2d4e5c3c9e55bb6e37bbf5132fd47d75b9ce2 (Oct 2025 stable)
+- Aesop and ProofWidgets for enhanced tactics
 
-### ✅ Latest: October 22, 2025 - FORMALIZATION ACTIVATED
+## ✅ Current Status - V5.2 Constructive Update + V5.3 Lake Configuration
+
+### ✅ Latest: October 26, 2025 - LAKE CONFIGURATION V5.3 COMPLETE
+
+🎉 **The Lean formalization now has proper Lake build configuration!**
+
+**What's New in V5.3:**
+- ✅ **lakefile.toml** created with complete package metadata
+- ✅ **lakefile.lean** updated with proper library target (not executable)
+- ✅ **Pinned dependencies** for reproducible builds
+  - Lean 4.5.0
+  - Mathlib4 @ 07a2d4e5c3c9e55bb6e37bbf5132fd47d75b9ce2 (Oct 2025)
+  - Aesop @ main
+  - ProofWidgets4 @ main
+- ✅ **Compilation options** configured: `-DautoImplicit=false`, `-Dlinter=false`
+- ✅ **Module globs** defined for all RiemannAdelic library files
+
+### ✅ Previous: October 22, 2025 - FORMALIZATION ACTIVATED
 
 🎉 **The Lean formalization is now fully activated and ready for development!**
 
