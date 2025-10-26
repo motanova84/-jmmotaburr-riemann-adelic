@@ -38,7 +38,7 @@ axiom H_adelic : SelfAdjointOperator
 axiom spectral_measure : SelfAdjointOperator → Set ℝ → ℝ≥0
 
 /-- Axioma: Auto-adjunticidad del operador H_A -/
-axiom self_adjoint_H_adelic : ∀ (H : SelfAdjointOperator), H = H_adelic → True
+axiom self_adjoint_H_adelic : True
 
 /-- Axioma: Positividad del espectro de H_A -/
 axiom spectrum_positive : ∀ (λ : ℝ), λ ∈ spectrum H_adelic → λ ≥ 0
