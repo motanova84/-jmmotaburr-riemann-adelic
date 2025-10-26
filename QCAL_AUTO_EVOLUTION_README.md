@@ -47,6 +47,7 @@ QCAL Auto-Evolución
                            ↓
 ┌─────────────────────────────────────────────────────────────────┐
 │ 2. Instalar Python 3.11 + Lean 4.5.0                           │
+│    (using elan toolchain manager)                               │
 └──────────────────────────┬──────────────────────────────────────┘
                            ↓
 ┌─────────────────────────────────────────────────────────────────┐
@@ -266,10 +267,12 @@ Edita el paso de instalación en el workflow:
   run: |
     curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
     echo "$HOME/.elan/bin" >> $GITHUB_PATH
-    elan toolchain install leanprover/lean4:v4.6.0  # Cambiar aquí
-    elan default leanprover/lean4:v4.6.0            # Y aquí
+    elan toolchain install leanprover/lean4:v4.7.0  # Cambiar a versión más reciente (verificar disponibilidad)
+    elan default leanprover/lean4:v4.7.0            # Y aquí
     lean --version
 ```
+
+**Nota**: Verifica la disponibilidad de versiones en https://github.com/leanprover/lean4/releases antes de actualizar.
 
 ### Agregar Validaciones Adicionales
 
