@@ -17,7 +17,7 @@ import json
 import subprocess
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any
 
@@ -112,7 +112,7 @@ def generate_validation_report() -> Dict[str, Any]:
     build_results = run_lake_build()
     
     # Create timestamp
-    timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
     
     # Compile full report
     report = {

@@ -121,43 +121,7 @@ jobs:
             echo "Timestamp: $TIMESTAMP"
             
             # Update README validation table
-            python3 << 'EOF'
-import json
-import re
-
-with open('validation_report.json', 'r') as f:
-    report = json.load(f)
-
-val = report['validation']
-
-# Read current README
-with open('README.md', 'r') as f:
-    readme = f.read()
-
-# Create updated table
-table = f"""| Field | Value |
-|-------|-------|
-| **Status** | {val['status']} |
-| **Build Time (s)** | {val['build_time_seconds']} |
-| **Warnings** | {val['warnings']} |
-| **Errors** | {val['errors']} |
-| **Lean Version** | {val['lean_version']} |
-| **Date (UTC)** | {val['timestamp_utc']} |"""
-
-# Look for Lean validation section and update table
-# Pattern: find the validation table between certain markers
-pattern = r'(\| Field \| Value \|\s*\n\|-------|-------|[\s\S]*?\| \*\*Date \(UTC\)\*\* \| [^\|]+ \|)'
-
-if re.search(pattern, readme):
-    readme = re.sub(pattern, table, readme)
-    print("✅ Updated existing validation table")
-else:
-    print("⚠️  Validation table not found in README")
-
-# Write updated README
-with open('README.md', 'w') as f:
-    f.write(readme)
-EOF
+            python3 .github/scripts/update_lean_validation_table.py
           else
             echo "⚠️  validation_report.json not found"
           fi
