@@ -1,0 +1,68 @@
+name: 🔎 Lean 4 Validation & Report
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-lean:
+    name: "🧠 Formalización Riemann–Adelic (Lean 4.5.0)"
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1️⃣  Clonar el repositorio
+    - name: 🔽 Checkout repository
+      uses: actions/checkout@v4
+
+    # 2️⃣  Configurar Python (para el validador)
+    - name: 🐍 Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    # 3️⃣  Configurar Lean (via elan)
+    - name: ⚙️ Install Lean 4.5.0 toolchain
+      run: |
+        curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+        echo "$HOME/.elan/bin" >> $GITHUB_PATH
+        elan toolchain install leanprover/lean4:v4.5.0
+        elan default leanprover/lean4:v4.5.0
+        lean --version
+
+    # 4️⃣  Ir al directorio de formalización
+    - name: 📂 Navigate to Lean formalization folder
+      working-directory: formalization/lean
+      run: |
+        echo "Contenido actual:"
+        ls -la
+
+    # 5️⃣  Instalar dependencias del proyecto Lean
+    - name: 📦 Install Lean project dependencies
+      working-directory: formalization/lean
+      run: |
+        lake update
+        lake exe cache get || echo "Cache no disponible; continuará compilación completa."
+
+    # 6️⃣  Validar el entorno Lean con Python
+    - name: 🧪 Run Python validation script
+      working-directory: formalization/lean
+      run: |
+        python3 validate_lean_env.py
+        cat validation_report.json
+
+    # 7️⃣  Subir el informe JSON como artefacto
+    - name: 📤 Upload validation report
+      uses: actions/upload-artifact@v4
+      with:
+        name: validation-report
+        path: formalization/lean/validation_report.json
+
+    # 8️⃣  (Opcional) Publicar resumen en la interfaz de GitHub Actions
+    - name: 🧾 Display summary
+      if: always()
+      run: |
+        echo "### Riemann–Adelic Lean Validation Summary 🧠" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        cat formalization/lean/validation_report.json | jq -r '"✅ Status: \(.summary.status)\n🧮 Build Time: \(.build_time_sec)s\n⚠️ Warnings: \(.warnings)\n❌ Errors: \(.errors)"' >> $GITHUB_STEP_SUMMARY
