@@ -67,7 +67,8 @@ class TestLeanEnvValidationScript:
             timeout=30
         )
         
-        # Check that report was created
+        # Check that report was created (script should complete successfully or with warnings)
+        assert result.returncode in [0, 1], f"Script failed unexpectedly: {result.stderr}"
         assert report_path.exists(), "validation_report.json was not created"
         
         # Clean up after test
@@ -84,12 +85,16 @@ class TestLeanEnvValidationScript:
             report_path.unlink()
         
         # Run the script
-        subprocess.run(
+        result = subprocess.run(
             [sys.executable, "validate_lean_env.py"],
             cwd=lean_dir,
             capture_output=True,
-            timeout=30
+            timeout=30,
+            check=False  # Don't raise on non-zero exit (script may return 1 on validation fail)
         )
+        
+        # Ensure script completed (exit code 0 or 1 are both acceptable)
+        assert result.returncode in [0, 1], f"Script failed unexpectedly: {result.stderr}"
         
         # Load and validate JSON
         assert report_path.exists(), "validation_report.json was not created"
@@ -163,13 +168,16 @@ class TestLeanEnvValidationScript:
             report_path.unlink()
         
         # Run the script
-        subprocess.run(
+        result = subprocess.run(
             [sys.executable, "validate_lean_env.py"],
             cwd=lean_dir,
             capture_output=True,
-            timeout=30
+            timeout=30,
+            check=False  # Don't raise on non-zero exit (script may return 1 on validation fail)
         )
         
+        # Ensure script completed
+        assert result.returncode in [0, 1], f"Script failed unexpectedly: {result.stderr}"
         assert report_path.exists(), "validation_report.json was not created"
         
         # Try to parse with jq-like queries using Python's json
@@ -201,18 +209,23 @@ class TestLeanEnvValidationScript:
             report_path.unlink()
         
         # Run the script
-        subprocess.run(
+        result = subprocess.run(
             [sys.executable, "validate_lean_env.py"],
             cwd=lean_dir,
             capture_output=True,
-            timeout=30
+            timeout=30,
+            check=False  # Don't raise on non-zero exit (script may return 1 on validation fail)
         )
+        
+        # Ensure script completed
+        assert result.returncode in [0, 1], f"Script failed unexpectedly: {result.stderr}"
+        assert report_path.exists(), "validation_report.json was not created"
         
         with open(report_path, 'r') as f:
             report = json.load(f)
         
         # Since we know the project structure is valid, it should report true
-        assert report["project"]["structure_valid"] == True, \
+        assert report["project"]["structure_valid"], \
             "Project structure should be valid"
         
         # Clean up after test
