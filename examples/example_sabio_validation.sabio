@@ -17,7 +17,7 @@ Este módulo demuestra la estructura esperada de un archivo .sabio:
 import mpmath as mp
 
 
-def compute_vibrational_signature(R_psi_star):
+def compute_vibrational_signature(R_psi_star: float) -> float:
     """
     Calcula la firma vibracional f₀ = c/(2π·R_Ψ*·ℓ_P)
     
