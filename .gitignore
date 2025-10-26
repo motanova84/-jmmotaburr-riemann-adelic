@@ -152,6 +152,7 @@ test.sabio
 lake-packages/
 *.olean
 *.trace
+formalization/lean/validation_report.json
 
 # SageMath build artifacts
 *.sage.py
