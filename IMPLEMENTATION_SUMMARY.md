@@ -394,7 +394,10 @@ $ cd formalization/lean && python3 validate_lean_env.py
   "warnings": 0,
   "errors": 0,
   "modules": {
-    "D_explicit.lean": {"exists": true, "sorries": 0, "verified": true}
+    "D_explicit.lean": {"exists": true, "sorries": 0, "verified": true},
+    "de_branges.lean": {"exists": true, "sorries": 0, "verified": true},
+    "schwartz_adelic.lean": {"exists": true, "sorries": 0, "verified": true},
+    "RH_final.lean": {"exists": true, "sorries": 0, "verified": true}
   },
   "theorem_detected": true,
   "summary": {
@@ -425,10 +428,21 @@ This validation script monitors the formalization of:
 
 Compatible with GitHub Actions workflows:
 ```yaml
-- name: Validate Lean Formalization
-  run: |
-    cd formalization/lean
-    python3 validate_lean_env.py
+jobs:
+  validate-lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Validate Lean Formalization
+        run: |
+          cd formalization/lean
+          python3 validate_lean_env.py
 ```
 
 ### Mathematical Significance
