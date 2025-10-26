@@ -1,0 +1,67 @@
+{
+  "timestamp": "2025-10-26T23:28:15.745095Z",
+  "repository": "motanova84/-jmmotaburr-riemann-adelic",
+  "validation_type": "QCAL Auto-Evolución Lean 4",
+  "version": "V5.3",
+  "lean": {
+    "installed": false,
+    "version": "unknown",
+    "status": "ERROR",
+    "error": "[Errno 2] No such file or directory: 'lean'"
+  },
+  "lake": {
+    "installed": false,
+    "version": "unknown",
+    "status": "ERROR",
+    "error": "[Errno 2] No such file or directory: 'lake'"
+  },
+  "lean_files": {
+    "total": 20,
+    "files": [
+      "axiomas_a_lemas.lean",
+      "Main.lean",
+      "lakefile.lean",
+      "RH_final.lean",
+      "RiemannAdelic/axioms_to_lemmas_test.lean",
+      "RiemannAdelic/schwartz_adelic.lean",
+      "RiemannAdelic/positivity.lean",
+      "RiemannAdelic/poisson_radon_symmetry.lean",
+      "RiemannAdelic/de_branges.lean",
+      "RiemannAdelic/uniqueness_without_xi.lean",
+      "RiemannAdelic/RiemannOperator.lean",
+      "RiemannAdelic/entire_order.lean",
+      "RiemannAdelic/zero_localization.lean",
+      "RiemannAdelic/axioms_to_lemmas.lean",
+      "RiemannAdelic/lengths_derived.lean",
+      "RiemannAdelic/pw_two_lines.lean",
+      "RiemannAdelic/D_explicit.lean",
+      "RiemannAdelic/functional_eq.lean",
+      "RiemannAdelic/arch_factor.lean",
+      "RiemannAdelic/doi_positivity.lean"
+    ]
+  },
+  "lakefile": {
+    "exists": true,
+    "status": "OK"
+  },
+  "build": {
+    "status": "FAIL",
+    "build_time_sec": 0.0,
+    "return_code": -1,
+    "warnings": 0,
+    "errors": 0,
+    "warning_list": [],
+    "error_list": [],
+    "update_status": "FAILED",
+    "output_preview": "[Errno 2] No such file or directory: 'lake'"
+  },
+  "summary": {
+    "status": "FAIL",
+    "lean_version": "NOT INSTALLED",
+    "lean_files_count": 20,
+    "build_time_sec": 0.0,
+    "warnings": 0,
+    "errors": 0,
+    "qcal_coherence": "⚠️  NEEDS REVIEW"
+  }
+}
