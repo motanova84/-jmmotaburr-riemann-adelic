@@ -66,20 +66,22 @@ jobs:
           STATUS="CHECK"
         fi
         
-        # Create validation report JSON
-        cat > validation_report.json << EOF
-{
-  "timestamp": "$DATE",
-  "build_time_sec": "${BUILD_TIME:-0}",
-  "build_exit_code": ${BUILD_EXIT:-1},
-  "summary": {
-    "status": "$STATUS",
-    "lean_version": "4.5.0",
-    "files_count": $(find . -name "*.lean" | wc -l)
-  },
-  "note": "Skeleton proofs with axioms - full verification pending"
-}
-EOF
+        # Count Lean files
+        LEAN_FILES=$(find . -name "*.lean" | wc -l)
+        
+        # Create validation report JSON using printf
+        printf '{\n' > validation_report.json
+        printf '  "timestamp": "%s",\n' "$DATE" >> validation_report.json
+        printf '  "build_time_sec": "%s",\n' "${BUILD_TIME:-0}" >> validation_report.json
+        printf '  "build_exit_code": %s,\n' "${BUILD_EXIT:-1}" >> validation_report.json
+        printf '  "summary": {\n' >> validation_report.json
+        printf '    "status": "%s",\n' "$STATUS" >> validation_report.json
+        printf '    "lean_version": "4.5.0",\n' >> validation_report.json
+        printf '    "files_count": %s\n' "$LEAN_FILES" >> validation_report.json
+        printf '  },\n' >> validation_report.json
+        printf '  "note": "Skeleton proofs with axioms - full verification pending"\n' >> validation_report.json
+        printf '}\n' >> validation_report.json
+        
         cat validation_report.json
 
     - name: 📤 Upload validation report
