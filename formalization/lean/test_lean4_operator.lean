@@ -45,7 +45,7 @@ axiom spectrum_positive : ∀ (λ : ℝ), λ ∈ spectrum H_adelic → λ ≥ 0
 
 /-- Axioma: Espectro discreto y acotado inferiormente -/
 axiom spectrum_discrete : ∀ (ε : ℝ), ε > 0 → 
-  ∃ (n : ℕ), ∀ (λ : ℝ), λ ∈ spectrum H_adelic ∧ λ < ε → False
+  ∀ (λ : ℝ), λ ∈ spectrum H_adelic ∧ λ < ε → False
 
 /-- Función Xi de Riemann (entrada compleja) -/
 axiom Xi : ℂ → ℂ
