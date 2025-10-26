@@ -77,18 +77,22 @@ jobs:
             ERRORS=$(grep -i "error" build_output.txt | wc -l || echo 0)
           fi
 
-          # Determine status
+          # Determine status based on build outcome
           if [ "${{ steps.build.outcome }}" == "success" ]; then
             STATUS="PASS"
           elif [ "$ERRORS" -gt 0 ]; then
-            STATUS="CHECK"
+            STATUS="FAIL"
           else
-            STATUS="PASS"
+            STATUS="CHECK"
           fi
 
-          # Get Lean version
-          LEAN_VERSION=$(cat lean-toolchain | \
-            sed 's/leanprover\/lean4://' || echo "4.5.0")
+          # Get Lean version from toolchain file
+          if [ -f lean-toolchain ]; then
+            LEAN_VERSION=$(cat lean-toolchain | \
+              sed 's/leanprover\/lean4://' || echo "unknown")
+          else
+            LEAN_VERSION="unknown"
+          fi
 
           # Get build time
           BUILD_TIME_SEC="${BUILD_TIME:-0}"
@@ -131,7 +135,7 @@ jobs:
 
   update-badge:
     needs: validate-lean
-    if: success() && github.ref == 'refs/heads/main'
+    if: always() && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
@@ -223,4 +227,3 @@ jobs:
         with:
           commit_message: "Update validation summary (automatic CI)"
           branch: main
-
