@@ -446,6 +446,31 @@ Este script verifica la demostración completa de A4 como lema, combinando:
 jupyter nbconvert --execute notebooks/validation.ipynb --to html
 ```
 
+### 🔬 Formalización en Lean 4
+
+Para compilar y verificar la formalización mecánica en Lean 4:
+
+**Instalación automática:**
+```bash
+./setup_lean.sh
+```
+
+**Compilación:**
+```bash
+cd formalization/lean
+lake exe cache get
+lake build
+```
+
+**Validación:**
+```bash
+python3 validar_formalizacion_lean.py
+```
+
+📖 Guía completa: [LEAN_SETUP_GUIDE.md](LEAN_SETUP_GUIDE.md)  
+📋 Referencia rápida: [LEAN_QUICKREF.md](LEAN_QUICKREF.md)  
+🔍 Estado: [formalization/lean/README.md](formalization/lean/README.md)
+
 ## 🚀 Bibliotecas Matemáticas Avanzadas
 
 El framework ha sido ampliado con bibliotecas matemáticas avanzadas para acelerar cálculos y expandir capacidades analíticas:
