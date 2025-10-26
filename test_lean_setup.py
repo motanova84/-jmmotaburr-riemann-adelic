@@ -4,15 +4,19 @@ Test Suite for Lean 4.5.0 Setup Infrastructure
 ==============================================
 
 Tests that all the setup infrastructure works correctly.
-
-Author: José Manuel Mota Burruezo
-Date: October 2025
 """
+
+__author__ = "José Manuel Mota Burruezo"
+__date__ = "October 2025"
 
 import os
 import sys
 import subprocess
 from pathlib import Path
+
+# Constants
+CONTENT_PREVIEW_LENGTH = 50
+VALIDATION_TIMEOUT = 60
 
 def test_file_exists(file_path: Path, description: str) -> bool:
     """Test if a file exists."""
@@ -38,10 +42,12 @@ def test_file_content(file_path: Path, search_string: str, description: str) -> 
         with open(file_path, 'r') as f:
             content = f.read()
         if search_string in content:
-            print(f"✓ {description}: contains '{search_string[:50]}...'")
+            preview = search_string[:CONTENT_PREVIEW_LENGTH]
+            print(f"✓ {description}: contains '{preview}...'")
             return True
         else:
-            print(f"✗ {description}: missing '{search_string[:50]}...'")
+            preview = search_string[:CONTENT_PREVIEW_LENGTH]
+            print(f"✗ {description}: missing '{preview}...'")
             return False
     except Exception as e:
         print(f"✗ {description}: Error reading file - {e}")
@@ -54,7 +60,7 @@ def test_validation_script_runs(script_path: Path) -> bool:
             ['python3', str(script_path)],
             capture_output=True,
             text=True,
-            timeout=60
+            timeout=VALIDATION_TIMEOUT
         )
         if result.returncode == 0:
             print(f"✓ {script_path.name} runs successfully")

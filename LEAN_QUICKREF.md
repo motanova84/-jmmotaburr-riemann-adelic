@@ -74,10 +74,14 @@ lean --run RH_final.lean
 python3 validate_lean_formalization.py
 ```
 
-### Python Validation (Full Build + Hashes)
+### Python Validation (Full Build + Hashes - Recommended for CI/CD)
 ```bash
 python3 validar_formalizacion_lean.py
 ```
+
+> **Note:** Both validation scripts are available:
+> - `validate_lean_formalization.py`: Structure and import validation (no build)
+> - `validar_formalizacion_lean.py`: Full build validation with hash tracking (Spanish version, for CI/CD)
 
 ---
 
@@ -133,7 +137,9 @@ lake exe cache get
 lake build
 
 # 5. Validate
-python3 ../validate_lean_formalization.py
+python3 ../validar_formalizacion_lean.py
+# or for structure-only validation:
+# python3 ../validate_lean_formalization.py
 ```
 
 ---
