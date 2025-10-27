@@ -121,7 +121,7 @@ def main():
                 "Formalización compilada y verificada."
                 if success and theorem_ok and errors == 0
                 else "Revisar advertencias o errores." if not success
-                else "Lake/Lean no disponible - validación estructural OK."
+                else "Compilación exitosa - revisar validaciones pendientes."
             ),
         },
     }
