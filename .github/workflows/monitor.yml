@@ -17,6 +17,15 @@ on:
       - 'RIEMANNJMMB84.pdf'
       - 'CITATION.cff'
       - 'monitoring/**'
+  
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'paper/**'
+      - 'paper_standalone.tex'
+      - 'RIEMANNJMMB84.pdf'
+      - 'CITATION.cff'
+      - 'monitoring/**'
 
 jobs:
   monitor:
