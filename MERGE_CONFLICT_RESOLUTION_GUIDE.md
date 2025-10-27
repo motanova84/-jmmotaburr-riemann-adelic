@@ -110,7 +110,7 @@ To prevent future merge conflicts from being accidentally committed, a comprehen
 ### Automated Detection
 The `TestRepositoryConflictMarkers` class scans the entire repository for conflict markers:
 - **Markers Detected**: `<<<<<<<`, `=======`, `>>>>>>>`
-- **File Types Checked**: `.py`, `.md`, `.txt`, `.json`, `.yml`, `.yaml`, `.sh`, `.lean`, `.tex`, `.js`, `.ts`, `.html`, `.css`, and many more
+- **File Types Checked**: `.py`, `.md`, `.txt`, `.json`, `.yml`, `.yaml`, `.sh`, `.lean`, `.tex`, `.js`, `.ts`, `.jsx`, `.tsx`, `.html`, `.css`, `.scss`, `.sass`, `.rs`, `.go`, `.c`, `.cpp`, `.h`, `.hpp`, `.java`, `.rb`, `.php`, `.xml`, `.toml`, `.ini`, `.cfg`, `.conf`
 - **Excluded Areas**: `.git`, `node_modules`, `__pycache__`, build artifacts
 
 ### How It Works
