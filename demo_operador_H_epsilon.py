@@ -237,8 +237,10 @@ def demonstrate_comparison(eigenvalues, n_points=50):
         if np.isnan(correlation):
             print("⚠️  Warning: Correlation computation failed, data may be degenerate")
     
-    # Compute normalized differences
-    diffs = np.abs(mu_eps - nu_zeros) / (0.5 * (mu_eps + nu_zeros))
+    # Compute normalized differences with numerical stability
+    # Use abs(a) + abs(b) + eps to avoid division by zero when values have opposite signs
+    eps = np.finfo(float).eps  # Machine epsilon for numerical stability
+    diffs = np.abs(mu_eps - nu_zeros) / (np.abs(mu_eps) + np.abs(nu_zeros) + eps)
     mean_diff = np.mean(diffs)
     max_diff = np.max(diffs)
     
