@@ -33,10 +33,18 @@
 </p>
 
 <p align="center">
+  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17116291.svg" alt="DOI"></a>
+  <a href="data/validation_results.csv"><img src="https://img.shields.io/badge/✓-Validated-green?style=flat-square" alt="Validation"></a>
+  <a href="formalization/lean/"><img src="https://img.shields.io/badge/Lean-Formalized-blue?logo=lean&style=flat-square" alt="Lean Formalization"></a>
+  <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions"><img src="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci.yml/badge.svg" alt="CI/CD"></a>
+  <a href="https://motanova84.github.io/-jmmotaburr-riemann-adelic/"><img src="https://img.shields.io/badge/Live-GitHub%20Pages-success?style=flat-square&logo=github" alt="Live Pages"></a>
+  <a href=".qcal_beacon"><img src="https://img.shields.io/badge/QCAL-141.7001Hz-9cf?style=flat-square" alt="QCAL ∞³"></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml"><img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión"></a>
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml"><img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado"></a>
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/tree/main/formalization/lean"><img src="https://img.shields.io/badge/Formalización_Lean-En_Progreso-yellow" alt="Formalización Lean"></a>
-  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17116291.svg" alt="DOI"></a>
 </p>
 
 ## Abstract
