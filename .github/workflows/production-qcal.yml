@@ -92,7 +92,7 @@ jobs:
           docker build -t ${{ secrets.DOCKERHUB_USERNAME || 'qcal' }}/production:${{ github.run_number }} -t ${{ secrets.DOCKERHUB_USERNAME || 'qcal' }}/production:latest .
       
       - name: Push image to Docker Hub
-        if: ${{ secrets.DOCKERHUB_TOKEN && secrets.DOCKERHUB_USERNAME }}
+        if: ${{ secrets.DOCKERHUB_TOKEN != '' && secrets.DOCKERHUB_USERNAME != '' }}
         run: |
           echo "📤 Pushing Docker image to registry..."
           docker push ${{ secrets.DOCKERHUB_USERNAME || 'qcal' }}/production:${{ github.run_number }}
