@@ -32,14 +32,21 @@ All systems validate against the fundamental frequency **f₀ ≈ 141.7001 Hz** 
    - Generates JSON validation reports with cryptographic hash
    - CLI interface with precision control
 
-2. **`test_validacion_radio_cuantico.sage`** (290 lines)
+2. **`scripts/validacion_alpha_psi.py`** (240 lines)
+   - Python bridge script for quantum radio RΨ validation
+   - Interfaces with SageMath for high-precision validation
+   - Fallback mode using mpmath when Sage unavailable
+   - CI/CD-friendly with JSON output
+   - Symlink to `test_validacion_radio_cuantico.sage` in scripts/ for consistency
+
+3. **`test_validacion_radio_cuantico.sage`** (290 lines)
    - SageMath script for quantum radio RΨ validation
    - Arbitrary precision arithmetic (configurable bit precision)
    - Spectral eigenvalue testing
    - Critical line projection validation
    - Harmonic spectrum analysis
 
-3. **`test_lean4_operator.lean`** (232 lines)
+4. **`test_lean4_operator.lean`** (232 lines)
    - Lean4 formal verification of spectral operators
    - Self-adjoint operator structure
    - Critical line definitions
@@ -122,6 +129,39 @@ All systems validate against the fundamental frequency **f₀ ≈ 141.7001 Hz** 
 **Exit Codes:**
 - 0: All validations passed
 - 1: One or more validations failed
+
+### Python Bridge for Quantum Radio (`scripts/validacion_alpha_psi.py`)
+
+**Purpose:**
+- Provides Python interface to SageMath quantum radio validation
+- Enables integration with CI/CD pipelines expecting Python scripts
+- Offers fallback mode using `mpmath` for environments without Sage
+
+**Modes of Operation:**
+
+1. **SageMath Mode (High Precision):**
+   ```bash
+   python3 scripts/validacion_alpha_psi.py --precision 256
+   ```
+   - Uses SageMath for arbitrary precision (bits)
+   - Calls `test_validacion_radio_cuantico.sage`
+   - Suitable for research-grade validation
+
+2. **Fallback Mode (mpmath):**
+   ```bash
+   python3 scripts/validacion_alpha_psi.py --force-fallback --fallback-dps 30
+   ```
+   - Pure Python implementation using mpmath
+   - Decimal precision (digits)
+   - Works in environments without SageMath
+
+**Output:**
+- Generates `quantum_radio_validation_results.json`
+- Console output with validation summary
+- Exit code 0 on success, 1 on failure
+
+**Integration:**
+The bridge script automatically detects SageMath availability and falls back to Python mode if needed, making it ideal for CI/CD systems where SageMath may not always be available.
 
 ### SageMath Quantum Radio (`test_validacion_radio_cuantico.sage`)
 
@@ -295,15 +335,15 @@ Total: 333 tests collected, all tests passing
 
 | Category | Files | Lines of Code | Tests |
 |----------|-------|---------------|-------|
-| Core Modules | 4 | 1,235 | - |
+| Core Modules | 5 | 1,475 | - |
 | CI/CD Workflow | 1 | 559 | - |
-| Tests | 1 | 272 | 21 |
+| Tests | 2 | 377 | 29 |
 | Documentation | 2 | 465 | - |
-| **Total** | **8** | **2,531** | **21** |
+| **Total** | **10** | **2,876** | **29** |
 
 ### Module Breakdown
 
-- **Python**: 674 lines (sabio_validator.py + tests)
+- **Python**: 914 lines (sabio_validator.py + validacion_alpha_psi.py + tests)
 - **SageMath**: 290 lines (test_validacion_radio_cuantico.sage)
 - **Lean4**: 232 lines (test_lean4_operator.lean)
 - **Bash**: 311 lines (sabio_compile_check.sh)
