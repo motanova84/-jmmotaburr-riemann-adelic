@@ -1,17 +1,32 @@
+copilot/update-badge-job-integration
 ---
 name: Lean4 Validation and Badge Update
 
 on:
   push:
     branches: [main]
+
+name: Lean Validation
+
+on:
+  push:
+    branches: [ main ]
+main
   pull_request:
   workflow_dispatch:
 
 permissions:
+copilot/update-badge-job-integration
   contents: write  # Required for git-auto-commit-action
 
 jobs:
   validate-lean:
+
+  contents: write
+
+jobs:
+  lean:
+main
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -38,6 +53,7 @@ jobs:
         run: |
           cd formalization/lean
           echo "🔧 Fetching dependencies..."
+copilot/update-badge-job-integration
           START_TIME=$(date +%s)
           lake update || echo "⚠️  Lake update had issues"
           echo "🔨 Building project..."
@@ -47,6 +63,11 @@ jobs:
           BUILD_TIME=$((END_TIME - START_TIME))
           echo "BUILD_TIME=$BUILD_TIME" >> $GITHUB_ENV
 
+          lake update || echo "⚠️  Lake update had issues"
+          echo "🔨 Building project..."
+          lake build || echo "⚠️  Build incomplete (this is expected for skeleton proofs)"
+ main
+
       - name: Validate Lean syntax
         run: |
           cd formalization/lean
@@ -55,12 +76,17 @@ jobs:
             echo "Checking $file..."
             lean --version || true
           done
+copilot/update-badge-job-integration
           echo "✅ Lean formalization files are present and structured"
+
+          echo "✅ Lean formalization files are present and syntactically structured"
+main
 
       - name: Run Lean tests (if available)
         continue-on-error: true
         run: |
           cd formalization/lean
+copilot/update-badge-job-integration
           lake exe tests || \
             echo "ℹ️  No test executable (expected for skeleton proofs)"
 
@@ -120,12 +146,30 @@ jobs:
           name: validation-report
           path: formalization/lean/validation_report.json
 
+      lake exe tests || echo "ℹ️  No test executable found (expected for skeleton proofs)"
+          
+      - name: Generate Validation Report
+        id: validation
+        continue-on-error: true
+        run: |
+          cd formalization/lean
+          python3 validate_lean_env.py
+          
+      - name: Upload Validation Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-validation-report
+          path: formalization/lean/validation_report.json
+          
+main
       - name: Formalization Status Summary
         if: always()
         run: |
           echo "📊 LEAN FORMALIZATION STATUS"
           echo "================================"
           echo "✅ Lean 4 project structure: Valid"
+copilot/update-badge-job-integration
           LEAN_FILES=$(find formalization/lean -name '*.lean' | wc -l)
           echo "✅ Lean files present: $LEAN_FILES files"
           echo "✅ Lakefile configuration: Valid"
@@ -227,3 +271,65 @@ jobs:
         with:
           commit_message: "Update validation summary (automatic CI)"
           branch: main
+
+          echo "✅ Lean files present: $(find formalization/lean -name '*.lean' | wc -l) files"
+          echo "✅ Lakefile configuration: Valid"
+          echo "ℹ️  Status: Skeleton proofs with axioms (as documented)"
+          echo "ℹ️  This is expected - proofs use 'sorry' placeholders"
+          echo "✅ LEAN WORKFLOW: PASSED (validation mode)"
+
+  update-badge:
+    name: Update Validation Badge
+    runs-on: ubuntu-latest
+    needs: lean
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Download Validation Report
+        uses: actions/download-artifact@v4
+        with:
+          name: lean-validation-report
+          path: ./
+          
+      - name: Update README with validation results
+        run: |
+          if [ -f validation_report.json ]; then
+            echo "📊 Updating README with validation results..."
+            
+            # Extract values from JSON
+            STATUS=$(jq -r '.validation.status' validation_report.json)
+            BUILD_TIME=$(jq -r '.validation.build_time_seconds' validation_report.json)
+            WARNINGS=$(jq -r '.validation.warnings' validation_report.json)
+            ERRORS=$(jq -r '.validation.errors' validation_report.json)
+            LEAN_VERSION=$(jq -r '.validation.lean_version' validation_report.json)
+            TIMESTAMP=$(jq -r '.validation.timestamp_utc' validation_report.json)
+            
+            echo "Status: $STATUS"
+            echo "Build Time: $BUILD_TIME"
+            echo "Warnings: $WARNINGS"
+            echo "Errors: $ERRORS"
+            echo "Lean Version: $LEAN_VERSION"
+            echo "Timestamp: $TIMESTAMP"
+            
+            # Update README validation table
+            python3 .github/scripts/update_lean_validation_table.py
+          else
+            echo "⚠️  validation_report.json not found"
+          fi
+          
+      - name: Commit updated README
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update Lean validation results [skip ci]"
+            git push
+          fi
+ main

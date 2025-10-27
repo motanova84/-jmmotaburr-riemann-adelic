@@ -156,3 +156,4 @@ lake-packages/
 # SageMath build artifacts
 *.sage.py
 .sage/
+validation_report.json
