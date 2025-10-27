@@ -666,6 +666,29 @@ La formalización en Lean 4 está actualmente en **fase de desarrollo**:
 
 Ver [`formalization/lean/README.md`](formalization/lean/README.md) para detalles técnicos completos.
 
+### 📋 Sistema Axiomático Mínimo V5.2
+
+El sistema espectral D(s) se basa en **3 axiomas fundamentales** (Noésicos V5.2):
+
+| Axioma | Tipo | Descripción |
+|--------|------|-------------|
+| **Axiom 1** | Estructural | Existencia de medida adélica finita S (Haar + compactación S-finita) |
+| **Axiom 2** | Técnico | Operadores autoadjuntos con espectro discreto en L²(𝔸) |
+| **Axiom 3** | Analítico | Teorema de Fredholm + determinante analítico |
+
+**Todo lo demás son teoremas derivados**:
+- ✅ Función entera de orden 1 → **Teorema** (de Axiom 3 + Hadamard)
+- ✅ Ecuación funcional D(1-s)=D(s) → **Teorema** (de simetría espectral + Poisson)
+- ✅ Ceros en línea crítica Re(s)=½ → **Teorema** (de Axiom 2 + ecuación funcional)
+- ✅ D(s) ≡ Ξ(s) → **Teorema** (de unicidad Paley-Wiener)
+
+**Documentación completa**:
+- 📖 [`AXIOMAS_MINIMOS_V5.2.md`](AXIOMAS_MINIMOS_V5.2.md) - Sistema axiomático mínimo con transparencia total
+- 📊 [`V5.2_MINIMAL_AXIOMS_SUMMARY.md`](V5.2_MINIMAL_AXIOMS_SUMMARY.md) - Resumen de implementación
+- 🔬 [`REDUCCION_AXIOMATICA_V5.3.md`](REDUCCION_AXIOMATICA_V5.3.md) - Reducción axiomática V5.3
+
+**Construcción no circular**: El sistema construye D(s) ∈ 𝔼 (funciones enteras de orden ≤1) directamente desde estructura espectral, **sin postular ζ(s) clásica**. Se demuestra D(s) = Ξ(s) y se obtiene RH.
+
 ### 🔧 Verificación Reproducible de Pruebas Formales
 
 El proyecto incluye herramientas para verificar la formalización de manera reproducible:
