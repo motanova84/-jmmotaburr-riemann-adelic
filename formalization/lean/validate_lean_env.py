@@ -86,7 +86,7 @@ def main():
 
     # 1. Ejecutar compilación Lean
     print("⚙️  Compilando proyecto Lean con lake...")
-    code, out, err = run_command(f"cd {BASE_DIR} && lake build -j 8")
+    code, out, err = run_command(f'cd "{BASE_DIR}" && lake build -j 8')
 
     build_time = round(time.time() - start, 2)
     success = code == 0
