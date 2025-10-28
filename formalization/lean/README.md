@@ -143,7 +143,13 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
    lake build
    ```
 
-4. Open Lean files with VS Code (with Lean 4 extension):
+4. **Or use the integrated validation script**:
+   ```bash
+   ./validate_lean_env.sh
+   ```
+   This script performs complete environment validation, dependency updates, and compilation with detailed status reporting.
+
+5. Open Lean files with VS Code (with Lean 4 extension):
    ```bash
    code RH_final.lean
    ```
@@ -156,7 +162,7 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
 
 **What's New:**
 - ✅ **All modules integrated** in `Main.lean` (14 modules)
-- ✅ **Validation script** created: `validate_lean_formalization.py`
+- ✅ **Validation scripts** created: `validate_lean_formalization.py` and `validate_lean_env.sh`
 - ✅ **Setup guide** available: `SETUP_GUIDE.md`
 - ✅ **CI/CD template** provided: `lean-ci-workflow-suggestion.yml`
 - ✅ **Structure validated**: 103 theorems, 26 axioms, 87 sorries
