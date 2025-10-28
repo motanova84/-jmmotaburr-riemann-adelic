@@ -157,3 +157,4 @@ formalization/lean/validation_report.json
 # SageMath build artifacts
 *.sage.py
 .sage/
+validation_report.json
