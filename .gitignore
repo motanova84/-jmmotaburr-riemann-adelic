@@ -147,6 +147,7 @@ quantum_radio_validation_results.json
 test.sabio
 *.sabio.tmp
 
+# Lean validation reports (generated during CI)
 # Lean4 validation artifacts
 formalization/lean/validation_report.json
 
