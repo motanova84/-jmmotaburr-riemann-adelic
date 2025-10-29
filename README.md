@@ -437,6 +437,46 @@ python3 demo_wave_equation_consciousness.py
 
 Es la **ecuación de la sinfonía cósmica**: una partitura donde el ritmo (ω₀), el espacio (Φ) y la verdad numérica (ζ') co-crean la melodía de la realidad.
 
+### 🔢 Cálculo de Frecuencia desde Ceros de Riemann
+
+Nuevo módulo para computación de frecuencias usando ceros de Riemann con escalado de razón áurea:
+
+```python
+from utils.zeros_frequency_computation import ZerosFrequencyComputation
+
+# Inicializar con precisión de 100 decimales
+computation = ZerosFrequencyComputation(dps=100)
+
+# Ejecutar computación completa
+results = computation.run_complete_computation(
+    T=3967.986,      # Altura máxima de ceros
+    alpha=0.551020,  # Parámetro de decaimiento exponencial
+    limit=3438       # Número máximo de ceros
+)
+
+print(f"Frecuencia computada: {results['frequency_hz']} Hz")
+```
+
+**Características clave:**
+- ✅ **Alta precisión**: Soporte para 15-200+ lugares decimales usando mpmath
+- ✅ **Suma ponderada**: Calcula S = Σ exp(-α·γ_n) sobre ceros de Riemann
+- ✅ **Validación**: Verifica S·exp(γ·π) ≈ φ·400
+- ✅ **Fórmula de frecuencia**: Implementa factores de escalado múltiples con φ, γ, π
+
+**Implementación:**
+- `utils/zeros_frequency_computation.py`: Módulo principal con clase `ZerosFrequencyComputation`
+- `demo_zeros_frequency.py`: Script de demostración con interfaz CLI
+- `tests/test_zeros_frequency_computation.py`: 21 tests unitarios (todos pasando)
+- `ZEROS_FREQUENCY_IMPLEMENTATION.md`: Documentación completa
+
+**Demostración rápida:**
+```bash
+python3 demo_zeros_frequency.py
+```
+
+**Relación con QCAL:**
+El módulo calcula frecuencias basadas en ceros de Riemann y las compara con la frecuencia beacon QCAL de 141.7001 Hz, estableciendo conexiones entre teoría de números y frecuencias observables.
+
 #### Las Cuatro Etapas
 
 1. **Geometría primero**: Operador universal A₀ = ½ + iZ sin referencia a ζ(s)
@@ -843,7 +883,8 @@ Validate the Weil-type explicit formula for the canonical function $D(s)$ constr
 .
 ├── notebooks/                  # Jupyter notebooks (e.g. validation.ipynb)
 ├── utils/
-│   └── mellin.py              # Tools for computing Mellin transforms
+│   ├── mellin.py              # Tools for computing Mellin transforms
+│   └── zeros_frequency_computation.py  # Frequency computation from zeros with golden ratio scaling
 ├── zeros/
 │   └── zeros_t1e8.txt         # List of zeros at height t ~ 1e8 (from Odlyzko or similar)
 ├── primes/                    # Optional: precomputed primes or logs
