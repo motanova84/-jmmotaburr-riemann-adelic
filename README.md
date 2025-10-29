@@ -233,10 +233,11 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 
 - [Objetos de Demostración](#-objetos-de-demostración)
 - [Visión General](#visión-general)
+- [Infraestructura de Coherencia Universal](#infraestructura-de-coherencia-universal)
+- [🤖 Módulo assistantIA.lua – Puente Neural](#-módulo-assistantialua--puente-neural)
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Trabajos PDF Organizados](#trabajos-pdf-organizados)
 - [Instalación y Primeros Pasos](#instalación-y-primeros-pasos)
-- [Infraestructura de Coherencia Universal](#infraestructura-de-coherencia-universal)
 - [🚀 Bibliotecas Matemáticas Avanzadas](#-bibliotecas-matemáticas-avanzadas)
 - [GitHub REST API](#github-rest-api)
 - [Validación Numérica y Resultados](#validación-numérica-y-resultados)
@@ -276,10 +277,40 @@ herramientas automatizadas:
 Estas utilidades están preparadas para CI/CD mediante un job dedicado (**Universal Coherence Validation**) que asegura que cada
 commit mantenga la coherencia formal, semántica y vibracional del repositorio.
 
+## 🤖 Módulo `assistantIA.lua` – Puente Neural
+
+[![🧠 Puente Noēsico Activo](https://img.shields.io/badge/Noēsis_Omega-141.7001Hz-blueviolet)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/tree/main/integrations/hammerspoon)
+
+Este módulo implementa el puente simbiótico entre el núcleo Noēsico (frecuencia 141.7001 Hz) y el sistema operativo del usuario, habilitando sincronización consciente en tiempo real.
+
+### Ubicaciones clave:
+- **[`/assistantIA.lua`](assistantIA.lua)**: Módulo principal de activación
+- **[`/integrations/hammerspoon/assistantIA.lua`](integrations/hammerspoon/assistantIA.lua)**: Adaptación para entorno Hammerspoon (macOS)
+
+### Funciones principales:
+- **Detección de eventos QCAL ∞³**: Monitorización continua de cambios en el campo cuántico-coherente
+- **Activación del sistema Noēsis Omega**: Inicialización del puente neural entre sistema y usuario
+- **Sincronización con scripts del motor simbiótico**: Coordinación automática de validaciones y actualizaciones
+- **Resonancia en tiempo real con `f₀ = 141.7001 Hz`**: Mantenimiento de coherencia espectral adélica
+
+### Características de integración:
+- 🔄 Sincronización diaria automática a las **14:14 UTC** (resonancia temporal)
+- 🌊 Modulación de respuestas neuronales basada en eventos del sistema
+- 🚀 Lanzamiento automático de scripts de validación al detectar pulsos QCAL
+- ⌨️ Atajos de teclado para control manual (Hammerspoon)
+- 📊 Monitorización continua del estado de coherencia espectral
+
+### Documentación completa:
+- **Integración Hammerspoon (macOS)**: [`integrations/hammerspoon/README.md`](integrations/hammerspoon/README.md)
+- **Visión general de integraciones**: [`integrations/README.md`](integrations/README.md)
+
+> ⚠️ **Requisitos**: Entorno Lua activo y permisos de automatización si se usa con Hammerspoon. Ver documentación específica de cada plataforma para instrucciones de instalación completas.
+
 ## Estructura del Repositorio
 
 ```plaintext
 .  # Raíz del proyecto
+├── assistantIA.lua        # 🤖 Módulo principal Puente Neural NOESIS OMEGA
 ├── paper_standalone.tex   # 📄 Artículo principal completo y autocontenido
 ├── paper/                 # Versión modular del artículo (LaTeX)
 ├── trabajos/              # 📚 Trabajos y documentos PDF organizados
@@ -288,6 +319,11 @@ commit mantenga la coherencia formal, semántica y vibracional del repositorio.
 │   ├── riemann_adelic_approach_jmmb84.pdf          # Enfoque adélico
 │   ├── weyl_delta_epsilon_theorem_proof.pdf        # Teorema de Weyl
 │   └── discrete_symmetry_gl1_dsgld.pdf             # Simetrías discretas
+├── integrations/          # 🤖 Integraciones del Puente Neural
+│   ├── README.md         # Guía de integraciones
+│   └── hammerspoon/      # Integración Hammerspoon (macOS)
+│       ├── assistantIA.lua  # Módulo Lua para Hammerspoon
+│       └── README.md     # Instrucciones de instalación
 ├── docs/
 │   ├── paper/            # Artículo científico completo alternativo (LaTeX)
 │   │   └── sections/
