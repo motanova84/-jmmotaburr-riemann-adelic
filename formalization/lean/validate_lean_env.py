@@ -142,10 +142,10 @@ def build_lean_project():
             errors.append(line.strip())
     
     # Determinar estado
-    if build_code == 0:
+    if "sorry" in output.lower() or "axiom" in output.lower():
+        status = "CHECK"  # Build con axiomas/sorries (esperado en skeletons)
+    elif build_code == 0:
         status = "PASS"
-    elif "sorry" in output.lower() or "axiom" in output.lower():
-        status = "CHECK"  # Build con axiomas/sorries
     else:
         status = "FAIL"
     
