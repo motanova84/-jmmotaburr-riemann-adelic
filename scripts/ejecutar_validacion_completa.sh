@@ -24,9 +24,10 @@ echo ""
 # 📋 Configuración Inicial
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Registro de fecha y hora
-TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-TIMESTAMP_FILE=$(date -u +"%Y%m%d_%H%M%S")
+# Registro de fecha y hora (capturar una sola vez para consistencia)
+TIMESTAMP_EPOCH=$(date -u +"%s")
+TIMESTAMP=$(date -u -d "@$TIMESTAMP_EPOCH" +"%Y-%m-%d %H:%M:%S UTC")
+TIMESTAMP_FILE=$(date -u -d "@$TIMESTAMP_EPOCH" +"%Y%m%d_%H%M%S")
 echo "🕐 Fecha de ejecución: $TIMESTAMP"
 echo ""
 
@@ -256,7 +257,7 @@ echo "  • Precisión decimal: $PRECISION"
 echo "  • Ceros de Riemann verificados: $MAX_ZEROS"
 echo "  • Metodología: QCAL"
 echo ""
-echo "✅ Validación completada con SNR > 10σ en canal H1"
+echo "✅ Validación completada exitosamente"
 echo "🎯 Coherencia QCAL confirmada"
 echo ""
 echo "📁 Archivos generados:"

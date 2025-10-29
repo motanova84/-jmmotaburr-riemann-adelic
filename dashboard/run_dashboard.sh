@@ -25,14 +25,20 @@ fi
 echo "🔍 Verificando dependencias de Python..."
 REQUIRED_PACKAGES="matplotlib numpy scipy notebook"
 
+MISSING_PACKAGES=""
 for package in $REQUIRED_PACKAGES; do
     if ! python3 -c "import $package" 2>/dev/null; then
-        echo "⚠️  Advertencia: El paquete '$package' no está instalado"
-        echo "   Instalando dependencias desde requirements.txt..."
-        pip3 install -q -r requirements.txt
-        break
+        MISSING_PACKAGES="$MISSING_PACKAGES $package"
     fi
 done
+
+if [ -n "$MISSING_PACKAGES" ]; then
+    echo "⚠️  Paquetes faltantes:$MISSING_PACKAGES"
+    echo "   Instalando dependencias desde requirements.txt..."
+    pip3 install -q -r requirements.txt
+else
+    echo "✅ Todas las dependencias están instaladas"
+fi
 
 echo "✅ Dependencias verificadas correctamente"
 echo ""
@@ -55,12 +61,14 @@ echo ""
 echo "🚀 Lanzando Jupyter Notebook..."
 echo ""
 echo "   El servidor se abrirá en: http://localhost:8888"
+echo "   (Si el puerto 8888 está en uso, Jupyter seleccionará otro automáticamente)"
 echo "   Para detener el servidor, presiona Ctrl+C"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
 # Lanzar Jupyter Notebook en el directorio notebooks
+# Jupyter automáticamente usará el siguiente puerto disponible si 8888 está ocupado
 cd notebooks
 jupyter notebook 141hz_validation.ipynb --no-browser --port=8888
 
