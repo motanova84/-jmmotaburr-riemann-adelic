@@ -148,6 +148,7 @@ test.sabio
 *.sabio.tmp
 
 # Lean validation reports (generated during CI)
+# Lean4 validation artifacts
 formalization/lean/validation_report.json
 
 # Lean4 build artifacts
@@ -159,3 +160,4 @@ lake-packages/
 # SageMath build artifacts
 *.sage.py
 .sage/
+validation_report.json

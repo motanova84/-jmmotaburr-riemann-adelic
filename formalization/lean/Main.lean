@@ -32,9 +32,15 @@ import RiemannAdelic.doi_positivity
 import RiemannAdelic.zero_localization
 import RiemannAdelic.uniqueness_without_xi
 
+-- Critical line proof via spectral operators
+import RiemannAdelic.critical_line_proof
+
 -- Paley-Wiener and derived lengths
 import RiemannAdelic.pw_two_lines
 import RiemannAdelic.lengths_derived
+
+-- Spectral RH operator H_ε
+import RiemannAdelic.spectral_RH_operator
 
 def main : IO Unit := do
   IO.println "╔═══════════════════════════════════════════════════════════╗"
@@ -54,7 +60,9 @@ def main : IO Unit := do
   IO.println "  • de Branges space framework"
   IO.println "  • Weil-Guinand positivity theory"
   IO.println "  • Zero localization and uniqueness"
+  IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Paley-Wiener theory"
+  IO.println "  • Spectral RH operator H_ε"
   IO.println ""
   IO.println "Status: Constructive formalization in progress"
   IO.println "DOI: 10.5281/zenodo.17116291"
