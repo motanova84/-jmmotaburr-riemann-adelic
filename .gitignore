@@ -147,6 +147,9 @@ quantum_radio_validation_results.json
 test.sabio
 *.sabio.tmp
 
+# Lean4 validation artifacts
+formalization/lean/validation_report.json
+
 # Lean4 build artifacts
 .lake/
 lake-packages/

@@ -1066,6 +1066,23 @@ cat data/validation_results.csv
 - The factor archimedean must be adjusted according to the adelic model of Burruezo (see the technical appendix of Zenodo).
 - The integral is approximated numerically with `mpmath.quad`.
 
+___
+
+## Validation Summary
+
+Última ejecución automática del sistema QCAL Auto-Evolución:
+
+| Property | Value |
+|----------|-------|
+| **Status** | - |
+| **Build Time (s)** | - |
+| **Warnings** | - |
+| **Errors** | - |
+| **Lean Version** | - |
+| **Date (UTC)** | - |
+
+___
+
 ## License
 - Manuscript: CC-BY 4.0 (DOI: 10.5281/zenodo.17161831)
 - Code: MIT License (see LICENSE-CODE)
