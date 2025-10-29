@@ -102,6 +102,12 @@ end
 function NoesisOmegaHS:startMonitoring()
     if not hs then return end
     
+    -- Detener timer existente si hay uno
+    if self.monitor_timer then
+        self.monitor_timer:stop()
+        self.monitor_timer = nil
+    end
+    
     -- Timer para verificaciones periódicas
     self.monitor_timer = hs.timer.doEvery(
         self.config.monitor_interval,
@@ -150,12 +156,12 @@ function NoesisOmegaHS:detectSystemEvents()
     local events = {}
     
     if hs then
-        -- Ejemplo: detectar hora de sincronización diaria
-        local current_time = os.date("*t")
+        -- Ejemplo: detectar hora de sincronización diaria (14:14 UTC)
+        local current_time = os.date("!*t")  -- ! prefix for UTC time
         if current_time.hour == 14 and current_time.min == 14 then
             table.insert(events, {
                 type = "daily_sync",
-                time = os.date("%Y-%m-%d %H:%M:%S")
+                time = os.date("!%Y-%m-%d %H:%M:%S")  -- UTC timestamp
             })
         end
     end
