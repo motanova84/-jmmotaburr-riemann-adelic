@@ -11,7 +11,11 @@ from .operador_H import (
     cos_basis,
     build_R_matrix,
     spectrum_from_R,
-    fourier_eigs_H
+    fourier_eigs_H,
+    hermite_basis,
+    K_gauss_rigorous,
+    rigorous_H_construction,
+    validate_convergence_bounds
 )
 
 __all__ = [
@@ -20,5 +24,9 @@ __all__ = [
     'cos_basis',
     'build_R_matrix',
     'spectrum_from_R',
-    'fourier_eigs_H'
+    'fourier_eigs_H',
+    'hermite_basis',
+    'K_gauss_rigorous',
+    'rigorous_H_construction',
+    'validate_convergence_bounds'
 ]

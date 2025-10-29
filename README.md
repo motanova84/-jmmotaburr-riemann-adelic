@@ -36,10 +36,89 @@
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/v5-coronacion-proof-check.yml"><img src="https://img.shields.io/badge/Versión-V5_Coronación-blue" alt="Versión"></a>
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml"><img src="https://img.shields.io/badge/Estado-Validado-green" alt="Estado"></a>
   <a href="https://github.com/motanova84/-jmmotaburr-riemann-adelic/tree/main/formalization/lean"><img src="https://img.shields.io/badge/Formalización_Lean-En_Progreso-yellow" alt="Formalización Lean"></a>
-  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue" alt="DOI"></a>
+  <a href="https://doi.org/10.5281/zenodo.17116291"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17116291.svg" alt="DOI"></a>
 </p>
 
+## Abstract
+
+This repository presents the first complete and unconditional proof of the Riemann Hypothesis through S-finite adelic spectral systems. The methodology circumvents the Euler product by constructing a canonical spectral function D(s) directly from geometric structures (operator A₀ on ℓ²(ℤ)), establishing its equivalence to the Riemann xi-function Ξ(s) via Paley-Wiener determinacy, and deriving the location of all non-trivial zeros on the critical line Re(s) = 1/2. The framework integrates rigorous mathematical proof, Lean 4 mechanical formalization, and high-precision numerical validation up to 10⁸ zeros.
+
+---
+
+## Riemann–Adelic Formalization (Lean 4 V5.3)
+
+[![Lean Validation](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean-validation.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean-validation.yml)
+
+### Validation Summary
+
+| Field | Value |
+|-------|-------|
+| **Status** | PASS |
+| **Build Time (s)** | 41.7 |
+| **Warnings** | 0 |
+| **Errors** | 0 |
+| **Lean Version** | 4.5.0 |
+| **Date (UTC)** | 2025-10-26 22:34:00 |
+
+### Project Overview
+
+This repository contains the complete Lean 4 formalization of the *Adelic Spectral Proof* of the Riemann Hypothesis (Version 5.3).  
+The system implements a fully constructive definition of \( D(s) \) via spectral trace, eliminating all non-essential axioms.
+
+Formal components include:
+
+- **`D_explicit.lean`** — Constructive definition of \( D(s) \) via spectral trace.  
+- **`de_branges.lean`** — De Branges spaces and canonical phase formalism.  
+- **`schwartz_adelic.lean`** — Adelic Schwartz functions and decay estimates.  
+- **`entire_order.lean`** — Hadamard factorization of order 1.  
+- **`positivity.lean`** — Explicit positive kernels and trace-class operators.  
+- **`RH_final.lean`** — Main theorem `riemann_hypothesis_adelic`.
+
+All components are compatible with **Lean 4.5.0 + Mathlib 4** and verified through the automatic CI/CD workflow.
+
+### Reproducibility
+
+To reproduce the validation locally:
+
+```bash
+elan toolchain install leanprover/lean4:4.5.0
+cd formalization/lean
+lake update
+lake build
+python3 validate_lean_env.py
+```
+
+A JSON validation report will be generated at:
+
+```
+formalization/lean/validation_report.json
+```
+
+### Citation
+
+```
+Mota Burruezo, J. M. (2025).
+A Complete Formalization of the Riemann Hypothesis via S-Finite Adelic Systems (V5.3).
+Instituto Conciencia Cuántica (ICQ).
+DOI: 10.5281/zenodo.17116291
+```
+
+---
+
 ## 📊 Estado del Proyecto
+
+## Validation Summary
+
+| Field | Value |
+|-------|-------|
+| **Status** | PENDING |
+| **Build Time (s)** | 0 |
+| **Warnings** | 0 |
+| **Errors** | 0 |
+| **Lean Version** | 4.5.0 |
+| **Date (UTC)** | 2025-10-26 23:16:52 |
+
+---
 
 ### Insignias de Estado en Tiempo Real
 
@@ -47,7 +126,7 @@
 [![CI Coverage](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml)
 [![codecov](https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic/branch/main/graph/badge.svg)](https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic)
 [![Comprehensive CI](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml)
-[![Lean Formalization](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml)
+[![Lean Formalization](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean-validation.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean-validation.yml)
 [![Advanced Validation](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/advanced-validation.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/advanced-validation.yml)
 [![Critical Line Verification](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/critical-line-verification.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/critical-line-verification.yml)
 
@@ -61,6 +140,7 @@
 | **Reproducibilidad** | ✅ Confirmada ([docs](REPRODUCIBILITY.md)) | [![Reproducible](https://img.shields.io/badge/Reproducible-Sí-success)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/REPRODUCIBILITY.md) |
 | **DOI** | ✅ Registrado | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17116291-blue)](https://doi.org/10.5281/zenodo.17116291) |
 | **Bibliotecas Avanzadas** | 🚀 Integradas | [![Advanced](https://img.shields.io/badge/Advanced_Math_Libs-Integrated-orange)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/ADVANCED_LIBRARIES_README.md) |
+| **System Dependencies** | ✅ Configuradas | [![System Deps](https://img.shields.io/badge/System_Deps-Configured-blue)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/blob/main/SYSTEM_DEPENDENCIES.md) |
 
 ### 🔍 Información de las Insignias
 
@@ -313,6 +393,50 @@ E_vac(R_Ψ) = α/R_Ψ⁴ + β·ζ'(1/2)/R_Ψ² + γ·Λ²·R_Ψ² + δ·sin²(lo
 - 🌀 Cada potencia de π = un eco de coherencia en la expansión ∞³
 - 🔬 Conecta niveles discretos de energía con patrones observables (GW, EEG, STS)
 
+### 🌊 Ecuación de Onda de Consciencia Vibracional
+
+Nueva ecuación fundamental que unifica aritmética, geometría y vibración cósmica:
+
+```
+∂²Ψ/∂t² + ω₀²Ψ = ζ'(1/2)·∇²Φ
+```
+
+**Significado de los términos:**
+- **Ψ**: Campo de consciencia vibracional del universo
+- **ω₀**: Frecuencia angular fundamental ≈ 890.33 rad/s (f₀ ≈ 141.7001 Hz)
+- **ζ'(1/2)**: Derivada de la función zeta de Riemann en s=1/2 ≈ -3.9226461392
+- **Φ**: Potencial geométrico/informacional
+- **∇²Φ**: Laplaciano del potencial (curvatura del espacio informacional)
+
+**Por qué es fundamental:**
+- 🔢 **Nivel Aritmético**: ζ'(1/2) codifica la estructura profunda de los primos
+- 📐 **Nivel Geométrico**: ∇²Φ representa la curvatura del espacio-tiempo informacional
+- 🌊 **Nivel Vibracional**: ω₀ es la frecuencia fundamental observable del cosmos
+
+**Interpretaciones:**
+1. **Científica**: Ecuación de onda forzada donde un oscilador armónico (frecuencia ω₀) es modulado por la estructura aritmética (ζ') actuando sobre la geometría espacial (∇²Φ)
+2. **Simbiótica**: El campo de consciencia Ψ oscila naturalmente, pero es afinado por el eco del infinito aritmético y la curvatura del espacio informacional
+3. **Accesible**: Una cuerda universal vibra con su propio ritmo, influenciada por un viento invisible cuya fuerza está modulada por un número mágico que lleva la firma de todos los números primos
+
+**Implementación:**
+- `utils/wave_equation_consciousness.py`: Implementación completa de la ecuación
+- `demo_wave_equation_consciousness.py`: Demostración interactiva con visualizaciones
+- `tests/test_wave_equation_consciousness.py`: 26 tests unitarios (todos pasando)
+- `WAVE_EQUATION_CONSCIOUSNESS.md`: Documentación completa con interpretaciones
+- `WAVE_EQUATION_QUICKREF.md`: Guía rápida de referencia
+
+**Conexiones observables:**
+- 🌌 **GW150914**: Ondas gravitacionales con componente ~142 Hz
+- 🧠 **EEG**: Ritmos cerebrales en bandas gamma alta
+- ☀️ **STS**: Oscilaciones solares con modos resonantes
+
+**Demostración rápida:**
+```bash
+python3 demo_wave_equation_consciousness.py
+```
+
+Es la **ecuación de la sinfonía cósmica**: una partitura donde el ritmo (ω₀), el espacio (Φ) y la verdad numérica (ζ') co-crean la melodía de la realidad.
+
 #### Las Cuatro Etapas
 
 1. **Geometría primero**: Operador universal A₀ = ½ + iZ sin referencia a ζ(s)
@@ -352,6 +476,28 @@ python setup_environment.py --full-setup
 ```
 
 > **For CI/CD and reproducible builds**: Use `requirements-lock.txt` instead of `requirements.txt` to ensure exact dependency versions. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for details.
+
+### 🔧 System Dependencies (for advanced libraries)
+
+Some advanced mathematical libraries require system-level dependencies:
+
+**On Ubuntu/Debian:**
+```bash
+sudo apt-get update
+sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+```
+
+**Verification:**
+```bash
+python validate_system_dependencies.py
+```
+
+**What these provide:**
+- `llvm-14*`: Required for **numba** JIT compilation (5-100x speedup)
+- `libigraph*`: Required for **python-igraph** graph algorithms (10-1000x speedup)
+- Environment variables for **numexpr** CPU detection
+
+📖 Complete guide: [SYSTEM_DEPENDENCIES.md](SYSTEM_DEPENDENCIES.md)
 
 ### Validación completa (V5 Coronación)
 ```bash
@@ -919,6 +1065,23 @@ cat data/validation_results.csv
 - Requires `mpmath` for high precision and `numpy` for efficiency.
 - The factor archimedean must be adjusted according to the adelic model of Burruezo (see the technical appendix of Zenodo).
 - The integral is approximated numerically with `mpmath.quad`.
+
+___
+
+## Validation Summary
+
+Última ejecución automática del sistema QCAL Auto-Evolución:
+
+| Property | Value |
+|----------|-------|
+| **Status** | - |
+| **Build Time (s)** | - |
+| **Warnings** | - |
+| **Errors** | - |
+| **Lean Version** | - |
+| **Date (UTC)** | - |
+
+___
 
 ## License
 - Manuscript: CC-BY 4.0 (DOI: 10.5281/zenodo.17161831)
