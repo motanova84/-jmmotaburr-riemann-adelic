@@ -8,6 +8,9 @@ import RiemannAdelic.axioms_to_lemmas
 import RiemannAdelic.schwartz_adelic
 import RiemannAdelic.D_explicit
 
+-- Operator-theoretic formulation (V5.3+)
+import RiemannAdelic.RiemannOperator
+
 -- Entire function theory
 import RiemannAdelic.entire_order
 
@@ -48,6 +51,7 @@ def main : IO Unit := do
   IO.println "  • Core axioms and lemmas"
   IO.println "  • Schwartz functions on adeles (constructive)"
   IO.println "  • Explicit D(s) construction"
+  IO.println "  • Operator-theoretic formulation (Hε with oscillatory potential)"
   IO.println "  • Entire function and Hadamard theory"
   IO.println "  • Functional equation and Poisson symmetry"
   IO.println "  • de Branges space framework"

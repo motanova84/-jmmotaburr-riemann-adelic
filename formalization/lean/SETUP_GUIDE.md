@@ -86,7 +86,26 @@ lake --version
 
 ## 🔍 Validation
 
-### Automated Validation Script
+### Comprehensive Lean Environment Validation (Recommended)
+
+Run the integrated shell validation script for complete environment verification:
+
+```bash
+# From formalization/lean directory
+cd formalization/lean
+./validate_lean_env.sh
+```
+
+This script performs:
+- ✅ Lean 4 version verification
+- ✅ Clean build environment (removes old artifacts)
+- ✅ Dependency updates (mathlib4 cache)
+- ✅ Full project compilation with timing
+- ✅ Critical module verification (D_explicit, RH_final, de_branges, schwartz_adelic)
+- ✅ Main theorem detection (riemann_hypothesis_adelic)
+- ✅ Sorry marker detection (incomplete proofs)
+
+### Python Validation Script (Alternative)
 
 Run the Python validation script to check the formalization structure:
 
