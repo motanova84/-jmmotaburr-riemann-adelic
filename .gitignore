@@ -119,6 +119,13 @@ dmypy.json
 # Node.js dependencies
 node_modules/
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts
 
 # Build artifacts
 dist/
@@ -133,3 +140,20 @@ monitoring/evidence/
 monitoring/alerts/*.json
 !monitoring/alerts/.gitkeep
 examples/__pycache__/
+
+# SABIO ∞³ validation artifacts
+sabio_validation_report.json
+quantum_radio_validation_results.json
+test.sabio
+*.sabio.tmp
+
+# Lean4 build artifacts
+.lake/
+lake-packages/
+*.olean
+*.trace
+
+# SageMath build artifacts
+*.sage.py
+.sage/
+validation_report.json
