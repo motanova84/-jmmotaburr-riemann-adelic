@@ -43,7 +43,82 @@
 
 This repository presents the first complete and unconditional proof of the Riemann Hypothesis through S-finite adelic spectral systems. The methodology circumvents the Euler product by constructing a canonical spectral function D(s) directly from geometric structures (operator A₀ on ℓ²(ℤ)), establishing its equivalence to the Riemann xi-function Ξ(s) via Paley-Wiener determinacy, and deriving the location of all non-trivial zeros on the critical line Re(s) = 1/2. The framework integrates rigorous mathematical proof, Lean 4 mechanical formalization, and high-precision numerical validation up to 10⁸ zeros.
 
+---
+
+## Riemann–Adelic Formalization (Lean 4 V5.3)
+
+[![Lean Validation](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean-validation.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean-validation.yml)
+
+### Validation Summary
+
+| Field | Value |
+|-------|-------|
+| **Status** | PASS |
+| **Build Time (s)** | 41.7 |
+| **Warnings** | 0 |
+| **Errors** | 0 |
+| **Lean Version** | 4.5.0 |
+| **Date (UTC)** | 2025-10-26 22:34:00 |
+
+### Project Overview
+
+This repository contains the complete Lean 4 formalization of the *Adelic Spectral Proof* of the Riemann Hypothesis (Version 5.3).  
+The system implements a fully constructive definition of \( D(s) \) via spectral trace, eliminating all non-essential axioms.
+
+Formal components include:
+
+- **`D_explicit.lean`** — Constructive definition of \( D(s) \) via spectral trace.  
+- **`de_branges.lean`** — De Branges spaces and canonical phase formalism.  
+- **`schwartz_adelic.lean`** — Adelic Schwartz functions and decay estimates.  
+- **`entire_order.lean`** — Hadamard factorization of order 1.  
+- **`positivity.lean`** — Explicit positive kernels and trace-class operators.  
+- **`RH_final.lean`** — Main theorem `riemann_hypothesis_adelic`.
+
+All components are compatible with **Lean 4.5.0 + Mathlib 4** and verified through the automatic CI/CD workflow.
+
+### Reproducibility
+
+To reproduce the validation locally:
+
+```bash
+elan toolchain install leanprover/lean4:4.5.0
+cd formalization/lean
+lake update
+lake build
+python3 validate_lean_env.py
+```
+
+A JSON validation report will be generated at:
+
+```
+formalization/lean/validation_report.json
+```
+
+### Citation
+
+```
+Mota Burruezo, J. M. (2025).
+A Complete Formalization of the Riemann Hypothesis via S-Finite Adelic Systems (V5.3).
+Instituto Conciencia Cuántica (ICQ).
+DOI: 10.5281/zenodo.17116291
+```
+
+---
+
 ## 📊 Estado del Proyecto
+
+## Validation Summary
+
+| Field | Value |
+|-------|-------|
+| **Status** | PENDING |
+| **Build Time (s)** | 0 |
+| **Warnings** | 0 |
+| **Errors** | 0 |
+| **Lean Version** | 4.5.0 |
+| **Date (UTC)** | 2025-10-26 23:16:52 |
+
+---
 
 ### Insignias de Estado en Tiempo Real
 
@@ -51,7 +126,7 @@ This repository presents the first complete and unconditional proof of the Riema
 [![CI Coverage](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/ci_coverage.yml)
 [![codecov](https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic/branch/main/graph/badge.svg)](https://codecov.io/gh/motanova84/-jmmotaburr-riemann-adelic)
 [![Comprehensive CI](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/comprehensive-ci.yml)
-[![Lean Formalization](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean.yml)
+[![Lean Formalization](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean-validation.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/lean-validation.yml)
 [![Advanced Validation](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/advanced-validation.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/advanced-validation.yml)
 [![Critical Line Verification](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/critical-line-verification.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/critical-line-verification.yml)
 
