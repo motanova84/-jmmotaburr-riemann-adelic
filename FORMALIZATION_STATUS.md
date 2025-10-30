@@ -304,6 +304,7 @@ formalization/lean/
     ├── uniqueness_without_xi.lean   # Autonomous uniqueness
     ├── zero_localization.lean       # Zero localization theory
     ├── arch_factor.lean             # Archimedean factors
+    ├── GammaTrivialExclusion.lean   # Γ-factor separation for trivial zeros
     └── ...
 ```
 
@@ -422,6 +423,7 @@ de Branges   Hadamard        Positivity
 | `critical_line_proof.lean` | 10 | 0 | 9 | 🔄 In Progress |
 | `axioms_to_lemmas.lean` | 12 | 2 | 0 | ✅ Complete |
 | `arch_factor.lean` | 1 | 0 | 0 | ✅ Complete |
+| `GammaTrivialExclusion.lean` | 1 | 0 | 1 | 🔄 Skeleton |
 
 **Global Statistics:**
 - **Total Theorems/Lemmas**: 113 (+10 from critical_line_proof)
