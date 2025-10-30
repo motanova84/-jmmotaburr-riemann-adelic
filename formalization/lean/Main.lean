@@ -20,6 +20,7 @@ import RiemannAdelic.poisson_radon_symmetry
 
 -- Archimedean factors
 import RiemannAdelic.arch_factor
+import RiemannAdelic.GammaTrivialExclusion
 
 -- de Branges space theory
 import RiemannAdelic.de_branges
