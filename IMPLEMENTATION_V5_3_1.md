@@ -188,7 +188,7 @@ Comprehensive changelog including:
 The following items from the problem statement reference separate repositories and are not in scope for this PR:
 
 ### 141.7001 Hz (GW Detection)
-- References a separate "141hz" repository
+- References a separate 141.7001 Hz repository
 - Would require PREREGISTRATION.md, analysis_plan.json, controls files
 - Bayesian hierarchical model for gravitational wave analysis
 - Not applicable to this Riemann Hypothesis repository
