@@ -298,6 +298,7 @@ formalization/lean/
     ├── RiemannOperator.lean         # NEW: Operator formulation with Hε (V5.3)
     ├── de_branges.lean              # ENHANCED: Full de Branges theory
     ├── entire_order.lean            # ENHANCED: Hadamard factorization
+    ├── Hadamard.lean                # NEW: Quotient analysis skeleton (D/Xi identity)
     ├── positivity.lean              # ENHANCED: Explicit positive kernels
     ├── functional_eq.lean           # Functional equation (skeleton)
     ├── poisson_radon_symmetry.lean  # Geometric duality
