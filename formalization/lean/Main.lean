@@ -27,6 +27,7 @@ import RiemannAdelic.de_branges
 -- Positivity and trace class operators
 import RiemannAdelic.positivity
 import RiemannAdelic.doi_positivity
+import RiemannAdelic.KernelPositivity
 
 -- Zero localization and uniqueness
 import RiemannAdelic.zero_localization
@@ -59,6 +60,7 @@ def main : IO Unit := do
   IO.println "  • Functional equation and Poisson symmetry"
   IO.println "  • de Branges space framework"
   IO.println "  • Weil-Guinand positivity theory"
+  IO.println "  • Kernel positivity (quotient module approach)"
   IO.println "  • Zero localization and uniqueness"
   IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Paley-Wiener theory"
