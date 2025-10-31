@@ -42,6 +42,11 @@ import RiemannAdelic.lengths_derived
 -- Spectral RH operator H_ε
 import RiemannAdelic.spectral_RH_operator
 
+-- ⚠️ THEORETICAL FRAMEWORK (Not imported - doesn't compile)
+-- RiemannAdelic.PsiNSE_CompleteLemmas_WithInfrastructure
+-- This is a skeleton formalization connecting NSE with QCAL infrastructure
+-- See formalization/lean/RiemannAdelic/PSI_NSE_README.md for details
+
 def main : IO Unit := do
   IO.println "╔═══════════════════════════════════════════════════════════╗"
   IO.println "║   Riemann Hypothesis Adelic Proof - Lean 4 Formalization ║"
@@ -63,6 +68,11 @@ def main : IO Unit := do
   IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Paley-Wiener theory"
   IO.println "  • Spectral RH operator H_ε"
+  IO.println ""
+  IO.println "Theoretical frameworks (documented but not compiled):"
+  IO.println "  • Ψ-NSE with QCAL infrastructure (f₀ = 141.7001 Hz)"
+  IO.println "  • P≠NP treewidth connections"
+  IO.println "  • Adelic spectral coherence system"
   IO.println ""
   IO.println "Status: Constructive formalization in progress"
   IO.println "DOI: 10.5281/zenodo.17116291"
