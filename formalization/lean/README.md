@@ -47,6 +47,9 @@ The goal is to **mechanize the proof** in Lean with **constructive definitions**
 - **`arch_factor.lean`**  
   Archimedean gamma factor (Weil index, stationary phase)
 
+- **`GammaTrivialExclusion.lean`**  
+  Exclusion of trivial zeros via Γ-factor separation
+
 - **`poisson_radon_symmetry.lean`**  
   Geometric duality and non-circular functional equation
 
