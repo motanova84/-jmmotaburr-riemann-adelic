@@ -38,6 +38,9 @@ The goal is to **mechanize the proof** in Lean with **constructive definitions**
 
 ### Supporting Modules
 
+- **`Hadamard.lean`** 🆕  
+  Hadamard factorization skeleton and bounded entire quotient analysis (D/Xi identity)
+
 - **`functional_eq.lean`**  
   Adelic Poisson summation and functional symmetry
 

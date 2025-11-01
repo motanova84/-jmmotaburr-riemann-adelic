@@ -14,6 +14,9 @@ import RiemannAdelic.RiemannOperator
 -- Entire function theory
 import RiemannAdelic.entire_order
 
+-- Hadamard factorization and quotient analysis
+import RiemannAdelic.Hadamard
+
 -- Functional equation and symmetry
 import RiemannAdelic.functional_eq
 import RiemannAdelic.poisson_radon_symmetry
@@ -57,6 +60,7 @@ def main : IO Unit := do
   IO.println "  • Explicit D(s) construction"
   IO.println "  • Operator-theoretic formulation (Hε with oscillatory potential)"
   IO.println "  • Entire function and Hadamard theory"
+  IO.println "  • Hadamard factorization and quotient analysis"
   IO.println "  • Functional equation and Poisson symmetry"
   IO.println "  • de Branges space framework"
   IO.println "  • Weil-Guinand positivity theory"
