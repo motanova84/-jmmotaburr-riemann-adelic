@@ -1,0 +1,9 @@
+name = "riemann-adelic"
+version = "5.3"
+defaultTargets = ["Main"]
+
+[[dependency]]
+name = "mathlib"
+src = "git"
+url = "https://github.com/leanprover-community/mathlib4"
+rev = "master"
