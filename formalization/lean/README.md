@@ -33,6 +33,9 @@ The goal is to **mechanize the proof** in Lean with **constructive definitions**
 - **`positivity.lean`** ⭐  
   Explicit positive kernels and trace class operators
 
+- **`KernelPositivity.lean`** 🆕  
+  Kernel positivity on quotient module approach to critical line
+
 ### Supporting Modules
 
 - **`functional_eq.lean`**  

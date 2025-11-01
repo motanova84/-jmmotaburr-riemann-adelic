@@ -299,6 +299,7 @@ formalization/lean/
     ├── de_branges.lean              # ENHANCED: Full de Branges theory
     ├── entire_order.lean            # ENHANCED: Hadamard factorization
     ├── positivity.lean              # ENHANCED: Explicit positive kernels
+    ├── KernelPositivity.lean        # NEW: Kernel positivity quotient approach
     ├── functional_eq.lean           # Functional equation (skeleton)
     ├── poisson_radon_symmetry.lean  # Geometric duality
     ├── uniqueness_without_xi.lean   # Autonomous uniqueness
@@ -335,6 +336,7 @@ formalization/lean/
 | Phragmén-Lindelöf | ✅ Stated | `phragmen_lindelof` theorem |
 | Positive Kernel | ✅ Defined | `kernel_RH` |
 | Trace Class Operator | ✅ Defined | `spectral_operator_RH` |
+| **Kernel Positivity** | ✅ Defined | `K` kernel, `kernel_coercive`, `zeros_on_critical_line` |
 | Main Positivity | ✅ Theorem | `main_positivity_theorem` |
 | RH Main Theorem | ✅ Proven | `riemann_hypothesis_adelic` |
 | Schwartz on Adeles | ✅ Defined | `SchwartzAdelic` structure |
