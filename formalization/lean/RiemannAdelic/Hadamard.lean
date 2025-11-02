@@ -9,7 +9,7 @@ import Mathlib.Analysis.Complex.RemovableSingularity
 
 set_option autoImplicit true
 set_option maxHeartbeats 800000
-set_option allowSorry true
+set_option allow_sorry true
 
 open Complex
 

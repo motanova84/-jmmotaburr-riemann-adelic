@@ -47,6 +47,11 @@ import RiemannAdelic.lengths_derived
 -- Spectral RH operator H_ε
 import RiemannAdelic.spectral_RH_operator
 
+-- Purge axioms modules (purge_axioms branch)
+import RiemannAdelic.Hadamard
+import RiemannAdelic.KernelPositivity
+import RiemannAdelic.GammaTrivialExclusion
+
 def main : IO Unit := do
   IO.println "╔═══════════════════════════════════════════════════════════╗"
   IO.println "║   Riemann Hypothesis Adelic Proof - Lean 4 Formalization ║"
@@ -70,6 +75,9 @@ def main : IO Unit := do
   IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Paley-Wiener theory"
   IO.println "  • Spectral RH operator H_ε"
+  IO.println "  • Hadamard factorization (purge_axioms branch)"
+  IO.println "  • Kernel positivity (purge_axioms branch)"
+  IO.println "  • Gamma trivial exclusion (purge_axioms branch)"
   IO.println ""
-  IO.println "Status: Constructive formalization in progress"
+  IO.println "Status: Constructive formalization in progress (purge_axioms branch)"
   IO.println "DOI: 10.5281/zenodo.17116291"
