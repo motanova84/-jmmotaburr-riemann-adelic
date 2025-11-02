@@ -62,6 +62,11 @@ data/validation/certificates/*
 !data/validation/results/.gitkeep
 !data/validation/certificates/.gitkeep
 
+# Generated 141.7 Hz validation outputs
+resultados/*.json
+resultados/certificates/
+!resultados/.gitkeep
+
 # Generated HTML output  
 docs/validation*.html
 docs/temp_*

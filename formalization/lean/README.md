@@ -43,14 +43,22 @@ The goal is to **mechanize the proof** in Lean with **constructive definitions**
   
 - **`RiemannAdelic/GammaTrivialExclusion.lean`** 🔥  
   Γ-factor separation to exclude trivial zeros (replaces Axiom*)
+- **`KernelPositivity.lean`** 🆕  
+  Kernel positivity on quotient module approach to critical line
 
 ### Supporting Modules
+
+- **`Hadamard.lean`** 🆕  
+  Hadamard factorization skeleton and bounded entire quotient analysis (D/Xi identity)
 
 - **`functional_eq.lean`**  
   Adelic Poisson summation and functional symmetry
 
 - **`arch_factor.lean`**  
   Archimedean gamma factor (Weil index, stationary phase)
+
+- **`GammaTrivialExclusion.lean`**  
+  Exclusion of trivial zeros via Γ-factor separation
 
 - **`poisson_radon_symmetry.lean`**  
   Geometric duality and non-circular functional equation

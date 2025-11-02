@@ -14,12 +14,16 @@ import RiemannAdelic.RiemannOperator
 -- Entire function theory
 import RiemannAdelic.entire_order
 
+-- Hadamard factorization and quotient analysis
+import RiemannAdelic.Hadamard
+
 -- Functional equation and symmetry
 import RiemannAdelic.functional_eq
 import RiemannAdelic.poisson_radon_symmetry
 
 -- Archimedean factors
 import RiemannAdelic.arch_factor
+import RiemannAdelic.GammaTrivialExclusion
 
 -- de Branges space theory
 import RiemannAdelic.de_branges
@@ -27,6 +31,7 @@ import RiemannAdelic.de_branges
 -- Positivity and trace class operators
 import RiemannAdelic.positivity
 import RiemannAdelic.doi_positivity
+import RiemannAdelic.KernelPositivity
 
 -- Zero localization and uniqueness
 import RiemannAdelic.zero_localization
@@ -61,9 +66,11 @@ def main : IO Unit := do
   IO.println "  • Explicit D(s) construction"
   IO.println "  • Operator-theoretic formulation (Hε with oscillatory potential)"
   IO.println "  • Entire function and Hadamard theory"
+  IO.println "  • Hadamard factorization and quotient analysis"
   IO.println "  • Functional equation and Poisson symmetry"
   IO.println "  • de Branges space framework"
   IO.println "  • Weil-Guinand positivity theory"
+  IO.println "  • Kernel positivity (quotient module approach)"
   IO.println "  • Zero localization and uniqueness"
   IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Paley-Wiener theory"
