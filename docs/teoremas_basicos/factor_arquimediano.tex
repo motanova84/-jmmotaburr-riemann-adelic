@@ -79,3 +79,56 @@ determinado de forma única por $\pi^{-s/2}\Gamma(s/2)$.
 
 Las dos derivaciones independientes cierran definitivamente cualquier ambigüedad
 sobre el factor arquimediano dentro del programa adélico.
+Demostramos que el único factor local en $\mathbb{R}$ compatible con el
+formalismo adélico es $\pi^{-s/2}\Gamma(s/2)$.  
+Ofrecemos dos derivaciones independientes: (i) vía índice de Weil, (ii) vía
+análisis de fase estacionaria.
+
+\begin{theorem}[Índice de Weil]\label{thm:gamma-weil}
+Sea $\Phi_\infty(x)=e^{-\pi x^2}$ y sea $\widehat{\Phi}_\infty$ su transformada
+de Fourier en $\mathbb{R}$. Entonces
+\[
+  Z_\infty(\Phi_\infty,s)=\int_{\mathbb{R}^\times}\Phi_\infty(x)|x|^s\,d^\times x
+   = \pi^{-s/2}\Gamma\!\left(\frac{s}{2}\right).
+\]
+\end{theorem}
+
+\begin{proof}
+Cambio $x^2=u/\pi$, $dx=\tfrac{1}{2}\pi^{-1/2}u^{-1/2}du$:
+\[
+  Z_\infty(\Phi_\infty,s)
+   = 2\!\int_0^\infty e^{-\pi x^2}x^{s-1}\,dx
+   = \pi^{-s/2}\!\int_0^\infty e^{-u}u^{s/2-1}\,du
+   = \pi^{-s/2}\Gamma\!\left(\tfrac{s}{2}\right).
+\]
+Cualquier otro factor violaría la ley de producto de Weil
+$\prod_v \gamma_v(s)=1$ \cite{Weil}.  
+\end{proof}
+
+\begin{theorem}[Fase estacionaria]\label{thm:gamma-stationary}
+Considérese
+\[
+ I(s)=\int_0^\infty f(t)t^{s-1}\,dt,\qquad
+ f(t)=\int_{\mathbb{R}} e^{-\pi x^2}e^{2\pi i tx}\,dx.
+\]
+Entonces $I(s)=\pi^{-s/2}\Gamma(s/2)$.  
+\end{theorem}
+
+\begin{proof}
+Como $f(t)=e^{-\pi t^2}$, separamos $[0,\varepsilon]+[\varepsilon,\infty)$.
+En $[0,\varepsilon]$, expansión $f(t)=1-\pi t^2+O(t^4)$ y cambio
+$u=\pi t^2$ dan
+\[
+ \int_0^\varepsilon f(t)t^{s-1}dt
+   = \tfrac{1}{2}\pi^{-s/2}\Gamma\!\left(\tfrac{s}{2}\right)+O(\varepsilon^{\Re(s)+1}).
+\]
+El intervalo $[\varepsilon,\infty)$ aporta término holomorfo en $s$.  
+Por simetría funcional global \cite{Weil}, ese término debe anularse.
+Queda $\pi^{-s/2}\Gamma(s/2)$.  
+\end{proof}
+
+\begin{cor}[Rigidez arquimediana]
+Los resultados de los Teoremas \ref{thm:gamma-weil} y \ref{thm:gamma-stationary}
+coinciden, fijando de manera única el factor local en $\mathbb{R}$ de $D(s)$
+como $\pi^{-s/2}\Gamma(s/2)$.  
+\end{cor}

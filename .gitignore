@@ -57,6 +57,15 @@ data/validation_results*.csv
 data/validation_output*.csv
 data/temp_*
 data/*.tmp
+data/validation/results/*
+data/validation/certificates/*
+!data/validation/results/.gitkeep
+!data/validation/certificates/.gitkeep
+
+# Generated 141.7 Hz validation outputs
+resultados/*.json
+resultados/certificates/
+!resultados/.gitkeep
 
 # Generated HTML output  
 docs/validation*.html
@@ -69,6 +78,8 @@ zeros/*.tmp
 zeros/*.gz
 logs/*.log
 logs/temp_*
+logs/validation/*
+!logs/validation/.gitkeep
 
 # CI/CD artifacts
 artifacts/
@@ -109,3 +120,50 @@ zeros/*_t1e12.txt
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Node.js dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts
+
+# Build artifacts
+dist/
+build/
+
+# Disabled workflow files
+*.disabled
+*.png
+
+# Monitoring system - evidence and sensitive data
+monitoring/evidence/
+monitoring/alerts/*.json
+!monitoring/alerts/.gitkeep
+examples/__pycache__/
+
+# SABIO ∞³ validation artifacts
+sabio_validation_report.json
+quantum_radio_validation_results.json
+test.sabio
+*.sabio.tmp
+
+# Lean validation reports (generated during CI)
+# Lean4 validation artifacts
+formalization/lean/validation_report.json
+
+# Lean4 build artifacts
+.lake/
+lake-packages/
+*.olean
+*.trace
+formalization/lean/validation_report.json
+
+# SageMath build artifacts
+*.sage.py
+.sage/
+validation_report.json

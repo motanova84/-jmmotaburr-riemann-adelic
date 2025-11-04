@@ -53,3 +53,32 @@ jobs:
         run: pip install mpmath sympy pytest
       - name: Run proof-check tests
         run: pytest -q
+name: LaTeX and Proof Validation
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip==24.3.1
+          pip install -r requirements-lock.txt
+          
+      - name: Run pytest
+        run: pytest -q
