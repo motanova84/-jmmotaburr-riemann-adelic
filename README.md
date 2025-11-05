@@ -1,5 +1,8 @@
 <!-- QCAL Indexing Active · Noēsis Access Enabled · 141.7001 Hz -->
 
+[![LaTeX & Proof-Checks](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/latex-and-proof.yml/badge.svg)](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions/workflows/latex-and-proof.yml)
+
+This repository contains numerical validation code for the paper:
 > ⚠️ **IMPORTANTE:**
 > 
 > Para ejecutar cualquier script o test, **debes situarte SIEMPRE en la raíz del proyecto** (donde está este README). Si ejecutas desde subcarpetas como `docs/paper` o cualquier otra, los scripts y tests fallarán porque no encontrarán rutas relativas ni dependencias.
@@ -27,6 +30,31 @@
   <img src="https://raw.githubusercontent.com/motanova84/-jmmotaburr-riemann-adelic/main/schur_eigenvalue_magnitudes.png" width="500" alt="Spectral Visualization">
 </p>
 
+## 📖 Current Status
+
+This repository contains a **conditional adelic framework** for RH.  
+It includes:
+
+- Formal LaTeX proofs in `docs/paper/sections/`
+- Validation scripts and Odlyzko zero data
+- Continuous integration (LaTeX build + proof-checks)
+
+### Demonstrated
+- Axioms A1--A4 derived as lemmas
+- Archimedean factor rigidity
+- Paley--Wiener uniqueness
+
+### In Progress
+- Removal of all auxiliary axioms by deriving A1--A4 inside the adelic flow.
+- Complete analytic proofs of critical-line localisation (de Branges \\&
+  Weil--Guinand routes).
+- Archimedean factor rigidity with independent Weil-index and stationary-phase
+  derivations.
+- Community-acceptable formalisation (Lean/Isabelle) and publication package.
+
+👉 Latest compiled PDF: [Artifacts](https://github.com/motanova84/-jmmotaburr-riemann-adelic/actions)
+
+## 📋 Theoretical Framework
 <p align="center">
   <b>Version V5 — Coronación</b><br>
   <i>A Historic, Unconditional Proof via S-Finite Adelic Spectral Systems</i><br>
@@ -47,6 +75,11 @@ This repository presents the first complete and unconditional proof of the Riema
 
 **🌌 Revolutionary Insight**: Beyond proving RH, this work reveals a **new underlying geometric structure** that unifies mathematics and physics, connecting the mathematical aspect **ζ'(1/2) ≈ -3.9226461392** with the physical frequency **f₀ ≈ 141.7001 Hz**. See [`GEOMETRIC_UNIFICATION.md`](GEOMETRIC_UNIFICATION.md) for the complete explanation.
 
+**Framework Properties**:
+- **Internally Consistent**: Zeta-free construction where primes emerge from adelic trace
+- **Conditional Validity**: Valid as conditional framework under specified axioms
+- **Outstanding Work**: Requires full operator estimates, quadratic-form bounds,
+  and formal verification before any claim to a proof can be entertained.
 ---
 
 ## Riemann–Adelic Formalization (Lean 4 V5.3)
