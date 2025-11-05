@@ -180,8 +180,13 @@ class GeometricUnification:
         
         # Phenomenological formula connecting vacuum structure to frequency
         # The geometric minimum at R_star determines the fundamental mode
-        # Scale factor chosen to give f₀ ≈ 141.7 Hz for typical parameters
-        scale_factor = 100.0  # Hz·(Planck units)
+        # 
+        # CALIBRATION NOTE: This scale factor is phenomenologically chosen
+        # to produce f₀ ≈ 141.7 Hz from the vacuum energy structure with
+        # typical physical parameters. The exact physical derivation requires
+        # the full adelic framework with proper dimensional analysis and
+        # physical constants from compactification geometry.
+        scale_factor = 100.0  # Hz·(Planck units) - calibration parameter
         
         # Frequency depends inversely on R_star (larger radius → lower frequency)
         f0 = scale_factor / R_star
@@ -227,7 +232,11 @@ class GeometricUnification:
         expected_f0 = 141.7001
         
         # Check consistency
-        zeta_check = abs(zeta_prime - expected_zeta_prime) / abs(expected_zeta_prime) < tolerance
+        zeta_check = False
+        if abs(expected_zeta_prime) > 1e-10:  # Avoid division by zero
+            zeta_check = abs(zeta_prime - expected_zeta_prime) / abs(expected_zeta_prime) < tolerance
+        else:
+            zeta_check = abs(zeta_prime - expected_zeta_prime) < tolerance
         
         # Note: f0 computation depends on physical parameters
         # So we check if it's in reasonable range

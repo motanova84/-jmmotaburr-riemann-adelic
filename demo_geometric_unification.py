@@ -129,7 +129,7 @@ def plot_wave_equation_unification():
     axes[0].plot(t * 1000, Psi, 'b-', linewidth=2)
     axes[0].set_xlabel('Time (ms)', fontsize=12)
     axes[0].set_ylabel('Ψ (amplitude)', fontsize=12)
-    axes[0].set_title('Consciousness Field Ψ(t) oscillating at f₀ = 141.7001 Hz', 
+    axes[0].set_title(f'Consciousness Field Ψ(t) oscillating at f₀ = {f0:.4f} Hz', 
                       fontsize=14, fontweight='bold')
     axes[0].grid(True, alpha=0.3)
     axes[0].axhline(0, color='k', linestyle='-', linewidth=0.5)
