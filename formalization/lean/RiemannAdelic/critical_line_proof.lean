@@ -83,10 +83,7 @@ where B_{ε,R}(s) is a trace class perturbation of the identity.
 def perturbationOperator (S : SpectralOperator) (ε R : ℝ) (s : ℂ) : S.H →L[ℂ] S.H :=
   -- B_{ε,R}(s) constructed from spectral data of H_ε
   -- Simplified model: scale T by exp(-s·ε)
-  ContinuousLinearMap.smulRight 
-    (ContinuousLinearMap.id ℂ S.H) 
-    (S.T (0 : S.H)) *
-    exp (-s * ε)
+  exp (-s * ε) • S.T
 
 /-- Fredholm determinant as infinite product over spectrum -/
 def fredholmDeterminant (S : SpectralOperator) (ε R : ℝ) (s : ℂ) : ℂ :=
