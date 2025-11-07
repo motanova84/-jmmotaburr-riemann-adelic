@@ -30,7 +30,7 @@ jobs:
           NUMEXPR_MAX_THREADS: 4
           NUMEXPR_NUM_THREADS: 2
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip==24.3.1
           pip install -r requirements.txt
   lint-and-test:
     needs: setup
@@ -54,7 +54,7 @@ jobs:
           NUMEXPR_MAX_THREADS: 4
           NUMEXPR_NUM_THREADS: 2
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip==24.3.1
           pip install -r requirements.txt
       - name: Run linters
         run: |
@@ -85,7 +85,7 @@ jobs:
           NUMEXPR_MAX_THREADS: 4
           NUMEXPR_NUM_THREADS: 2
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip==24.3.1
           pip install -r requirements.txt
       - name: Validate metadata JSON-LD
         run: |
@@ -113,7 +113,7 @@ jobs:
           NUMEXPR_MAX_THREADS: 4
           NUMEXPR_NUM_THREADS: 2
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip==24.3.1
           pip install -r requirements.txt
       - name: Run conversion smoke test
         run: |

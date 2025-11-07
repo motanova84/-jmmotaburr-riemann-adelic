@@ -12,12 +12,28 @@ It uses:
 Add helper utilities if missing.
 """
 
+import itertools
+
 import mpmath as mp
 import numpy as np
 import sympy as sp
 from scipy.linalg import schur, eigh
 from sympy import bernoulli, S, integrate, exp
 import matplotlib.pyplot as plt
+
+try:  # pragma: no cover - optional acceleration
+    import jax.numpy as jnp
+    from jax import jit, vmap
+except ImportError:  # pragma: no cover
+    jnp = None  # type: ignore
+    jit = lambda fn: fn  # type: ignore
+    vmap = lambda fn: fn  # type: ignore
+
+try:  # pragma: no cover - optional GPU path
+    import cupy as cp
+except ImportError:  # pragma: no cover
+    cp = None  # type: ignore
+
 from utils.mellin import truncated_gaussian, mellin_transform, f1, f2, f3, A_infty
 
 # Reduce precision for faster computation
@@ -78,16 +94,18 @@ def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
     zero_sum = mp.mpf('0')
     zeros_processed = 0
     
-    for i, gamma in enumerate(actual_zeros):
+    xi_values = evaluate_xi_batch(actual_zeros)
+
+    for i, (gamma, xi_val) in enumerate(zip(actual_zeros, xi_values)):
         # Non-trivial zero: ρ = 1/2 + i*γ
-        rho = mp.mpc(0.5, gamma) 
+        rho = mp.mpc(0.5, gamma)
         try:
             # Mellin transform: f̂(s) = ∫ f(u) u^(s-1) du, but we use e^(su) form
             f_hat_rho = mellin_transform(f, rho - 1, 5.0)
             zero_sum += f_hat_rho.real
             zeros_processed += 1
             if i < 3:  # Debug first few
-                print(f"  Zero γ={gamma}: f̂(ρ) = {f_hat_rho.real}")
+                print(f"  Zero γ={gamma}: f̂(ρ) = {f_hat_rho.real} | ξ(γ) = {xi_val}")
         except ValueError as e:
             print(f"Warning: Skipping zero γ={gamma} due to integration error: {e}")
             continue
@@ -136,19 +154,7 @@ def weil_explicit_formula(zeros, primes, f, max_zeros, t_max=50, precision=30):
     
     # RIGHT SIDE: Von Mangoldt sum over primes
     prime_sum_val = mp.mpf('0')
-    prime_count = 0
-    for p in primes:
-        if prime_count >= 100:  # Limit for efficiency
-            break
-        log_p = mp.log(p)
-        # Include prime powers: Λ(p^k) = log(p) for prime powers
-        for k in range(1, min(4, int(50/p) + 1)):  # Adaptive limit
-            n = p**k 
-            if n > 1000:  # Don't go too high
-                break
-            contrib = log_p * f(k * log_p)
-            prime_sum_val += contrib
-            prime_count += 1
+    prime_sum_val += accelerated_prime_sum(primes, f, prime_limit=100)
             
     print(f"Prime sum: {prime_sum_val}")
     
@@ -196,6 +202,61 @@ def zero_sum(f, filename, lim_u=5):
         for line in file:
             gamma = mp.mpf(line.strip())
             total += mellin_transform(f, 1j * gamma, lim_u).real
+    return total
+
+
+def evaluate_xi_batch(gamma_values):
+    """Vectorised computation of the Xi function on the critical line."""
+
+    if jnp is None:
+        return [mp.re(mp.pi ** (-0.5 * (0.5 + 1j * g)) * mp.gamma(0.25 + 0.5j * g) * mp.zeta(0.5 + 1j * g)) for g in gamma_values]
+
+    gamma_array = jnp.array(gamma_values, dtype=jnp.float64)
+
+    @jit  # type: ignore[arg-type]
+    def xi_single(g):
+        return jnp.real(
+            jnp.pi ** (-0.5 * (0.5 + 1j * g))
+            * jnp.gamma(0.25 + 0.5j * g)
+            * jnp.zeta(0.5 + 1j * g)
+        )
+
+    xi_vals = vmap(xi_single)(gamma_array)
+    return np.asarray(xi_vals)
+
+
+def accelerated_prime_sum(primes, f, prime_limit=100):
+    """GPU-ready prime sum using CuPy when available."""
+
+    if hasattr(primes, "__getitem__"):
+        selected_primes = list(primes[:prime_limit])
+    else:
+        selected_primes = list(itertools.islice(primes, prime_limit))
+    if cp is not None and selected_primes:
+        cp_primes = cp.asarray(selected_primes, dtype=cp.float64)
+        logs = cp.log(cp_primes)
+        contributions = []
+        for idx, log_p in enumerate(cp.asnumpy(logs)):
+            p = selected_primes[idx]
+            for k in range(1, min(4, int(50 / p) + 1)):
+                n = p**k
+                if n > 1000:
+                    break
+                log_mp = mp.mpf(log_p)
+                contributions.append(log_mp * f(k * log_mp))
+        total = mp.mpf('0')
+        for contrib in contributions:
+            total += contrib
+        return total
+
+    total = mp.mpf('0')
+    for p in selected_primes:
+        log_p = mp.log(p)
+        for k in range(1, min(4, int(50 / p) + 1)):
+            n = p**k
+            if n > 1000:
+                break
+            total += log_p * f(k * log_p)
     return total
 
 def zero_sum_limited(f, filename, max_zeros, lim_u=5):

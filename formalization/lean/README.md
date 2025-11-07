@@ -1,3 +1,23 @@
+# Lean formalisation blueprint
+
+This folder mirrors the analytic decomposition of the adelic programme.  Each
+module should eventually depend on mathlib (Lean 4 + Lake).
+
+## Getting started
+1. Install Lean 4 and Lake following <https://leanprover-community.github.io/get_started.html>.
+2. Run `lake init rh-formalization` in this directory to create a project skeleton.
+3. Add `mathlib` as a dependency in `lakefile.lean` via `require mathlib from git`.
+4. Replace the placeholder files below with the formal statements and proofs.
+
+## Modules
+- `entire_order.lean`: statements about entire functions of order $\leqslant1$, Hadamard factorisation, and Phragmén--Lindelöf bounds.
+- `functional_eq.lean`: adelic Fourier transform, Poisson summation, and functional symmetry.
+- `arch_factor.lean`: Weil index computation and stationary-phase rigidity of $\pi^{-s/2}\Gamma(s/2)$.
+- `de_branges.lean`: Hermite--Biehler properties, Hamiltonian positivity, and self-adjointness.
+- `positivity.lean`: Weil--Guinand quadratic form and positivity criterion leading to the critical line.
+
+Each file currently contains skeletal declarations to be refined during the
+formalisation effort.
 # Lean 4 Formalization of the Adelic Proof of RH
 
 This directory contains **Lean 4 formalization** for the Riemann Hypothesis framework developed by José Manuel Mota Burruezo (V5.1, unconditional).
@@ -33,13 +53,32 @@ The goal is to **mechanize the proof** in Lean with **constructive definitions**
 - **`positivity.lean`** ⭐  
   Explicit positive kernels and trace class operators
 
+### Purge Axioms Modules (purge_axioms branch) 🆕
+
+- **`RiemannAdelic/Hadamard.lean`** 🔥  
+  Hadamard factorization & bounded entire quotient (replaces Axiom*)
+  
+- **`RiemannAdelic/KernelPositivity.lean`** 🔥  
+  Positive kernel on quotient module ⇒ spectrum on ℜs=1/2 (replaces Axiom*)
+  
+- **`RiemannAdelic/GammaTrivialExclusion.lean`** 🔥  
+  Γ-factor separation to exclude trivial zeros (replaces Axiom*)
+- **`KernelPositivity.lean`** 🆕  
+  Kernel positivity on quotient module approach to critical line
+
 ### Supporting Modules
+
+- **`Hadamard.lean`** 🆕  
+  Hadamard factorization skeleton and bounded entire quotient analysis (D/Xi identity)
 
 - **`functional_eq.lean`**  
   Adelic Poisson summation and functional symmetry
 
 - **`arch_factor.lean`**  
   Archimedean gamma factor (Weil index, stationary phase)
+
+- **`GammaTrivialExclusion.lean`**  
+  Exclusion of trivial zeros via Γ-factor separation
 
 - **`poisson_radon_symmetry.lean`**  
   Geometric duality and non-circular functional equation
@@ -129,16 +168,65 @@ theorem D_functional_equation : ... := D_explicit_functional_equation
 
 ## 📊 Axiom Reduction Status
 
-| Axiom | V5.1 Status | V5.2 Status | How Eliminated |
-|-------|-------------|-------------|----------------|
-| `D_function` | ❌ Axiom | ✅ Definition | `def D_function := D_explicit` |
-| `D_functional_equation` | ❌ Axiom | ✅ Theorem | Proven from spectral trace |
-| `D_entire_order_one` | ❌ Axiom | ✅ Theorem | Proven from growth bounds |
-| `D_zero_equivalence` | ❌ Axiom | ⚠️ Axiom* | Represents D-ζ connection |
-| `zeros_constrained_to_critical_lines` | ❌ Axiom | ⚠️ Axiom* | From de Branges (proof outline) |
-| `trivial_zeros_excluded` | ❌ Axiom | ⚠️ Axiom* | Definitional constraint |
+| Axiom | V5.1 Status | V5.2 Status | purge_axioms Status | How Eliminated |
+|-------|-------------|-------------|---------------------|----------------|
+| `D_function` | ❌ Axiom | ✅ Definition | ✅ Definition | `def D_function := D_explicit` |
+| `D_functional_equation` | ❌ Axiom | ✅ Theorem | ✅ Theorem | Proven from spectral trace |
+| `D_entire_order_one` | ❌ Axiom | ✅ Theorem | ✅ Theorem | Proven from growth bounds |
+| `D_zero_equivalence` | ❌ Axiom | ⚠️ Axiom* | 🔄 Theorem skeleton | Hadamard.lean: `D_eq_Xi_from_normalization` |
+| `zeros_constrained_to_critical_lines` | ❌ Axiom | ⚠️ Axiom* | 🔄 Theorem skeleton | KernelPositivity.lean: `zeros_on_critical_line` |
+| `trivial_zeros_excluded` | ❌ Axiom | ⚠️ Axiom* | 🔄 Theorem skeleton | GammaTrivialExclusion.lean: `trivial_zeros_excluded` |
 
-*Remaining axioms represent deep analytic results with constructive proof outlines provided.
+**Legend:**
+- ✅ = Fully proven/defined
+- ⚠️ = Axiom with proof outline
+- 🔄 = Theorem skeleton with `sorry` (purge_axioms branch)
+- ❌ = Pure axiom
+
+### What Changed in purge_axioms branch
+
+The **purge_axioms** branch introduces three new modules that provide structured theorem skeletons to replace the remaining axioms:
+
+#### 1. Hadamard.lean - Hadamard Factorization Framework 🔥
+
+This module establishes the connection between D(s) and Ξ(s) through:
+- `DProps` and `XiProps` classes: Encode entire function properties (order ≤1, functional equation, normalization)
+- `DivisorMatch` class: Ensures divisor coincidence in critical strip (excluding trivial zeros)
+- `hadamard_factorization`: Existence of canonical Hadamard products for both D and Ξ
+- `quotient_entire_bounded`: Proves Q = D/Ξ is entire and bounded (removable singularities)
+- `quotient_is_constant`: Applies Liouville's theorem (bounded entire ⇒ constant)
+- `D_eq_Xi_from_normalization`: Shows Q ≡ 1 via normalization, hence D ≡ Ξ
+
+**Key insight:** Two entire functions of order ≤1 with same zeros and functional equation must be equal (up to constant), fixed by normalization.
+
+#### 2. KernelPositivity.lean - Spectral Confinement 🔥
+
+This module proves zeros lie on the critical line via:
+- `K`: Weil-type explicit positive kernel
+- `kernel_coercive`: Coercivity/positivity of bilinear form ⟨f, K f⟩ ≥ 0
+- `H`: Self-adjoint operator with discrete real spectrum
+- `zeros_on_critical_line`: Reality of spectrum + functional equation symmetry ⇒ Re(ρ) = 1/2
+
+**Key insight:** Self-adjoint operators have real spectra. When combined with the functional equation s ↔ 1-s, zeros must lie at Re(s) = 1/2.
+
+#### 3. GammaTrivialExclusion.lean - Trivial Zero Exclusion 🔥
+
+This module excludes trivial zeros via:
+- `trivial_zeros_excluded`: Separates archimedean Γ-factor, whose divisor in (0,1) band accounts for trivial zeros
+
+**Key insight:** The completed ζ function includes Γ-factors at infinity. The adelic construction factorizes these, showing trivial zeros come from the Γ-product, not the main zeta factor.
+
+#### Status: Theorem Skeletons with `sorry`
+
+All three modules use `set_option allow_sorry true` to enable compilation while proofs are completed. Each theorem has:
+- Complete type signature
+- Detailed proof strategy in comments
+- `sorry` placeholder for implementation
+
+**Next steps:**
+1. Replace `sorry` with actual proofs as they are completed
+2. Remove `allow_sorry` option once all proofs are done
+3. Integrate with existing modules (D_explicit, positivity, de_branges)
 
 ## ⚙️ Requirements
 
@@ -169,7 +257,13 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
    lake build
    ```
 
-4. Open Lean files with VS Code (with Lean 4 extension):
+4. **Or use the integrated validation script**:
+   ```bash
+   ./validate_lean_env.sh
+   ```
+   This script performs complete environment validation, dependency updates, and compilation with detailed status reporting.
+
+5. Open Lean files with VS Code (with Lean 4 extension):
    ```bash
    code RH_final.lean
    ```
@@ -191,6 +285,8 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
 
 - ✅ **All modules integrated** in `Main.lean` (15 modules)
 - ✅ **Validation script** created: `validate_lean_formalization.py`
+- ✅ **All modules integrated** in `Main.lean` (14 modules)
+- ✅ **Validation scripts** created: `validate_lean_formalization.py` and `validate_lean_env.sh`
 - ✅ **Setup guide** available: `SETUP_GUIDE.md`
 - ✅ **CI/CD template** provided: `lean-ci-workflow-suggestion.yml`
 - ✅ **Toolchain ready**: Lean 4.5.0 + mathlib4
@@ -309,6 +405,7 @@ See also:
 - `THEOREM_STATEMENT.md` - Formal RH statement (V5.1)
 - `SETUP_GUIDE.md` - Installation and setup instructions ⭐
 - `QUICK_REFERENCE.md` - Quick reference for developers ⭐
+- `PROOF_COMPLETION_GUIDE.md` - Comprehensive guide for completing sorry placeholders 🆕
 
 ## 🌟 References
 
