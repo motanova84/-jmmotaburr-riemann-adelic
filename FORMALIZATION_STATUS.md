@@ -186,6 +186,19 @@ theorem D_entire_order_one : ∃ M : ℝ, M > 0 ∧
 - `main_positivity_theorem` proven constructively
 - `positive_kernel_implies_critical_line` connection
 
+### 6. Spectral RH Operator - H_ε with Prime Harmonic Potential ✅
+
+**New**: `RiemannAdelic/spectral_rh_operator.lean`
+
+- Parameters: `κop = 7.1823` and `λ = 141.7001`
+- `primeHarmonic`: Sum over primes with cosine oscillations
+- `window`: Localized window function for R-parameter
+- `Ω`: Full potential combining window and prime harmonics
+- `Hε`: Self-adjoint operator structure with base + scaled potential
+- Spectral measures `με` and zero measures `ν`
+- D_function with functional equation and entire function properties
+- Axioms formalizing the spectral operator approach to RH
+
 ### 6. Critical Line Proof via Spectral Operators ✅
 
 **New**: `RiemannAdelic/critical_line_proof.lean`
@@ -306,6 +319,7 @@ formalization/lean/
     ├── axioms_to_lemmas.lean        # Toy model proofs (A1, A2, A4)
     ├── schwartz_adelic.lean         # NEW: Schwartz functions on adeles
     ├── D_explicit.lean              # NEW: Explicit D(s) construction
+    ├── spectral_rh_operator.lean    # NEW: Spectral operator H_ε with prime harmonics
     ├── spectral_RH_operator.lean    # NEW: Spectral operator H_ε with Yukawa potential
     ├── critical_line_proof.lean     # NEW: Spectral operator approach
     ├── RiemannOperator.lean         # NEW: Operator formulation with Hε (V5.3)
@@ -367,6 +381,10 @@ formalization/lean/
 | Positive Kernel | ✅ Defined | `kernel_RH` |
 | Trace Class Operator | ✅ Defined | `spectral_operator_RH` |
 | Main Positivity | ✅ Theorem | `main_positivity_theorem` |
+| Spectral RH Operator | ✅ Defined | `Hε` structure with prime harmonics |
+| Prime Harmonic Potential | ✅ Defined | `primeHarmonic` function |
+| Localized Window | ✅ Defined | `window` function |
+| Full Potential Ω | ✅ Defined | Combined window × prime harmonics |
 | Spectral Operator Theory | ✅ Defined | `SpectralOperator` structure |
 | Real Spectrum Theorem | ✅ Proven | `spectrum_real_for_selfadjoint` |
 | Critical Line via Spectrum | ✅ Stated | `all_zeros_on_critical_line` |
@@ -385,10 +403,10 @@ Spectral Trace → D(s) (D_explicit.lean)
          ↓
     ┌────┴────┐
     ↓         ↓
-de Branges   Hadamard        Positivity
- Spaces      Factor.         Kernel
-    ↓         ↓                ↓
-    └────┬────┴────────────────┘
+de Branges   Hadamard        Positivity      Spectral RH Operator
+ Spaces      Factor.         Kernel          (H_ε with primes)
+    ↓         ↓                ↓                     ↓
+    └────┬────┴────────────────┴─────────────────────┘
          ↓
   Critical Line Constraint
          ↓

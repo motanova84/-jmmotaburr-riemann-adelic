@@ -45,6 +45,8 @@ import RiemannAdelic.critical_line_proof
 import RiemannAdelic.pw_two_lines
 import RiemannAdelic.lengths_derived
 
+-- Spectral RH operator with prime harmonic potential
+import RiemannAdelic.spectral_rh_operator
 -- Spectral RH operator H_ε
 import RiemannAdelic.spectral_RH_operator
 
@@ -75,6 +77,7 @@ def main : IO Unit := do
   IO.println "  • Zero localization and uniqueness"
   IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Paley-Wiener theory"
+  IO.println "  • Spectral RH operator (H_ε with prime harmonic potential)"
   IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Spectral RH operator H_ε"
   IO.println "  • Hadamard factorization (purge_axioms branch)"
