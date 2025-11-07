@@ -36,6 +36,7 @@ import RiemannAdelic.KernelPositivity
 -- Zero localization and uniqueness
 import RiemannAdelic.zero_localization
 import RiemannAdelic.uniqueness_without_xi
+import RiemannAdelic.critical_line_proof
 
 -- Critical line proof via spectral operators
 import RiemannAdelic.critical_line_proof
@@ -74,6 +75,7 @@ def main : IO Unit := do
   IO.println "  • Zero localization and uniqueness"
   IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Paley-Wiener theory"
+  IO.println "  • Critical line proof via spectral operators"
   IO.println "  • Spectral RH operator H_ε"
   IO.println "  • Hadamard factorization (purge_axioms branch)"
   IO.println "  • Kernel positivity (purge_axioms branch)"
