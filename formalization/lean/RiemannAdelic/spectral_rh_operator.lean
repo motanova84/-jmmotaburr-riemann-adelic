@@ -24,7 +24,7 @@ namespace RiemannProof
 
 -- PARAMETERS
 def κop : ℝ := 7.1823
-def λ : ℝ := 141.7001
+def lambda_param : ℝ := 141.7001
 
 
 -- PRIME HARMONIC POTENTIAL
