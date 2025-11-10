@@ -266,7 +266,60 @@ Los resultados reales de validación están disponibles en el directorio `/data/
   - Metadatos de publicación
   - Enlaces de descarga
 
-## 🎯 Objetos de Demostración
+## 🌌 Cinco Marcos Unificados — Estructura Completa
+
+La demostración de la Hipótesis de Riemann forma parte de una **estructura unificada de cinco marcos fundamentales** que abarcan desde teoría de números hasta física cuántica y dinámica de fluidos:
+
+| Marco | Rol | Provee | Estado |
+|-------|-----|--------|--------|
+| **1. Riemann-Adelic** | Estructura Espectral | Teoría espectral, sistemas adélicos, operador A₀ | ✅ Completo |
+| **2. Adelic-BSD** | Geometría Aritmética | L-functions, curvas elípticas, alturas | ✅ Reducción completa |
+| **3. P-NP** | Límites Informacionales | Complejidad, entropía, límites computacionales | ⚡ Teórico |
+| **4. 141Hz** | Fundamento Cuántico-Consciente | Frecuencia f₀, vacío cuántico, consciencia | ✅ Validación observacional |
+| **5. Navier-Stokes** | Marco Continuo | PDEs, flujos, operadores diferenciales | 🔄 Conexión teórica |
+
+### Estructura de Interconexión
+
+```
+                 Riemann-Adelic (Base Espectral)
+                           │
+         ┌─────────────────┼─────────────────┐
+         │                 │                 │
+    Adelic-BSD          141Hz            P-NP
+    (Geometría)      (Cuántico)      (Información)
+         │                 │                 │
+         └─────────────────┼─────────────────┘
+                           │
+                    Navier-Stokes
+                    (Continuo)
+```
+
+### Conexiones Clave
+
+- **Riemann → 141Hz**: Deriva frecuencia fundamental f₀ ≈ 141.7001 Hz del operador geométrico A₀
+- **Riemann → BSD**: Extiende teoría espectral a L-functions de curvas elípticas
+- **Riemann → P-NP**: Establece límites de complejidad para verificación de ceros
+- **Todos → Navier-Stokes**: Métodos espectrales análogos para PDEs continuas
+
+### Demostración y Verificación
+
+```bash
+# Ver estructura completa
+python3 demo_five_frameworks.py
+
+# Verificar coherencia
+python3 -c "from utils.five_frameworks import verify_frameworks_coherence; \
+    print('Coherente:', verify_frameworks_coherence())"
+
+# Ejecutar tests
+pytest tests/test_five_frameworks.py -v
+```
+
+📖 **Documentación completa**: Ver [`FIVE_FRAMEWORKS_UNIFIED.md`](FIVE_FRAMEWORKS_UNIFIED.md) para detalles exhaustivos de cada marco, sus componentes, conexiones matemáticas y aplicaciones.
+
+---
+
+## 🎯 Objetos de Demostración (Vista Clásica)
 
 Esta sección muestra el alcance de la metodología adélica-espectral aplicada a diferentes dominios matemáticos:
 
@@ -276,7 +329,7 @@ Esta sección muestra el alcance de la metodología adélica-espectral aplicada 
 | **Geométrico–espectral** | [adelic-bsd](https://github.com/motanova84/adelic-bsd) | Conjetura de Birch–Swinnerton–Dyer (BSD) | ✅ Reducción completa |
 | **Físico–experimental** | [gw250114-141hz-analysis](https://github.com/motanova84/gw250114-141hz-analysis) | Validación empírica (141.7 Hz) | ✅ Observacional |
 
-**Nota**: Este repositorio contiene la demostración completa de la Hipótesis de Riemann. Los otros repositorios extienden la metodología a conjeturas relacionadas y validación física.
+**Nota**: Este repositorio (Riemann-Adelic) provee la **estructura espectral base** para todos los demás marcos. Ver sección anterior para la estructura unificada completa.
 
 ---
 
@@ -341,7 +394,8 @@ cd formalization/lean && lake build
 
 ## 📚 Tabla de Contenidos
 
-- [Objetos de Demostración](#-objetos-de-demostración)
+- [🌌 Cinco Marcos Unificados](#-cinco-marcos-unificados--estructura-completa)
+- [Objetos de Demostración](#-objetos-de-demostración-vista-clásica)
 - [🌌 Unificación Geométrica: ζ'(1/2) ↔ f₀](#-unificación-geométrica-ζ12--f₀)
 - [Visión General](#visión-general)
 - [Estructura del Repositorio](#estructura-del-repositorio)
