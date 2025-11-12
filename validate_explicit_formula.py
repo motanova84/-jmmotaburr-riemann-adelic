@@ -228,6 +228,9 @@ if __name__ == "__main__":
     P = min(args.P, 10000)  # Cap at 10000 to prevent timeout
     K = args.K
     sigma0 = args.sigma0
+    # Limit T to at most one-tenth of max_zeros to ensure that the number of integration points does not exceed available zeros.
+    # This heuristic helps maintain computational efficiency and avoids overfitting/noise in the explicit formula evaluation.
+    # If you need a different ratio, adjust here; see e.g. [Edwards, "Riemann's Zeta Function", Ch. 6] for discussion of zero density and integration limits.
     T = max(1, min(args.T, args.max_zeros // 10))  # Ensure T >= 1
     lim_u = args.lim_u
     
