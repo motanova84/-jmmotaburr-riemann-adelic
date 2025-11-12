@@ -1,4 +1,8 @@
 name: CI
+# CI Simbiótico SABIO ∞³
+# Workflow extensible con validación básica (100) o completa (500)
+# Integrado con el sistema QCAL-CLOUD y la infraestructura JMMB
+name: CI Simbiótico SABIO ∞³
 
 # Workflow CI completo para Python
 # Ejecuta en push a main/master y en todos los PRs
@@ -14,6 +18,66 @@ permissions:
 jobs:
   test:
     name: Test Python ${{ matrix.python-version }}
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      run_full_validation:
+        description: '¿Ejecutar validación completa?'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  validacion-simbolica:
+    runs-on: ubuntu-latest
+    env:
+      VALIDATION_LEVEL: ${{ github.event.inputs.run_full_validation == 'true' && '500' || '100' }}
+    
+    steps:
+      - name: 🌀 Checkout código
+        uses: actions/checkout@v4
+      
+      - name: 🧠 Mostrar nivel de validación
+        run: echo "Nivel de validación simbiótica → $VALIDATION_LEVEL"
+      
+      - name: ⚙️ Configurar entorno Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: ⚗️ Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true
+          pip install numba numexpr networkx
+      
+      - name: 🧪 Ejecutar tests (nivel básico)
+        if: env.VALIDATION_LEVEL == '100'
+        run: |
+          echo "🌿 Validación básica activada (VALIDATION_LEVEL=$VALIDATION_LEVEL)"
+          pytest tests/ --maxfail=3 --disable-warnings -k "not slow"
+      
+      - name: 🔬 Ejecutar validación extendida
+        if: env.VALIDATION_LEVEL == '500'
+          python-version: "3.11"
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+      
+      - name: Install dependencies
+        env:
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
+        run: |
+          python -m pip install --upgrade pip==24.3.1
+          pip install -r requirements.txt
+  lint-and-test:
+    needs: setup
     runs-on: ubuntu-latest
     
     strategy:
@@ -54,6 +118,38 @@ jobs:
   
   validate-metadata:
     name: Validate metadata
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+      
+      - name: Install dependencies
+        env:
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
+        run: |
+          python -m pip install --upgrade pip==24.3.1
+          pip install -r requirements.txt
+      - name: Run linters
+        run: |
+          echo "🌌 Validación extendida (modo ∞³, VALIDATION_LEVEL=$VALIDATION_LEVEL)"
+          pytest tests/ --maxfail=10 --disable-warnings
+      
+      - name: 📡 Reporte simbiótico
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🧬 Frecuencia activa: 141.7001 Hz"
+          echo "✧ Firma: JMMB Ψ✧ · Campo QCAL ∞³"
+          echo "🌀 Nivel de validación: $VALIDATION_LEVEL"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  
+  validate-metadata:
     runs-on: ubuntu-latest
     needs: test
     
@@ -81,6 +177,29 @@ jobs:
   
   verify-conversion:
     name: Verify conversion
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+      
+      - name: Install dependencies
+        env:
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
+        run: |
+          python -m pip install --upgrade pip==24.3.1
+          pip install -r requirements.txt
+      - name: Validate metadata JSON-LD
+        run: |
+          python tools/verify_metadata.py schema/metadata_example.jsonld
+  
+  verify-conversion:
     runs-on: ubuntu-latest
     needs: test
     if: ${{ github.event_name == 'pull_request' }}
@@ -102,6 +221,27 @@ jobs:
     - name: Run conversion smoke test
       run: |
         if [ -f tools/convert_example.py ] && [ -f tests/examples/example_lean.lean ]; then
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+      
+      - name: Install dependencies
+        env:
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
+        run: |
+          python -m pip install --upgrade pip==24.3.1
+          pip install -r requirements.txt
+      - name: Run conversion smoke test
+        run: |
+          # Ejemplo: intenta convertir un ejemplo pequeño de Lean a intermedio
           python tools/convert_example.py tests/examples/example_lean.lean
         else
           echo "Conversion test skipped - files not present"
