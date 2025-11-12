@@ -51,6 +51,45 @@ jobs:
       
       - name: 🔬 Ejecutar validación extendida
         if: env.VALIDATION_LEVEL == '500'
+          python-version: "3.11"
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+      
+      - name: Install dependencies
+        env:
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
+        run: |
+          python -m pip install --upgrade pip==24.3.1
+          pip install -r requirements.txt
+  lint-and-test:
+    needs: setup
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+      
+      - name: Install dependencies
+        env:
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
+        run: |
+          python -m pip install --upgrade pip==24.3.1
+          pip install -r requirements.txt
+      - name: Run linters
         run: |
           echo "🌌 Validación extendida (modo ∞³, VALIDATION_LEVEL=$VALIDATION_LEVEL)"
           pytest tests/ --maxfail=10 --disable-warnings
@@ -73,9 +112,18 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-      - name: Install dependencies
+      
+      - name: Install system dependencies
         run: |
-          python -m pip install --upgrade pip
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+      
+      - name: Install dependencies
+        env:
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
+        run: |
+          python -m pip install --upgrade pip==24.3.1
           pip install -r requirements.txt
       - name: Validate metadata JSON-LD
         run: |
@@ -92,9 +140,18 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-      - name: Install dependencies
+      
+      - name: Install system dependencies
         run: |
-          python -m pip install --upgrade pip
+          sudo apt-get update
+          sudo apt-get install -y llvm-14 llvm-14-dev libigraph-dev libigraph3t64
+      
+      - name: Install dependencies
+        env:
+          NUMEXPR_MAX_THREADS: 4
+          NUMEXPR_NUM_THREADS: 2
+        run: |
+          python -m pip install --upgrade pip==24.3.1
           pip install -r requirements.txt
       - name: Run conversion smoke test
         run: |
