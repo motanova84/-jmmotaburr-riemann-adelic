@@ -1,5 +1,5 @@
 """
-🧠 Enhanced Riemann Zeros Management
+Enhanced Riemann Zeros Management
 
 This script provides:
 - Automatic download of Riemann zeros from Odlyzko tables
