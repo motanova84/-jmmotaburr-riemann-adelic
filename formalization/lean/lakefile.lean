@@ -1,6 +1,10 @@
 import Lake
 open Lake DSL
 
+package riemannAdelic
+
+@[default_target]
+lean_lib RiemannAdelic
 package «riemann-adelic-lean» where
   -- Version and configuration
   version := "5.1"
