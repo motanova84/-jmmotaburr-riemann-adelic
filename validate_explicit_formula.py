@@ -26,15 +26,48 @@ mp.mp.dps = 15  # Reduced from 50
 
 # Test functions (compactly supported)
 def f1(u): 
-    """Truncated Gaussian function"""
+    """
+    Truncated Gaussian function.
+
+    .. math::
+        f_1(u) = \\exp\\left(-\\frac{u^2}{2}\\right), \\quad |u| \\leq 3; \\quad 0 \\text{ otherwise}
+
+    Args:
+        u (float): Input value.
+
+    Returns:
+        mpmath.mpf: Function value, 0 outside support.
+    """
     return mp.exp(-u**2/2) if abs(u) <= 3 else mp.mpf(0)
 
 def f2(u): 
-    """Alternative Gaussian function"""
+    """
+    Alternative Gaussian function.
+
+    .. math::
+        f_2(u) = \\exp(-u^2), \\quad |u| \\leq 2; \\quad 0 \\text{ otherwise}
+
+    Args:
+        u (float): Input value.
+
+    Returns:
+        mpmath.mpf: Function value, 0 outside support.
+    """
     return mp.exp(-u**2) if abs(u) <= 2 else mp.mpf(0)
 
 def f3(u): 
-    """Polynomial function"""
+    """
+    Polynomial function.
+
+    .. math::
+        f_3(u) = (1 - u^2/4)^2, \\quad |u| \\leq 2; \\quad 0 \\text{ otherwise}
+
+    Args:
+        u (float): Input value.
+
+    Returns:
+        mpmath.mpf: Function value, 0 outside support.
+    """
     return (1 - u**2/4)**2 if abs(u) <= 2 else mp.mpf(0)
 
 TEST_FUNCTIONS = {
