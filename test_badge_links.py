@@ -40,6 +40,7 @@ def verify_local_resources(readme_dir):
         '.github/workflows/ci_coverage.yml',
         '.github/workflows/comprehensive-ci.yml',
         '.github/workflows/lean.yml',
+        '.github/workflows/lean-validation.yml',
         '.github/workflows/advanced-validation.yml',
         '.github/workflows/critical-line-verification.yml',
     ]
