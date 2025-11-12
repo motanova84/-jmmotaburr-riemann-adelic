@@ -1,5 +1,4 @@
 from gwpy.timeseries import TimeSeries
-import numpy as np
 
 def scan_offsource_peaks(freq, n_days=10):
     base_time = 1126259462
