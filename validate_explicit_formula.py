@@ -1,5 +1,5 @@
 """
-🧠 Enhanced Riemann Hypothesis Validation Script
+Enhanced Riemann Hypothesis Validation Script
 
 This script validates the explicit formula related to the Riemann Hypothesis with:
 - Complete CLI support with configurable parameters
