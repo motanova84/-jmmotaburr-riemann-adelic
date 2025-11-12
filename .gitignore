@@ -62,6 +62,11 @@ data/validation/certificates/*
 !data/validation/results/.gitkeep
 !data/validation/certificates/.gitkeep
 
+# Generated 141.7 Hz validation outputs
+resultados/*.json
+resultados/certificates/
+!resultados/.gitkeep
+
 # Generated HTML output  
 docs/validation*.html
 docs/temp_*
@@ -74,6 +79,8 @@ zeros/*.gz
 logs/*.log
 logs/temp_*
 logs/validation/*
+logs/performance/benchmark_results_*.json
+logs/performance/benchmark_results_*_report.md
 !logs/validation/.gitkeep
 
 # CI/CD artifacts
@@ -119,6 +126,13 @@ dmypy.json
 # Node.js dependencies
 node_modules/
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts
 
 # Build artifacts
 dist/
@@ -133,3 +147,25 @@ monitoring/evidence/
 monitoring/alerts/*.json
 !monitoring/alerts/.gitkeep
 examples/__pycache__/
+
+# SABIO ∞³ validation artifacts
+sabio_validation_report.json
+quantum_radio_validation_results.json
+test.sabio
+*.sabio.tmp
+
+# Lean validation reports (generated during CI)
+# Lean4 validation artifacts
+formalization/lean/validation_report.json
+
+# Lean4 build artifacts
+.lake/
+lake-packages/
+*.olean
+*.trace
+formalization/lean/validation_report.json
+
+# SageMath build artifacts
+*.sage.py
+.sage/
+validation_report.json

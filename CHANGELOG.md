@@ -37,10 +37,6 @@
 - Consolidación de teoremas en docs/teoremas_basicos/
 - Repositorio elevado a prueba formal en construcción
 
-## [Unreleased]
-- Add formalization stubs (Lean/Isabelle)
-- Extend analytic bounds with classical references
-- Prepare arXiv submission package
 
 ## [2025-09-25]
 ### Added
