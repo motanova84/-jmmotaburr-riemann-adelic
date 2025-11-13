@@ -18,8 +18,7 @@ import mpmath as mp
 import numpy as np
 import sympy as sp
 from scipy.linalg import schur, eigh
-from sympy import bernoulli, S, integrate, exp
-import matplotlib.pyplot as plt
+from sympy import bernoulli
 
 try:  # pragma: no cover - optional acceleration
     import jax.numpy as jnp
