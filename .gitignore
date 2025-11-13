@@ -53,7 +53,7 @@ ENV/
 Thumbs.db
 
 # Generated validation results (keep structure but not data)
-data/validation_results*.csv
+data/validation_results_*.csv
 data/validation_output*.csv
 data/temp_*
 data/*.tmp
@@ -61,6 +61,7 @@ data/validation/results/*
 data/validation/certificates/*
 !data/validation/results/.gitkeep
 !data/validation/certificates/.gitkeep
+!data/validation_results.csv
 
 # Generated 141.7 Hz validation outputs
 resultados/*.json
