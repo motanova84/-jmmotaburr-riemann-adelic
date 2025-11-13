@@ -208,21 +208,8 @@ def zero_sum(f, filename, lim_u=5):
 def evaluate_xi_batch(gamma_values):
     """Vectorised computation of the Xi function on the critical line."""
 
-    if jnp is None:
-        return [mp.re(mp.pi ** (-0.5 * (0.5 + 1j * g)) * mp.gamma(0.25 + 0.5j * g) * mp.zeta(0.5 + 1j * g)) for g in gamma_values]
-
-    gamma_array = jnp.array(gamma_values, dtype=jnp.float64)
-
-    @jit  # type: ignore[arg-type]
-    def xi_single(g):
-        return jnp.real(
-            jnp.pi ** (-0.5 * (0.5 + 1j * g))
-            * jnp.gamma(0.25 + 0.5j * g)
-            * jnp.zeta(0.5 + 1j * g)
-        )
-
-    xi_vals = vmap(xi_single)(gamma_array)
-    return np.asarray(xi_vals)
+    # JAX doesn't have gamma/zeta functions, use mpmath fallback
+    return [mp.re(mp.pi ** (-0.5 * (0.5 + 1j * g)) * mp.gamma(0.25 + 0.5j * g) * mp.zeta(0.5 + 1j * g)) for g in gamma_values]
 
 
 def accelerated_prime_sum(primes, f, prime_limit=100):
@@ -232,23 +219,30 @@ def accelerated_prime_sum(primes, f, prime_limit=100):
         selected_primes = list(primes[:prime_limit])
     else:
         selected_primes = list(itertools.islice(primes, prime_limit))
+    
+    # Try GPU path with CuPy if available
     if cp is not None and selected_primes:
-        cp_primes = cp.asarray(selected_primes, dtype=cp.float64)
-        logs = cp.log(cp_primes)
-        contributions = []
-        for idx, log_p in enumerate(cp.asnumpy(logs)):
-            p = selected_primes[idx]
-            for k in range(1, min(4, int(50 / p) + 1)):
-                n = p**k
-                if n > 1000:
-                    break
-                log_mp = mp.mpf(log_p)
-                contributions.append(log_mp * f(k * log_mp))
-        total = mp.mpf('0')
-        for contrib in contributions:
-            total += contrib
-        return total
+        try:
+            cp_primes = cp.asarray(selected_primes, dtype=cp.float64)
+            logs = cp.log(cp_primes)
+            contributions = []
+            for idx, log_p in enumerate(cp.asnumpy(logs)):
+                p = selected_primes[idx]
+                for k in range(1, min(4, int(50 / p) + 1)):
+                    n = p**k
+                    if n > 1000:
+                        break
+                    log_mp = mp.mpf(log_p)
+                    contributions.append(log_mp * f(k * log_mp))
+            total = mp.mpf('0')
+            for contrib in contributions:
+                total += contrib
+            return total
+        except Exception:
+            # Fall back to CPU if GPU fails
+            pass
 
+    # CPU fallback
     total = mp.mpf('0')
     for p in selected_primes:
         log_p = mp.log(p)
