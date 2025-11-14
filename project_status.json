@@ -1,0 +1,13 @@
+{
+  "project": "Riemann-Adelic",
+  "version": "V5-Coronacion",
+  "timestamp": "2025-09-28T10:40:06.153920",
+  "checks": {
+    "lean_formalization": "completed",
+    "v5_validation": "success",
+    "tests": "100%",
+    "doi": "10.5281/zenodo.17116291",
+    "main_files": "complete"
+  },
+  "overall": "success"
+}
