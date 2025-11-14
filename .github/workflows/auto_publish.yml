@@ -55,7 +55,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload to Zenodo (if configured)
-        if: ${{ secrets.ZENODO_TOKEN != '' }}
+        if: secrets.ZENODO_TOKEN != ''
         run: |
           # Upload to Zenodo using their API
           # Note: This requires ZENODO_TOKEN secret to be configured
