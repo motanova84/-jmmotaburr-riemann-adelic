@@ -9,6 +9,8 @@ import mpmath as mp
 from typing import Union, Callable
 from functools import lru_cache
 
+def truncated_gaussian(u, a=50.0, sigma=10.0):
+    """Smooth compactly supported Gaussian function with larger support."""
 # Cache for frequently computed values
 @lru_cache(maxsize=128)
 def _cached_exp(x: float) -> mp.mpf:
