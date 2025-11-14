@@ -145,7 +145,7 @@ if __name__ == "__main__":
             f.write(f"**Arithmetic Side:** {float(A):.6f}\n")
             f.write(f"**Zero Side:** {float(Z):.6f}\n")
             f.write(f"**Absolute Error:** {float(error):.2e}\n")
-            f.write(f"**Relative Error:** {float(error / abs(A)) if abs(A) > 0 else 'inf':.2e}\n")
+            f.write(f"**Relative Error:** {float(relative_error):.2e}\n")
             f.write(f"**Parameters:** P={P}, K={K}, T={T}, max_zeros={args.max_zeros}\n\n")
             
         # Determine overall result based on error threshold
