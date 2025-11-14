@@ -25,3 +25,4 @@ rev = "main"
 description = "Formalización constructiva de la Hipótesis de Riemann adélica (V5.3)"
 authors = ["José Manuel Mota Burruezo (ICQ)"]
 license = "CC-BY-NC-SA 4.0"
+rev = "master"
