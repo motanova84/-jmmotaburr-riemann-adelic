@@ -72,10 +72,16 @@ def validate_v5_coronacion(precision=30, verbose=False, save_certificate=False, 
         return {"success": False, "error": str(e)}
     
     # Initialize test instance
-    test_instance = TestCoronacionV5(max_zeros=max_zeros, max_primes=max_primes)
+    test_instance = TestCoronacionV5()
     test_instance.setup_method()
+    # Override default max_zeros and max_primes if provided
+    test_instance.max_zeros = max_zeros
+    test_instance.max_primes = max_primes
     
-    integration_instance = TestV5Integration(max_zeros=max_zeros, max_primes=max_primes)
+    integration_instance = TestV5Integration()
+    integration_instance.setup_method()
+    integration_instance.max_zeros = max_zeros
+    integration_instance.max_primes = max_primes
     
     # Define the 5 steps of V5 Coronación
     validation_steps = [
