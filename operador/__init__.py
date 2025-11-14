@@ -17,7 +17,11 @@ from .operador_H import (
     cos_basis,
     build_R_matrix,
     spectrum_from_R,
-    fourier_eigs_H
+    fourier_eigs_H,
+    hermite_basis,
+    K_gauss_rigorous,
+    rigorous_H_construction,
+    validate_convergence_bounds
 )
 
 from .operador_H_epsilon import (
@@ -42,4 +46,8 @@ __all__ = [
     'compute_spectral_measure',
     'load_riemann_zeros',
     'plot_spectral_comparison'
+    'hermite_basis',
+    'K_gauss_rigorous',
+    'rigorous_H_construction',
+    'validate_convergence_bounds'
 ]
