@@ -39,7 +39,7 @@ jobs:
       id: validation
       run: |
         echo "🚀 Starting Riemann Hypothesis numerical validation..."
-        python validate_explicit_formula.py --max_primes 1000 --max_zeros 2000 --timeout 300 > validation_output.txt 2>&1 || echo "validation_failed=true" >> $GITHUB_OUTPUT
+        python validate_explicit_formula.py --max_primes 1000 --max_zeros $N_ZEROS --timeout 300 > validation_output.txt 2>&1 || echo "validation_failed=true" >> $GITHUB_OUTPUT
         
         # Check if validation passed
         if grep -q "Overall test result: ✅ PASSED" validation_output.txt; then
