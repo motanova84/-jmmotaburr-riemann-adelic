@@ -50,6 +50,7 @@ ENV/
 
 # OS files
 .DS_Store
+Thumbs.db__pycache__/
 Thumbs.db
 
 # Generated validation results (keep structure but not data)
