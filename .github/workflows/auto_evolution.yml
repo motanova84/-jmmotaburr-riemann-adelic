@@ -30,7 +30,6 @@ jobs:
 
       - name: Run validation
         run: python3 validate_v5_coronacion.py --precision 25 --verbose
-        continue-on-error: false
 
       - name: Archive results
         if: always()
