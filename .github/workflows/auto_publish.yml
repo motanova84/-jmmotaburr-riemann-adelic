@@ -67,7 +67,7 @@ jobs:
           ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
 
       - name: Upload to Hugging Face (if configured)
-        if: ${{ secrets.HF_TOKEN != '' }}
+        if: secrets.HF_TOKEN != ''
         run: |
           # Upload to Hugging Face Hub
           # Note: This requires HF_TOKEN secret to be configured
