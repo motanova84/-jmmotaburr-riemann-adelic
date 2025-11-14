@@ -52,8 +52,8 @@ def archimedean_sum(f, sigma0, T, lim_u):
         return (integral / (2j * mp.pi)).real
     except Exception as e:
         print(f"  Warning: Archimedean integration failed ({e}), using approximation")
-        # Return a reasonable approximation if integration fails
-        return mp.mpf('0.01')  # Small contribution
+        # Return a reasonable approximation if integration fails, scaled to precision
+        return mp.mpf(10) ** (-mp.mp.dps // 2)  # Small contribution, precision-aware
 
 def zero_sum(f, filename, lim_u=5):
     total = mp.mpf('0')
