@@ -103,6 +103,7 @@ def test_weil_formula_basic():
     mp.mp.dps = 15  # Lower precision for speed
     
     try:
+        error, rel_error, left_side, right_side, corrected_zeros = weil_explicit_formula(
         error, relative_error, left_side, right_side, simulated_imag_parts = weil_explicit_formula(
             zeros, primes, f, max_zeros=len(zeros), t_max=10, precision=15
         )
@@ -135,6 +136,58 @@ def test_weil_formula_basic():
     except Exception as e:
         pytest.fail(f"Weil formula computation failed: {e}")
 
+def test_vadic_corrections():
+    """Test that v-adic corrections produce reasonable zero approximations."""
+    from validate_explicit_formula import simulate_delta_s
+    
+    # Test simulation with small number of zeros
+    eigenvalues, imag_parts, _ = simulate_delta_s(10, precision=15, places=[2, 3, 5])
+    
+    # Check that we get the expected number of imaginary parts
+    assert len(imag_parts) > 0, "Should produce some imaginary parts"
+    assert len(imag_parts) <= 10, "Should not exceed requested number"
+    
+    # Check that all imaginary parts are positive (as expected for Riemann zeros)
+    for part in imag_parts:
+        assert part > 0, f"Imaginary part {part} should be positive"
+    
+    # Test without v-adic corrections vs with corrections
+    eigenvals_no_vadics, imag_no_vadics, _ = simulate_delta_s(5, precision=15, places=[])
+    eigenvals_with_vadics, imag_with_vadics, _ = simulate_delta_s(5, precision=15, places=[2, 3, 5])
+    
+    # The corrections should produce different results
+    assert imag_no_vadics != imag_with_vadics, "v-adic corrections should change the results"
+    
+    print(f"No v-adics: {imag_no_vadics[:3]}")
+    print(f"With v-adics: {imag_with_vadics[:3]}")
+
+def test_vadic_weil_formula_integration():
+    """Test that the v-adic corrected Weil formula runs and produces corrections close to actual zeros."""
+    from validate_explicit_formula import weil_explicit_formula
+    
+    # Use first few known zeros
+    actual_zeros = [mp.mpf(14.134725), mp.mpf(21.022040), mp.mpf(25.010858)]
+    primes = [2, 3, 5, 7]
+    f = truncated_gaussian
+    
+    mp.mp.dps = 15
+    
+    try:
+        error, rel_error, left_side, right_side, corrected_zeros = weil_explicit_formula(
+            actual_zeros, primes, f, max_zeros=3, t_max=5, precision=15
+        )
+        
+        # Check that corrected zeros are close to actual zeros
+        for i, (actual, corrected) in enumerate(zip(actual_zeros, corrected_zeros[:len(actual_zeros)])):
+            relative_diff = abs(corrected - float(actual)) / float(actual)
+            assert relative_diff < 0.01, f"Corrected zero {i} should be close to actual: {corrected} vs {actual}"
+        
+        print(f"Actual zeros: {[float(z) for z in actual_zeros]}")
+        print(f"v-adic corrected: {corrected_zeros[:3]}")
+        print(f"Max relative difference: {max(abs(c - float(a))/float(a) for a, c in zip(actual_zeros, corrected_zeros[:3]))}")
+        
+    except Exception as e:
+        pytest.fail(f"v-adic Weil formula test failed: {e}")
 def test_p_adic_zeta_function():
     """Test the p-adic zeta function approximation."""
     from validate_explicit_formula import zeta_p_interpolation
