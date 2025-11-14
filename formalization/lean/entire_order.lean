@@ -1,14 +1,5 @@
--- Hadamard factorisation, Phragmén–Lindelöf bounds
--- Entire function order and growth properties
+/-- Placeholder for the Hadamard factorisation and growth control of `D`. -/
+def entireOrderStatement : Prop := True
 
-import Mathlib.Analysis.Complex.Basic
-import Mathlib.Analysis.Analytic.Basic
-
--- Skeletal declarations for Hadamard factorization
-def hadamard_factorization (f : ℂ → ℂ) : Prop := sorry
-
--- Phragmén–Lindelöf principle
-def phragmen_lindelof_bound (f : ℂ → ℂ) (strip : Set ℂ) : Prop := sorry
-
--- Entire function of finite order
-def entire_finite_order (f : ℂ → ℂ) (order : ℝ) : Prop := sorry
+/-- TODO: prove that `D` is entire of order ≤ 1 with the required bounds. -/
+lemma entire_order_stub : entireOrderStatement := trivial
