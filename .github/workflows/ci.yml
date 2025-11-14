@@ -1,3 +1,5 @@
+# CI: instala dependencias, cache de pip, lint, tests, validar metadatos y ejecutar verificador
+# Este workflow corre en cada push a main y en pull requests
 name: CI
 # CI Simbiótico SABIO ∞³
 # Workflow extensible con validación básica (100) o completa (500)
@@ -30,7 +32,33 @@ jobs:
           - 'true'
           - 'false'
 
+permissions:
+  contents: read
+
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
   validacion-simbolica:
     runs-on: ubuntu-latest
     env:
@@ -136,8 +164,27 @@ jobs:
         run: |
           python -m pip install --upgrade pip==24.3.1
           pip install -r requirements.txt
-      - name: Run linters
+
+      - name: Run linting (flake8)
         run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --max-line-length=120 --ignore=E203,W503,E501 --statistics
+        continue-on-error: true
+
+      - name: Check code formatting (black)
+        run: |
+          black --check --line-length=120 .
+        continue-on-error: true
+
+      - name: Check import sorting (isort)
+        run: |
+          isort --check-only --profile black --line-length 120 .
+        continue-on-error: true
+
+      - name: Run tests with pytest
+        run: |
+          pytest tests/ -v --tb=short
+
           echo "🌌 Validación extendida (modo ∞³, VALIDATION_LEVEL=$VALIDATION_LEVEL)"
           pytest tests/ --maxfail=10 --disable-warnings
       
@@ -179,9 +226,16 @@ jobs:
     name: Verify conversion
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       
       - name: Install system dependencies
         run: |
@@ -198,6 +252,7 @@ jobs:
       - name: Validate metadata JSON-LD
         run: |
           python tools/verify_metadata.py schema/metadata_example.jsonld
+
   
   verify-conversion:
     runs-on: ubuntu-latest
@@ -223,9 +278,16 @@ jobs:
         if [ -f tools/convert_example.py ] && [ -f tests/examples/example_lean.lean ]; then
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       
       - name: Install system dependencies
         run: |
