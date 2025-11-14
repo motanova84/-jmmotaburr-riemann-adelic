@@ -178,12 +178,17 @@ if __name__ == "__main__":
         print("📊 Results saved to data/validation_results.csv")
         
         # Exit with appropriate code based on validation
-        if validation_status == "FAILED":
+        if validation_status == "PASSED":
+            print("✅ Validation completed successfully")
+        elif validation_status == "FAILED":
             print("❌ Validation failed - results not reproducible within tolerance")
             sys.exit(1)
+        elif validation_status == "UNDEFINED":
+            print("❌ Validation undefined - arithmetic side is zero, cannot assess reproducibility")
+            sys.exit(1)
         else:
-            print("✅ Validation completed successfully")
-        
+            print(f"❌ Unknown validation status: {validation_status}")
+            sys.exit(1)
     except Exception as e:
         print(f"❌ Error during computation: {e}")
         sys.exit(1)
