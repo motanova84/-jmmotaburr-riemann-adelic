@@ -95,7 +95,7 @@ def test_zero_sum_with_mock_data():
 def test_riemann_formula_small_scale():
     """Test that the explicit formula works on a very small scale."""
     # Use minimal parameters for fast execution
-    f = lambda u: mp.exp(-u**2/4) if abs(u) <= 2 else mp.mpf(0)
+    f = lambda u: mp.mpf(mp.exp(-u**2/4)) if abs(u) <= 2 else mp.mpf(0)
     P = 10  # Very small number of primes
     K = 2
     sigma0 = 2.0
