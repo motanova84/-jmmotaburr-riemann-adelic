@@ -12,7 +12,6 @@ Also suggest adding this step to a GitHub Action on first run.
 import requests
 import gzip
 import os
-import re
 from pathlib import Path
 
 def download_and_extract(url, out_txt):
