@@ -99,7 +99,7 @@ def main():
     test_functions = {
         'f1': lambda u: truncated_gaussian(u, a=3.0, sigma=1.0),
         'f2': lambda u: truncated_gaussian(u, a=2.0, sigma=1.0),  
-        'f3': lambda u: ((1 - u**2/4)**2 if abs(u) <= 2 else mp.mpf(0))
+        'f3': lambda u: (mp.mpf((1 - u**2/4)**2) if abs(u) <= 2 else mp.mpf(0))
     }
 
     with open(log_file, 'w') as log:
