@@ -48,7 +48,7 @@ jobs:
       - name: Run validation script
         run: |
           python validate_explicit_formula.py \
-            --max_primes ${{ github.event.inputs.max_primes || '1000' }} \
+            --P ${{ github.event.inputs.max_primes || '1000' }} \
             --max_zeros ${{ github.event.inputs.max_zeros || '2000' }} \
             --test_functions ${{ github.event.inputs.test_functions || 'f1 f2 f3' }} \
             --output_csv data/validation_results_$(date +%Y%m%d_%H%M%S).csv
