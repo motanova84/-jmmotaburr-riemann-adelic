@@ -59,9 +59,9 @@ jobs:
           fi
           
           # Save any log files
-          if [ "$(ls -A logs/)" ]; then
+          if [ -d "logs/" ] && [ "$(ls -A logs/)" ]; then
             echo "📝 Log files generated:"
-            ls -la logs/  
+            ls -la logs/
           fi
           
       - name: Upload notebook outputs
