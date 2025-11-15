@@ -68,13 +68,12 @@ def test_csv_output():
     ]
 
     test_file = 'data/test_results.csv'
-    save_results_to_csv(test_results, test_file)
-
-    assert os.path.exists(test_file)
-
-    # Clean up
-    os.remove(test_file)
-
+    try:
+        save_results_to_csv(test_results, test_file)
+        assert os.path.exists(test_file)
+    finally:
+        if os.path.exists(test_file):
+            os.remove(test_file)
 def test_zero_sum_with_mock_data():
     """Test zero_sum with a small mock zeros file."""
     # Create a temporary mock zeros file
