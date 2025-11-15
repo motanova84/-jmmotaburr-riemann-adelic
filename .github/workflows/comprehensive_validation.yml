@@ -145,7 +145,7 @@ jobs:
         run: |
           echo "✅ Validation pipeline completed"
           echo "📁 Generated files:"
-          find data/ logs/ docs/ -type f -name "*.csv" -o -name "*.log" -o -name "*.html" -o -name "*.md" | sort
+          find data/ logs/ docs/ -type f \( -name "*.csv" -o -name "*.log" -o -name "*.html" -o -name "*.md" \) | sort
           
           echo ""
           echo "📊 Latest validation summary:"
