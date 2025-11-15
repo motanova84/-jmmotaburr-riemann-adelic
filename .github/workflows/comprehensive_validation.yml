@@ -108,13 +108,14 @@ jobs:
           import csv
           import glob
           import os
+          import sys
           from datetime import datetime
           
           # Find the latest CSV file
           csv_files = glob.glob('data/validation_results_*.csv')
           if not csv_files:
               print('No validation results found')
-              exit(0)
+              sys.exit(0)
           
           latest_csv = max(csv_files, key=os.path.getctime)
           print(f'Latest results: {latest_csv}')
