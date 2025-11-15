@@ -63,7 +63,9 @@ def zero_sum(f, filename, lim_u=5, max_zeros=None):
 
 def save_results_to_csv(results, filename):
     """Save validation results to CSV file."""
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    dirname = os.path.dirname(filename)
+    if dirname:
+        os.makedirs(dirname, exist_ok=True)
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['timestamp', 'test_function', 'prime_sum', 'archimedean_sum', 
